@@ -1,5 +1,5 @@
 
-class NacimientoView {
+class ListadoNacimientoView {
 
     constructor(model) {
         this.model = model;
@@ -8,7 +8,7 @@ class NacimientoView {
     /**
      * Listar mediante DataTables
      */
-    listar = (anio_filtro=null,libro_filtro=null,folio_filtro=null,apellido_paterno_filtro=null,apellido_materno_filtro=null,nombres_filtro=null,fecha_desde_filtro=null,fecha_hasta_filtro=null) => {
+    listar = (anio_filtro=null,libro_filtro=null,folio_filtro=null,apellido_paterno_filtro=null,apellido_materno_filtro=null,nombres_filtro=null,fecha_desde_filtro=null,fecha_hasta_filtro=null,condicion_filtro=null) => {
         const $tabla = $('#tablaNacimiento').DataTable({
             dom: 'Bfrtip',
             pageLength: 20,
@@ -46,7 +46,8 @@ class NacimientoView {
                     'apellido_materno_filtro':apellido_materno_filtro,
                     'nombres_filtro':nombres_filtro,
                     'fecha_desde_filtro':fecha_desde_filtro,
-                    'fecha_hasta_filtro':fecha_hasta_filtro
+                    'fecha_hasta_filtro':fecha_hasta_filtro,
+                    'condicion_filtro':condicion_filtro
                         },
                 headers: { 'X-CSRF-TOKEN': csrf_token }
             },
@@ -56,7 +57,7 @@ class NacimientoView {
                         return index.row + 1;
                     }, orderable: false, searchable: false, className: 'text-center'
                 },
-                { data: 'ano_eje',className: 'text-center' },
+                { data: 'ano_nac',className: 'text-center' },
                 { data: 'nro_lib' },
                 { data: 'nro_fol' },
                 { data: 'ape_pat_na' },
@@ -64,8 +65,8 @@ class NacimientoView {
                 { data: 'nom_nac' },
                 { data: 'sexo_desc', name: 'sexo.nombre' },
                 { data: 'ubigeo_desc', name: 'ubigeo.nombre' },
-                { data: 'fch_nac' },
-                { data: 'fch_ing' },
+                { data: 'fch_nac', className: 'text-center' },
+                { data: 'fch_ing',  className: 'text-center' },
                 { data: 'accion', orderable: false, searchable: false, className: 'text-center' }
             ],
             buttons: [
@@ -104,43 +105,13 @@ class NacimientoView {
      */
 
     eventos = () => {
-        const $modal = $("#modalNacimiento");
-        const $boton = $("#btnGuardar");
-
-        /**
-         * Guardar formulario (registrar/editar)
-         */
-        $("#btnGuardar").on("click", (e) => {
-            const $form = $("#formulario").serializeArray();
-            const $route = route("recursos_humanos.escalafon.persona.guardar");
-            let $mensaje = ($(e.currentTarget).data("evento") == "registrar") ? "Registrar" : "Editar";
-            let $btnNombre = ($(e.currentTarget).data("evento") == "registrar") ? "Registrando" : "Editando";
-
-            $boton.attr("disabled", true);
-            $boton.html(Util.generarPuntosSvg() + $mensaje);
-
-            this.model.registrarPersona($form, $route).then((respuesta) => {
-                Util.mensaje(respuesta.alerta, respuesta.mensaje);
-                if (respuesta.respuesta == "ok") {
-                    $('#tablaNacimiento').DataTable().ajax.reload(null, false);
-                    $modal.modal("hide");
-                } else if (respuesta.respuesta == "duplicado") {
-                    $boton.html($btnNombre);
-                    $boton.prop("disabled", false);
-                }
-            }).fail(() => {
-                Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
-            }).always(() => {
-                $boton.html($mensaje);
-            });
-        });
-
+ 
         /**
          * Ver - Ver información por ID y llenar en el formulario
          */
         $("#tablaNacimiento").on("click", "button.ver", (e) => {
 
-            let url = `/nacimientos/control/index/?ano=${$(e.currentTarget).data('año')}?libro=${$(e.currentTarget).data('libro')}/?folio=${$(e.currentTarget).data('folio')}`;
+            let url = `/nacimientos/control/index/?id=${$(e.currentTarget).data('id')}`;
             var win = window.open(url, "_blank");
             win.focus();
 
@@ -186,7 +157,16 @@ class NacimientoView {
             let fechaDesdeFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='fecha_desde_filtro']").value;
             let fechaHastaFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='fecha_hasta_filtro']").value;
 
-            this.listar(anioEjeFiltro,nroLibFiltro,nroFolFiltro,apellidoPaternoFiltro,apellidoMaternoFiltro,nombresFiltro,fechaDesdeFiltro,fechaHastaFiltro);   
+            let condicionFiltro;
+            let condicion= document.querySelectorAll("div[id='modal-filtro_nacimientos'] input[name='condicionActaRadioOptions']");
+            condicion.forEach(element => {
+                if(element.checked){
+                    condicionFiltro=element.value;
+                }
+            });
+
+
+            this.listar(anioEjeFiltro,nroLibFiltro,nroFolFiltro,apellidoPaternoFiltro,apellidoMaternoFiltro,nombresFiltro,fechaDesdeFiltro,fechaHastaFiltro,condicionFiltro);   
             $modal.modal("hide");
 
         });

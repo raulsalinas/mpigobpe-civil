@@ -24,10 +24,12 @@ class ListadoDeNacimientosController extends Controller
 
         $data = Nacimiento::select('nacimi.*', 
         'sexo.nombre AS sexo_desc',
-        'ubigeo.nombre as ubigeo_desc'
+        'ubigeo.nombre as ubigeo_desc',
+        'condic_nac.nombre as condicion_desc'
         )
         ->leftJoin('public.sexo', 'sexo.codigo', '=', 'nacimi.sex_nac')
         ->leftJoin('public.ubigeo', 'ubigeo.codigo', '=', 'nacimi.ubigeo')
+        ->leftJoin('public.condic_nac', 'condic_nac.codigo', '=', 'nacimi.condic_nac')
         
         ->when((($request->anio_filtro) !=null && ($request->anio_filtro) !=''), function ($query)  use ($request) {
             return $query->whereRaw("nacimi.ano_eje = '".$request->anio_filtro."'");
@@ -53,27 +55,26 @@ class ListadoDeNacimientosController extends Controller
         ->when(((($request->fecha_hasta_filtro) !=null && ($request->fecha_hasta_filtro) !='') && (($request->fecha_desde_filtro) !=null || ($request->fecha_desde_filtro) !='')), function ($query)  use ($request) {
             return $query->whereBetween("nacimi.fch_nac", [$request->fecha_desde_filtro,$request->fecha_hasta_filtro]);
         })
-        ->where('nacimi.ano_eje','!=','');
+        ->when((($request->condicion_filtro) !=null && ($request->condicion_filtro) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("nacimi.condic_nac = '" . $request->condicion_filtro."'");
+        })
+        ->where('nacimi.ano_nac','!=','');
 
         return DataTables::of($data)
         // ->editColumn('fch_nac', function ($data) { return date('d/m/Y', strtotime($data->fch_nac)); })
         ->addColumn('accion', function ($data) { return 
             '<div class="btn-group" role="group">
-                <button type="button" class="btn btn-xs btn-primary ver" data-año="'.$data->ano_eje.'" data-libro="'.$data->nro_lib.'" data-folio="'.$data->nro_fol.'" ><span class="fas fa-eye"></span></button>
+                <button type="button" class="btn btn-xs btn-primary ver" data-id="'.$data->id.'" data-año="'.$data->ano_eje.'" data-libro="'.$data->nro_lib.'" data-folio="'.$data->nro_fol.'" ><span class="fas fa-eye"></span></button>
             </div>';
         })
         ->addColumn('accion-seleccionar', function ($data) { return 
             '<div class="btn-group" role="group">
-            <button type="button" class="btn btn-xs btn-success seleccionar" data-año="'.$data->ano_eje.'" data-libro="'.$data->nro_lib.'" data-folio="'.$data->nro_fol.'" >Seleccionar</button>
+            <button type="button" class="btn btn-xs btn-success seleccionar" data-id="'.$data->id.'" data-año="'.$data->ano_eje.'" data-libro="'.$data->nro_lib.'" data-folio="'.$data->nro_fol.'" >Seleccionar</button>
             </div>';
         })
         ->rawColumns(['accion','accion-seleccionar'])->make(true);
     }
 
-    public function editar($anio, $libro, $folio)
-    {
-        $data = Nacimiento::where([['ano_eje',$anio],['nro_lib',$libro],['nro_fol',$folio]])->get();
-        return response()->json($data->first(), 200);
-    }
+
 
 }

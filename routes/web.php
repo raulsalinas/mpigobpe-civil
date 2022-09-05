@@ -42,15 +42,17 @@ Route::middleware(['auth'])->group(function () {
     Route::name('nacimientos.')->prefix('nacimientos')->group(function () {
                 Route::get('index', [ListadoDeNacimientosController::class, 'index'])->name('index');
                 Route::post('listar', [ListadoDeNacimientosController::class, 'listar'])->name('listar');
-                // Route::get('editar/anio/{anio}/libro/{libro}/folio/{folio}', [ListadoDeNacimientosController::class, 'editar'])->name('editar');
-                Route::get('editar/{anio}/{libro}/{folio}', [ListadoDeNacimientosController::class, 'editar'])->name('editar');
                 Route::put('eliminar/{id}', [ListadoDeNacimientosController::class, 'eliminar'])->name('eliminar');
 
                 Route::name('control.')->prefix('control')->group(function () {
                     Route::get('index', [ControlDeNacimientosController::class, 'index'])->name('index');
-                    Route::post('ver', [ControlDeNacimientosController::class, 'ver'])->name('ver');
-                    Route::get('ver-acta-adverso', [ControlDeNacimientosController::class, 'verActaAdverso'])->name('verActaAdverso');
-                    Route::get('ver-acta-reverso', [ControlDeNacimientosController::class, 'verActaReverso'])->name('verActaReverso');
+                    Route::get('visualizar/{id}', [ControlDeNacimientosController::class, 'visualizar'])->name('visualizar');
+                    Route::post('guardar', [ControlDeNacimientosController::class, 'guardar'])->name('guardar');
+                    Route::post('guardar-recibo', [ControlDeNacimientosController::class, 'guardarRecibo'])->name('guardar-recibo');
+                    Route::post('actualizar', [ControlDeNacimientosController::class, 'actualizar'])->name('actualizar');
+                    Route::post('observar', [ControlDeNacimientosController::class, 'observar'])->name('observar');
+                    Route::get('visualizar-adjunto', [ControlDeNacimientosController::class, 'visualizarAdjuntoNacimiento'])->name('visualizarAdjuntoNacimiento');
+                    Route::get('buscar-ficha/{id}/{folder}', [ControlDeNacimientosController::class, 'buscarFicha'])->name('buscar-ficha');
                 });
                 Route::name('consistencia.')->prefix('consistencia')->group(function () {
                     Route::get('index', [ConcistenciaDeNacimientosController::class, 'index'])->name('index');

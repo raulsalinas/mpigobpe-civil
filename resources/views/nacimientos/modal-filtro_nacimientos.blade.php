@@ -87,15 +87,15 @@
                         <div class="row">
                         <div class="col-md-12">
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                            <input class="form-check-input" type="radio" name="condicionActaRadioOptions" id="condicionOrdinaria" value="1">
                             <label class="form-check-label" for="inlineRadio1">Ordinario</label>
                             </div>
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                            <input class="form-check-input" type="radio" name="condicionActaRadioOptions" id="condicionExtraordinaria" value="2">
                             <label class="form-check-label" for="inlineRadio2">Extraordinario</label>
                             </div>
                             <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                            <input class="form-check-input" type="radio" name="condicionActaRadioOptions" id="condicionEspecial" value="3">
                             <label class="form-check-label" for="inlineRadio3">Especial</label>
                             </div>
                             </div>

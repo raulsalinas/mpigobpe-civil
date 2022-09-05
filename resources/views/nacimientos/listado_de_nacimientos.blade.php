@@ -83,17 +83,15 @@
 <script src="{{ asset('assets/lte_3/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 
-<script src="{{ asset('js/modelo-vista/nacimientos/nacimiento-view.js?v=1') }}"></script>
-<script src="{{ asset('js/modelo-vista/nacimientos/nacimiento-model.js?v=1') }}"></script>
+<script src="{{ asset('js/modelo-vista/nacimientos/listado_nacimiento-view.js?v=1') }}"></script>
+<script src="{{ asset('js/modelo-vista/nacimientos/listado_nacimiento-model.js?v=1') }}"></script>
 
 <script>
     $(document).ready(function() {
         
-        const nacimientoView = new NacimientoView(new NacimientoModel(csrf_token));
-        nacimientoView.listar(null);
-        nacimientoView.eventos();
-        // nacimientoView.cambiarLongitud();
-
+        const listadoNacimientoView = new ListadoNacimientoView(new ListadoNacimientoModel(csrf_token));
+        listadoNacimientoView.listar(null);
+        listadoNacimientoView.eventos();
 
     });
 </script>

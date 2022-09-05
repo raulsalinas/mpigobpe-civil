@@ -4,5 +4,14 @@
 // Variables
 @import 'variables';
 
+
+@import "bootstrap/functions";
+
+$custom-file-text: (
+    en: "Browse",
+    es: "Elegir"
+);
+
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';

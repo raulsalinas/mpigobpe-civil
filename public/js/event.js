@@ -46,6 +46,59 @@ class Util {
         return zeros + number;
     }
 
+    static limpiarTabla(idElement) {
+        let nodeTbody = document.querySelector("table[id='" + idElement + "'] tbody");
+        if (nodeTbody != null) {
+            while (nodeTbody.children.length > 0) {
+                nodeTbody.removeChild(nodeTbody.lastChild);
+            }
+    
+        }
+    }
+
+    static readOnlyAllInputForm(formCurrent,trueOrFalse, inputNameToIgnoreList=null){
+        var form  = document.getElementById(formCurrent);
+        var allElements = form.elements;
+        for (var i = 0, l = allElements.length; i < l; ++i) {
+
+            if(inputNameToIgnoreList!=null){
+                if(!inputNameToIgnoreList.includes(allElements[i].name)){
+                    if(trueOrFalse == false){
+                        allElements[i].removeAttribute("readonly"); 
+                    }else if(trueOrFalse == true){
+                        llElements[i].readOnly = true; 
+                    }
+                }
+            }else{
+                if(trueOrFalse == false){
+                    allElements[i].removeAttribute("readonly"); 
+                }else if(trueOrFalse == true){
+                    llElements[i].readOnly = true; 
+                }
+            }
+        }
+    }
+    
+    static cambiarEstadoBotonera(HABILITAR_DESHABILITAR,BOTONES_LIST){
+        
+  
+
+        const botoneraPrincipal = document.querySelectorAll("div[id='botoneraPrincipal'] a");
+
+        botoneraPrincipal.forEach(btn => {
+            BOTONES_LIST.forEach(btnAfectado => {
+            if( btn.classList.contains(btnAfectado) ==true){
+                if(HABILITAR_DESHABILITAR == 'HABILITAR'){
+                    btn.classList.remove("disabled");
+                }else if(HABILITAR_DESHABILITAR == 'DESHABILITAR'){
+                    btn.classList.add("disabled");
+
+                }
+            }
+ 
+        });
+        });
+    }
 }
 
 function changePassword() {
@@ -55,3 +108,4 @@ function changePassword() {
         $("[name=profile_password]").focus();
     });
 }
+

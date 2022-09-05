@@ -41,7 +41,22 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-
+        'fichas' => [
+            'driver' => 'local',
+            'root' => public_path('fichas'),
+        ],
+        'fichas-nacim' => [
+            'driver' => 'local',
+            'root' => public_path('fichas/nacim'),
+        ],
+        'fichas-matri' => [
+            'driver' => 'local',
+            'root' => public_path('fichas/matri'),
+        ],
+        'fichas-defun' => [
+            'driver' => 'local',
+            'root' => public_path('fichas/defun'),
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

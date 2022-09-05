@@ -45,7 +45,8 @@
         <script src="{{ asset('assets/lte_3/plugins/jquery-number/jquery.number.min.js') }}"></script>
         <script src="{{ asset('assets/lte_3/plugins/loadingoverlay/loadingoverlay.min.js') }}"></script>
         <script src="{{ asset('js/moment.min.js') }}"></script>
-        <script src="{{ asset('js/event.js') }}"></script>
+        <script src="{{ asset('js/event.js')}}?v={{filemtime(public_path('js/event.js'))}}"></script>
+
         <script>
             let csrf_token = '{{ csrf_token() }}';
             const idioma = {
