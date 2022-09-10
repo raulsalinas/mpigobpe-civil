@@ -57,7 +57,7 @@ class ControlNacimientoView {
                         document.querySelector("input[id='condicionEspecial']").checked = false
                         break;
                 }
-                $('[name=observacion]').text(respuesta.observacion);
+                $('[name=observa]').text(respuesta.observa);
 
             // adjuntos
             Util.limpiarTabla("tablaListaAdjuntosDeNacimiento");
@@ -302,7 +302,7 @@ class ControlNacimientoView {
         $("#botoneraPrincipal").on("click", "a.observar", (e) => {
             document.querySelector("span[id='descripcion-de-accion-formulario']").textContent = "Observar Registro";
 
-            let sustentoDeObservacion = '';
+            let observacion = '';
             Swal.fire({
                 title: 'Ingrese la observación',
                 input: 'textarea',
@@ -317,11 +317,11 @@ class ControlNacimientoView {
                 allowOutsideClick: () => !Swal.isLoading()
             }).then((result) => {
                 if (result.isConfirmed) {
-                    sustentoDeObservacion = result.value;
+                    observacion = result.value;
 
                     const $data = {
                         'id': document.querySelector("form[id='controlNacimientoForm'] input[name='id']").value,
-                        'observacion': sustentoDeObservacion
+                        'observa': observacion
                     };
                     const $route = route("nacimientos.control.observar");
                     // console.log($data);

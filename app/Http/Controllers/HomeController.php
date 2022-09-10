@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Defuncion;
+use App\Models\Matrimonio;
 use App\Models\Nacimiento;
 use Illuminate\Http\Request;
 
@@ -25,8 +27,8 @@ class HomeController extends Controller
     public function index()
     {
         $totalNacimientos = Nacimiento::count();
-        $totalMatrimonios = 0;
-        $totalDefunciones = 0;
+        $totalMatrimonios = Matrimonio::count();
+        $totalDefunciones = Defuncion::count();
         return view('inicio',get_defined_vars());
     }
 

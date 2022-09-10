@@ -9,6 +9,7 @@ use App\Models\Nacimiento;
 use App\Models\Recibo;
 use App\Models\TipoRegistro;
 use App\Models\Ubigeo;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -271,7 +272,7 @@ class ControlDeNacimientosController extends Controller
         try {
 
             $nacimiento = Nacimiento::find($request->id);
-            $nacimiento->observacion = $request->observacion;
+            $nacimiento->observa = $request->observa;
             $nacimiento->save();
             $respuesta = 'ok';
             $alerta = 'success';
@@ -303,6 +304,11 @@ class ControlDeNacimientosController extends Controller
     public function tipoRegistroList()
     {
         $data = TipoRegistro::where('codigo', '!=', null)->get();
+        return $data;
+    }
+    public function usuarioList()
+    {
+        $data = User::where('usuario', '!=', null)->get();
         return $data;
     }
 

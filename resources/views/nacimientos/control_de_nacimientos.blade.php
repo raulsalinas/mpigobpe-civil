@@ -270,7 +270,7 @@
                                     <div class="col-md-12">
                                         <div class="card card-secondary">
                                             <div class="">
-                                                <h3 class="card-title m-2">Datos de registrador</h3>
+                                                <h3 class="card-title m-2">Datos del padre</h3>
                                             </div>
                                             <div class="card-body">
                                                 <div class="row">
@@ -334,18 +334,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>Acta Adverso</td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-block btn-outline-primary btn-xs verActaAdverso" id="btnVerActaAdverso" name="btnVisualizarAdjuntoNacimiento" disabled>Visualizar</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Acta Reverso</td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-block btn-outline-primary btn-xs verActaReverso" id="btnVerActaReverso" name="btnVisualizarAdjuntoNacimiento" disabled>Visualizar</button>
-                                                        </td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -391,7 +379,7 @@
                                         </div>
                                         <div class="" id="headingOne">
                                             <div class="card-body">
-                                                <div class="text-wrap text-uppercase" name="observacion">
+                                                <div class="text-wrap text-uppercase" name="observa">
                                                 
                                                 </div>
                                             </div>
