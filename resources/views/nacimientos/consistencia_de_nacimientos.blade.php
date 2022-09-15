@@ -33,7 +33,7 @@
             <h3 class="card-title m2"></h3>
         </div>
         <div class="card-body">
-            <div class="row">
+            <div class="row" id="vert-tabs-contenedor">
                 <div class="col-5 col-sm-3">
                     <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                         <a class="nav-link active" id="vert-tabs-todoLosRegistros-tab" data-toggle="pill" href="#vert-tabs-todoLosRegistros" role="tab" aria-controls="vert-tabs-todoLosRegistros" aria-selected="true">Todo los registros</a>
@@ -55,7 +55,7 @@
                                 <div class="row">
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            <label>Año</label>
+                                            <label>Año *</label>
                                             <input type="text" class="form-control form-control-sm" name="ano_nac" placeholder="">
                                         </div>
                                     </div>
@@ -63,7 +63,7 @@
                                 <div class="row">
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            <label>Nro de libro</label>
+                                            <label>Nro de libro *</label>
                                             <input type="text" class="form-control form-control-sm" name="nro_lib" placeholder="">
                                         </div>
                                     </div>
@@ -71,7 +71,7 @@
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <label>Sexo</label>
+                                            <label>Sexo *</label>
                                             <select class="form-control form-control-sm" name="sex_nac">
                                             <option value="SIN_DATA">Seleccione una opción</option>
                                                 <option value="1">MASCULINO</option>
@@ -83,7 +83,7 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>Ubigeo</label>
+                                            <label>Ubigeo *</label>
                                                 <select class="form-control form-control-sm" name="ubigeo">
                                                     <option value="SIN_DATA">Seleccione una opción</option>
                                                     @foreach ($ubigeoList as $ubigeo)
@@ -109,28 +109,13 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>Centro</label>
+                                            <label>Centro *</label>
                                             <select class="form-control form-control-sm" name="cen_asi">
                                                 <option value="SIN_DATA">Seleccione una opción</option>
                                                 @foreach ($controlAsistencialList as $centro)
-                                                <option value="{{$centro->codigo}}" ">{{$centro->nombre}}</option>
+                                                <option value="{{$centro->codigo}}">{{$centro->nombre}}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label>Desde</label>
-                                            <input type="date" class="form-control form-control-sm" name="fch_nac_desde" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label>Hasta</label>
-                                            <input type="date" class="form-control form-control-sm" name="fch_nac_hasta" placeholder="">
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +133,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Año</label>
-                                            <select class="form-control form-control-sm" name="sex_nac">
+                                            <select class="form-control form-control-sm" name="ano_nac">
                                             <option value="SIN_DATA">Seleccione una opción</option>
                                                 <option value="1997">1997</option>
                                                 <option value="1998">1998</option>
@@ -230,8 +215,14 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Fecha de nacimiento</label>
-                                            <input type="date" class="form-control form-control-sm" name="fch_nac" placeholder="">
+                                            <label>Fecha de nacimiento desde</label>
+                                            <input type="date" class="form-control form-control-sm" name="fch_nac_desde" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Fecha de nacimiento hasta</label>
+                                            <input type="date" class="form-control form-control-sm" name="fch_nac_hasta" placeholder="">
                                         </div>
                                     </div>
                                 </div>
@@ -346,8 +337,8 @@
 <script src="{{ asset('assets/lte_3/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 
-<script src="{{ asset('js/modelo-vista/nacimientos/consistencia_nacimiento-view.js?v=1') }}"></script>
-<script src="{{ asset('js/modelo-vista/nacimientos/consistencia_nacimiento-model.js?v=1') }}"></script>
+<script src="{{ asset('js/modelo-vista/nacimientos/consistencia_nacimiento-view.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/nacimientos/consistencia_nacimiento-model.js?v=2') }}"></script>
 
 <script>
     $(document).ready(function() {

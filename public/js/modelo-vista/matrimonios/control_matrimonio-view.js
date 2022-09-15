@@ -1,5 +1,5 @@
 var tempArchivoAdjuntoList = [];
-class ControlNacimientoView {
+class ControlMatrimonioView {
 
     constructor(model) {
         this.model = model;
@@ -8,7 +8,7 @@ class ControlNacimientoView {
     /**
      * inicializar mediante DataTables
      */
-    obtenerNacimiento = () => {
+    obtenerMatrimonio = () => {
 
         let idByURL = parseInt(location.search.split('id=')[1]);
         Util.cambiarEstadoBotonera('DESHABILITAR', ['guardar']);
@@ -330,10 +330,6 @@ class ControlNacimientoView {
                         this.model.observarNacimiento($data, $route).then((respuesta) => {
                             Util.mensaje(respuesta.alerta, respuesta.mensaje);
                             if (respuesta.respuesta == "ok") {
-                                let url = `/nacimientos/control/index/?id=${document.querySelector("form[id='controlNacimientoForm'] input[name='id']").value}`;
-                                var win = window.open(url, "_self");
-                                win.focus();
-
                             } else if (respuesta.respuesta == "duplicado") {
                             }
                         }).fail(() => {
