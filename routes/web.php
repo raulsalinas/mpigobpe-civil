@@ -77,6 +77,8 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::name('consistencia.')->prefix('consistencia')->group(function () {
             Route::get('index', [ConsistenciaDeMatrimoniosController::class, 'index'])->name('index');
+            Route::get('reporte/{ano_cel?}/{nro_lib?}/{usuario?}/{fch_cel_desde?}/{fch_cel_hasta?}', [ConsistenciaDeMatrimoniosController::class, 'reporte'])->name('reporte');
+
         });
     });
     Route::name('defunciones.')->prefix('defunciones')->group(function () {

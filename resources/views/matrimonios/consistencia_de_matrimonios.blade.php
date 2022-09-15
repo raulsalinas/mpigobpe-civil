@@ -52,7 +52,7 @@
                                     <div class="col-sm-2">
                                         <div class="form-group">
                                             <label>Año</label>
-                                            <input type="text" class="form-control form-control-sm" name="ano_nac" placeholder="">
+                                            <input type="text" class="form-control form-control-sm" name="ano_cel" placeholder="">
                                         </div>
                                     </div>
                                 </div>
@@ -82,13 +82,13 @@
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label>Desde</label>
-                                            <input type="date" class="form-control form-control-sm" name="fch_nac_desde" placeholder="">
+                                            <input type="date" class="form-control form-control-sm" name="fch_cel_desde" placeholder="">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label>Hasta</label>
-                                            <input type="date" class="form-control form-control-sm" name="fch_nac_hasta" placeholder="">
+                                            <input type="date" class="form-control form-control-sm" name="fch_cel_hasta" placeholder="">
                                         </div>
                                     </div>
                                 </div>

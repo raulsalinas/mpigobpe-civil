@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CentroAsistencial;
+use App\Models\Matrimonio;
 use App\Models\Nacimiento;
 use App\Models\TipoRegistro;
 use App\Models\Ubigeo;
@@ -24,4 +25,58 @@ class ConsistenciaDeMatrimoniosController extends Controller
         return view('matrimonios.consistencia_de_matrimonios', get_defined_vars());
     }
 
+    public function reporte($ano_cel,$nro_lib,$usuario,$fch_cel_desde,$fch_cel_hasta)
+    {
+
+        $descripcionFiltro="Considerado todos los registros";
+        $donde[] = ['matrim.ano_nac', '!=', null];
+
+        if ($ano_cel != 'SIN_DATA'){
+            $descripcionFiltro.=" del año ".$ano_cel;
+            $donde[] = ['matrim.ano_nac', '=', $ano_cel];
+
+        }
+        if ($nro_lib != 'SIN_DATA'){
+            $descripcionFiltro.=" con Nº de libro ".$nro_lib;
+            $donde[] = ['matrim.nro_lib', '=', $nro_lib];
+        }
+        if ($usuario != 'SIN_DATA'){
+            $descripcionFiltro.=" de usuario ".$usuario;
+            $donde[] = ['matrim.usuario', '=', $usuario];
+        }
+        if ($fch_cel_desde != 'SIN_DATA' && $fch_cel_hasta == 'SIN_DATA'){
+            $descripcionFiltro.=" de fecha inicio ".$fch_cel_desde;
+            $donde[] = ['matrim.fch_cel', '>=', $fch_cel_desde];
+        }
+        if ($fch_cel_hasta != 'SIN_DATA' && $fch_cel_desde == 'SIN_DATA'){
+            $descripcionFiltro.=" de fecha fin ".$fch_cel_hasta;
+            $donde[] = ['matrim.fch_cel', '<=', $fch_cel_hasta];
+        }
+        if ($fch_cel_hasta != 'SIN_DATA' && $fch_cel_desde != 'SIN_DATA'){
+            $descripcionFiltro.=" de fecha fin ".$fch_cel_desde." hasta ".$fch_cel_hasta;
+            $donde[] = ['matrim.fch_cel', '>=', $fch_cel_desde];
+            $donde[] = ['matrim.fch_cel', '<=', $fch_cel_hasta];
+        }
+
+        $nacimientos = Matrimonio::select('matrim.*', 
+        'tipregmat.nombre as tipo_registro'
+        )
+        ->leftJoin('public.tipregmat', 'tipregmat.codigo', '=', 'matrim.cod_reg')
+        ->where($donde)
+        ->orderBy('matrim.fch_cel','asc')
+        ->limit(100)
+        ->get();
+
+        $vista = View::make(
+            'matrimonios/imprimir_consistencia_matrimonio',
+            compact('matrimonios','descripcionFiltro')
+        )->render();
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($vista);
+
+        return $pdf->stream();
+        return $pdf->download('registro_matrimonios.pdf');
+
+        
+    }
 }
