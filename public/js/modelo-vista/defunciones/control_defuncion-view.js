@@ -1,5 +1,5 @@
 var tempArchivoAdjuntoList = [];
-class ControlNacimientoView {
+class ControlDefuncionView {
 
     constructor(model) {
         this.model = model;
@@ -8,59 +8,41 @@ class ControlNacimientoView {
     /**
      * inicializar mediante DataTables
      */
-    obtenerNacimiento = () => {
+    obtenerDefuncion = () => {
 
         let idByURL = parseInt(location.search.split('id=')[1]);
         Util.cambiarEstadoBotonera('DESHABILITAR', ['guardar']);
 
         if ((idByURL) != null && idByURL > 0) {
-            this.model.cargarDatosNacimiento(idByURL).then((respuesta) => {
+            this.model.cargarDatosDefuncion(idByURL).then((respuesta) => {
                 console.log(respuesta);
                 $('[name=id]').val(respuesta.id);
-                $('[name=ano_nac]').val(respuesta.ano_nac);
+                $('[name=ano_des]').val(respuesta.ano_des);
                 $('[name=nro_lib]').val(respuesta.nro_lib);
                 $('[name=nro_fol]').val(respuesta.nro_fol);
 
-                $('[name=ape_pat_na]').val(respuesta.ape_pat_na);
-                $('[name=ape_mat_na]').val(respuesta.ape_mat_na);
-                $('[name=nom_nac]').val(respuesta.nom_nac);
-                $('[name=nom_nac]').val(respuesta.nom_nac);
-                $('[name=sex_nac]').val(respuesta.sex_nac);
+                $('[name=fch_des]').val(respuesta.fch_des);
+
+                $('[name=ape_pat_de]').val(respuesta.ape_pat_de);
+                $('[name=ape_mat_de]').val(respuesta.ape_mat_de);
+                $('[name=nom_des]').val(respuesta.nom_des);
+                $('[name=dni]').val(respuesta.dni);
+                $('[name=sexo]').val(respuesta.sexo);
+                $('[name=lugar]').val(respuesta.lugar);
                 $('[name=ubigeo]').val(respuesta.ubigeo);
-                $('[name=fch_nac]').val(respuesta.fch_nac);
-                $('[name=fch_ing]').val(respuesta.fch_ing);
+                $('[name=cod_mot]').val(respuesta.cod_mot);
+
+
+                $('[name=fch_des]').val(respuesta.fch_des);
+                $('[name=fch_reg]').val(respuesta.fch_reg);
+
                 $('[name=tipo]').val(respuesta.tipo);
                 $('[name=usuario]').val(respuesta.usuario);
 
-                $('[name=ape_pat_ma]').val(respuesta.ape_pat_ma);
-                $('[name=ape_mat_ma]').val(respuesta.ape_mat_ma);
-                $('[name=nom_mad]').val(respuesta.nom_mad);
-                $('[name=dir_mad]').val(respuesta.dir_mad);
-
-                $('[name=ape_pat_pa]').val(respuesta.ape_pat_pa);
-                $('[name=ape_mat_pa]').val(respuesta.ape_mat_pa);
-                $('[name=nom_pad]').val(respuesta.nom_pad);
-                $('[name=dir_pad]').val(respuesta.dir_pad);
-                switch (respuesta.condic_nac) {
-                    case 1:
-                        document.querySelector("input[id='condicionOrdinaria']").checked = true;
-                        break;
-                    case 2:
-                        document.querySelector("input[id='condicionExtraordinaria']").checked = true;
-                        break;
-                    case 3:
-                        document.querySelector("input[id='condicionEspecial']").checked = true;
-                        break;
-                    default:
-                        document.querySelector("input[id='condicionOrdinaria']").checked = false
-                        document.querySelector("input[id='condicionExtraordinaria']").checked = false
-                        document.querySelector("input[id='condicionEspecial']").checked = false
-                        break;
-                }
                 $('[name=observa]').text(respuesta.observa);
 
                 // adjuntos
-                Util.limpiarTabla("tablaListaAdjuntosDeNacimiento");
+                Util.limpiarTabla("tablaListaAdjuntosDeDefuncion");
 
                 let html = '';
                 if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_base == true) {
@@ -75,9 +57,9 @@ class ControlNacimientoView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + '.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar" 
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar" 
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + '.tif'}"  
-                        data-año="${respuesta.ano_nac}"  
+                        data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}"  
                         disabled>Visualizar</button>
@@ -97,7 +79,7 @@ class ControlNacimientoView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'A.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -114,7 +96,7 @@ class ControlNacimientoView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'B.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -131,7 +113,7 @@ class ControlNacimientoView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'C.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -148,7 +130,7 @@ class ControlNacimientoView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'D.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -165,7 +147,7 @@ class ControlNacimientoView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'E.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -183,7 +165,7 @@ class ControlNacimientoView {
                 </tr>`;
                 }
 
-                document.querySelector("table[id='tablaListaAdjuntosDeNacimiento'] tbody").insertAdjacentHTML('beforeend', html);
+                document.querySelector("table[id='tablaListaAdjuntosDeDefuncion'] tbody").insertAdjacentHTML('beforeend', html);
 
 
 
@@ -202,24 +184,24 @@ class ControlNacimientoView {
      */
 
     eventos = () => {
-        const $modal = $("#modalListadoDeNacimientos");
+        const $modal = $("#modalListadoDeDefunciones");
 
         /**
-         * buscar - Buscar en modal de listado de nacimientos
+         * buscar - Buscar en modal de listado de defunciones
          */
         $("#botoneraPrincipal").on("click", "a.buscar", (e) => {
 
-            $modal.find(".modal-title").text('Listado de Nacimientos');
+            $modal.find(".modal-title").text('Listado de Defunciones');
             $modal.modal('show');
-            this.listarNacimientos();
+            this.listarDefunciones();
         });
 
         /**
-         * nuevo - Nuevo nacimiento
+         * nuevo - Nuevo matrimonio
          */
         $("#botoneraPrincipal").on("click", "a.nuevo", (e) => {
 
-            // let url = `/nacimientos/control/index`;
+            // let url = `/defunciones/control/index`;
             // var win = window.open(url, "_self");
             // win.focus();
 
@@ -228,24 +210,20 @@ class ControlNacimientoView {
             Util.cambiarEstadoBotonera('HABILITAR', ['guardar']);
 
 
-            $('#controlNacimientoForm')[0].reset();
-            Util.readOnlyAllInputForm("controlNacimientoForm", false);
-            Util.limpiarTabla("tablaListaAdjuntosDeNacimiento");
-            document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
-            document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionOrdinaria']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionExtraordinaria']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionEspecial']").removeAttribute("disabled");
+            $('#controlDefuncionesForm')[0].reset();
+            Util.readOnlyAllInputForm("controlDefuncionesForm", false);
+            Util.limpiarTabla("tablaListaAdjuntosDeDefuncion");
+            document.querySelector("input[id='adjuntosDefuncion']").removeAttribute("disabled");
             document.querySelector("input[id='siAplicaRecibo']").removeAttribute("disabled");
             document.querySelector("input[id='noAplicaRecibo']").removeAttribute("disabled");
         });
 
         /**
-         * nuevo - Nuevo nacimiento
+         * nuevo - Nuevo matrimonio
          */
         $("#botoneraPrincipal").on("click", "a.guardar", (e) => {
-            // const $form = $("#controlNacimientoForm").serializeArray();
-            let formData = new FormData($('#controlNacimientoForm')[0]);
+            // const $form = $("#controlDefuncionesForm").serializeArray();
+            let formData = new FormData($('#controlDefuncionesForm')[0]);
             if (tempArchivoAdjuntoList.length > 0) {
                 tempArchivoAdjuntoList.forEach(element => {
                     if (element.action == 'GUARDAR') {
@@ -256,13 +234,12 @@ class ControlNacimientoView {
                     }
                 });
             }
-            const $route = route(document.querySelector("input[name='id']").value > 0 ? "nacimientos.control.actualizar" : "nacimientos.control.guardar");
+            const $route = route(document.querySelector("input[name='id']").value > 0 ? "defunciones.control.actualizar" : "defunciones.control.guardar");
             console.log($route);
-            this.model.registrarNacimiento(formData, $route).then((respuesta) => {
+            this.model.registrarDefuncion(formData, $route).then((respuesta) => {
                 Util.mensaje(respuesta.alerta, respuesta.mensaje);
                 if (respuesta.respuesta == "ok") {
-                    // window.history.pushState({ 'id': respuesta.id }, '', '/nacimientos/control/index');
-                    let url = `/nacimientos/control/index/?id=${respuesta.id}`;
+                    let url = `/defunciones/control/index/?id=${respuesta.id}`;
                     var win = window.open(url, "_selft");
                     win.focus();
                 }
@@ -282,15 +259,12 @@ class ControlNacimientoView {
 
             Util.cambiarEstadoBotonera('DESHABILITAR', ['nuevo', 'observar']);
             Util.cambiarEstadoBotonera('HABILITAR', ['guardar']);
-            Util.readOnlyAllInputForm("controlNacimientoForm", false, ['ano_nac', 'nro_lib', 'nro_fol']);
+            Util.readOnlyAllInputForm("controlDefuncionesForm", false, ['ano_des', 'nro_lib', 'nro_fol']);
 
 
-            // Util.limpiarTabla("tablaListaAdjuntosDeNacimiento");
-            document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
-            document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionOrdinaria']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionExtraordinaria']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionEspecial']").removeAttribute("disabled");
+            // Util.limpiarTabla("tablaListaAdjuntosDeDefuncion");
+            document.querySelector("input[id='adjuntosDefuncion']").removeAttribute("disabled");
+            document.querySelector("input[id='adjuntosDefuncion']").removeAttribute("disabled");
             document.querySelector("input[id='siAplicaRecibo']").removeAttribute("disabled");
             document.querySelector("input[id='noAplicaRecibo']").removeAttribute("disabled");
 
@@ -322,18 +296,17 @@ class ControlNacimientoView {
                         observacion = result.value;
 
                         const $data = {
-                            'id': document.querySelector("form[id='controlNacimientoForm'] input[name='id']").value,
+                            'id': document.querySelector("form[id='controlDefuncionesForm'] input[name='id']").value,
                             'observa': observacion
                         };
-                        const $route = route("nacimientos.control.observar");
+                        const $route = route("defunciones.control.observar");
                         // console.log($data);
-                        this.model.observarNacimiento($data, $route).then((respuesta) => {
+                        this.model.observarDefuncion($data, $route).then((respuesta) => {
                             Util.mensaje(respuesta.alerta, respuesta.mensaje);
                             if (respuesta.respuesta == "ok") {
-                                let url = `/nacimientos/control/index/?id=${document.querySelector("form[id='controlNacimientoForm'] input[name='id']").value}`;
+                                let url = `/defunciones/control/index/?id=${document.querySelector("form[id='controlDefuncionesForm'] input[name='id']").value}`;
                                 var win = window.open(url, "_self");
                                 win.focus();
-
                             } else if (respuesta.respuesta == "duplicado") {
                             }
                         }).fail(() => {
@@ -356,36 +329,33 @@ class ControlNacimientoView {
          */
         $("#botoneraPrincipal").on("click", "a.cancelar", (e) => {
             document.querySelector("span[id='descripcion-de-accion-formulario']").textContent = "";
-
+            
             Util.cambiarEstadoBotonera('HABILITAR', ['nuevo', 'modificar', 'observar']);
-            $('#controlNacimientoForm')[0].reset();
+            $('#controlDefuncionesForm')[0].reset();
             document.querySelector("div[name='observa']").textContent = "";
-            Util.readOnlyAllInputForm("controlNacimientoForm", false);
-            Util.limpiarTabla("tablaListaAdjuntosDeNacimiento");
-            document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
-            document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionOrdinaria']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionExtraordinaria']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionEspecial']").removeAttribute("disabled");
+            Util.readOnlyAllInputForm("controlDefuncionesForm", false);
+            Util.limpiarTabla("tablaListaAdjuntosDeDefuncion");
+            document.querySelector("input[id='adjuntosDefuncion']").removeAttribute("disabled");
+            document.querySelector("input[id='adjuntosDefuncion']").removeAttribute("disabled");
             document.querySelector("input[id='siAplicaRecibo']").removeAttribute("disabled");
             document.querySelector("input[id='noAplicaRecibo']").removeAttribute("disabled");
         });
 
 
-        $("#tablaModalNacimiento").on("click", "button.seleccionar", (e) => {
+        $("#tablaModalDefuncion").on("click", "button.seleccionar", (e) => {
 
-            let url = `/nacimientos/control/index/?id=${$(e.currentTarget).data('id')}`;
+            let url = `/defunciones/control/index/?id=${$(e.currentTarget).data('id')}`;
             var win = window.open(url, "_self");
             win.focus();
 
         });
 
         /**
-         * imprimir - Imprimir nacimiento 
+         * imprimir - Imprimir matrimonio 
          */
         $("#botoneraPrincipal").on("click", "a.imprimir", (e) => {
             const idNacimi = document.querySelector("input[name='id']").value;
-            const ano = document.querySelector("input[name='ano_nac']").value;
+            const ano = document.querySelector("input[name='ano_des']").value;
             const libro = document.querySelector("input[name='nro_lib']").value;
             const folio = document.querySelector("input[name='nro_fol']").value;
 
@@ -424,9 +394,9 @@ class ControlNacimientoView {
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $modal.find(".modal-title").text('Listado de Nacimientos');
+                        $modal.find(".modal-title").text('Listado de Defuncions');
                         $modal.modal('show');
-                        this.listarNacimientos();
+                        this.listarDefunciones();
                     }
                 })
             }
@@ -441,20 +411,20 @@ class ControlNacimientoView {
             }
         });
 
-        $('#tablaListaAdjuntosDeNacimiento').on("click", "button.visualizarArchivoAdjunto", (e) => {
-            let url = `/nacimientos/control/visualizar-adjunto/?namefile=${$(e.currentTarget).data('nombre-archivo')}?year=${$(e.currentTarget).data('año')}?book=${$(e.currentTarget).data('libro')}?folio=${$(e.currentTarget).data('folio')}`;
+        $('#tablaListaAdjuntosDeDefuncion').on("click", "button.visualizarArchivoAdjunto", (e) => {
+            let url = `/matirmonios/control/visualizar-adjunto/?namefile=${$(e.currentTarget).data('nombre-archivo')}?year=${$(e.currentTarget).data('año')}?book=${$(e.currentTarget).data('libro')}?folio=${$(e.currentTarget).data('folio')}`;
             var win = window.open(url, "_black");
             win.focus();
         });
-        $('#tablaListaAdjuntosDeNacimiento').on("click", "button.eliminarArchivoAdjunto", (e) => {
+        $('#tablaListaAdjuntosDeDefuncion').on("click", "button.eliminarArchivoAdjunto", (e) => {
             this.eliminarArchivoAdjunto(e.currentTarget)
         });
 
 
         $('#modalRecibo').on("click", "button.guardarRecibo", (e) => {
             const $form = new FormData($('#formulario-recibo')[0]);
-            // const $route = route("nacimientos.control.guardar-recibo");
-            const $route = route("nacimientos.control.guardar-cobro");
+            // const $route = route("defunciones.control.guardar-recibo");
+            const $route = route("defunciones.control.guardar-cobro");
             this.model.registrarRecibo($form, $route).then((respuesta) => {
                 console.log(respuesta);
                 Util.mensaje(respuesta.alerta, respuesta.mensaje);
@@ -481,7 +451,7 @@ class ControlNacimientoView {
         });
 
         $('#modalRecibo').on("click", "button.continuar", (e) => {
-            const elementTablaListaAdjuntos = document.querySelectorAll("table[id='tablaListaAdjuntosDeNacimiento'] tbody tr button");
+            const elementTablaListaAdjuntos = document.querySelectorAll("table[id='tablaListaAdjuntosDeDefuncion'] tbody tr button");
 
 
             [].forEach.call(elementTablaListaAdjuntos, child => {
@@ -500,15 +470,15 @@ class ControlNacimientoView {
     }
 
 
-    listarNacimientos = (anio_filtro = null, libro_filtro = null, folio_filtro = null, apellido_paterno_filtro = null, apellido_materno_filtro = null, nombres_filtro = null, fecha_desde_filtro = null, fecha_hasta_filtro = null) => {
-        const $tabla = $('#tablaModalNacimiento').DataTable({
+    listarDefunciones = (anio_filtro = null, libro_filtro = null, folio_filtro = null, apellido_paterno_filtro = null, apellido_materno_filtro = null, nombres_filtro = null, fecha_desde_filtro = null, fecha_hasta_filtro = null) => {
+        const $tabla = $('#tablaModalDefuncion').DataTable({
             dom: 'Bfrtip',
             pageLength: 20,
             language: idioma,
             destroy: true,
             serverSide: true,
             initComplete: function (settings, json) {
-                const $filter = $('#tablaModalNacimiento_filter');
+                const $filter = $('#tablaModalDefuncion_filter');
                 const $input = $filter.find('input');
                 $filter.append('<button id="btnBuscar" class="btn btn-default btn-sm pull-right" type="button"><i class="fas fa-search"></i></button>');
                 $input.off();
@@ -522,13 +492,13 @@ class ControlNacimientoView {
                 });
             },
             drawCallback: function (settings) {
-                $('#tablaModalNacimiento_filter input').prop('disabled', false);
+                $('#tablaModalDefuncion_filter input').prop('disabled', false);
                 $('#btnBuscar').html('<i class="fas fa-search"></i>').prop('disabled', false);
-                $('#tablaModalNacimiento_filter input').trigger('focus');
+                $('#tablaModalDefuncion_filter input').trigger('focus');
             },
             order: [[2, 'asc']],
             ajax: {
-                url: route('nacimientos.listar'),
+                url: route('defunciones.listar'),
                 method: 'POST',
                 data: {
                     'anio_filtro': anio_filtro,
@@ -548,22 +518,21 @@ class ControlNacimientoView {
                         return index.row + 1;
                     }, orderable: false, searchable: false, className: 'text-center'
                 },
-                { data: 'ano_nac' },
+                { data: 'ano_des',className: 'text-center' },
                 { data: 'nro_lib' },
                 { data: 'nro_fol' },
-                { data: 'ape_pat_na' },
-                { data: 'ape_mat_na' },
-                { data: 'nom_nac' },
-                { data: 'sexo_desc', name: 'sexo.nombre' },
-                { data: 'ubigeo_desc', name: 'ubigeo.nombre' },
-                { data: 'fch_nac' },
-                { data: 'fch_ing' },
+                { data: 'ape_pat_de' },
+                { data: 'ape_mat_de' },
+                { data: 'nom_des' },
+                { data: 'motivo_defuncion'},
+                { data: 'fch_des'},
+                { data: 'usuario' },
                 { data: 'accion-seleccionar', orderable: false, searchable: false, className: 'text-center' }
             ],
             buttons: []
         });
         $tabla.on('search.dt', function () {
-            $('#tablaModalNacimiento_filter input').attr('disabled', true);
+            $('#tablaModalDefuncion_filter input').attr('disabled', true);
             $('#btnBuscar').html('<i class="fas fa-clock" aria-hidden="true"></i>').prop('disabled', true);
         });
         $tabla.on('init.dt', function (e, settings, processing) {
@@ -597,7 +566,7 @@ class ControlNacimientoView {
     }
 
     obtenerNombreDeNuevoAdjunto() {
-        let nombreBaseAdjunto = ''.concat(document.querySelector("input[name='ano_nac']").value, document.querySelector("input[name='nro_fol']").value);
+        let nombreBaseAdjunto = ''.concat(document.querySelector("input[name='ano_des']").value, document.querySelector("input[name='nro_fol']").value);
         let sufijo = ["A", "B", "C", "D", "E"];
         tempArchivoAdjuntoList.forEach(element => {
 
@@ -665,13 +634,13 @@ class ControlNacimientoView {
             <td style="text-align:left;">${payload.nameFile}</td>
             <td style="text-align:center;">
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento" title="Visualizar" data-id="${payload.id}"  disabled>Visualizar</button>
-                    <button type="button" class="btn btn-outline-danger btn-xs eliminarArchivoAdjunto"  name="btnEliminarAdjuntoNacimiento" title="Eliminar" data-id="${payload.id}" >Eliminar</button>
+                    <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion" title="Visualizar" data-id="${payload.id}"  disabled>Visualizar</button>
+                    <button type="button" class="btn btn-outline-danger btn-xs eliminarArchivoAdjunto"  name="btnEliminarAdjuntoDefuncion" title="Eliminar" data-id="${payload.id}" >Eliminar</button>
                 </div>
             </td>
             </tr>`;
 
-        document.querySelector("table[id='tablaListaAdjuntosDeNacimiento'] tbody").insertAdjacentHTML('beforeend', html);
+        document.querySelector("table[id='tablaListaAdjuntosDeDefuncion'] tbody").insertAdjacentHTML('beforeend', html);
 
     }
 

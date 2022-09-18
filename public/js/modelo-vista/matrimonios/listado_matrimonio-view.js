@@ -63,10 +63,13 @@ class ListadoMatrimonioView {
                 { data: 'ape_pat_ma' },
                 { data: 'ape_mat_ma' },
                 { data: 'nom_mar' },
+                { data: 'ubigeo_marido', name:'ubigeo_marido.nombre' },
                 { data: 'ape_pat_es' },
                 { data: 'ape_mat_es' },
                 { data: 'nom_esp' },
+                { data: 'ubigeo_esposa', name:'ubigeo_esposa.nombre' },
                 { data: 'fch_cel'},
+                { data: 'fch_reg'},
                 { data: 'accion', orderable: false, searchable: false, className: 'text-center' }
             ],
             buttons: [

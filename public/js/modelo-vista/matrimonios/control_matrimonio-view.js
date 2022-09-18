@@ -14,53 +14,35 @@ class ControlMatrimonioView {
         Util.cambiarEstadoBotonera('DESHABILITAR', ['guardar']);
 
         if ((idByURL) != null && idByURL > 0) {
-            this.model.cargarDatosNacimiento(idByURL).then((respuesta) => {
-                console.log(respuesta);
+            this.model.cargarDatosMatrimonio(idByURL).then((respuesta) => {
+                // console.log(respuesta);
                 $('[name=id]').val(respuesta.id);
-                $('[name=ano_nac]').val(respuesta.ano_nac);
+                $('[name=ano_cel]').val(respuesta.ano_cel);
                 $('[name=nro_lib]').val(respuesta.nro_lib);
                 $('[name=nro_fol]').val(respuesta.nro_fol);
 
-                $('[name=ape_pat_na]').val(respuesta.ape_pat_na);
-                $('[name=ape_mat_na]').val(respuesta.ape_mat_na);
-                $('[name=nom_nac]').val(respuesta.nom_nac);
-                $('[name=nom_nac]').val(respuesta.nom_nac);
-                $('[name=sex_nac]').val(respuesta.sex_nac);
-                $('[name=ubigeo]').val(respuesta.ubigeo);
-                $('[name=fch_nac]').val(respuesta.fch_nac);
-                $('[name=fch_ing]').val(respuesta.fch_ing);
-                $('[name=tipo]').val(respuesta.tipo);
-                $('[name=usuario]').val(respuesta.usuario);
+                $('[name=fch_cel]').val(respuesta.fch_cel);
 
                 $('[name=ape_pat_ma]').val(respuesta.ape_pat_ma);
                 $('[name=ape_mat_ma]').val(respuesta.ape_mat_ma);
-                $('[name=nom_mad]').val(respuesta.nom_mad);
-                $('[name=dir_mad]').val(respuesta.dir_mad);
+                $('[name=nom_mar]').val(respuesta.nom_mar);
+                $('[name=ubigeo1]').val(respuesta.ubigeo1);
 
-                $('[name=ape_pat_pa]').val(respuesta.ape_pat_pa);
-                $('[name=ape_mat_pa]').val(respuesta.ape_mat_pa);
-                $('[name=nom_pad]').val(respuesta.nom_pad);
-                $('[name=dir_pad]').val(respuesta.dir_pad);
-                switch (respuesta.condic_nac) {
-                    case 1:
-                        document.querySelector("input[id='condicionOrdinaria']").checked = true;
-                        break;
-                    case 2:
-                        document.querySelector("input[id='condicionExtraordinaria']").checked = true;
-                        break;
-                    case 3:
-                        document.querySelector("input[id='condicionEspecial']").checked = true;
-                        break;
-                    default:
-                        document.querySelector("input[id='condicionOrdinaria']").checked = false
-                        document.querySelector("input[id='condicionExtraordinaria']").checked = false
-                        document.querySelector("input[id='condicionEspecial']").checked = false
-                        break;
-                }
+                $('[name=ape_pat_es]').val(respuesta.ape_pat_es);
+                $('[name=ape_mat_es]').val(respuesta.ape_mat_es);
+                $('[name=nom_esp]').val(respuesta.nom_esp);
+                $('[name=ubigeo2]').val(respuesta.ubigeo2);
+
+                $('[name=fch_cel]').val(respuesta.fch_cel);
+                $('[name=fch_reg]').val(respuesta.fch_reg);
+
+                $('[name=tipo]').val(respuesta.cod_reg);
+                $('[name=usuario]').val(respuesta.usuario);
+
                 $('[name=observa]').text(respuesta.observa);
 
                 // adjuntos
-                Util.limpiarTabla("tablaListaAdjuntosDeNacimiento");
+                Util.limpiarTabla("tablaListaAdjuntosDeMatrimonio");
 
                 let html = '';
                 if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_base == true) {
@@ -75,9 +57,9 @@ class ControlMatrimonioView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + '.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar" 
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoMatrimonio"  title="Visualizar" 
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + '.tif'}"  
-                        data-año="${respuesta.ano_nac}"  
+                        data-año="${respuesta.ano_cel}"  
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}"  
                         disabled>Visualizar</button>
@@ -97,7 +79,7 @@ class ControlMatrimonioView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'A.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoMatrimonio"  title="Visualizar"  disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -114,7 +96,7 @@ class ControlMatrimonioView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'B.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoMatrimonio"  title="Visualizar"  disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -131,7 +113,7 @@ class ControlMatrimonioView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'C.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoMatrimonio"  title="Visualizar"  disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -148,7 +130,7 @@ class ControlMatrimonioView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'D.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoMatrimonio"  title="Visualizar"  disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -165,7 +147,7 @@ class ControlMatrimonioView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'E.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoMatrimonio"  title="Visualizar"  disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -183,7 +165,7 @@ class ControlMatrimonioView {
                 </tr>`;
                 }
 
-                document.querySelector("table[id='tablaListaAdjuntosDeNacimiento'] tbody").insertAdjacentHTML('beforeend', html);
+                document.querySelector("table[id='tablaListaAdjuntosDeMatrimonio'] tbody").insertAdjacentHTML('beforeend', html);
 
 
 
@@ -202,24 +184,24 @@ class ControlMatrimonioView {
      */
 
     eventos = () => {
-        const $modal = $("#modalListadoDeNacimientos");
+        const $modal = $("#modalListadoDeMatrimonios");
 
         /**
-         * buscar - Buscar en modal de listado de nacimientos
+         * buscar - Buscar en modal de listado de matrimonios
          */
         $("#botoneraPrincipal").on("click", "a.buscar", (e) => {
 
-            $modal.find(".modal-title").text('Listado de Nacimientos');
+            $modal.find(".modal-title").text('Listado de Matrimonios');
             $modal.modal('show');
-            this.listarNacimientos();
+            this.listarMatrimonios();
         });
 
         /**
-         * nuevo - Nuevo nacimiento
+         * nuevo - Nuevo matrimonio
          */
         $("#botoneraPrincipal").on("click", "a.nuevo", (e) => {
 
-            // let url = `/nacimientos/control/index`;
+            // let url = `/matrimonios/control/index`;
             // var win = window.open(url, "_self");
             // win.focus();
 
@@ -228,24 +210,20 @@ class ControlMatrimonioView {
             Util.cambiarEstadoBotonera('HABILITAR', ['guardar']);
 
 
-            $('#controlNacimientoForm')[0].reset();
-            Util.readOnlyAllInputForm("controlNacimientoForm", false);
-            Util.limpiarTabla("tablaListaAdjuntosDeNacimiento");
-            document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
-            document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionOrdinaria']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionExtraordinaria']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionEspecial']").removeAttribute("disabled");
+            $('#controlMatrimoniosForm')[0].reset();
+            Util.readOnlyAllInputForm("controlMatrimoniosForm", false);
+            Util.limpiarTabla("tablaListaAdjuntosDeMatrimonio");
+            document.querySelector("input[id='adjuntosMatrimonio']").removeAttribute("disabled");
             document.querySelector("input[id='siAplicaRecibo']").removeAttribute("disabled");
             document.querySelector("input[id='noAplicaRecibo']").removeAttribute("disabled");
         });
 
         /**
-         * nuevo - Nuevo nacimiento
+         * nuevo - Nuevo matrimonio
          */
         $("#botoneraPrincipal").on("click", "a.guardar", (e) => {
-            // const $form = $("#controlNacimientoForm").serializeArray();
-            let formData = new FormData($('#controlNacimientoForm')[0]);
+            // const $form = $("#controlMatrimoniosForm").serializeArray();
+            let formData = new FormData($('#controlMatrimoniosForm')[0]);
             if (tempArchivoAdjuntoList.length > 0) {
                 tempArchivoAdjuntoList.forEach(element => {
                     if (element.action == 'GUARDAR') {
@@ -256,13 +234,12 @@ class ControlMatrimonioView {
                     }
                 });
             }
-            const $route = route(document.querySelector("input[name='id']").value > 0 ? "nacimientos.control.actualizar" : "nacimientos.control.guardar");
+            const $route = route(document.querySelector("input[name='id']").value > 0 ? "matrimonios.control.actualizar" : "matrimonios.control.guardar");
             console.log($route);
-            this.model.registrarNacimiento(formData, $route).then((respuesta) => {
+            this.model.registrarMatrimonio(formData, $route).then((respuesta) => {
                 Util.mensaje(respuesta.alerta, respuesta.mensaje);
                 if (respuesta.respuesta == "ok") {
-                    // window.history.pushState({ 'id': respuesta.id }, '', '/nacimientos/control/index');
-                    let url = `/nacimientos/control/index/?id=${respuesta.id}`;
+                    let url = `/matrimonios/control/index/?id=${respuesta.id}`;
                     var win = window.open(url, "_selft");
                     win.focus();
                 }
@@ -282,15 +259,12 @@ class ControlMatrimonioView {
 
             Util.cambiarEstadoBotonera('DESHABILITAR', ['nuevo', 'observar']);
             Util.cambiarEstadoBotonera('HABILITAR', ['guardar']);
-            Util.readOnlyAllInputForm("controlNacimientoForm", false, ['ano_nac', 'nro_lib', 'nro_fol']);
+            Util.readOnlyAllInputForm("controlMatrimoniosForm", false, ['ano_cel', 'nro_lib', 'nro_fol']);
 
 
-            // Util.limpiarTabla("tablaListaAdjuntosDeNacimiento");
-            document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
-            document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionOrdinaria']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionExtraordinaria']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionEspecial']").removeAttribute("disabled");
+            // Util.limpiarTabla("tablaListaAdjuntosDeMatrimonio");
+            document.querySelector("input[id='adjuntosMatrimonio']").removeAttribute("disabled");
+            document.querySelector("input[id='adjuntosMatrimonio']").removeAttribute("disabled");
             document.querySelector("input[id='siAplicaRecibo']").removeAttribute("disabled");
             document.querySelector("input[id='noAplicaRecibo']").removeAttribute("disabled");
 
@@ -322,14 +296,17 @@ class ControlMatrimonioView {
                         observacion = result.value;
 
                         const $data = {
-                            'id': document.querySelector("form[id='controlNacimientoForm'] input[name='id']").value,
+                            'id': document.querySelector("form[id='controlMatrimoniosForm'] input[name='id']").value,
                             'observa': observacion
                         };
-                        const $route = route("nacimientos.control.observar");
+                        const $route = route("matrimonios.control.observar");
                         // console.log($data);
-                        this.model.observarNacimiento($data, $route).then((respuesta) => {
+                        this.model.observarMatrimonio($data, $route).then((respuesta) => {
                             Util.mensaje(respuesta.alerta, respuesta.mensaje);
                             if (respuesta.respuesta == "ok") {
+                                let url = `/matrimonios/control/index/?id=${document.querySelector("form[id='controlMatrimoniosForm'] input[name='id']").value}`;
+                                var win = window.open(url, "_self");
+                                win.focus();
                             } else if (respuesta.respuesta == "duplicado") {
                             }
                         }).fail(() => {
@@ -352,36 +329,41 @@ class ControlMatrimonioView {
          */
         $("#botoneraPrincipal").on("click", "a.cancelar", (e) => {
             document.querySelector("span[id='descripcion-de-accion-formulario']").textContent = "";
-
+            
             Util.cambiarEstadoBotonera('HABILITAR', ['nuevo', 'modificar', 'observar']);
-            $('#controlNacimientoForm')[0].reset();
-            Util.readOnlyAllInputForm("controlNacimientoForm", false);
-            Util.limpiarTabla("tablaListaAdjuntosDeNacimiento");
-            document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
-            document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionOrdinaria']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionExtraordinaria']").removeAttribute("disabled");
-            document.querySelector("input[id='condicionEspecial']").removeAttribute("disabled");
+            $('#controlMatrimoniosForm')[0].reset();
+            document.querySelector("div[name='observa']").textContent = "";
+            Util.readOnlyAllInputForm("controlMatrimoniosForm", false);
+            Util.limpiarTabla("tablaListaAdjuntosDeMatrimonio");
+            document.querySelector("input[id='adjuntosMatrimonio']").removeAttribute("disabled");
+            document.querySelector("input[id='adjuntosMatrimonio']").removeAttribute("disabled");
             document.querySelector("input[id='siAplicaRecibo']").removeAttribute("disabled");
             document.querySelector("input[id='noAplicaRecibo']").removeAttribute("disabled");
         });
 
 
-        $("#tablaNacimiento").on("click", "button.seleccionar", (e) => {
+        $("#tablaModalMatrimonio").on("click", "button.seleccionar", (e) => {
 
-            let url = `/nacimientos/control/index/?id=${$(e.currentTarget).data('id')}`;
+            let url = `/matrimonios/control/index/?id=${$(e.currentTarget).data('id')}`;
             var win = window.open(url, "_self");
             win.focus();
 
         });
 
         /**
-         * imprimir - Imprimir nacimiento 
+         * imprimir - Imprimir matrimonio 
          */
         $("#botoneraPrincipal").on("click", "a.imprimir", (e) => {
-            const idNacimi = document.querySelector("input[name='id']").value;
-            if (parseInt(idNacimi) > 0) {
-                document.querySelector("div[id='modalRecibo'] input[name='nacimi_id']").value = idNacimi;
+            const idMatrim = document.querySelector("input[name='id']").value;
+            const ano = document.querySelector("input[name='ano_cel']").value;
+            const libro = document.querySelector("input[name='nro_lib']").value;
+            const folio = document.querySelector("input[name='nro_fol']").value;
+
+            if (parseInt(idMatrim) > 0) {
+                document.querySelector("div[id='modalRecibo'] input[name='matrim_id']").value = idMatrim;
+                document.querySelector("div[id='modalRecibo'] input[name='ano']").value = ano;
+                document.querySelector("div[id='modalRecibo'] input[name='libro']").value = libro;
+                document.querySelector("div[id='modalRecibo'] input[name='folio']").value = folio;
 
                 $("#modalRecibo").find(".modal-title").text('Recibo');
                 $("#modalRecibo").modal('show')
@@ -412,9 +394,9 @@ class ControlMatrimonioView {
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        $modal.find(".modal-title").text('Listado de Nacimientos');
+                        $modal.find(".modal-title").text('Listado de Matrimonios');
                         $modal.modal('show');
-                        this.listarNacimientos();
+                        this.listarMatrimonios();
                     }
                 })
             }
@@ -429,20 +411,20 @@ class ControlMatrimonioView {
             }
         });
 
-        $('#tablaListaAdjuntosDeNacimiento').on("click", "button.visualizarArchivoAdjunto", (e) => {
-            let url = `/nacimientos/control/visualizar-adjunto/?namefile=${$(e.currentTarget).data('nombre-archivo')}?year=${$(e.currentTarget).data('año')}?book=${$(e.currentTarget).data('libro')}?folio=${$(e.currentTarget).data('folio')}`;
+        $('#tablaListaAdjuntosDeMatrimonio').on("click", "button.visualizarArchivoAdjunto", (e) => {
+            let url = `/matirmonios/control/visualizar-adjunto/?namefile=${$(e.currentTarget).data('nombre-archivo')}?year=${$(e.currentTarget).data('año')}?book=${$(e.currentTarget).data('libro')}?folio=${$(e.currentTarget).data('folio')}`;
             var win = window.open(url, "_black");
             win.focus();
         });
-        $('#tablaListaAdjuntosDeNacimiento').on("click", "button.eliminarArchivoAdjunto", (e) => {
+        $('#tablaListaAdjuntosDeMatrimonio').on("click", "button.eliminarArchivoAdjunto", (e) => {
             this.eliminarArchivoAdjunto(e.currentTarget)
         });
 
 
         $('#modalRecibo').on("click", "button.guardarRecibo", (e) => {
             const $form = new FormData($('#formulario-recibo')[0]);
-            // const $form = $("#controlNacimientoForm").serializeArray();
-            const $route = route("nacimientos.control.guardar-recibo");
+            // const $route = route("matrimonios.control.guardar-recibo");
+            const $route = route("matrimonios.control.guardar-cobro");
             this.model.registrarRecibo($form, $route).then((respuesta) => {
                 console.log(respuesta);
                 Util.mensaje(respuesta.alerta, respuesta.mensaje);
@@ -469,7 +451,7 @@ class ControlMatrimonioView {
         });
 
         $('#modalRecibo').on("click", "button.continuar", (e) => {
-            const elementTablaListaAdjuntos = document.querySelectorAll("table[id='tablaListaAdjuntosDeNacimiento'] tbody tr button");
+            const elementTablaListaAdjuntos = document.querySelectorAll("table[id='tablaListaAdjuntosDeMatrimonio'] tbody tr button");
 
 
             [].forEach.call(elementTablaListaAdjuntos, child => {
@@ -488,15 +470,15 @@ class ControlMatrimonioView {
     }
 
 
-    listarNacimientos = (anio_filtro = null, libro_filtro = null, folio_filtro = null, apellido_paterno_filtro = null, apellido_materno_filtro = null, nombres_filtro = null, fecha_desde_filtro = null, fecha_hasta_filtro = null) => {
-        const $tabla = $('#tablaNacimiento').DataTable({
+    listarMatrimonios = (anio_filtro = null, libro_filtro = null, folio_filtro = null, apellido_paterno_filtro = null, apellido_materno_filtro = null, nombres_filtro = null, fecha_desde_filtro = null, fecha_hasta_filtro = null) => {
+        const $tabla = $('#tablaModalMatrimonio').DataTable({
             dom: 'Bfrtip',
             pageLength: 20,
             language: idioma,
             destroy: true,
             serverSide: true,
             initComplete: function (settings, json) {
-                const $filter = $('#tablaNacimiento_filter');
+                const $filter = $('#tablaModalMatrimonio_filter');
                 const $input = $filter.find('input');
                 $filter.append('<button id="btnBuscar" class="btn btn-default btn-sm pull-right" type="button"><i class="fas fa-search"></i></button>');
                 $input.off();
@@ -510,13 +492,13 @@ class ControlMatrimonioView {
                 });
             },
             drawCallback: function (settings) {
-                $('#tablaNacimiento_filter input').prop('disabled', false);
+                $('#tablaModalMatrimonio_filter input').prop('disabled', false);
                 $('#btnBuscar').html('<i class="fas fa-search"></i>').prop('disabled', false);
-                $('#tablaNacimiento_filter input').trigger('focus');
+                $('#tablaModalMatrimonio_filter input').trigger('focus');
             },
             order: [[2, 'asc']],
             ajax: {
-                url: route('nacimientos.listar'),
+                url: route('matrimonios.listar'),
                 method: 'POST',
                 data: {
                     'anio_filtro': anio_filtro,
@@ -536,22 +518,23 @@ class ControlMatrimonioView {
                         return index.row + 1;
                     }, orderable: false, searchable: false, className: 'text-center'
                 },
-                { data: 'ano_nac' },
+                { data: 'ano_cel',className: 'text-center' },
                 { data: 'nro_lib' },
                 { data: 'nro_fol' },
-                { data: 'ape_pat_na' },
-                { data: 'ape_mat_na' },
-                { data: 'nom_nac' },
-                { data: 'sexo_desc', name: 'sexo.nombre' },
-                { data: 'ubigeo_desc', name: 'ubigeo.nombre' },
-                { data: 'fch_nac' },
-                { data: 'fch_ing' },
+                { data: 'ape_pat_ma' },
+                { data: 'ape_mat_ma' },
+                { data: 'nom_mar' },
+                { data: 'ape_pat_es' },
+                { data: 'ape_mat_es' },
+                { data: 'nom_esp' },
+                { data: 'fch_cel', className: 'text-center' },
+                { data: 'fch_reg', className: 'text-center' },
                 { data: 'accion-seleccionar', orderable: false, searchable: false, className: 'text-center' }
             ],
             buttons: []
         });
         $tabla.on('search.dt', function () {
-            $('#tablaNacimiento_filter input').attr('disabled', true);
+            $('#tablaModalMatrimonio_filter input').attr('disabled', true);
             $('#btnBuscar').html('<i class="fas fa-clock" aria-hidden="true"></i>').prop('disabled', true);
         });
         $tabla.on('init.dt', function (e, settings, processing) {
@@ -585,7 +568,7 @@ class ControlMatrimonioView {
     }
 
     obtenerNombreDeNuevoAdjunto() {
-        let nombreBaseAdjunto = ''.concat(document.querySelector("input[name='ano_nac']").value, document.querySelector("input[name='nro_fol']").value);
+        let nombreBaseAdjunto = ''.concat(document.querySelector("input[name='ano_cel']").value, document.querySelector("input[name='nro_fol']").value);
         let sufijo = ["A", "B", "C", "D", "E"];
         tempArchivoAdjuntoList.forEach(element => {
 
@@ -653,13 +636,13 @@ class ControlMatrimonioView {
             <td style="text-align:left;">${payload.nameFile}</td>
             <td style="text-align:center;">
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento" title="Visualizar" data-id="${payload.id}"  disabled>Visualizar</button>
-                    <button type="button" class="btn btn-outline-danger btn-xs eliminarArchivoAdjunto"  name="btnEliminarAdjuntoNacimiento" title="Eliminar" data-id="${payload.id}" >Eliminar</button>
+                    <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoMatrimonio" title="Visualizar" data-id="${payload.id}"  disabled>Visualizar</button>
+                    <button type="button" class="btn btn-outline-danger btn-xs eliminarArchivoAdjunto"  name="btnEliminarAdjuntoMatrimonio" title="Eliminar" data-id="${payload.id}" >Eliminar</button>
                 </div>
             </td>
             </tr>`;
 
-        document.querySelector("table[id='tablaListaAdjuntosDeNacimiento'] tbody").insertAdjacentHTML('beforeend', html);
+        document.querySelector("table[id='tablaListaAdjuntosDeMatrimonio'] tbody").insertAdjacentHTML('beforeend', html);
 
     }
 

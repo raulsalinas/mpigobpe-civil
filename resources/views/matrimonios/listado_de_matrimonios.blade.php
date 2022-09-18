@@ -48,10 +48,13 @@
                                                 <th width="50">Apellido Paterno del Esposo</th>
                                                 <th width="50">Apellido Matero del Esposo</th>
                                                 <th width="50">Nombres del Esposo</th>
+                                                <th width="50">Ubigeo Esposo</th>
                                                 <th width="50">Apellido Paterno del Esposa</th>
                                                 <th width="50">Apellido Matero del Esposa</th>
                                                 <th width="50">Nombres del Esposa</th>
-                                                <th width="20">Fecha</th>
+                                                <th width="50">Ubigeo Esposa</th>
+                                                <th width="20">Fecha Celebración</th>
+                                                <th width="20">Fecha Inscripción</th>
                                                 <th width="20">Acción</th>
                                             </tr>
                                         </thead>

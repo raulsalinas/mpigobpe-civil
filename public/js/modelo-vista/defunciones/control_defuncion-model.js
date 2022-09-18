@@ -1,10 +1,10 @@
-class ControlMatrimonioModel {
+class ControlDefuncionModel {
 
     constructor(token) {
         this.token = token;
     }
 
-    registrarMatrimonio = (data, route) => {
+    registrarDefuncion = (data, route) => {
         return $.ajax({
             url: route,
             type: "POST",
@@ -31,7 +31,7 @@ class ControlMatrimonioModel {
         });
     }
 
-    observarMatrimonio = (data, route) => {
+    observarDefuncion = (data, route) => {
         return $.ajax({
             url: route,
             type: "POST",
@@ -44,18 +44,18 @@ class ControlMatrimonioModel {
     }
 
 
-    cargarDatosMatrimonio = (id) => {
+    cargarDatosDefuncion = (id) => {
         return $.ajax({
-            url: route("matrimonios.control.visualizar", {id: id}),
+            url: route("defunciones.control.visualizar", {id: id}),
             type: "GET",
             dataType: "JSON",
             data: { _token: this.token },
         });
     }
 
-    eliminarMatrimonio = (id) => {
+    eliminarDefuncion = (id) => {
         return $.ajax({
-            url: route("matrimonios.eliminar", {id: id}),
+            url: route("defunciones.eliminar", {id: id}),
             type: "PUT",
             dataType: "JSON",
             data: { _token: this.token },

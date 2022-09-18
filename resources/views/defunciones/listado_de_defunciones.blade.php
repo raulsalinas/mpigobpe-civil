@@ -49,7 +49,7 @@
                                                 <th width="50">Apellido Matero</th>
                                                 <th width="50">Nombres</th>
                                                 <th width="50">Motivo de deceso</th>
-                                                <th width="20">Fecha</th>
+                                                <th width="20">Fecha de deceso</th>
                                                 <th width="20">Registrado por</th>
                                                 <th width="20">Acción</th>
                                             </tr>

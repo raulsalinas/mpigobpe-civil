@@ -112,19 +112,19 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Apellido paterno</label>
-                                                    <input type="text" class="form-control form-control-sm" name="ape_pat_na" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="ape_pat_de" placeholder="" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Apellido materno</label>
-                                                    <input type="text" class="form-control form-control-sm" name="ape_mat_na" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="ape_mat_de" placeholder="" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Nombres</label>
-                                                    <input type="text" class="form-control form-control-sm" name="nom_nac" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="nom_des" placeholder="" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
@@ -136,20 +136,21 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Sexo</label>
-                                                    <select class="form-control form-control-sm" name="sex_nac" readonly>
+                                                    <select class="form-control form-control-sm" name="sexo" readonly>
                                                         <option value="">Seleccione una opción</option>
-                                                        <option value="1">MASCULINO</option>
-                                                        <option value="2">FEMENINO</option>
+                                                        <option value="M">MASCULINO</option>
+                                                        <option value="F">FEMENINO</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class=" col-sm-12">
                                                 <div class="form-group">
-                                                    <label>Lugar de nacimiento</label>
-                                                    <select class="form-control form-control-sm" name="lugar_nac" readonly>
+                                                    <label>Lugar</label>
+                                                    <select class="form-control form-control-sm" name="lugar" readonly>
                                                         <option value="">Seleccione una opción</option>
-                                                        <option value="1">MASCULINO</option>
-                                                        <option value="2">FEMENINO</option>
+                                                        @foreach ($lugarList as $lugar)
+                                                            <option value="{{$lugar->codigo}}">{{$lugar->nombre}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -167,10 +168,10 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                         <label>Motivo de deceso</label>
-                                                        <select class="form-control form-control-sm" name="ubigeo" readonly>
+                                                        <select class="form-control form-control-sm" name="cod_mot" readonly>
                                                             <option value="">Seleccione una opción</option>
-                                                            @foreach ($ubigeoList as $ubigeo)
-                                                            <option value="{{$ubigeo->codigo}}">{{$ubigeo->nombre}}</option>
+                                                            @foreach ($motivoDecesoList as $motivo)
+                                                            <option value="{{$motivo->codigo}}">{{$motivo->nombre}}</option>
                                                             @endforeach
                                                     </select>
                                                 </div>
@@ -193,13 +194,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Deceso</label>
-                                                            <input type="date" class="form-control form-control-sm" name="fch_nac" placeholder="" readonly>
+                                                            <input type="date" class="form-control form-control-sm" name="fch_des" placeholder="" readonly>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Inscripción</label>
-                                                            <input type="date" class="form-control form-control-sm" name="fch_ing" placeholder="" readonly>
+                                                            <input type="date" class="form-control form-control-sm" name="fch_reg" placeholder="" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -222,6 +223,9 @@
                                                             <label>Tipo de registro</label>
                                                             <select class="form-control form-control-sm" name="tipo" readonly>
                                                                 <option value="">Seleccione una opción</option>
+                                                                @foreach ($tipoRegistroList as $tipo)
+                                                                <option value="{{$tipo->codigo}}">{{$tipo->nombre}}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
@@ -249,8 +253,8 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="custom-file mt-2">
-                                                <input type="file" multiple class="custom-file-input handleChangeAgregarAdjunto" id="adjuntosNacimiento" name="adjuntosNacimiento" lang="es" disabled>
-                                                <label class="custom-file-label" for="adjuntosNacimiento" data-label="Elegir">
+                                                <input type="file" multiple class="custom-file-input handleChangeAgregarAdjunto" id="adjuntosDefuncion" name="adjuntosDefuncion" lang="es" disabled>
+                                                <label class="custom-file-label" for="adjuntosDefuncion" data-label="Elegir">
                                                     <span class="d-inline-block text-truncate w-75">
                                                         Elige varios archivos
                                                     </span>
@@ -259,7 +263,7 @@
                                         </div>
                                         <br>
                                         <div class="row">
-                                            <table class="table table-bordered" id="tablaListaAdjuntosDeNacimiento">
+                                            <table class="table table-bordered" id="tablaListaAdjuntosDeDefuncion">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col" style="width: 70%">Archivo</th>
@@ -269,33 +273,6 @@
                                                 <tbody>
                                                 </tbody>
                                             </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-    
-    
-                        <div class="row mt-2 pt2 pl-2 pr-2 pt-1">
-                            <div class="col-md-12">
-                                <div class="card card-secondary" id="card-recibo">
-                                    <div class="">
-                                        <h3 class="card-title m-2"></h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="col-md-12 text-center">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="condicionActa" id="condicionOrdinaria" value="1" checked>
-                                                <label class="form-check-label" for="condicionOrdinaria">Ordinario</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="condicionActa" id="condicionExtraordinaria" value="2">
-                                                <label class="form-check-label" for="condicionExtraordinaria">Extraordinario</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="condicionActa" id="condicionEspecial" value="3">
-                                                <label class="form-check-label" for="condicionEspecial">Especial</label>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -329,8 +306,8 @@
     </div>
 </div>
 
-@include('nacimientos.modal-listado_de_nacimientos')
-@include('nacimientos.modal-recibo')
+@include('defunciones.modal-listado_de_defunciones')
+@include('defunciones.modal-recibo')
 
 
 
@@ -344,8 +321,8 @@
 <script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 
-<script src="{{ asset('js/modelo-vista/nacimientos/control_nacimiento-view.js?v=2') }}"></script>
-<script src="{{ asset('js/modelo-vista/nacimientos/control_nacimiento-model.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/defunciones/control_defuncion-view.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/defunciones/control_defuncion-model.js?v=2') }}"></script>
 <!-- <script src="{{ asset('js/tiff.min.js?v=1') }}"></script> -->
 
 <script>
@@ -359,9 +336,9 @@
         body.classList.add("sidebar-collapse");
         // termina -> vista extendida
 
-        const controlNacimientoView = new ControlNacimientoView(new ControlNacimientoModel(csrf_token));
-        controlNacimientoView.obtenerNacimiento();
-        controlNacimientoView.eventos();
+        const controlDefuncionView = new ControlDefuncionView(new ControlDefuncionModel(csrf_token));
+        controlDefuncionView.obtenerDefuncion();
+        controlDefuncionView.eventos();
 
 
     });

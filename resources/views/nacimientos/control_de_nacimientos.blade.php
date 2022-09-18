@@ -205,7 +205,7 @@
                                                         <div class="form-group">
                                                             <label>Tipo de registro</label>
                                                             <select class="form-control form-control-sm" name="tipo" readonly>
-                                                                <option value="">Seleccione una opción</option>
+                                                                <option value="SIN_DATA">Seleccione una opción</option>
                                                                 @foreach ($tipoRegistroList as $tipo)
                                                                 <option value="{{$tipo->codigo}}">{{$tipo->nombre}}</option>
                                                                 @endforeach

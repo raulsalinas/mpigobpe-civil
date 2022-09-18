@@ -58,7 +58,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('index', [ControlDeNacimientosController::class, 'index'])->name('index');
             Route::get('visualizar/{id}', [ControlDeNacimientosController::class, 'visualizar'])->name('visualizar');
             Route::post('guardar', [ControlDeNacimientosController::class, 'guardar'])->name('guardar');
-            Route::post('guardar-recibo', [ControlDeNacimientosController::class, 'guardarRecibo'])->name('guardar-recibo');
+            // Route::post('guardar-recibo', [ControlDeNacimientosController::class, 'guardarRecibo'])->name('guardar-recibo');
+            Route::post('guardar-cobro', [ControlDeNacimientosController::class, 'guardarCobro'])->name('guardar-cobro');
             Route::post('actualizar', [ControlDeNacimientosController::class, 'actualizar'])->name('actualizar');
             Route::post('observar', [ControlDeNacimientosController::class, 'observar'])->name('observar');
             Route::get('visualizar-adjunto', [ControlDeNacimientosController::class, 'visualizarAdjuntoNacimiento'])->name('visualizarAdjuntoNacimiento');
@@ -74,6 +75,15 @@ Route::middleware(['auth'])->group(function () {
         Route::post('listar', [ListadoDeMatrimoniosController::class, 'listar'])->name('listar');
         Route::name('control.')->prefix('control')->group(function () {
             Route::get('index', [ControlDeMatrimoniosController::class, 'index'])->name('index');
+            Route::get('visualizar/{id}', [ControlDeMatrimoniosController::class, 'visualizar'])->name('visualizar');
+            // Route::post('guardar-recibo', [ControlDeMatrimoniosController::class, 'guardarRecibo'])->name('guardar-recibo');
+            Route::post('guardar-cobro', [ControlDeMatrimoniosController::class, 'guardarCobro'])->name('guardar-cobro');
+            Route::post('guardar', [ControlDeMatrimoniosController::class, 'guardar'])->name('guardar');
+            Route::post('actualizar', [ControlDeMatrimoniosController::class, 'actualizar'])->name('actualizar');
+            Route::post('observar', [ControlDeMatrimoniosController::class, 'observar'])->name('observar');
+            Route::get('buscar-ficha/{id}/{folder}', [ControlDeMatrimoniosController::class, 'buscarFicha'])->name('buscar-ficha');
+
+
         });
         Route::name('consistencia.')->prefix('consistencia')->group(function () {
             Route::get('index', [ConsistenciaDeMatrimoniosController::class, 'index'])->name('index');
@@ -86,9 +96,20 @@ Route::middleware(['auth'])->group(function () {
         Route::post('listar', [ListadoDeDefuncionesController::class, 'listar'])->name('listar');
         Route::name('control.')->prefix('control')->group(function () {
             Route::get('index', [ControlDeDefuncionesController::class, 'index'])->name('index');
+            Route::get('visualizar/{id}', [ControlDeDefuncionesController::class, 'visualizar'])->name('visualizar');
+            // Route::post('guardar-recibo', [ControlDeDefuncionesController::class, 'guardarRecibo'])->name('guardar-recibo');
+            Route::post('guardar-cobro', [ControlDeDefuncionesController::class, 'guardarCobro'])->name('guardar-cobro');
+            Route::post('guardar', [ControlDeDefuncionesController::class, 'guardar'])->name('guardar');
+            Route::post('actualizar', [ControlDeDefuncionesController::class, 'actualizar'])->name('actualizar');
+            Route::post('observar', [ControlDeDefuncionesController::class, 'observar'])->name('observar');
+            Route::get('buscar-ficha/{id}/{folder}', [ControlDeDefuncionesController::class, 'buscarFicha'])->name('buscar-ficha');
+
+
         });
         Route::name('consistencia.')->prefix('consistencia')->group(function () {
             Route::get('index', [ConsistenciaDeDefuncionesController::class, 'index'])->name('index');
+            Route::get('reporte/{ano_des?}/{nro_lib?}/{usuario?}/{fch_des_desde?}/{fch_des_hasta?}', [ConsistenciaDeDefuncionesController::class, 'reporte'])->name('reporte');
+
         });
     });
     Route::name('utilidades.')->prefix('utilidades')->group(function () {

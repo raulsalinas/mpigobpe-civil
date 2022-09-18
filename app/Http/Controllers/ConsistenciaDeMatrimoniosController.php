@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CentroAsistencial;
 use App\Models\Matrimonio;
-use App\Models\Nacimiento;
-use App\Models\TipoRegistro;
-use App\Models\Ubigeo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
-use PhpParser\JsonDecoder;
 ini_set('max_execution_time', 300);
 class ConsistenciaDeMatrimoniosController extends Controller
 {
@@ -29,11 +23,11 @@ class ConsistenciaDeMatrimoniosController extends Controller
     {
 
         $descripcionFiltro="Considerado todos los registros";
-        $donde[] = ['matrim.ano_nac', '!=', null];
+        $donde[] = ['matrim.ano_cel', '!=', null];
 
         if ($ano_cel != 'SIN_DATA'){
             $descripcionFiltro.=" del año ".$ano_cel;
-            $donde[] = ['matrim.ano_nac', '=', $ano_cel];
+            $donde[] = ['matrim.ano_cel', '=', $ano_cel];
 
         }
         if ($nro_lib != 'SIN_DATA'){
@@ -58,7 +52,7 @@ class ConsistenciaDeMatrimoniosController extends Controller
             $donde[] = ['matrim.fch_cel', '<=', $fch_cel_hasta];
         }
 
-        $nacimientos = Matrimonio::select('matrim.*', 
+        $matrimonios = Matrimonio::select('matrim.*', 
         'tipregmat.nombre as tipo_registro'
         )
         ->leftJoin('public.tipregmat', 'tipregmat.codigo', '=', 'matrim.cod_reg')

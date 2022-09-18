@@ -81,7 +81,7 @@
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
                                                         <label>Año</label>
-                                                        <input type="text" class="form-control form-control-sm" name="ano_nac" placeholder="" readonly>
+                                                        <input type="text" class="form-control form-control-sm" name="ano_cel" placeholder="" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -112,25 +112,25 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Apellido paterno</label>
-                                                    <input type="text" class="form-control form-control-sm" name="ape_pat_na" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="ape_pat_ma" placeholder="" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Apellido materno</label>
-                                                    <input type="text" class="form-control form-control-sm" name="ape_mat_na" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="ape_mat_ma" placeholder="" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Nombres</label>
-                                                    <input type="text" class="form-control form-control-sm" name="nom_nac" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="nom_mar" placeholder="" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Ubigeo</label>
-                                                    <select class="form-control form-control-sm" name="ubigeo" readonly>
+                                                    <select class="form-control form-control-sm" name="ubigeo1" readonly>
                                                         <option value="">Seleccione una opción</option>
                                                         @foreach ($ubigeoList as $ubigeo)
                                                         <option value="{{$ubigeo->codigo}}">{{$ubigeo->nombre}}</option>
@@ -152,25 +152,25 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Apellido paterno</label>
-                                                    <input type="text" class="form-control form-control-sm" name="ape_pat_na" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="ape_pat_es" placeholder="" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Apellido materno</label>
-                                                    <input type="text" class="form-control form-control-sm" name="ape_mat_na" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="ape_mat_es" placeholder="" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Nombres</label>
-                                                    <input type="text" class="form-control form-control-sm" name="nom_nac" placeholder="" readonly>
+                                                    <input type="text" class="form-control form-control-sm" name="nom_esp" placeholder="" readonly>
                                                 </div>
                                             </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Ubigeo</label>
-                                                        <select class="form-control form-control-sm" name="ubigeo" readonly>
+                                                        <select class="form-control form-control-sm" name="ubigeo2" readonly>
                                                             <option value="">Seleccione una opción</option>
                                                             @foreach ($ubigeoList as $ubigeo)
                                                             <option value="{{$ubigeo->codigo}}">{{$ubigeo->nombre}}</option>
@@ -196,13 +196,13 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Celebración</label>
-                                                            <input type="date" class="form-control form-control-sm" name="fch_nac" placeholder="" readonly>
+                                                            <input type="date" class="form-control form-control-sm" name="fch_cel" placeholder="" readonly>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label>Inscripción</label>
-                                                            <input type="date" class="form-control form-control-sm" name="fch_ing" placeholder="" readonly>
+                                                            <input type="date" class="form-control form-control-sm" name="fch_reg" placeholder="" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -224,8 +224,10 @@
                                                         <div class="form-group">
                                                             <label>Tipo de registro</label>
                                                             <select class="form-control form-control-sm" name="tipo" readonly>
-                                                                <option value="">Seleccione una opción</option>
-                                     
+                                                                <option value="SIN_DATA">Seleccione una opción</option>
+                                                                @foreach ($tipoRegistroList as $tipo)
+                                                                <option value="{{$tipo->codigo}}">{{$tipo->nombre}}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
@@ -253,8 +255,8 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="custom-file mt-2">
-                                                <input type="file" multiple class="custom-file-input handleChangeAgregarAdjunto" id="adjuntosNacimiento" name="adjuntosNacimiento" lang="es" disabled>
-                                                <label class="custom-file-label" for="adjuntosNacimiento" data-label="Elegir">
+                                                <input type="file" multiple class="custom-file-input handleChangeAgregarAdjunto" id="adjuntosMatrimonio" name="adjuntosMatrimonio" lang="es" disabled>
+                                                <label class="custom-file-label" for="adjuntosMatrimonio" data-label="Elegir">
                                                     <span class="d-inline-block text-truncate w-75">
                                                         Elige varios archivos
                                                     </span>
@@ -263,7 +265,7 @@
                                         </div>
                                         <br>
                                         <div class="row">
-                                            <table class="table table-bordered" id="tablaListaAdjuntosDeNacimiento">
+                                            <table class="table table-bordered" id="tablaListaAdjuntosDeMatrimonio">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col" style="width: 70%">Archivo</th>
@@ -279,34 +281,6 @@
                             </div>
                         </div>
     
-    
-                        <div class="row mt-2 pt2 pl-2 pr-2 pt-1">
-                            <div class="col-md-12">
-                                <div class="card card-secondary" id="card-recibo">
-                                    <div class="">
-                                        <h3 class="card-title m-2"></h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="col-md-12 text-center">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="condicionActa" id="condicionOrdinaria" value="1" checked>
-                                                <label class="form-check-label" for="condicionOrdinaria">Ordinario</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="condicionActa" id="condicionExtraordinaria" value="2">
-                                                <label class="form-check-label" for="condicionExtraordinaria">Extraordinario</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="condicionActa" id="condicionEspecial" value="3">
-                                                <label class="form-check-label" for="condicionEspecial">Especial</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
                         <div class="row mt-2 pt2 pl-2 pr-2 pt-1">
                             <div class="col-md-12">
                                 <div class="accordion" id="accordionExample">
@@ -316,9 +290,7 @@
                                         </div>
                                         <div class="" id="headingOne">
                                             <div class="card-body">
-                                                <div class="text-wrap text-uppercase" name="observa">
-                                                
-                                                </div>
+                                                <div class="text-wrap text-uppercase" name="observa"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -333,8 +305,8 @@
     </div>
 </div>
 
-@include('nacimientos.modal-listado_de_nacimientos')
-@include('nacimientos.modal-recibo')
+@include('matrimonios.modal-listado_de_matrimonios')
+@include('matrimonios.modal-recibo')
 
 
 
@@ -348,24 +320,21 @@
 <script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 
-<script src="{{ asset('js/modelo-vista/nacimientos/control_nacimiento-view.js?v=2') }}"></script>
-<script src="{{ asset('js/modelo-vista/nacimientos/control_nacimiento-model.js?v=2') }}"></script>
-<!-- <script src="{{ asset('js/tiff.min.js?v=1') }}"></script> -->
+<script src="{{ asset('js/modelo-vista/matrimonios/control_matrimonio-view.js?v=3') }}"></script>
+<script src="{{ asset('js/modelo-vista/matrimonios/control_matrimonio-model.js?v=3') }}"></script>
 
 <script>
     $(document).ready(function() {
         bsCustomFileInput.init();
-
-  
 
         // Inicia -> vista extendida
         let body = document.getElementsByTagName("body")[0];
         body.classList.add("sidebar-collapse");
         // termina -> vista extendida
 
-        const controlNacimientoView = new ControlNacimientoView(new ControlNacimientoModel(csrf_token));
-        controlNacimientoView.obtenerNacimiento();
-        controlNacimientoView.eventos();
+        const controlMatrimonioView = new ControlMatrimonioView(new ControlMatrimonioModel(csrf_token));
+        controlMatrimonioView.obtenerMatrimonio();
+        controlMatrimonioView.eventos();
 
 
     });

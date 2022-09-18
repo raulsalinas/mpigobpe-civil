@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CentroAsistencial;
+use App\Models\Cobro;
 use App\Models\Defuncion;
 use App\Models\Matrimonio;
 use App\Models\Nacimiento;
@@ -190,6 +191,37 @@ class ControlDeNacimientosController extends Controller
             $error = $ex;
         }
         return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'id' => $nuevorecibo->id ?? '', 'error' => $error), 200);
+    }
+
+    public function guardarCobro(Request $request)
+    {
+        try {
+
+            if ($request->aplicaRecibo == true) {
+                $nuevoCobro = new Cobro();
+                $nuevoCobro->recibo = $request->nro_recibo;
+                $nuevoCobro->tipo ='N';
+                $nuevoCobro->fecha = $request->fecha_recibo;
+                $nuevoCobro->ano = $request->ano;
+                $nuevoCobro->libro = $request->libro;
+                $nuevoCobro->folio = $request->folio;
+                $nuevoCobro->estado ='P';
+                $nuevoCobro->monto = $request->importe_recibo;
+                $nuevoCobro->solicitant = $request->nombre_solicitante_recibo;
+                $nuevoCobro->save();
+            }
+
+            $respuesta = 'ok';
+            $alerta = 'success';
+            $mensaje = 'Cobro registrado con éxito';
+            $error = '';
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = 'error';
+            $mensaje = 'Hubo un problema al registrar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'id' => $nuevoCobro->id ?? '', 'error' => $error), 200);
     }
 
     public function actualizar(Request $request)
