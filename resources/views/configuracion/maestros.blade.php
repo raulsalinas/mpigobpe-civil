@@ -55,17 +55,21 @@
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="ubigeo" role="tabpanel" aria-labelledby="ubigeo-tab">
+                                        <br>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="table-responsive">
                                                             <table class="table table-bordered table-condensed" id="tablaUbigeo">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th width="10">Codigo</th>
-                                                                        <th width="15">Nombre</th>
-                                                                        <th width="5">Acción</th>
+                                                                        <th width="10%">Codigo</th>
+                                                                        <th width="40%">Nombre</th>
+                                                                        <th width="10%">Fecha creación</th>
+                                                                        <th width="10%">Fecha actualización</th>
+                                                                        <th width="10%">Fecha anulación</th>
+                                                                        <th width="5%">Acción</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody></tbody>
@@ -74,19 +78,86 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="centros_asistenciales" role="tabpanel" aria-labelledby="centros_asistenciales-tab">
-
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-condensed" id="tablaCentroAsistencial">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th width="10%">Codigo</th>
+                                                                        <th width="30%">Nombre</th>
+                                                                        <th width="40%">Dirección</th>
+                                                                        <th width="10%">Fecha creación</th>
+                                                                        <th width="10%">Fecha actualización</th>
+                                                                        <th width="10%">Fecha anulación</th>
+                                                                        <th width="5%">Acción</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="tipo_recibos" role="tabpanel" aria-labelledby="tipo_recibos-tab">
-
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-condensed" id="tablaTipoRecibo">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th width="10%">Codigo</th>
+                                                                        <th width="40%">Nombre</th>
+                                                                        <th width="10%">Fecha creación</th>
+                                                                        <th width="10%">Fecha actualización</th>
+                                                                        <th width="10%">Fecha anulación</th>
+                                                                        <th width="5%">Acción</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="motivo_defuncion" role="tabpanel" aria-labelledby="motivo_defuncion-tab">
-
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-condensed" id="tablaMotivoDefuncion">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th width="10%">Codigo</th>
+                                                                        <th width="40%">Nombre</th>
+                                                                        <th width="10%">Fecha creación</th>
+                                                                        <th width="10%">Fecha actualización</th>
+                                                                        <th width="10%">Fecha anulación</th>
+                                                                        <th width="5%">Acción</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -99,6 +170,7 @@
 </div>
 
 @include('configuracion.modal-ubigeo')
+@include('configuracion.modal-centro_asistencial')
 
 
 @endsection
@@ -111,8 +183,10 @@
 <script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 
-<script src="{{ asset('js/modelo-vista/configuraciones/gestionar_usuarios-view.js?v=2') }}"></script>
-<script src="{{ asset('js/modelo-vista/configuraciones/gestionar_usuarios-model.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_ubigeo-view.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_ubigeo-model.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_centro_asistencial-view.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_centro_asistencial-model.js?v=2') }}"></script>
 
 <script>
     $(document).ready(function() {
@@ -125,10 +199,13 @@
         body.classList.add("sidebar-collapse");
         // termina -> vista extendida
 
-        const gestionarUsuariosView = new GestionarUsuariosView(new GestionarUsuariosModel(csrf_token));
-        gestionarUsuariosView.listar();
-        gestionarUsuariosView.eventos();
+        const gestionarMaestroUbigeoView = new GestionarMaestroUbigeoView(new GestionarMaestroUbigeoModel(csrf_token));
+        gestionarMaestroUbigeoView.listarUbigeo();
+        gestionarMaestroUbigeoView.eventos();
 
+        const gestionarMaestroCentroAsistencialView = new GestionarMaestroCentroAsistencialView(new GestionarMaestroCentroAsistencialModel(csrf_token));
+        gestionarMaestroCentroAsistencialView.listarCentroAsistencial();
+        gestionarMaestroCentroAsistencialView.eventos();
 
     });
 </script>

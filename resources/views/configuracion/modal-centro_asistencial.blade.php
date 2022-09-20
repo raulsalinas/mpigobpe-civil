@@ -1,8 +1,8 @@
-<div class="modal fade" id="modal-ubigeo" tabindex="-1" role="dialog" aria-labelledby="modal-ubigeo">
+<div class="modal fade" id="modal-centro_asistencial" tabindex="-1" role="dialog" aria-labelledby="modal-centro_asistencial">
 
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
-            <form id="formulario-ubigeo" method="POST" autocomplete="off">
+            <form id="formulario-centro_asistencial" method="POST" autocomplete="off">
                 <input type="hidden" name="_method" value="POST">
                 <input type="hidden" name="id" value="0">
                 @csrf
@@ -24,8 +24,18 @@
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <label>Nombre:</label>
-                                    <div class="input-group date" data-target-input="nearest">
+                                    <div class="input-group date"  data-target-input="nearest">
                                         <input type="text" class="form-control form-control-sm" name="nombre">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Dirección:</label>
+                                    <div class="input-group date"  data-target-input="nearest">
+                                        <input type="text" class="form-control form-control-sm" name="direccion">
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +58,7 @@
                                     </div>
                                 </div>
                             </div>
-
+ 
                         </div>
                     </div>
                     <div class="modal-footer">

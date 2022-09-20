@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CentroAsistencial;
 use App\Models\Defuncion;
 use App\Models\Nacimiento;
 use App\Models\Ubigeo;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Exception;
@@ -70,7 +72,7 @@ class ConfiguracionController extends Controller
 
     public function listarUbigeo(Request $request)
     {
-        $data = Ubigeo::select("ubigeo.*")
+        $data = Ubigeo::withTrashed()
         ->when((($request->nombre_filtro) !=null && ($request->nombre_filtro) !=''), function ($query)  use ($request) {
             return $query->whereRaw("ubigeo.nombre = '" . $request->nombre_filtro."'");
         });
@@ -78,15 +80,180 @@ class ConfiguracionController extends Controller
         return DataTables::of($data)
         ->addColumn('accion', function ($data) { return 
             '<div class="btn-group" role="group">
-                <button type="button" class="btn btn-xs btn-warning editar" data-id="'.$data->id.'" ><span class="fas fa-edit"></span></button>
+                <button type="button" class="btn btn-xs btn-warning editar" data-id="'.$data->id.'" title="Editar" ><span class="fas fa-edit"></span></button>
             </div>';
         })
-        ->addColumn('accion-seleccionar', function ($data) { return 
+        ->rawColumns(['accion'])->make(true);
+    }
+
+    public function visualizarUbigeo($id){
+        $data = Ubigeo::withTrashed()->find($id);
+        return $data;
+
+    }
+
+    public function guardarUbigeo(Request $request)
+    {
+        try {
+            $error = "";
+            $alerta="";
+            $mensaje="";
+            $respuesta="";
+
+            if (strlen($request->codigo) >0 || strlen($request->nombre) >0) {
+                $ubigeo = new Ubigeo();
+                $ubigeo->codigo = $request->codigo;
+                $ubigeo->nombre = strtoupper($request->nombre??'');
+                $ubigeo->save();
+
+                $respuesta = 'ok';
+                $alerta = 'success';
+                $mensaje = 'Se ha guardado un nuevo registro';
+
+                
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo guardar el registro, debe llenar los campos';
+                $respuesta = 'warning';
+            }
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = strlen($request->codigo);
+            $mensaje = 'Hubo un problema al registrar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
+
+    public function actualizarUbigeo(Request $request)
+    {
+        try {
+            $error = "";
+            $alerta="";
+            $mensaje="";
+            $respuesta="";
+
+            if ($request->id > 0) {
+                $ubigeo = Ubigeo::withTrashed()->find($request->id);
+                if(isset($ubigeo) && $ubigeo->id>0){
+                    $ubigeo->codigo = $request->codigo;
+                    $ubigeo->nombre = strtoupper($request->nombre??'');
+                    if($request->estado=='ACTIVO'){
+                        $ubigeo->deleted_at = null;
+                    }else if($request->estado =='INACTIVO'){
+                        $ubigeo->deleted_at =new Carbon();
+                    }
+                    $ubigeo->save();
+
+                    $respuesta = 'ok';
+                    $alerta = 'success';
+                    $mensaje = 'Se ha actualizado el registro';
+
+                }
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo actualizar el registro';
+            }
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = 'error';
+            $mensaje = 'Hubo un problema al registrar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
+
+
+    public function listarCentroAsistencial(Request $request)
+    {
+        $data = CentroAsistencial::withTrashed()
+        ->when((($request->nombre_filtro) !=null && ($request->nombre_filtro) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("cenasi.nombre = '" . $request->nombre_filtro."'");
+        });
+
+        return DataTables::of($data)
+        ->addColumn('accion', function ($data) { return 
             '<div class="btn-group" role="group">
-            <button type="button" class="btn btn-xs btn-success seleccionar" data-id="'.$data->id.'" >Seleccionar</button>
+                <button type="button" class="btn btn-xs btn-warning editar" data-id="'.$data->id.'" title="Editar" ><span class="fas fa-edit"></span></button>
             </div>';
         })
-        ->rawColumns(['accion','accion-seleccionar'])->make(true);
+        ->rawColumns(['accion'])->make(true);
+    }
+
+    public function visualizarCentroAsistencial($id){
+        $data = CentroAsistencial::withTrashed()->find($id);
+        return $data;
+
+    }
+
+    public function guardarCentroAsistencial(Request $request)
+    {
+        try {
+            $error = "";
+            $alerta="";
+            $mensaje="";
+            $respuesta="";
+
+            if (strlen($request->codigo) >0 || strlen($request->nombre) >0) {
+                $centroAsistencial = new CentroAsistencial();
+                $centroAsistencial->codigo = $request->codigo;
+                $centroAsistencial->nombre = strtoupper($request->nombre??'');
+                $centroAsistencial->direccion = strtoupper($request->direccion??'');
+                $centroAsistencial->save();
+
+                $respuesta = 'ok';
+                $alerta = 'success';
+                $mensaje = 'Se ha guardado un nuevo registro';
+
+                
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo guardar el registro, debe llenar los campos';
+                $respuesta = 'warning';
+            }
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = strlen($request->codigo);
+            $mensaje = 'Hubo un problema al registrar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
+    
+    public function actualizarCentroAsistencial(Request $request)
+    {
+        try {
+            $error = "";
+            $alerta= "";
+            $mensaje= "";
+            $respuesta= ""; 
+
+            if ($request->id > 0) {
+                $centroAsistencial = CentroAsistencial::withTrashed()->find($request->id);
+
+                if($centroAsistencial->id >0){
+                    $centroAsistencial->codigo = $request->codigo;
+                    $centroAsistencial->nombre = strtoupper($request->nombre??'');
+                    $centroAsistencial->direccion = strtoupper($request->direccion??'');
+                    if($request->estado=='ACTIVO'){
+                        $centroAsistencial->deleted_at = null;
+                    }else if($request->estado =='INACTIVO'){
+                        $centroAsistencial->deleted_at =new Carbon();
+                    }
+                    $centroAsistencial->save();
+
+                    $respuesta = 'ok';
+                    $alerta = 'success';
+                    $mensaje = 'Se ha actualizado el registro';
+
+                }
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo actualizar el registro';
+            }
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = 'error';
+            $mensaje = 'Hubo un problema al registrar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
     }
 
 }

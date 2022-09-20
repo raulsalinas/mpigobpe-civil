@@ -121,8 +121,17 @@ Route::middleware(['auth'])->group(function () {
     Route::name('configuracion.')->prefix('configuracion')->group(function () {
         Route::get('gestionar-usuarios', [ConfiguracionController::class, 'gestionarUsuariosIndex'])->name('gestionar-usuarios-index');
         Route::post('listar-usuarios', [ConfiguracionController::class, 'listarUsuarios'])->name('listar-usuarios');
-        Route::post('listar-ubigeo', [ConfiguracionController::class, 'listarUbigeo'])->name('listar-ubigeo');
         Route::get('maestros', [ConfiguracionController::class, 'maestrosIndex'])->name('maestros-index');
+
+        Route::post('listar-ubigeo', [ConfiguracionController::class, 'listarUbigeo'])->name('listar-ubigeo');
+        Route::get('visualizar-ubigeo/{id}', [ConfiguracionController::class, 'visualizarUbigeo'])->name('visualizar-ubigeo');
+        Route::post('guardar-ubigeo', [ConfiguracionController::class, 'guardarUbigeo'])->name('guardar-ubigeo');
+        Route::post('actualizar-ubigeo', [ConfiguracionController::class, 'actualizarUbigeo'])->name('actualizar-ubigeo');
+        
+        Route::post('listar-centro-asistencial', [ConfiguracionController::class, 'listarCentroAsistencial'])->name('listar-centro-asistencial');
+        Route::get('visualizar-centro-asistencial/{id}', [ConfiguracionController::class, 'visualizarCentroAsistencial'])->name('visualizar-centro-asistencial');
+        Route::post('guardar-centro-asistencial', [ConfiguracionController::class, 'guardarCentroAsistencial'])->name('guardar-centro-asistencial');
+        Route::post('actualizar-centro-asistencial', [ConfiguracionController::class, 'actualizarCentroAsistencial'])->name('actualizar-centro-asistencial');
 
     });
 });
