@@ -17,20 +17,20 @@ class GestionarMaestroUbigeoView {
             initComplete: function (settings, json) {
                 const $filter = $('#tablaUbigeo_filter');
                 const $input = $filter.find('input');
-                $filter.append('<button id="btnBuscar" class="btn btn-default btn-sm pull-right" type="button"><i class="fas fa-search"></i></button>');
+                $filter.append('<button id="btnBuscarUbigeo" class="btn btn-default btn-sm pull-right" type="button"><i class="fas fa-search"></i></button>');
                 $input.off();
                 $input.on('keyup', (e) => {
                     if (e.key == 'Enter') {
-                        $('#btnBuscar').trigger('click');
+                        $('#btnBuscarUbigeo').trigger('click');
                     }
                 });
-                $('#btnBuscar').on('click', (e) => {
+                $('#btnBuscarUbigeo').on('click', (e) => {
                     $tabla.search($input.val()).draw();
                 });
             },
             drawCallback: function (settings) {
                 $('#tablaUbigeo_filter input').prop('disabled', false);
-                $('#btnBuscar').html('<i class="fas fa-search"></i>').prop('disabled', false);
+                $('#btnBuscarUbigeo').html('<i class="fas fa-search"></i>').prop('disabled', false);
                 $('#tablaUbigeo_filter input').trigger('focus');
             },
             order: [[0, 'asc']],
@@ -54,6 +54,8 @@ class GestionarMaestroUbigeoView {
                     action: function () {
                         $("#modal-ubigeo").find(".modal-title").text("Nuevo ubigeo");
                         $("#btnAccion").html("Guardar");
+                        $('#formulario-ubigeo')[0].reset();
+
                         document.querySelector("div[id='modal-ubigeo'] button[id='btnAccion']").classList.replace("actualizar","guardar")
                         document.querySelector("div[id='modal-ubigeo'] input[id='estado1']").checked =true;
                          document.querySelector("div[id='modal-ubigeo'] input[id='estado1']").setAttribute('disabled',true);
@@ -70,7 +72,7 @@ class GestionarMaestroUbigeoView {
         });
         $tabla.on('search.dt', function () {
             $('#tablaUbigeo_filter input').attr('disabled', true);
-            $('#btnBuscar').html('<i class="fas fa-clock" aria-hidden="true"></i>').prop('disabled', true);
+            $('#btnBuscarUbigeo').html('<i class="fas fa-clock" aria-hidden="true"></i>').prop('disabled', true);
         });
         $tabla.on('init.dt', function (e, settings, processing) {
             $(e.currentTarget).LoadingOverlay('show', { imageAutoResize: true, progress: true, imageColor: '#3c8dbc' });

@@ -172,6 +172,7 @@
 @include('configuracion.modal-ubigeo')
 @include('configuracion.modal-centro_asistencial')
 @include('configuracion.modal-tipo_registro')
+@include('configuracion.modal-motivo_defuncion')
 
 
 @endsection
@@ -190,6 +191,8 @@
 <script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_centro_asistencial-model.js?v=2') }}"></script>
 <script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_tipo_registro-view.js?v=2') }}"></script>
 <script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_tipo_registro-model.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_motivo_defuncion-view.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_motivo_defuncion-model.js?v=2') }}"></script>
 
 <script>
     $(document).ready(function() {
@@ -216,11 +219,20 @@
         gestionarMaestroTipoRegistroView.listarTipoRegistro();
         gestionarMaestroTipoRegistroView.eventos();
 
+        const gestionarMaestroMotivoDefuncionView = new GestionarMaestroMotivoDefuncionView(new GestionarMaestroMotivoDefuncionModel(csrf_token));
+        gestionarMaestroMotivoDefuncionView.listarMotivoDefuncion();
+        gestionarMaestroMotivoDefuncionView.eventos();
+
    
     });
 
-    $(document).on("click","button.nav-link", function (e) {
-            $( $.fn.dataTable.tables( true ) ).DataTable().columns.adjust();
+    $(document).on("click","li.nav-item", function (e) {
+        setTimeout(
+            function() {
+                $( $.fn.dataTable.tables( true ) ).DataTable().columns.adjust();
+            },
+            500);
+ 
         })
 </script>
 @endsection

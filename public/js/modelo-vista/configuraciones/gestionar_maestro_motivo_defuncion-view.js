@@ -1,5 +1,5 @@
 
-class GestionarMaestroTipoRegistroView {
+class GestionarMaestroMotivoDefuncionView {
 
     constructor(model) {
         this.model = model;
@@ -7,37 +7,37 @@ class GestionarMaestroTipoRegistroView {
     /**
      * Listar mediante DataTables
      */
-    listarTipoRegistro = () => {
-        const $tabla = $('#tablaTipoRegistro').DataTable({
+    listarMotivoDefuncion = () => {
+        const $tabla = $('#tablaMotivoDefuncion').DataTable({
             dom: 'Bfrtip',
             pageLength: 20,
             language: idioma,
             destroy: true,
             serverSide: true,
             initComplete: function (settings, json) {
-                const $filter = $('#tablaTipoRegistro_filter');
+                const $filter = $('#tablaMotivoDefuncion_filter');
                 const $input = $filter.find('input');
-                $filter.append('<button id="btnBuscarTipoRegistro" class="btn btn-default btn-sm pull-right" type="button"><i class="fas fa-search"></i></button>');
+                $filter.append('<button id="btnBuscarMotivoDefuncion" class="btn btn-default btn-sm pull-right" type="button"><i class="fas fa-search"></i></button>');
                 $input.off();
                 $input.on('keyup', (e) => {
                     if (e.key == 'Enter') {
-                        $('#btnBuscarTipoRegistro').trigger('click');
+                        $('#btnBuscarMotivoDefuncion').trigger('click');
                     }
                 });
-                $('#btnBuscarTipoRegistro').on('click', (e) => {
+                $('#btnBuscarMotivoDefuncion').on('click', (e) => {
                     $tabla.search($input.val()).draw();
                 });
 
             },
             drawCallback: function (settings) {
-                $('#tablaTipoRegistro_filter input').prop('disabled', false);
-                $('#btnBuscarTipoRegistro').html('<i class="fas fa-search"></i>').prop('disabled', false);
-                $('#tablaTipoRegistro_filter input').trigger('focus');
+                $('#tablaMotivoDefuncion_filter input').prop('disabled', false);
+                $('#btnBuscarMotivoDefuncion').html('<i class="fas fa-search"></i>').prop('disabled', false);
+                $('#tablaMotivoDefuncion_filter input').trigger('focus');
 
             },
             order: [[0, 'asc']],
             ajax: {
-                url: route('configuracion.listar-tipo-registro'),
+                url: route('configuracion.listar-motivo-defuncion'),
                 method: 'POST',
                 headers: { 'X-CSRF-TOKEN': csrf_token }
             },
@@ -54,15 +54,15 @@ class GestionarMaestroTipoRegistroView {
                 {
                     text: '<i class="fas fa-plus"></i> Nuevo',
                     action: function () {
-                        $("#modal-tipo_registro").find(".modal-title").text("Nuevo Tipo Registro");
+                        $("#modal-motivo_defuncion").find(".modal-title").text("Nuevo Motivo Defunción");
                         $("#btnAccion").html("Guardar");
-                        $('#formulario-tipo_registro')[0].reset();
-                        document.querySelector("div[id='modal-tipo_registro'] button[id='btnAccion']").classList.replace("actualizar","guardar")
-                        document.querySelector("div[id='modal-tipo_registro'] input[id='estado1']").checked =true;
-                         document.querySelector("div[id='modal-tipo_registro'] input[id='estado1']").setAttribute('disabled',true);
-                         document.querySelector("div[id='modal-tipo_registro'] input[id='estado2']").setAttribute('disabled',true);
+                        $('#formulario-motivo_defuncion')[0].reset();
+                        document.querySelector("div[id='modal-motivo_defuncion'] button[id='btnAccion']").classList.replace("actualizar","guardar")
+                        document.querySelector("div[id='modal-motivo_defuncion'] input[id='estado1']").checked =true;
+                         document.querySelector("div[id='modal-motivo_defuncion'] input[id='estado1']").setAttribute('disabled',true);
+                         document.querySelector("div[id='modal-motivo_defuncion'] input[id='estado2']").setAttribute('disabled',true);
 
-                        $("#modal-tipo_registro").modal("show");
+                        $("#modal-motivo_defuncion").modal("show");
 
 
 
@@ -72,8 +72,8 @@ class GestionarMaestroTipoRegistroView {
             ]
         });
         $tabla.on('search.dt', function () {
-            $('#tablaTipoRegistro_filter input').attr('disabled', true);
-            $('#btnBuscarTipoRegistro').html('<i class="fas fa-clock" aria-hidden="true"></i>').prop('disabled', true);
+            $('#tablaMotivoDefuncion_filter input').attr('disabled', true);
+            $('#btnBuscarMotivoDefuncion').html('<i class="fas fa-clock" aria-hidden="true"></i>').prop('disabled', true);
         });
         $tabla.on('init.dt', function (e, settings, processing) {
             $(e.currentTarget).LoadingOverlay('show', { imageAutoResize: true, progress: true, imageColor: '#3c8dbc' });
@@ -97,17 +97,17 @@ class GestionarMaestroTipoRegistroView {
     eventos = () => {
  
      
-        $("#tablaTipoRegistro").on("click", "button.editar", (e) => {
-            document.querySelector("form[id='formulario-tipo_registro'] input[name='id']").value="";
-            document.querySelector("div[id='modal-tipo_registro'] input[id='estado1']").removeAttribute('disabled');
-            document.querySelector("div[id='modal-tipo_registro'] input[id='estado2']").removeAttribute('disabled');
+        $("#tablaMotivoDefuncion").on("click", "button.editar", (e) => {
+            document.querySelector("form[id='formulario-motivo_defuncion'] input[name='id']").value="";
+            document.querySelector("div[id='modal-motivo_defuncion'] input[id='estado1']").removeAttribute('disabled');
+            document.querySelector("div[id='modal-motivo_defuncion'] input[id='estado2']").removeAttribute('disabled');
             $("#btnAccion").html("Actualizar");
-            document.querySelector("div[id='modal-tipo_registro'] button[id='btnAccion']").classList.replace("guardar","actualizar")
-            $("#modal-tipo_registro").find(".modal-title").text("Editar Tipo Registro");
-            $("#modal-tipo_registro").modal("show");
+            document.querySelector("div[id='modal-motivo_defuncion'] button[id='btnAccion']").classList.replace("guardar","actualizar")
+            $("#modal-motivo_defuncion").find(".modal-title").text("Editar Motivo Defunción");
+            $("#modal-motivo_defuncion").modal("show");
             
             if ((e.currentTarget.dataset.id) != null && e.currentTarget.dataset.id > 0) {
-                this.model.cargarDatosMaestroTipoRegistro(e.currentTarget.dataset.id).then((respuesta) => {
+                this.model.cargarDatosMaestroMotivoDefuncion(e.currentTarget.dataset.id).then((respuesta) => {
                     console.log(respuesta);
                     $('[name=id]').val(respuesta.id);
                     $('[name=codigo]').val(respuesta.codigo);
@@ -128,16 +128,16 @@ class GestionarMaestroTipoRegistroView {
 
         });
 
-        $('#formulario-tipo_registro').on("click", "button.actualizar", (e) => {
-            const $form = new FormData($('#formulario-tipo_registro')[0]);
-            const $route = route("configuracion.actualizar-tipo-registro");
-            this.model.registrarMaestroTipoRegistro($form, $route).then((respuesta) => {
+        $('#formulario-motivo_defuncion').on("click", "button.actualizar", (e) => {
+            const $form = new FormData($('#formulario-motivo_defuncion')[0]);
+            const $route = route("configuracion.actualizar-motivo-defuncion");
+            this.model.registrarMaestroMotivoDefuncion($form, $route).then((respuesta) => {
                 console.log(respuesta);
                 Util.mensaje(respuesta.alerta, respuesta.mensaje);
                 if (respuesta.respuesta == "ok") {
-                    document.querySelector("form[id='formulario-tipo_registro'] input[name='id']").value="";
-                    $('#modal-tipo_registro').modal('hide');
-                    $("#tablaTipoRegistro").DataTable().ajax.reload(null, false);
+                    document.querySelector("form[id='formulario-motivo_defuncion'] input[name='id']").value="";
+                    $('#modal-motivo_defuncion').modal('hide');
+                    $("#tablaMotivoDefuncion").DataTable().ajax.reload(null, false);
 
 
                 }
@@ -148,16 +148,16 @@ class GestionarMaestroTipoRegistroView {
 
         });
 
-        $('#formulario-tipo_registro').on("click", "button.guardar", (e) => {
-            const $form = new FormData($('#formulario-tipo_registro')[0]);
-            const $route = route("configuracion.guardar-tipo-registro");
-            this.model.registrarMaestroTipoRegistro($form, $route).then((respuesta) => {
+        $('#formulario-motivo_defuncion').on("click", "button.guardar", (e) => {
+            const $form = new FormData($('#formulario-motivo_defuncion')[0]);
+            const $route = route("configuracion.guardar-motivo-defuncion");
+            this.model.registrarMaestroMotivoDefuncion($form, $route).then((respuesta) => {
                 console.log(respuesta);
                 Util.mensaje(respuesta.alerta, respuesta.mensaje);
                 if (respuesta.respuesta == "ok") {
-                    document.querySelector("form[id='formulario-tipo_registro'] input[name='id']").value="";
-                    $('#modal-tipo_registro').modal('hide');
-                    $("#tablaTipoRegistro").DataTable().ajax.reload(null, false);
+                    document.querySelector("form[id='formulario-motivo_defuncion'] input[name='id']").value="";
+                    $('#modal-motivo_defuncion').modal('hide');
+                    $("#tablaMotivoDefuncion").DataTable().ajax.reload(null, false);
 
                 }
             }).fail(() => {

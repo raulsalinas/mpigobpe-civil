@@ -17,20 +17,20 @@ class GestionarMaestroCentroAsistencialView {
             initComplete: function (settings, json) {
                 const $filter = $('#tablaCentroAsistencial_filter');
                 const $input = $filter.find('input');
-                $filter.append('<button id="btnBuscar" class="btn btn-default btn-sm pull-right" type="button"><i class="fas fa-search"></i></button>');
+                $filter.append('<button id="btnBuscarCentroAsistencial" class="btn btn-default btn-sm pull-right" type="button"><i class="fas fa-search"></i></button>');
                 $input.off();
                 $input.on('keyup', (e) => {
                     if (e.key == 'Enter') {
-                        $('#btnBuscar').trigger('click');
+                        $('#btnBuscarCentroAsistencial').trigger('click');
                     }
                 });
-                $('#btnBuscar').on('click', (e) => {
+                $('#btnBuscarCentroAsistencial').on('click', (e) => {
                     $tabla.search($input.val()).draw();
                 });
             },
             drawCallback: function (settings) {
                 $('#tablaCentroAsistencial_filter input').prop('disabled', false);
-                $('#btnBuscar').html('<i class="fas fa-search"></i>').prop('disabled', false);
+                $('#btnBuscarCentroAsistencial').html('<i class="fas fa-search"></i>').prop('disabled', false);
                 $('#tablaCentroAsistencial_filter input').trigger('focus');
             },
             order: [[0, 'asc']],
@@ -55,6 +55,7 @@ class GestionarMaestroCentroAsistencialView {
                     action: function () {
                         $("#modal-centro_asistencial").find(".modal-title").text("Nuevo Centro Asistencial");
                         $("#btnAccion").html("Guardar");
+                        $('#formulario-centro_asistencial')[0].reset();
                         document.querySelector("div[id='modal-centro_asistencial'] button[id='btnAccion']").classList.replace("actualizar","guardar")
                         document.querySelector("div[id='modal-ubigeo'] input[id='estado1']").checked =true;
                         document.querySelector("div[id='modal-ubigeo'] input[id='estado1']").setAttribute('disabled',true);
@@ -71,7 +72,7 @@ class GestionarMaestroCentroAsistencialView {
         });
         $tabla.on('search.dt', function () {
             $('#tablaCentroAsistencial_filter input').attr('disabled', true);
-            $('#btnBuscar').html('<i class="fas fa-clock" aria-hidden="true"></i>').prop('disabled', true);
+            $('#btnBuscarCentroAsistencial').html('<i class="fas fa-clock" aria-hidden="true"></i>').prop('disabled', true);
         });
         $tabla.on('init.dt', function (e, settings, processing) {
             $(e.currentTarget).LoadingOverlay('show', { imageAutoResize: true, progress: true, imageColor: '#3c8dbc' });

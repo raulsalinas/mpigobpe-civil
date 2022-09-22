@@ -11,5 +11,5 @@ class MotivoDefuncion extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'public.motvos';
-    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+    // protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 }

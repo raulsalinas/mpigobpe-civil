@@ -138,5 +138,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('guardar-tipo-registro', [ConfiguracionController::class, 'guardarTipoRegistro'])->name('guardar-tipo-registro');
         Route::post('actualizar-tipo-registro', [ConfiguracionController::class, 'actualizarTipoRegistro'])->name('actualizar-tipo-registro');
 
+        Route::post('listar-motivo-defuncion', [ConfiguracionController::class, 'listarMotivoDefuncion'])->name('listar-motivo-defuncion');
+        Route::get('visualizar-motivo-defuncion/{id}', [ConfiguracionController::class, 'visualizarMotivoDefuncion'])->name('visualizar-motivo-defuncion');
+        Route::post('guardar-motivo-defuncion', [ConfiguracionController::class, 'guardarMotivoDefuncion'])->name('guardar-motivo-defuncion');
+        Route::post('actualizar-motivo-defuncion', [ConfiguracionController::class, 'actualizarMotivoDefuncion'])->name('actualizar-motivo-defuncion');
+
     });
 });

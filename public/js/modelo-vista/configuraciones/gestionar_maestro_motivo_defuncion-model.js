@@ -1,19 +1,19 @@
-class GestionarMaestroTipoRegistroModel {
+class GestionarMaestroMotivoDefuncionModel {
 
     constructor(token) {
         this.token = token;
     }
 
-    cargarDatosMaestroTipoRegistro = (id) => {
+    cargarDatosMaestroMotivoDefuncion = (id) => {
         return $.ajax({
-            url: route("configuracion.visualizar-tipo-registro", id),
+            url: route("configuracion.visualizar-motivo-defuncion", id),
             type: "GET",
             dataType: "JSON",
             data: { _token: this.token },
         });
     }
 
-    registrarMaestroTipoRegistro = (data, route) => {
+    registrarMaestroMotivoDefuncion = (data, route) => {
         return $.ajax({
             url: route,
             type: "POST",
