@@ -60,6 +60,10 @@ class GestionarUsuariosView {
                 { data: 'usuario',className: 'text-center' },
                 { data: 'correo' },
                 { data: 'nombre_largo' },
+                { data: 'es_administrador' ,'render': function (data, type, row, index) {
+                    return row.es_administrador ==true?'Administrador':'Usuario Regular';
+                }
+                },
                 { data: 'created_at' },
                 { data: 'updated_at' },
                 { data: 'deleted_at' },
@@ -71,6 +75,7 @@ class GestionarUsuariosView {
                     action: function () {
                         $("#modal-usuario").find(".modal-title").text("Nuevo usuario");
                         $("#btnAccion").html("Guardar");
+                        $('#formulario-usuario')[0].reset();
                         document.querySelector("div[id='modal-usuario'] button[id='btnAccion']").classList.replace("actualizar","guardar")
 
                         $("#modal-usuario").modal("show");
@@ -106,10 +111,70 @@ class GestionarUsuariosView {
         $("#tablaUsuario").on("click", "button.editar", (e) => {
             $("#btnAccion").html("Actualizar");
             document.querySelector("div[id='modal-usuario'] button[id='btnAccion']").classList.replace("guardar","actualizar")
-            $("#modal-usuario").find(".modal-title").text("Editar usuario");
+            $("#modal-usuario").find(".modal-title").text("Editar Usuario");
             $("#modal-usuario").modal("show");
 
-       
+            if ((e.currentTarget.dataset.id) != null && e.currentTarget.dataset.id > 0) {
+                this.model.cargarDatosUsuario(e.currentTarget.dataset.id).then((respuesta) => {
+                    console.log(respuesta);
+                    $('[name=id]').val(respuesta.id);
+                    $('[name=usuario]').val(respuesta.usuario);
+                    $('[name=nombre_corto]').val(respuesta.nombre_corto);
+                    $('[name=nombre_largo]').val(respuesta.nombre_largo);
+                    $('[name=correo]').val(respuesta.correo);
+                    // $('[name=password]').val(respuesta.password);
+                    if(respuesta.deleted_at ==null || respuesta.deleted_at =='' ){
+                        $('[id=estado1]').prop("checked", true);
+                    }else{
+                        $('[id=estado2]').prop("checked", true);
+
+                    }
+    
+    
+                }).fail(() => {
+                    Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
+                });
+            } else {
+            }
+        });
+
+
+        $('#formulario-usuario').on("click", "button.actualizar", (e) => {
+            const $form = new FormData($('#formulario-usuario')[0]);
+            const $route = route("configuracion.actualizar-usuario");
+            this.model.registrarUsuario($form, $route).then((respuesta) => {
+                console.log(respuesta);
+                Util.mensaje(respuesta.alerta, respuesta.mensaje);
+                if (respuesta.respuesta == "ok") {
+                    document.querySelector("form[id='formulario-usuario'] input[name='id']").value="";
+                    $('#modal-usuario').modal('hide');
+                    $("#tablaUsuario").DataTable().ajax.reload(null, false);
+
+
+                }
+            }).fail(() => {
+                Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
+            }).always(() => {
+            });
+
+        });
+        $('#formulario-usuario').on("click", "button.guardar", (e) => {
+            const $form = new FormData($('#formulario-usuario')[0]);
+            const $route = route("configuracion.guardar-usuario");
+            this.model.registrarUsuario($form, $route).then((respuesta) => {
+                console.log(respuesta);
+                Util.mensaje(respuesta.alerta, respuesta.mensaje);
+                if (respuesta.respuesta == "ok") {
+                    document.querySelector("form[id='formulario-usuario'] input[name='id']").value="";
+                    $('#modal-usuario').modal('hide');
+                    $("#tablaUsuario").DataTable().ajax.reload(null, false);
+
+
+                }
+            }).fail(() => {
+                Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
+            }).always(() => {
+            });
 
         });
 

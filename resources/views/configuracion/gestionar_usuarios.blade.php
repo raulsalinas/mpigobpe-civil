@@ -47,6 +47,7 @@
                                             <th style="width: 20%">Usuario</th>
                                             <th style="width: 30%">Correo</th>
                                             <th style="width: 40%">Nombre</th>
+                                            <th style="width: 40%">Rol</th>
                                             <th style="width: 10%">Fecha creación</th>
                                             <th style="width: 10%">Fecha actualización</th>
                                             <th style="width: 10%">Fecha anulación</th>

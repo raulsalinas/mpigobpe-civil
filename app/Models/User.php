@@ -26,5 +26,5 @@ class User extends Authenticatable
     /**
      * Atributos ocultos para el Modelo
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['remember_token'];
 }

@@ -17,7 +17,7 @@
                                 <div class="form-group">
                                     <label>Nombres completo:</label>
                                     <div class="input-group date" data-target-input="nearest">
-                                        <input type="text" class="form-control form-control-sm" name="anio_eje_filtro">
+                                        <input type="text" class="form-control form-control-sm" name="nombre_largo">
                                     </div>
                                 </div>
                             </div>
@@ -25,7 +25,7 @@
                                 <div class="form-group">
                                     <label>Nombre corto:</label>
                                     <div class="input-group date"  data-target-input="nearest">
-                                        <input type="text" class="form-control form-control-sm" name="nro_lib_filtro">
+                                        <input type="text" class="form-control form-control-sm" name="nombre_corto">
                                     </div>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                                 <div class="form-group">
                                     <label>Correo:</label>
                                     <div class="input-group date" data-target-input="nearest">
-                                        <input type="text" class="form-control form-control-sm" name="nro_fol_filtro">
+                                        <input type="text" class="form-control form-control-sm" name="correo">
                                     </div>
                                 </div>
                             </div>
@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                     <label>Usuario:</label>
                                     <div class="input-group date"  data-target-input="nearest">
-                                        <input type="text" class="form-control form-control-sm" name="apellido_paterno_filtro">
+                                        <input type="text" class="form-control form-control-sm" name="usuario">
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                 <div class="form-group">
                                     <label>Contraseña:</label>
                                     <div class="input-group date"  data-target-input="nearest">
-                                        <input type="text" class="form-control form-control-sm" name="apellido_materno_filtro">
+                                        <input type="password" class="form-control form-control-sm" name="password">
                                     </div>
                                 </div>
                             </div>
@@ -71,8 +71,8 @@
                                 <label class="form-check-label" for="inlineRadio3">Especial</label>
                                 </div> -->
                                 <div class="form-group form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Acceso como administrador</label>
+                                    <input type="checkbox" class="form-check-input" name="es_administrador">
+                                    <label class="form-check-label" for="es_administrador">Acceso como administrador</label>
                                 </div>
                             </div>
                         </div>

@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Exception;
+use Illuminate\Support\Facades\Hash;
 
 class ConfiguracionController extends Controller
 {
@@ -70,6 +71,91 @@ class ConfiguracionController extends Controller
             </div>';
         })
         ->rawColumns(['accion','accion-seleccionar'])->make(true);
+    }
+
+    public function visualizarUsuario($id){
+        $data = User::withTrashed()->find($id);
+        return $data;
+
+    }
+
+    public function guardarUsuario(Request $request)
+    {
+        try {
+            $error = "";
+            $alerta="";
+            $mensaje="";
+            $respuesta="";
+
+            if (strlen($request->usuario) >0 || strlen($request->password) >0) {
+                $usuario = new User();
+                $usuario->usuario = $request->usuario;
+                $usuario->nombre_largo = $request->nombre_largo;
+                $usuario->nombre_corto = $request->nombre_corto;
+                $usuario->correo = $request->correo;
+                $usuario->password = Hash::make($request->password);
+                $usuario->es_administrador = (isset($request->es_administrador) ==true)?true:false;
+                $usuario->save();
+
+                $respuesta = 'ok';
+                $alerta = 'success';
+                $mensaje = 'Se ha guardado un nuevo registro';
+
+                
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo guardar el registro, debe llenar los campos';
+                $respuesta = 'warning';
+            }
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = strlen($request->codigo);
+            $mensaje = 'Hubo un problema al registrar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
+
+    public function actualizarUsuario(Request $request)
+    {
+        try {
+            $error = "";
+            $alerta="";
+            $mensaje="";
+            $respuesta="";
+
+            if ($request->id > 0) {
+                $usuario = User::withTrashed()->find($request->id);
+                if(isset($usuario) && $usuario->id>0){
+                    $usuario->usuario = $request->usuario;
+                    $usuario->nombre_largo = $request->nombre_largo;
+                    $usuario->nombre_corto = $request->nombre_corto;
+                    $usuario->correo = $request->correo;
+                    $usuario->password = Hash::make($request->password);
+                    $usuario->es_administrador = (isset($request->es_administrador) ==true)?true:false;
+
+
+                    if($request->estado=='ACTIVO'){
+                        $usuario->deleted_at = null;
+                    }else if($request->estado =='INACTIVO'){
+                        $usuario->deleted_at =new Carbon();
+                    }
+                    $usuario->save();
+
+                    $respuesta = 'ok';
+                    $alerta = 'success';
+                    $mensaje = 'Se ha actualizado el registro';
+
+                }
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo actualizar el registro';
+            }
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = 'error';
+            $mensaje = 'Hubo un problema al registrar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
     }
 
     public function listarUbigeo(Request $request)
