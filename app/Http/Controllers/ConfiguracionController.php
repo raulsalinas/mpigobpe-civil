@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CentroAsistencial;
 use App\Models\Defuncion;
 use App\Models\Nacimiento;
+use App\Models\TipoRegistro;
 use App\Models\Ubigeo;
 use App\Models\User;
 use Carbon\Carbon;
@@ -256,4 +257,97 @@ class ConfiguracionController extends Controller
         return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
     }
 
+    public function listarTipoRegistro(Request $request)
+    {
+        $data = TipoRegistro::withTrashed()
+        ->when((($request->nombre_filtro) !=null && ($request->nombre_filtro) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("cenasi.nombre = '" . $request->nombre_filtro."'");
+        });
+
+        return DataTables::of($data)
+        ->addColumn('accion', function ($data) { return 
+            '<div class="btn-group" role="group">
+                <button type="button" class="btn btn-xs btn-warning editar" data-id="'.$data->id.'" title="Editar" ><span class="fas fa-edit"></span></button>
+            </div>';
+        })
+        ->rawColumns(['accion'])->make(true);
+    }
+
+    public function visualizarTipoRegistro($id){
+        $data = TipoRegistro::withTrashed()->find($id);
+        return $data;
+
+    }
+
+    public function guardarTipoRegistro(Request $request)
+    {
+        try {
+            $error = "";
+            $alerta="";
+            $mensaje="";
+            $respuesta="";
+
+            if (strlen($request->codigo) >0 || strlen($request->nombre) >0) {
+                $centroAsistencial = new TipoRegistro();
+                $centroAsistencial->codigo = $request->codigo;
+                $centroAsistencial->nombre = strtoupper($request->nombre??'');
+                $centroAsistencial->direccion = strtoupper($request->direccion??'');
+                $centroAsistencial->save();
+
+                $respuesta = 'ok';
+                $alerta = 'success';
+                $mensaje = 'Se ha guardado un nuevo registro';
+
+                
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo guardar el registro, debe llenar los campos';
+                $respuesta = 'warning';
+            }
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = strlen($request->codigo);
+            $mensaje = 'Hubo un problema al registrar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
+    
+    public function actualizarTipoRegistro(Request $request)
+    {
+        try {
+            $error = "";
+            $alerta= "";
+            $mensaje= "";
+            $respuesta= ""; 
+
+            if ($request->id > 0) {
+                $centroAsistencial = TipoRegistro::withTrashed()->find($request->id);
+
+                if($centroAsistencial->id >0){
+                    $centroAsistencial->codigo = $request->codigo;
+                    $centroAsistencial->nombre = strtoupper($request->nombre??'');
+                    $centroAsistencial->direccion = strtoupper($request->direccion??'');
+                    if($request->estado=='ACTIVO'){
+                        $centroAsistencial->deleted_at = null;
+                    }else if($request->estado =='INACTIVO'){
+                        $centroAsistencial->deleted_at =new Carbon();
+                    }
+                    $centroAsistencial->save();
+
+                    $respuesta = 'ok';
+                    $alerta = 'success';
+                    $mensaje = 'Se ha actualizado el registro';
+
+                }
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo actualizar el registro';
+            }
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = 'error';
+            $mensaje = 'Hubo un problema al registrar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
 }

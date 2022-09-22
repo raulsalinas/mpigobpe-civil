@@ -133,5 +133,10 @@ Route::middleware(['auth'])->group(function () {
         Route::post('guardar-centro-asistencial', [ConfiguracionController::class, 'guardarCentroAsistencial'])->name('guardar-centro-asistencial');
         Route::post('actualizar-centro-asistencial', [ConfiguracionController::class, 'actualizarCentroAsistencial'])->name('actualizar-centro-asistencial');
 
+        Route::post('listar-tipo-registro', [ConfiguracionController::class, 'listarTipoRegistro'])->name('listar-tipo-registro');
+        Route::get('visualizar-tipo-registro/{id}', [ConfiguracionController::class, 'visualizarTipoRegistro'])->name('visualizar-tipo-registro');
+        Route::post('guardar-tipo-registro', [ConfiguracionController::class, 'guardarTipoRegistro'])->name('guardar-tipo-registro');
+        Route::post('actualizar-tipo-registro', [ConfiguracionController::class, 'actualizarTipoRegistro'])->name('actualizar-tipo-registro');
+
     });
 });

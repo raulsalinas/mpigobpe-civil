@@ -47,7 +47,7 @@
                                         <button class="nav-link" id="centros_asistenciales-tab" data-toggle="tab" data-target="#centros_asistenciales" type="button" role="tab" aria-controls="centros_asistenciales" aria-selected="false">Centros Asistenciales</button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="tipo_recibos-tab" data-toggle="tab" data-target="#tipo_recibos" type="button" role="tab" aria-controls="tipo_recibos" aria-selected="false">Tipo de Recibos</button>
+                                        <button class="nav-link" id="tipo_registro-tab" data-toggle="tab" data-target="#tipo_registro" type="button" role="tab" aria-controls="tipo_registro" aria-selected="false">Tipo de Registros</button>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="motivo_defuncion-tab" data-toggle="tab" data-target="#motivo_defuncion" type="button" role="tab" aria-controls="motivo_defuncion" aria-selected="false">Motivos de Defunción</button>
@@ -64,8 +64,8 @@
                                                             <table class="table table-bordered table-condensed" id="tablaUbigeo">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th width="10%">Codigo</th>
-                                                                        <th width="40%">Nombre</th>
+                                                                        <th width="5%">Codigo</th>
+                                                                        <th width="60%">Nombre</th>
                                                                         <th width="10%">Fecha creación</th>
                                                                         <th width="10%">Fecha actualización</th>
                                                                         <th width="10%">Fecha anulación</th>
@@ -90,12 +90,12 @@
                                                             <table class="table table-bordered table-condensed" id="tablaCentroAsistencial">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th width="10%">Codigo</th>
+                                                                        <th width="5%">Codigo</th>
                                                                         <th width="30%">Nombre</th>
-                                                                        <th width="40%">Dirección</th>
-                                                                        <th width="10%">Fecha creación</th>
-                                                                        <th width="10%">Fecha actualización</th>
-                                                                        <th width="10%">Fecha anulación</th>
+                                                                        <th width="30%">Dirección</th>
+                                                                        <th width="5%">Fecha creación</th>
+                                                                        <th width="5%">Fecha actualización</th>
+                                                                        <th width="5%">Fecha anulación</th>
                                                                         <th width="5%">Acción</th>
                                                                     </tr>
                                                                 </thead>
@@ -107,21 +107,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="tipo_recibos" role="tabpanel" aria-labelledby="tipo_recibos-tab">
+                                    <div class="tab-pane fade" id="tipo_registro" role="tabpanel" aria-labelledby="tipo_registro-tab">
                                         <br>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="table-responsive">
-                                                            <table class="table table-bordered table-condensed" id="tablaTipoRecibo">
+                                                            <table class="table table-bordered table-condensed" id="tablaTipoRegistro">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th width="10%">Codigo</th>
-                                                                        <th width="40%">Nombre</th>
-                                                                        <th width="10%">Fecha creación</th>
-                                                                        <th width="10%">Fecha actualización</th>
-                                                                        <th width="10%">Fecha anulación</th>
+                                                                        <th width="5%">Codigo</th>
+                                                                        <th width="75%">Nombre</th>
+                                                                        <th width="5%">Fecha creación</th>
+                                                                        <th width="5%">Fecha actualización</th>
+                                                                        <th width="5%">Fecha anulación</th>
                                                                         <th width="5%">Acción</th>
                                                                     </tr>
                                                                 </thead>
@@ -143,7 +143,7 @@
                                                             <table class="table table-bordered table-condensed" id="tablaMotivoDefuncion">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th width="10%">Codigo</th>
+                                                                        <th width="5%">Codigo</th>
                                                                         <th width="40%">Nombre</th>
                                                                         <th width="10%">Fecha creación</th>
                                                                         <th width="10%">Fecha actualización</th>
@@ -171,6 +171,7 @@
 
 @include('configuracion.modal-ubigeo')
 @include('configuracion.modal-centro_asistencial')
+@include('configuracion.modal-tipo_registro')
 
 
 @endsection
@@ -187,6 +188,8 @@
 <script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_ubigeo-model.js?v=2') }}"></script>
 <script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_centro_asistencial-view.js?v=2') }}"></script>
 <script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_centro_asistencial-model.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_tipo_registro-view.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_tipo_registro-model.js?v=2') }}"></script>
 
 <script>
     $(document).ready(function() {
@@ -199,6 +202,8 @@
         body.classList.add("sidebar-collapse");
         // termina -> vista extendida
 
+
+        
         const gestionarMaestroUbigeoView = new GestionarMaestroUbigeoView(new GestionarMaestroUbigeoModel(csrf_token));
         gestionarMaestroUbigeoView.listarUbigeo();
         gestionarMaestroUbigeoView.eventos();
@@ -207,6 +212,15 @@
         gestionarMaestroCentroAsistencialView.listarCentroAsistencial();
         gestionarMaestroCentroAsistencialView.eventos();
 
+        const gestionarMaestroTipoRegistroView = new GestionarMaestroTipoRegistroView(new GestionarMaestroTipoRegistroModel(csrf_token));
+        gestionarMaestroTipoRegistroView.listarTipoRegistro();
+        gestionarMaestroTipoRegistroView.eventos();
+
+   
     });
+
+    $(document).on("click","button.nav-link", function (e) {
+            $( $.fn.dataTable.tables( true ) ).DataTable().columns.adjust();
+        })
 </script>
 @endsection
