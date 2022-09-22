@@ -13,17 +13,31 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ConfiguracionController extends Controller
 {
     public function gestionarUsuariosIndex(Request $request)
     {
-        return view('configuracion.gestionar_usuarios', get_defined_vars());
+        if(Auth::user()->es_administrador==true){
+            
+            return view('configuracion.gestionar_usuarios', get_defined_vars());
+        }else{
+            return view('bloqueo', get_defined_vars());
+
+        }
     }
     public function maestrosIndex(Request $request)
     {
-        return view('configuracion.maestros', get_defined_vars());
+        if(Auth::user()->es_administrador==true){
+            
+            return view('configuracion.maestros', get_defined_vars());
+        }else{
+            return view('bloqueo', get_defined_vars());
+
+        }
+
     }
 
     public function listarUsuarios(Request $request)
