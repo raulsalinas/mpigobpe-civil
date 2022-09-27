@@ -63,7 +63,7 @@ class ListadoDefuncionView {
                 { data: 'ape_pat_de' },
                 { data: 'ape_mat_de' },
                 { data: 'nom_des' },
-                { data: 'motivo_defuncion' },
+                { data: 'motivo_defuncion', name:'motvos.nombre' },
                 { data: 'fch_des'},
                 { data: 'usuario' },
                 { data: 'accion', orderable: false, searchable: false, className: 'text-center' }
