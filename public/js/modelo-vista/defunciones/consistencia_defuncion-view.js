@@ -20,8 +20,8 @@ class ConsistenciaDefuncionView {
                 ano_des= (document.querySelector("form[id='"+formId+"'] input[name='ano_des']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='ano_des']").value).toString():'SIN_DATA';
                 nro_lib= (document.querySelector("form[id='"+formId+"'] input[name='nro_lib']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='nro_lib']").value).toString():'SIN_DATA';
                 usuario= (document.querySelector("form[id='"+formId+"'] select[name='usuario']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] select[name='usuario']").value).toString():'SIN_DATA';
-                fch_des_desde= (document.querySelector("form[id='"+formId+"'] input[name='fch_des_desde']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='fch_des_desde']").value).toString():'SIN_DATA';
-                fch_des_hasta= (document.querySelector("form[id='"+formId+"'] input[name='fch_des_hasta']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='fch_des_hasta']").value).toString():'SIN_DATA';
+                // fch_des_desde= (document.querySelector("form[id='"+formId+"'] input[name='fch_des_desde']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='fch_des_desde']").value).toString():'SIN_DATA';
+                // fch_des_hasta= (document.querySelector("form[id='"+formId+"'] input[name='fch_des_hasta']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='fch_des_hasta']").value).toString():'SIN_DATA';
                 
                 if(ano_des == null || ano_des== "SIN_DATA"){
                     mensaje.push("Campo de año");

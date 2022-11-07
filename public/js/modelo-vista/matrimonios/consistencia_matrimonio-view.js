@@ -20,8 +20,8 @@ class ConsistenciaMatrimonioView {
                 ano_cel= (document.querySelector("form[id='"+formId+"'] input[name='ano_cel']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='ano_cel']").value).toString():'SIN_DATA';
                 nro_lib= (document.querySelector("form[id='"+formId+"'] input[name='nro_lib']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='nro_lib']").value).toString():'SIN_DATA';
                 usuario= (document.querySelector("form[id='"+formId+"'] select[name='usuario']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] select[name='usuario']").value).toString():'SIN_DATA';
-                fch_cel_desde= (document.querySelector("form[id='"+formId+"'] input[name='fch_cel_desde']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='fch_cel_desde']").value).toString():'SIN_DATA';
-                fch_cel_hasta= (document.querySelector("form[id='"+formId+"'] input[name='fch_cel_hasta']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='fch_cel_hasta']").value).toString():'SIN_DATA';
+                // fch_cel_desde= (document.querySelector("form[id='"+formId+"'] input[name='fch_cel_desde']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='fch_cel_desde']").value).toString():'SIN_DATA';
+                // fch_cel_hasta= (document.querySelector("form[id='"+formId+"'] input[name='fch_cel_hasta']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='fch_cel_hasta']").value).toString():'SIN_DATA';
                 
                 if(ano_cel == null || ano_cel== "SIN_DATA"){
                     mensaje.push("Campo de año");

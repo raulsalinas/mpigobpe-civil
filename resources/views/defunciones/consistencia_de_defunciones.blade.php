@@ -78,20 +78,6 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label>Desde *</label>
-                                            <input type="date" class="form-control form-control-sm" name="fch_des_desde" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label>Hasta *</label>
-                                            <input type="date" class="form-control form-control-sm" name="fch_des_hasta" placeholder="">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-4">
                                         <button type="button" class="btn btn-block btn-success btn-xs ejecutarConsistenciaTodoLosRegistros">Ejecutar</button>
                                     </div>

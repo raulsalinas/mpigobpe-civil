@@ -76,7 +76,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+<!-- 
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="form-group">
@@ -90,7 +90,7 @@
                                             <input type="date" class="form-control form-control-sm" name="fch_cel_hasta" placeholder="">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="row">
                                     <div class="col-md-4">
                                         <button type="button" class="btn btn-block btn-success btn-xs ejecutarConsistenciaTodoLosRegistros">Ejecutar</button>

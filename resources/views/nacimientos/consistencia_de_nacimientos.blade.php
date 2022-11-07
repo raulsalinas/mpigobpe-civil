@@ -87,7 +87,7 @@
                                                 <select class="form-control form-control-sm" name="ubigeo">
                                                     <option value="SIN_DATA">Seleccione una opción</option>
                                                     @foreach ($ubigeoList as $ubigeo)
-                                                    <option value="{{$ubigeo->codigo}}">{{$ubigeo->nombre}}</option>
+                                                    <option value="{{$ubigeo->codigo}}">{{$ubigeo->nombre}} ({{$ubigeo->codigo}})</option>
                                                     @endforeach
                                             </select>
                                         </div>
@@ -298,7 +298,7 @@
                                             <select class="form-control form-control-sm" name="ubigeo">
                                                 <option value="">Seleccione una opción</option>
                                                 @foreach ($ubigeoList as $ubigeo)
-                                                <option value="{{$ubigeo->codigo}}">{{$ubigeo->nombre}}</option>
+                                                <option value="{{$ubigeo->codigo}}">{{$ubigeo->nombre}} ({{$ubigeo->codigo}})</option>
                                                 @endforeach
                                             </select>
                                         </div>

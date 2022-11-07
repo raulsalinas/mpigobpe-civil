@@ -53,9 +53,12 @@ class ConsistenciaDeDefuncionesController extends Controller
         }
 
         $defunciones = Defuncion::select('defun.*', 
-        'tipregmat.nombre as tipo_registro'
+        'tipregmat.nombre as tipo_registro',
+        'motvos.nombre AS motivo',
+
         )
         ->leftJoin('public.tipregmat', 'tipregmat.codigo', '=', 'defun.cod_reg')
+        ->leftJoin('public.motvos', 'motvos.codigo', '=', 'defun.cod_mot')
         ->where($donde)
         ->orderBy('defun.fch_des','asc')
         ->limit(100)

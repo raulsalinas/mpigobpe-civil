@@ -26,8 +26,8 @@ class ConsistenciaNacimientoView {
                 ubigeo= (document.querySelector("form[id='"+formId+"'] select[name='ubigeo']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] select[name='ubigeo']").value).toString():'SIN_DATA';
                 usuario= (document.querySelector("form[id='"+formId+"'] select[name='usuario']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] select[name='usuario']").value).toString():'SIN_DATA';
                 cen_asi= (document.querySelector("form[id='"+formId+"'] select[name='cen_asi']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] select[name='cen_asi']").value).toString():'SIN_DATA';
-                fch_nac_desde= (document.querySelector("form[id='"+formId+"'] input[name='fch_nac_desde']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='fch_nac_desde']").value).toString():'SIN_DATA';
-                fch_nac_hasta= (document.querySelector("form[id='"+formId+"'] input[name='fch_nac_hasta']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='fch_nac_hasta']").value).toString():'SIN_DATA';
+                // fch_nac_desde= (document.querySelector("form[id='"+formId+"'] input[name='fch_nac_desde']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='fch_nac_desde']").value).toString():'SIN_DATA';
+                // fch_nac_hasta= (document.querySelector("form[id='"+formId+"'] input[name='fch_nac_hasta']").value).toString().length>0?(document.querySelector("form[id='"+formId+"'] input[name='fch_nac_hasta']").value).toString():'SIN_DATA';
                 
                 if(ano_nac == null || ano_nac== "SIN_DATA"){
                     mensaje.push("Campo de año");
