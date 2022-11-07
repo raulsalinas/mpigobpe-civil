@@ -70,16 +70,30 @@ class ListadoDefuncionView {
             ],
             buttons: [
                 {
-                    text: '<i class="fas fa-filter"></i> Filtrar',
+                    text: '<i class="fas fa-filter"></i> Filtrar: 0',
                     action: function () {
-                        $("#modal-filtro_matrimonio").find(".modal-title").text("Filtrar defunciones");
-                        // $("#btnFiltrar").html("Registrar");
-                        // $("#btnFiltrar").data("evento", "registrar");
-                        $("#modal-filtro_matrimonio").modal("show");
+                        $("#modal-filtro_defunciones").find(".modal-title").text("Filtrar defunciones");
+                        $("#modal-filtro_defunciones").modal("show");
 
 
                     },
                     className: 'btn btn-sm btn-info filtrar',
+                    attr:  {
+                        id: 'btnFiltrarDefunciones'
+                    }
+                },
+                {
+                    text: '<i class="fas fa-clear"></i> Limpiar filtros activos',
+                    action: ()=> {
+                        document.getElementById('formulario-filtro-defunciones').reset();
+                        document.querySelector("div[id='tablaDefuncion_wrapper'] button[id='btnFiltrarDefunciones']").innerHTML='<i class="fas fa-filter"></i> Filtrar: 0';
+                        this.listar(null);
+
+                    },
+                    className: 'btn btn-sm btn-default limpiar',
+                    attr:  {
+                        id: 'btnLimpiarFiltroDefunciones'
+                    }
                 }
             ]
         });
@@ -119,29 +133,29 @@ class ListadoDefuncionView {
         /**
          * filtrar - Filtrar de listado de matrimonio
          */
-        $("#modal-filtro_matrimonio").on("click", "button.filtrar", (e) => {
-            const $modal=$("#modal-filtro_matrimonio");
+        $("#modal-filtro_defunciones").on("click", "button.filtrar", (e) => {
+            const $modal=$("#modal-filtro_defunciones");
 
-            let anioEjeFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='anio_eje_filtro']").value;
-            let nroLibFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='nro_lib_filtro']").value;
-            let nroFolFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='nro_fol_filtro']").value;
-            let apellidoPaternoFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='apellido_paterno_filtro']").value;
-            let apellidoMaternoFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='apellido_materno_filtro']").value;
-            let nombresFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='nombres_filtro']").value;
-            let fechaDesdeFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='fecha_desde_filtro']").value;
-            let fechaHastaFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='fecha_hasta_filtro']").value;
-
-            let condicionFiltro;
-            let condicion= document.querySelectorAll("div[id='modal-filtro_matrimonio'] input[name='condicionActaRadioOptions']");
-            condicion.forEach(element => {
-                if(element.checked){
-                    condicionFiltro=element.value;
-                }
-            });
-
-
-            this.listar(anioEjeFiltro,nroLibFiltro,nroFolFiltro,apellidoPaternoFiltro,apellidoMaternoFiltro,nombresFiltro,fechaDesdeFiltro,fechaHastaFiltro,condicionFiltro);   
+            let anioEjeFiltro= document.querySelector("div[id='modal-filtro_defunciones'] input[name='anio_eje_filtro']").value;
+            let nroLibFiltro= document.querySelector("div[id='modal-filtro_defunciones'] input[name='nro_lib_filtro']").value;
+            let nroFolFiltro= document.querySelector("div[id='modal-filtro_defunciones'] input[name='nro_fol_filtro']").value;
+            let apellidoPaternoFiltro= document.querySelector("div[id='modal-filtro_defunciones'] input[name='apellido_paterno_filtro']").value;
+            let apellidoMaternoFiltro= document.querySelector("div[id='modal-filtro_defunciones'] input[name='apellido_materno_filtro']").value;
+            let nombresFiltro= document.querySelector("div[id='modal-filtro_defunciones'] input[name='nombres_filtro']").value;
+            let fechaDesdeFiltro= document.querySelector("div[id='modal-filtro_defunciones'] input[name='fecha_desde_filtro']").value;
+            let fechaHastaFiltro= document.querySelector("div[id='modal-filtro_defunciones'] input[name='fecha_hasta_filtro']").value;
+            this.listar(anioEjeFiltro,nroLibFiltro,nroFolFiltro,apellidoPaternoFiltro,apellidoMaternoFiltro,nombresFiltro,fechaDesdeFiltro,fechaHastaFiltro);   
             $modal.modal("hide");
+            let cantidadFiltrosActivos=0;
+            if(anioEjeFiltro !=''){cantidadFiltrosActivos++;}
+            if(nroLibFiltro != ''){cantidadFiltrosActivos++;}
+            if(nroFolFiltro != ''){cantidadFiltrosActivos++;}
+            if(apellidoPaternoFiltro !=''){cantidadFiltrosActivos++;}
+            if(apellidoMaternoFiltro !=''){cantidadFiltrosActivos++;}
+            if(nombresFiltro !=''){cantidadFiltrosActivos++;}
+            if(fechaDesdeFiltro !=''){cantidadFiltrosActivos++;}
+            if(fechaHastaFiltro !=''){cantidadFiltrosActivos++;}
+            document.querySelector("div[id='tablaDefuncion_wrapper'] button[id='btnFiltrarDefunciones']").innerHTML='<i class="fas fa-filter"></i> Filtrar: '+cantidadFiltrosActivos;
 
         });
 

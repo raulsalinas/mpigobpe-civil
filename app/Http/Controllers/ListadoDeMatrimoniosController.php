@@ -34,25 +34,25 @@ class ListadoDeMatrimoniosController extends Controller
             return $query->whereRaw("matrim.nro_lib = '" . $request->libro_filtro."'");
         })
         ->when((($request->folio_filtro) !=null && ($request->folio_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("matrim.nro_fol = '" . $request->folio_filtro."'");
+            return $query->whereRaw("matrim.nro_fol = '" . strtoupper($request->folio_filtro)."'");
         })
-        ->when((($request->apellido_paterno_marido_filtro) !=null && ($request->apellido_paterno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("matrim.ape_pat_ma = '" . $request->apellido_paterno_filtro."'");
+        ->when((($request->apellido_paterno_marido_filtro) !=null && ($request->apellido_paterno_marido_filtro) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("matrim.ape_pat_ma = '" . strtoupper($request->apellido_paterno_marido_filtro)."'");
         })
-        ->when((($request->apellido_materno_marido_filtro) !=null && ($request->apellido_materno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("matrim.ape_mat_ma = '" . $request->apellido_materno_filtro."'");
+        ->when((($request->apellido_materno_marido_filtro) !=null && ($request->apellido_materno_marido_filtro) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("matrim.ape_mat_ma = '" . strtoupper($request->apellido_materno_marido_filtro)."'");
         })
-        ->when((($request->nombre_marido_filtro) !=null && ($request->apellido_materno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("matrim.nom_mar = '" . $request->apellido_materno_filtro."'");
+        ->when((($request->nombre_marido_filtro) !=null && ($request->nombre_marido_filtro) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("matrim.nom_mar = '" . strtoupper($request->nombre_marido_filtro)."'");
         })
-        ->when((($request->apellido_paterno_esposa_filtro) !=null && ($request->apellido_paterno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("matrim.ape_pat_es = '" . $request->apellido_paterno_filtro."'");
+        ->when((($request->apellido_paterno_esposa_filtro) !=null && ($request->apellido_paterno_esposa_filtro) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("matrim.ape_pat_es = '" . strtoupper($request->apellido_paterno_esposa_filtro)."'");
         })
-        ->when((($request->apellido_materno_esposa_filtro) !=null && ($request->apellido_materno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("matrim.ape_mat_es = '" . $request->apellido_materno_filtro."'");
+        ->when((($request->apellido_materno_esposa_filtro) !=null && ($request->apellido_materno_esposa_filtro) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("matrim.ape_mat_es = '" . strtoupper($request->apellido_materno_esposa_filtro)."'");
         })
-        ->when((($request->nombre_esposa_filtro) !=null && ($request->apellido_materno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("matrim.nom_esp = '" . $request->apellido_materno_filtro."'");
+        ->when((($request->nombre_esposa_filtro) !=null && ($request->nombre_esposa_filtro) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("matrim.nom_esp = '" . strtoupper($request->nombre_esposa_filtro)."'");
         })
         ->when(((($request->fecha_desde_filtro) !=null && ($request->fecha_desde_filtro) !='') && (($request->fecha_hasta_filtro) ==null || ($request->fecha_hasta_filtro) =='')), function ($query)  use ($request) {
             return $query->whereRaw("matrim.fch_cel >= '" . $request->fecha_desde_filtro."'");

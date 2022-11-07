@@ -71,7 +71,7 @@ class ListadoNacimientoView {
             ],
             buttons: [
                 {
-                    text: '<i class="fas fa-filter"></i> Filtrar',
+                    text: '<i class="fas fa-filter"></i> Filtrar: 0',
                     action: function () {
                         $("#modal-filtro_nacimientos").find(".modal-title").text("Filtrar nacimientos");
                         // $("#btnFiltrar").html("Registrar");
@@ -81,6 +81,22 @@ class ListadoNacimientoView {
 
                     },
                     className: 'btn btn-sm btn-info filtrar',
+                    attr:  {
+                        id: 'btnFiltrarNacimientos'
+                    }
+                },
+                {
+                    text: '<i class="fas fa-clear"></i> Limpiar filtros activos',
+                    action: ()=> {
+                        document.getElementById('formulario-filtro-nacimiento').reset();
+                        document.querySelector("div[id='tablaNacimiento_wrapper'] button[id='btnFiltrarNacimientos']").innerHTML='<i class="fas fa-filter"></i> Filtrar: 0';
+                        this.listar(null);
+
+                    },
+                    className: 'btn btn-sm btn-default limpiar',
+                    attr:  {
+                        id: 'btnLimpiarFiltroNacimientos'
+                    }
                 }
             ]
         });
@@ -162,13 +178,24 @@ class ListadoNacimientoView {
             condicion.forEach(element => {
                 if(element.checked){
                     condicionFiltro=element.value;
+                }else{
+                    condicionFiltro='';
                 }
             });
 
-
             this.listar(anioEjeFiltro,nroLibFiltro,nroFolFiltro,apellidoPaternoFiltro,apellidoMaternoFiltro,nombresFiltro,fechaDesdeFiltro,fechaHastaFiltro,condicionFiltro);   
             $modal.modal("hide");
-
+            let cantidadFiltrosActivos=0;
+            if(anioEjeFiltro !=''){cantidadFiltrosActivos++;}
+            if(nroLibFiltro != ''){cantidadFiltrosActivos++;}
+            if(nroFolFiltro != ''){cantidadFiltrosActivos++;}
+            if(apellidoPaternoFiltro !=''){cantidadFiltrosActivos++;}
+            if(apellidoMaternoFiltro !=''){cantidadFiltrosActivos++;}
+            if(nombresFiltro !=''){cantidadFiltrosActivos++;}
+            if(fechaDesdeFiltro !=''){cantidadFiltrosActivos++;}
+            if(fechaHastaFiltro !=''){cantidadFiltrosActivos++;}
+            if(condicionFiltro !=''){cantidadFiltrosActivos++;}
+            document.querySelector("div[id='tablaNacimiento_wrapper'] button[id='btnFiltrarNacimientos']").innerHTML='<i class="fas fa-filter"></i> Filtrar: '+cantidadFiltrosActivos;
         });
 
 

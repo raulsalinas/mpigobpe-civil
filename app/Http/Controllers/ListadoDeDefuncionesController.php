@@ -34,13 +34,13 @@ class ListadoDeDefuncionesController extends Controller
             return $query->whereRaw("defun.nro_fol = '" . $request->folio_filtro."'");
         })
         ->when((($request->apellido_paterno_filtro) !=null && ($request->apellido_paterno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("defun.ape_pat_de = '" . $request->apellido_paterno_filtro."'");
+            return $query->whereRaw("defun.ape_pat_de = '" . strtoupper($request->apellido_paterno_filtro)."'");
         })
         ->when((($request->apellido_materno_filtro) !=null && ($request->apellido_materno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("defun.ape_mat_de = '" . $request->apellido_materno_filtro."'");
+            return $query->whereRaw("defun.ape_mat_de = '" . strtoupper($request->apellido_materno_filtro)."'");
         })
         ->when((($request->nombre_filtro) !=null && ($request->apellido_materno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("defun.nom_des = '" . $request->apellido_materno_filtro."'");
+            return $query->whereRaw("defun.nom_des = '" . strtoupper($request->apellido_materno_filtro)."'");
         })
  
         ->when(((($request->fecha_desde_filtro) !=null && ($request->fecha_desde_filtro) !='') && (($request->fecha_hasta_filtro) ==null || ($request->fecha_hasta_filtro) =='')), function ($query)  use ($request) {

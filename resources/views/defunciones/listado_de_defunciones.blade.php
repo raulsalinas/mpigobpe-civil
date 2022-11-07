@@ -66,6 +66,8 @@
     </div>
 </div>
 
+@include('defunciones.modal-filtro_defunciones')
+
 @endsection
 
 @section('scripts')

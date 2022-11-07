@@ -8,7 +8,7 @@ class ListadoMatrimonioView {
     /**
      * Listar mediante DataTables
      */
-    listar = (anio_filtro=null,libro_filtro=null,folio_filtro=null,apellido_paterno_filtro=null,apellido_materno_filtro=null,nombres_filtro=null,fecha_desde_filtro=null,fecha_hasta_filtro=null,condicion_filtro=null) => {
+    listar = (anio_filtro=null,libro_filtro=null,folio_filtro=null,apellido_paterno_marido_filtro=null,apellido_materno_marido_filtro=null,nombres_marido_filtro=null,apellido_paterno_esposa_filtro=null,apellido_materno_esposa_filtro=null,nombres_esposa_filtro=null,fecha_desde_filtro=null,fecha_hasta_filtro=null) => {
         const $tabla = $('#tablaMatrimonio').DataTable({
             dom: 'Bfrtip',
             pageLength: 20,
@@ -42,12 +42,14 @@ class ListadoMatrimonioView {
                     'anio_filtro':anio_filtro,
                     'libro_filtro':libro_filtro,
                     'folio_filtro':folio_filtro,
-                    'apellido_paterno_filtro':apellido_paterno_filtro,
-                    'apellido_materno_filtro':apellido_materno_filtro,
-                    'nombres_filtro':nombres_filtro,
+                    'apellido_paterno_marido_filtro':apellido_paterno_marido_filtro,
+                    'apellido_materno_marido_filtro':apellido_materno_marido_filtro,
+                    'nombres_marido_filtro':nombres_marido_filtro,
+                    'apellido_paterno_esposa_filtro':apellido_paterno_esposa_filtro,
+                    'apellido_materno_esposa_filtro':apellido_materno_esposa_filtro,
+                    'nombres_esposa_filtro':nombres_esposa_filtro,
                     'fecha_desde_filtro':fecha_desde_filtro,
-                    'fecha_hasta_filtro':fecha_hasta_filtro,
-                    'condicion_filtro':condicion_filtro
+                    'fecha_hasta_filtro':fecha_hasta_filtro
                         },
                 headers: { 'X-CSRF-TOKEN': csrf_token }
             },
@@ -74,16 +76,30 @@ class ListadoMatrimonioView {
             ],
             buttons: [
                 {
-                    text: '<i class="fas fa-filter"></i> Filtrar',
+                    text: '<i class="fas fa-filter"></i> Filtrar: 0',
                     action: function () {
-                        $("#modal-filtro_matrimonio").find(".modal-title").text("Filtrar matrimonios");
-                        // $("#btnFiltrar").html("Registrar");
-                        // $("#btnFiltrar").data("evento", "registrar");
-                        $("#modal-filtro_matrimonio").modal("show");
+                        $("#modal-filtro_matrimonios").find(".modal-title").text("Filtrar matrimonios");
+                        $("#modal-filtro_matrimonios").modal("show");
 
 
                     },
                     className: 'btn btn-sm btn-info filtrar',
+                    attr:  {
+                        id: 'btnFiltrarMatrimonios'
+                    }
+                },
+                {
+                    text: '<i class="fas fa-clear"></i> Limpiar filtros activos',
+                    action: ()=> {
+                        document.getElementById('formulario-filtro-matrimonios').reset();
+                        document.querySelector("div[id='tablaMatrimonio_wrapper'] button[id='btnFiltrarMatrimonios']").innerHTML='<i class="fas fa-filter"></i> Filtrar: 0';
+                        this.listar(null);
+
+                    },
+                    className: 'btn btn-sm btn-default limpiar',
+                    attr:  {
+                        id: 'btnLimpiarFiltroNacimientos'
+                    }
                 }
             ]
         });
@@ -123,29 +139,37 @@ class ListadoMatrimonioView {
         /**
          * filtrar - Filtrar de listado de matrimonio
          */
-        $("#modal-filtro_matrimonio").on("click", "button.filtrar", (e) => {
-            const $modal=$("#modal-filtro_matrimonio");
+        $("#modal-filtro_matrimonios").on("click", "button.filtrar", (e) => {
+            const $modal=$("#modal-filtro_matrimonios");
 
-            let anioEjeFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='anio_eje_filtro']").value;
-            let nroLibFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='nro_lib_filtro']").value;
-            let nroFolFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='nro_fol_filtro']").value;
-            let apellidoPaternoFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='apellido_paterno_filtro']").value;
-            let apellidoMaternoFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='apellido_materno_filtro']").value;
-            let nombresFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='nombres_filtro']").value;
-            let fechaDesdeFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='fecha_desde_filtro']").value;
-            let fechaHastaFiltro= document.querySelector("div[id='modal-filtro_matrimonio'] input[name='fecha_hasta_filtro']").value;
-
-            let condicionFiltro;
-            let condicion= document.querySelectorAll("div[id='modal-filtro_matrimonio'] input[name='condicionActaRadioOptions']");
-            condicion.forEach(element => {
-                if(element.checked){
-                    condicionFiltro=element.value;
-                }
-            });
+            let anioEjeFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='anio_eje_filtro']").value;
+            let nroLibFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nro_lib_filtro']").value;
+            let nroFolFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nro_fol_filtro']").value;
+            let apellidoPaternoMaridoFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='apellido_paterno_marido_filtro']").value;
+            let apellidoMaternoMaridoFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='apellido_materno_marido_filtro']").value;
+            let nombresMaridoFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nombres_marido_filtro']").value;
+            let apellidoPaternoEsposaFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='apellido_paterno_esposa_filtro']").value;
+            let apellidoMaternoEsposaFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='apellido_materno_esposa_filtro']").value;
+            let nombresEsposaFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nombres_esposa_filtro']").value;
+            let fechaDesdeFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='fecha_desde_filtro']").value;
+            let fechaHastaFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='fecha_hasta_filtro']").value;
 
 
-            this.listar(anioEjeFiltro,nroLibFiltro,nroFolFiltro,apellidoPaternoFiltro,apellidoMaternoFiltro,nombresFiltro,fechaDesdeFiltro,fechaHastaFiltro,condicionFiltro);   
+            this.listar(anioEjeFiltro,nroLibFiltro,nroFolFiltro,apellidoPaternoMaridoFiltro,apellidoMaternoMaridoFiltro,nombresMaridoFiltro,apellidoPaternoEsposaFiltro,apellidoMaternoEsposaFiltro,nombresEsposaFiltro,fechaDesdeFiltro,fechaHastaFiltro);   
             $modal.modal("hide");
+            let cantidadFiltrosActivos=0;
+            if(anioEjeFiltro !=''){cantidadFiltrosActivos++;}
+            if(nroLibFiltro != ''){cantidadFiltrosActivos++;}
+            if(nroFolFiltro != ''){cantidadFiltrosActivos++;}
+            if(apellidoPaternoMaridoFiltro !=''){cantidadFiltrosActivos++;}
+            if(apellidoMaternoMaridoFiltro !=''){cantidadFiltrosActivos++;}
+            if(nombresMaridoFiltro !=''){cantidadFiltrosActivos++;}
+            if(apellidoPaternoEsposaFiltro !=''){cantidadFiltrosActivos++;}
+            if(apellidoMaternoEsposaFiltro !=''){cantidadFiltrosActivos++;}
+            if(nombresEsposaFiltro !=''){cantidadFiltrosActivos++;}
+            if(fechaDesdeFiltro !=''){cantidadFiltrosActivos++;}
+            if(fechaHastaFiltro !=''){cantidadFiltrosActivos++;}
+            document.querySelector("div[id='tablaMatrimonio_wrapper'] button[id='btnFiltrarMatrimonios']").innerHTML='<i class="fas fa-filter"></i> Filtrar: '+cantidadFiltrosActivos;
 
         });
 

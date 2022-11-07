@@ -41,10 +41,13 @@ class ListadoDeNacimientosController extends Controller
             return $query->whereRaw("nacimi.nro_fol = '" . $request->folio_filtro."'");
         })
         ->when((($request->apellido_paterno_filtro) !=null && ($request->apellido_paterno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("nacimi.ape_pat_na = '" . $request->apellido_paterno_filtro."'");
+            return $query->whereRaw("nacimi.ape_pat_na = '" . strtoupper($request->apellido_paterno_filtro)."'");
         })
         ->when((($request->apellido_materno_filtro) !=null && ($request->apellido_materno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("nacimi.ape_mat_na = '" . $request->apellido_materno_filtro."'");
+            return $query->whereRaw("nacimi.ape_mat_na = '" . strtoupper($request->apellido_materno_filtro)."'");
+        })
+        ->when((($request->nombres_filtro) !=null && ($request->nombres_filtro) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("nacimi.nom_nac like '%" . strtoupper($request->nombres_filtro)."%'");
         })
         ->when(((($request->fecha_desde_filtro) !=null && ($request->fecha_desde_filtro) !='') && (($request->fecha_hasta_filtro) ==null || ($request->fecha_hasta_filtro) =='')), function ($query)  use ($request) {
             return $query->whereRaw("nacimi.fch_nac >= '" . $request->fecha_desde_filtro."'");

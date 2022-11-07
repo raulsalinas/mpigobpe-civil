@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card">
-        <div class="card-body login-card-body">
+        <div class="card-body login-card-body" style="background-color: #e3dedb;">
             <div class="login-branding">
                 <img class="" src="{{ asset('images/logo.png') }}" alt="Logo_OKC">
                 <h5>Registro Civil</h5>

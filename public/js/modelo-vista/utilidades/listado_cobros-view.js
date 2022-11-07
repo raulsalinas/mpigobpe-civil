@@ -69,20 +69,7 @@ class ListadoCobrosView {
                 { data: 'estado', className: 'text-center'},
                 // { data: 'accion', orderable: false, searchable: false, className: 'text-center' }
             ],
-            buttons: [
-                {
-                    text: '<i class="fas fa-filter"></i> Filtrar',
-                    action: function () {
-                        $("#modal-filtro_cobros").find(".modal-title").text("Filtrar cobros");
-                        // $("#btnFiltrar").html("Registrar");
-                        // $("#btnFiltrar").data("evento", "registrar");
-                        $("#modal-filtro_cobros").modal("show");
-
-
-                    },
-                    className: 'btn btn-sm btn-info filtrar',
-                }
-            ]
+            buttons: []
         });
         $tabla.on('search.dt', function () {
             $('#tablaCobros_filter input').attr('disabled', true);
