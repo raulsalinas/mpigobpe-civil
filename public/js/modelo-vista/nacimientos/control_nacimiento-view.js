@@ -97,7 +97,12 @@ class ControlNacimientoView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'A.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.tif'}"  
+                        data-año="${respuesta.ano_nac}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}" 
+                        disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -114,7 +119,12 @@ class ControlNacimientoView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'B.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.tif'}"  
+                        data-año="${respuesta.ano_nac}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}" 
+                        disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -131,7 +141,12 @@ class ControlNacimientoView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'C.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.tif'}"  
+                        data-año="${respuesta.ano_nac}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}" 
+                        disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -148,7 +163,12 @@ class ControlNacimientoView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'D.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.tif'}"  
+                        data-año="${respuesta.ano_nac}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}" 
+                        disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -165,7 +185,12 @@ class ControlNacimientoView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'E.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.tif'}"  
+                        data-año="${respuesta.ano_nac}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}" 
+                        disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -346,7 +371,7 @@ class ControlNacimientoView {
                         console.log('cancel');
                     }
                 });
-            }else{
+            } else {
                 Util.mensaje("warning", "No seleccionó ningun registro que pueda ser observado");
             }
 

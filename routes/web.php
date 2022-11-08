@@ -81,6 +81,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('guardar', [ControlDeMatrimoniosController::class, 'guardar'])->name('guardar');
             Route::post('actualizar', [ControlDeMatrimoniosController::class, 'actualizar'])->name('actualizar');
             Route::post('observar', [ControlDeMatrimoniosController::class, 'observar'])->name('observar');
+            Route::get('visualizar-adjunto', [ControlDeMatrimoniosController::class, 'visualizarAdjuntoMatrimonio'])->name('visualizarAdjuntoMatrimonio');
+
             Route::get('buscar-ficha/{id}/{folder}', [ControlDeMatrimoniosController::class, 'buscarFicha'])->name('buscar-ficha');
 
 
@@ -102,6 +104,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('guardar', [ControlDeDefuncionesController::class, 'guardar'])->name('guardar');
             Route::post('actualizar', [ControlDeDefuncionesController::class, 'actualizar'])->name('actualizar');
             Route::post('observar', [ControlDeDefuncionesController::class, 'observar'])->name('observar');
+            Route::get('visualizar-adjunto', [ControlDeDefuncionesController::class, 'visualizarAdjuntoDefuncion'])->name('visualizarAdjuntoDefuncion');
+
             Route::get('buscar-ficha/{id}/{folder}', [ControlDeDefuncionesController::class, 'buscarFicha'])->name('buscar-ficha');
 
 

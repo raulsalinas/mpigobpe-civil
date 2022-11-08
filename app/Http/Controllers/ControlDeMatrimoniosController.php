@@ -294,4 +294,9 @@ class ControlDeMatrimoniosController extends Controller
         }
         return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
     }
+
+    public function visualizarAdjuntoMatrimonio(Request $request)
+    {
+        return view('matrimonios.visualizar_adjunto_matrimonio', get_defined_vars());
+    }
 }

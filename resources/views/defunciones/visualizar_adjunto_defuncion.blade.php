@@ -15,14 +15,14 @@
 </style>
 @endsection
 
-@section('title')Adjunto de Nacimientos @endsection
+@section('title')Adjunto de Defunción @endsection
 
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="mb-2">Adjunto de Nacimiento <span class="badge badge-pill badge-secondary" id="claveLibroAño"></span> <span class="badge badge-pill badge-secondary" id="claveLibroLibro"></span> <span class="badge badge-pill badge-secondary" id="claveLibroFolio"></span></h1>
+                <h1 class="mb-2">Adjunto de Defunción <span class="badge badge-pill badge-secondary" id="claveLibroAño"></span> <span class="badge badge-pill badge-secondary" id="claveLibroLibro"></span> <span class="badge badge-pill badge-secondary" id="claveLibroFolio"></span></h1>
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-outline-primary" onclick="impirmirHoja()"><i class="fas fa-print"></i> Imprimir</button>
                     <button type="button" class="btn btn-outline-primary" onclick="girarMenos90()"><i class="fas fa-undo"></i> -90º</button>
@@ -33,7 +33,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item">Inicio</li>
-                    <li class="breadcrumb-item">Nacimientos</li>
+                    <li class="breadcrumb-item">Defunción</li>
                     <li class="breadcrumb-item active">Adjunto</li>
                 </ol>
             </div>
@@ -45,7 +45,7 @@
 
     <div class="row">
         <div class="col-md-12 text-center">
-            <div class="actaNacimientoAdversoTIF"></div>
+            <div class="actaDefuncionAdversoTIF"></div>
         </div>
     </div>
 </div>
@@ -95,13 +95,13 @@
 
             var xhrA = new XMLHttpRequest();
             xhrA.responseType = 'arraybuffer';
-            xhrA.open('GET', "/fichas/nacim/" + nameFileByURL );
+            xhrA.open('GET', "/fichas/defun/" + nameFileByURL );
             xhrA.onload = function(e) {
                 var tiff = new Tiff({
                     buffer: xhrA.response
                 });
                 var canvas = tiff.toCanvas();
-                document.querySelector("div[class~='actaNacimientoAdversoTIF']").append(canvas);
+                document.querySelector("div[class~='actaDefuncionAdversoTIF']").append(canvas);
             };
             xhrA.send();
         }

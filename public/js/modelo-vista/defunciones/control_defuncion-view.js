@@ -79,7 +79,12 @@ class ControlDefuncionView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'A.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.tif'}"  
+                        data-año="${respuesta.ano_des}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}"  
+                        disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -96,7 +101,12 @@ class ControlDefuncionView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'B.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.tif'}"  
+                        data-año="${respuesta.ano_des}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}"  
+                        disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -113,7 +123,12 @@ class ControlDefuncionView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'C.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.tif'}"  
+                        data-año="${respuesta.ano_des}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}"  
+                        disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -130,7 +145,12 @@ class ControlDefuncionView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'D.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.tif'}"  
+                        data-año="${respuesta.ano_des}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}"  
+                        disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -147,7 +167,12 @@ class ControlDefuncionView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'E.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.tif'}"  
+                        data-año="${respuesta.ano_des}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}"  
+                        disabled>Visualizar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -412,7 +437,7 @@ class ControlDefuncionView {
         });
 
         $('#tablaListaAdjuntosDeDefuncion').on("click", "button.visualizarArchivoAdjunto", (e) => {
-            let url = `/matirmonios/control/visualizar-adjunto/?namefile=${$(e.currentTarget).data('nombre-archivo')}?year=${$(e.currentTarget).data('año')}?book=${$(e.currentTarget).data('libro')}?folio=${$(e.currentTarget).data('folio')}`;
+            let url = `/defunciones/control/visualizar-adjunto/?namefile=${$(e.currentTarget).data('nombre-archivo')}?year=${$(e.currentTarget).data('año')}?book=${$(e.currentTarget).data('libro')}?folio=${$(e.currentTarget).data('folio')}`;
             var win = window.open(url, "_black");
             win.focus();
         });

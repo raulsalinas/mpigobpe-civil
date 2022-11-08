@@ -317,4 +317,10 @@ class ControlDeDefuncionesController extends Controller
         $data = MotivoDefuncion::where('codigo', '!=', null)->get();
         return $data;
     }
+
+
+    public function visualizarAdjuntoDefuncion(Request $request)
+    {
+        return view('defunciones.visualizar_adjunto_defuncion', get_defined_vars());
+    }
 }

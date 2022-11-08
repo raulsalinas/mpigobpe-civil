@@ -81,7 +81,7 @@
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
                                                         <label>Año</label>
-                                                        <input type="text" class="form-control form-control-sm" name="ano_nac" placeholder="" readonly>
+                                                        <input type="text" class="form-control form-control-sm" name="ano_des" placeholder="" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
