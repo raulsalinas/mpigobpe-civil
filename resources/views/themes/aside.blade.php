@@ -87,6 +87,7 @@
                     </a>
                 </li>
             </ul>
+            @if(Auth::user()->esAdministrador())
             <ul class="nav nav-pills nav-sidebar flex-column nav-legacy nav-flat nav-compact" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-header"><a href="#">Configuración</a></li>
                 <li class="nav-item">
@@ -101,8 +102,8 @@
                         <p>Maestros</p>
                     </a>
                 </li>
-
             </ul>
+            @endif
         </nav>
     </div>
 </aside>

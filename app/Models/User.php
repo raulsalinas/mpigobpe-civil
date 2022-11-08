@@ -27,4 +27,9 @@ class User extends Authenticatable
      * Atributos ocultos para el Modelo
      */
     protected $hidden = ['remember_token'];
+
+    public function esAdministrador()
+	{
+		return User::where([['id', $this->id],['es_administrador',true]])->first() != null;
+	}
 }
