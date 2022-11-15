@@ -11,7 +11,7 @@ class ConsistenciaDeDefuncionesController extends Controller
 {
     public function index(Request $request)
     {
-
+        $tipo =  $request->query('tipo');
         $usuarioList = (new ControlDeNacimientosController)->usuarioList();
         $ubigeoList = (new ControlDeNacimientosController)->ubigeoList();
         $controlAsistencialList = (new ControlDeNacimientosController)->controlAsistencialList();

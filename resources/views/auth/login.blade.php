@@ -33,7 +33,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-sm btn-warning btn-block btn-flat"><span class="fa fa-sign-in-alt"></span> INICIAR SESION</button>
+                    <button type="submit" class="btn btn-sm btn-warning btn-block btn-flat"><i class="fas fa-sign-in-alt"></i> INICIAR SESION</button>
                 </div>
             </form>
         </div>

@@ -3,6 +3,10 @@ class ControlNacimientoView {
 
     constructor(model) {
         this.model = model;
+
+        let searchParams = new URLSearchParams(window.location.search);
+        document.querySelector("input[name='condicionActa']").value = searchParams.get('id_tipo');
+
     }
 
     /**
@@ -41,7 +45,7 @@ class ControlNacimientoView {
                 $('[name=ape_mat_pa]').val(respuesta.ape_mat_pa);
                 $('[name=nom_pad]').val(respuesta.nom_pad);
                 $('[name=dir_pad]').val(respuesta.dir_pad);
-                switch (respuesta.condic_nac) {
+                switch (respuesta.condic) {
                     case 1:
                         document.querySelector("input[id='condicionOrdinaria']").checked = true;
                         break;

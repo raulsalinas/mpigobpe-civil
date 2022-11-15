@@ -22,6 +22,7 @@ class ControlDeNacimientosController extends Controller
 {
     public function index(Request $request)
     {
+        $tipo =  $request->query('tipo');
         $controlAsistencialList = $this->controlAsistencialList();
         $ubigeoList = $this->ubigeoList();
         $tipoRegistroList = $this->tipoRegistroList();
@@ -138,7 +139,7 @@ class ControlDeNacimientosController extends Controller
                 $nuevoNacimiento->ape_mat_pa = $request->ape_mat_pa;
                 $nuevoNacimiento->nom_pad = $request->nom_pad;
                 $nuevoNacimiento->dir_pad = $request->dir_pad;
-                $nuevoNacimiento->condic_nac = $request->condicionActa;
+                $nuevoNacimiento->condic = $request->condicionActa;
                 $nuevoNacimiento->save();
 
                 // if ($request->aplicaRecibo == true) {
@@ -251,7 +252,7 @@ class ControlDeNacimientosController extends Controller
             $nacimiento->ape_mat_pa = $request->ape_mat_pa;
             $nacimiento->nom_pad = $request->nom_pad;
             $nacimiento->dir_pad = $request->dir_pad;
-            $nacimiento->condic_nac = $request->condicionActa;
+            $nacimiento->condic = $request->condicionActa;
             $nacimiento->save();
 
             // inicia el guardado de adjuntos

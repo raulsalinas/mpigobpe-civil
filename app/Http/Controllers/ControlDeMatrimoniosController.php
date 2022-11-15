@@ -19,12 +19,11 @@ class ControlDeMatrimoniosController extends Controller
 {
     public function index(Request $request)
     {
-
+        $tipo =  $request->query('tipo');
         $usuarioList = (new ControlDeNacimientosController)->usuarioList();
         $ubigeoList = (new ControlDeNacimientosController)->ubigeoList();
         $usuario = Auth::user()->usuario;
         $tipoRegistroList = (new ControlDeNacimientosController)->tipoRegistroList();
-
         return view('matrimonios.control_de_matrimonios', get_defined_vars());
     }
 
@@ -132,6 +131,7 @@ class ControlDeMatrimoniosController extends Controller
                 $nuevoMatrimonio->fch_reg = $request->fch_reg;
                 $nuevoMatrimonio->tipo = $request->tipo;
                 $nuevoMatrimonio->usuario = Auth::user()->usuario; //$request->usuario;
+                $nuevoMatrimonio->condic = $request->condicionActa;
                 $nuevoMatrimonio->save();
 
                 $respuesta = 'ok';
@@ -224,6 +224,7 @@ class ControlDeMatrimoniosController extends Controller
             $matrimonio->fch_reg = $request->fch_reg;
             $matrimonio->tipo = $request->tipo;
             $matrimonio->usuario = Auth::user()->usuario; //$request->usuario;
+            $matrimonio->condic = $request->condicionActa;
             $matrimonio->save();
 
             // inicia el guardado de adjuntos

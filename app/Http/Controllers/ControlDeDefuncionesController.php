@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cobro;
 use App\Models\Defuncion;
 use App\Models\Lugar;
+use App\Models\Matrimonio;
 use App\Models\MotivoDefuncion;
 use App\Models\Nacimiento;
 use Carbon\Carbon;
@@ -133,7 +134,8 @@ class ControlDeDefuncionesController extends Controller
                 $nuevaDefuncion->fch_reg = $request->fch_reg;
                 $nuevaDefuncion->tipo = $request->tipo;
                 $nuevaDefuncion->usuario = Auth::user()->usuario; //$request->usuario;
- 
+                $nuevaDefuncion->condic = $request->condicionActa;
+
                 $nuevaDefuncion->save();
 
                 // if ($request->aplicaRecibo == true) {
@@ -236,6 +238,7 @@ class ControlDeDefuncionesController extends Controller
             $defuncion->fch_des = $request->fch_des;
             $defuncion->fch_reg = $request->fch_reg;
             $defuncion->tipo = $request->tipo;
+            $defuncion->condic = $request->condicionActa;
             $defuncion->save();
 
             // inicia el guardado de adjuntos

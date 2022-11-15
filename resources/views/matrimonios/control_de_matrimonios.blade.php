@@ -14,12 +14,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Control de Matrimonios</h1>
+                <h1>Control de Matrimonios {{$tipo}}</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item">Inicio</li>
-                    <li class="breadcrumb-item">Matrimonios</li>
+                    <li class="breadcrumb-item">Matrimonios {{$tipo}}</li>
                     <li class="breadcrumb-item active">Control</li>
                 </ol>
             </div>
@@ -33,6 +33,7 @@
             <form id="controlMatrimoniosForm" enctype="multipart/form-data">
             @csrf
                 <input type="text" style="display:none;" name="id">
+                <input type="text" style="display:none;" name="condicionActa">
                 <div class="row">
                 <div class="col-md-7 text-left">
                     <div class="" id="botoneraPrincipal">

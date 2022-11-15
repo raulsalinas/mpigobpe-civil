@@ -25,11 +25,11 @@ class ListadoDeNacimientosController extends Controller
         $data = Nacimiento::select('nacimi.*', 
         'sexo.nombre AS sexo_desc',
         'ubigeo.nombre as ubigeo_desc',
-        'condic_nac.nombre as condicion_desc'
+        'condic.nombre as condicion_desc'
         )
         ->leftJoin('public.sexo', 'sexo.codigo', '=', 'nacimi.sex_nac')
         ->leftJoin('public.ubigeo', 'ubigeo.codigo', '=', 'nacimi.ubigeo')
-        ->leftJoin('public.condic_nac', 'condic_nac.codigo', '=', 'nacimi.condic_nac')
+        ->leftJoin('public.condic', 'condic.codigo', '=', 'nacimi.condic')
         
         ->when((($request->anio_filtro) !=null && ($request->anio_filtro) !=''), function ($query)  use ($request) {
             return $query->whereRaw("nacimi.ano_eje = '".$request->anio_filtro."'");
@@ -59,7 +59,7 @@ class ListadoDeNacimientosController extends Controller
             return $query->whereBetween("nacimi.fch_nac", [$request->fecha_desde_filtro,$request->fecha_hasta_filtro]);
         })
         ->when((($request->condicion_filtro) !=null && ($request->condicion_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("nacimi.condic_nac = '" . $request->condicion_filtro."'");
+            return $query->whereRaw("nacimi.condic = '" . $request->condicion_filtro."'");
         })
         ->where('nacimi.ano_nac','!=','');
 

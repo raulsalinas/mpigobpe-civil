@@ -46,7 +46,8 @@
         <script src="{{ asset('assets/lte_3/plugins/loadingoverlay/loadingoverlay.min.js') }}"></script>
         <script src="{{ asset('js/moment.min.js') }}"></script>
         <script src="{{ asset('js/event.js')}}?v={{filemtime(public_path('js/event.js'))}}"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
         <script>
             let csrf_token = '{{ csrf_token() }}';
             const idioma = {
@@ -76,6 +77,11 @@
                 }
             };
             Util.seleccionarMenu(window.location);
+
+            $('body').on("click", "a.handleClicDropDown", (e) => {
+                let body = document.getElementsByTagName("body")[0];
+                body.classList.remove("sidebar-collapse");
+            });
         </script>
         @routes
         <script src="{{ asset('js/password.js') }}"></script>

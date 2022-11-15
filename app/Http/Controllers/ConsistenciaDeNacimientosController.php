@@ -84,11 +84,11 @@ class ConsistenciaDeNacimientosController extends Controller
         $nacimientos = Nacimiento::select('nacimi.*', 
         'sexo.nombre AS sexo_desc',
         'ubigeo.nombre as ubigeo_desc',
-        'condic_nac.nombre as condicion_desc'
+        'condic.nombre as condicion_desc'
         )
         ->leftJoin('public.sexo', 'sexo.codigo', '=', 'nacimi.sex_nac')
         ->leftJoin('public.ubigeo', 'ubigeo.codigo', '=', 'nacimi.ubigeo')
-        ->leftJoin('public.condic_nac', 'condic_nac.codigo', '=', 'nacimi.condic_nac')
+        ->leftJoin('public.condic', 'condic.codigo', '=', 'nacimi.condic')
         ->where($donde)
         ->orderBy('nacimi.fch_nac','asc')
         ->limit(100)

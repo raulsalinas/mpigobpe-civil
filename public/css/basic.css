@@ -23,6 +23,7 @@
 [class*=sidebar-light] .nav-legacy.nav-sidebar > .nav-item .nav-treeview,
 [class*=sidebar-light] .nav-legacy.nav-sidebar > .nav-item > .nav-treeview {
     background-color: #fff;
+    padding-left: 0.2rem;
 }
 [class*=sidebar-light] .nav-legacy .nav-treeview > .nav-item > .nav-link.active,
 [class*=sidebar-light] .nav-legacy .nav-treeview > .nav-item > .nav-link:focus,

@@ -15,22 +15,31 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('nacimientos.index') }}" class="nav-link" title="Listado" >
-                                <i class="far fa-circle nav-icon" title="Listado"></i> <p>Listado</p>
+                            <a href="{{ route('nacimientos.index') }}" class="nav-link" title="Listado">
+                                <i class="fas fa-table nav-icon" title="Listado"></i>
+                                <p>Listado</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('nacimientos.control.index') }}" class="nav-link" title="Control">
-                                <i class="far fa-circle nav-icon"></i> <p>Control</p>
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle handleClicDropDown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-keyboard nav-icon"></i>
+                                <p>Control</p>
                             </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('nacimientos.control.index', ['tipo' => 'Ordinario', 'id_tipo'=>1]) }}">Ordinario</a></li>
+                                <li><a class="dropdown-item" href="{{ route('nacimientos.control.index', ['tipo' => 'Extraordinario', 'id_tipo'=>2]) }}">Extraordinario</a></li>
+                                <li><a class="dropdown-item" href="{{ route('nacimientos.control.index', ['tipo' => 'Especial', 'id_tipo'=>3]) }}">Especial</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
-                        <a href="{{ route('nacimientos.consistencia.index') }}" class="nav-link" title="Consistencia">
-                                <i class="far fa-circle nav-icon"></i> <p>Consistencia</p>
+                            <a href="{{ route('nacimientos.consistencia.index') }}" class="nav-link" title="Consistencia">
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>Consistencia</p>
                             </a>
                         </li>
                     </ul>
                 </li>
+
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa-solid fa-ring text-warning"></i>
@@ -39,17 +48,26 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('matrimonios.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i> <p>Listado</p>
+                                <i class="fas fa-table nav-icon" title="Listado"></i>
+                                <p>Listado</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('matrimonios.control.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i> <p>Control</p>
+
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle handleClicDropDown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-keyboard nav-icon"></i>
+                                <p>Control</p>
                             </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('matrimonios.control.index', ['tipo' => 'Ordinario', 'id_tipo'=>1]) }}">Ordinario</a></li>
+                                <li><a class="dropdown-item" href="{{ route('matrimonios.control.index', ['tipo' => 'Extraordinario', 'id_tipo'=>2]) }}">Extraordinario</a></li>
+                                <li><a class="dropdown-item" href="{{ route('matrimonios.control.index', ['tipo' => 'Especial', 'id_tipo'=>3]) }}">Especial</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('matrimonios.consistencia.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i> <p>Consistencia</p>
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>Consistencia</p>
                             </a>
                         </li>
                     </ul>
@@ -62,17 +80,25 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{route('defunciones.index')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i> <p>Listado</p>
+                                <i class="fas fa-table nav-icon" title="Listado"></i>
+                                <p>Listado</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('defunciones.control.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i> <p>Control</p>
+                        <li class="nav-item dropdown ">
+                            <a class="nav-link dropdown-toggle handleClicDropDown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-keyboard nav-icon"></i>
+                                <p>Control</p>
                             </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('defunciones.control.index', ['tipo' => 'Ordinario', 'id_tipo'=>1]) }}">Ordinario</a></li>
+                                <li><a class="dropdown-item" href="{{ route('defunciones.control.index', ['tipo' => 'Extraordinario', 'id_tipo'=>2]) }}">Extraordinario</a></li>
+                                <li><a class="dropdown-item" href="{{ route('defunciones.control.index', ['tipo' => 'Especial', 'id_tipo'=>3]) }}">Especial</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('defunciones.consistencia.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i> <p>Consistencia</p>
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <p>Consistencia</p>
                             </a>
                         </li>
                     </ul>

@@ -14,12 +14,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Control de Nacimientos</h1>
+                <h1>Control de Nacimientos {{$tipo}}</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item">Inicio</li>
-                    <li class="breadcrumb-item">Nacimientos</li>
+                    <li class="breadcrumb-item">Nacimientos {{$tipo}}</li>
                     <li class="breadcrumb-item active">Control</li>
                 </ol>
             </div>
@@ -33,6 +33,7 @@
             <form id="controlNacimientoForm" enctype="multipart/form-data">
             @csrf
                 <input type="text" style="display:none;" name="id">
+                <input type="text" style="display:none;" name="condicionActa">
                 <div class="row">
                 <div class="col-md-7 text-left">
                     <div class="" id="botoneraPrincipal">
@@ -343,7 +344,7 @@
                         </div>
     
     
-                        <div class="row mt-2 pt2 pl-2 pr-2 pt-1">
+                        <!-- <div class="row mt-2 pt2 pl-2 pr-2 pt-1">
                             <div class="col-md-12">
                                 <div class="card card-secondary" id="card-recibo">
                                     <div class="">
@@ -367,7 +368,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 
                         <div class="row mt-2 pt2 pl-2 pr-2 pt-1">
