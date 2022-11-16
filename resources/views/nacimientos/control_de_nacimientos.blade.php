@@ -411,10 +411,8 @@
 <script src="{{ asset('assets/lte_3/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-
-<script src="{{ asset('js/modelo-vista/nacimientos/control_nacimiento-view.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/nacimientos/control_nacimiento-view.js')}}?v={{filemtime(public_path('js/modelo-vista/nacimientos/control_nacimiento-view.js'))}}"></script>
 <script src="{{ asset('js/modelo-vista/nacimientos/control_nacimiento-model.js?v=2') }}"></script>
-<!-- <script src="{{ asset('js/tiff.min.js?v=1') }}"></script> -->
 
 <script>
     $(document).ready(function() {

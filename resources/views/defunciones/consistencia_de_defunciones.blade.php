@@ -79,10 +79,10 @@
 
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-block btn-danger btn-xs ejecutarConsistenciaTodoLosRegistros"><i class="fas fa-file-pdf"></i> PDF</button>
+                                        <button type="button" class="btn btn-block btn-danger btn-xs "  data-extension-reporte="pdf"><i class="fas fa-file-pdf"></i> PDF</button>
                                     </div>
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-block btn-success btn-xs ejecutarConsistenciaTodoLosRegistrosXLS"><i class="fas fa-file-excel"></i> XLS</button>
+                                        <button type="button" class="btn btn-block btn-success btn-xs "  data-extension-reporte="xls"><i class="fas fa-file-excel"></i> XLS</button>
                                     </div>
                                 </div>
                             </form>
@@ -184,10 +184,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-block btn-danger btn-xs ejecutarConsistenciaPorAño"><i class="fas fa-file-pdf"></i> PDF</button>
+                                        <button type="button" class="btn btn-block btn-danger btn-xs "  data-extension-reporte="pdf"><i class="fas fa-file-pdf"></i> PDF</button>
                                     </div>
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-block btn-success btn-xs ejecutarConsistenciaPorAñoXLS"><i class="fas fa-file-excel"></i> XLS</button>
+                                        <button type="button" class="btn btn-block btn-success btn-xs "  data-extension-reporte="xls"><i class="fas fa-file-excel"></i> XLS</button>
                                     </div>
                                 </div>
                             </form>
@@ -204,10 +204,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-block btn-danger btn-xs ejecutarConsistenciaPorNumeroDeLibro"><i class="fas fa-file-pdf"></i> PDF</button>
+                                        <button type="button" class="btn btn-block btn-danger btn-xs "  data-extension-reporte="pdf"><i class="fas fa-file-pdf"></i> PDF</button>
                                     </div>
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-block btn-success btn-xs ejecutarConsistenciaPorNumeroDeLibroXLS"><i class="fas fa-file-excel"></i> XLS</button>
+                                        <button type="button" class="btn btn-block btn-success btn-xs "  data-extension-reporte="xls"><i class="fas fa-file-excel"></i> XLS</button>
                                     </div>
                                 </div>
                             </form>
@@ -232,10 +232,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-block btn-danger btn-xs ejecutarConsistenciaPorFechaDeNacimiento"><i class="fas fa-file-pdf"></i> PDF</button>
+                                        <button type="button" class="btn btn-block btn-danger btn-xs "  data-extension-reporte="pdf"><i class="fas fa-file-pdf"></i> PDF</button>
                                     </div>
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-block btn-success btn-xs ejecutarConsistenciaPorFechaDeNacimientoXLS"><i class="fas fa-file-excel"></i> XLS</button>
+                                        <button type="button" class="btn btn-block btn-success btn-xs "  data-extension-reporte="xls"><i class="fas fa-file-excel"></i> XLS</button>
                                     </div>
                                 </div>
                             </form>
@@ -255,10 +255,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-block btn-danger btn-xs ejecutarConsistenciaPorRegistrador"><i class="fas fa-file-pdf"></i> PDF</button>
+                                        <button type="button" class="btn btn-block btn-danger btn-xs "  data-extension-reporte="pdf"><i class="fas fa-file-pdf"></i> PDF</button>
                                     </div>
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-block btn-success btn-xs ejecutarConsistenciaPorRegistradorXLS"><i class="fas fa-file-excel"></i> XLS</button>
+                                        <button type="button" class="btn btn-block btn-success btn-xs "  data-extension-reporte="xls"><i class="fas fa-file-excel"></i> XLS</button>
                                     </div>
                                 </div>
                             </form>

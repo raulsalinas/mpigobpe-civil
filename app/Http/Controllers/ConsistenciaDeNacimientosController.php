@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\CentroAsistencial;
-use App\Models\Nacimiento;
 use App\Models\TipoRegistro;
 use App\Models\Ubigeo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\NacimientosExport;
+use App\Models\Nacimiento;
 use PhpParser\JsonDecoder;
 ini_set('memory_limit', '-1');
 class ConsistenciaDeNacimientosController extends Controller
@@ -36,7 +38,7 @@ class ConsistenciaDeNacimientosController extends Controller
     //     return $data;
     // }
 
-    public function reporte($ano_nac,$nro_lib,$sex_nac,$ubigeo,$usuario,$cen_asi,$fch_nac_desde,$fch_nac_hasta)
+    public function reporte($extension,$ano_nac,$nro_lib,$sex_nac,$ubigeo,$usuario,$cen_asi,$fch_nac_desde,$fch_nac_hasta)
     {
 
         $descripcionFiltro="Considerado todos los registros";
@@ -91,20 +93,24 @@ class ConsistenciaDeNacimientosController extends Controller
         ->leftJoin('public.condic', 'condic.codigo', '=', 'nacimi.condic')
         ->where($donde)
         ->orderBy('nacimi.fch_nac','asc')
-        ->limit(100)
+        // ->limit(100)
         ->get();
 
-        // $nacimientos = Nacimiento::where([['nacimi.ano_nac', '=', '1997'],['nacimi.nro_lib', '!=', null],['nacimi.nro_fol', '!=', null]])->get();
-
-        $vista = View::make(
+        if($extension == 'pdf'){
+            $vista = View::make(
             'nacimientos/imprimir_consistencia_nacimientos',
             compact('nacimientos','descripcionFiltro')
-        )->render();
-        $pdf = App::make('dompdf.wrapper');
-        $pdf->loadHTML($vista);
+            )->render();
+            $pdf = App::make('dompdf.wrapper');
+            $pdf->loadHTML($vista);
+    
+            return $pdf->stream();
+            return $pdf->download('registro_nacimientos.pdf');
 
-        return $pdf->stream();
-        return $pdf->download('registro_nacimientos.pdf');
+        }
+        if($extension=='xls'){
+            return Excel::download(new NacimientosExport($nacimientos,$descripcionFiltro), 'nacimientos_export.xlsx');;
+        }
 
         
     }

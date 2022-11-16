@@ -67,7 +67,7 @@ class ConsistenciaMatrimonioView {
             }
 
             if(mensaje.length ==0) {
-                let url = "/matrimonios/consistencia/reporte/"+ano_cel+"/"+nro_lib+"/"+usuario+"/"+fch_cel_desde+"/"+fch_cel_hasta;
+                let url = "/matrimonios/consistencia/reporte/"+e.currentTarget.dataset.extensionReporte+"/"+ano_cel+"/"+nro_lib+"/"+usuario+"/"+fch_cel_desde+"/"+fch_cel_hasta;
                 var win = window.open(url, "_black");
                 win.focus();
             }else{

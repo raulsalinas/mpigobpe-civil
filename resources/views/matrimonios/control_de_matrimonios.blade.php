@@ -320,8 +320,7 @@
 <script src="{{ asset('assets/lte_3/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-
-<script src="{{ asset('js/modelo-vista/matrimonios/control_matrimonio-view.js?v=3') }}"></script>
+<script src="{{ asset('js/modelo-vista/matrimonios/control_matrimonio-view.js')}}?v={{filemtime(public_path('js/modelo-vista/matrimonios/control_matrimonio-view.js'))}}"></script>
 <script src="{{ asset('js/modelo-vista/matrimonios/control_matrimonio-model.js?v=3') }}"></script>
 
 <script>

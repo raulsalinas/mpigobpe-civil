@@ -45,22 +45,23 @@ class ControlNacimientoView {
                 $('[name=ape_mat_pa]').val(respuesta.ape_mat_pa);
                 $('[name=nom_pad]').val(respuesta.nom_pad);
                 $('[name=dir_pad]').val(respuesta.dir_pad);
-                switch (respuesta.condic) {
-                    case 1:
-                        document.querySelector("input[id='condicionOrdinaria']").checked = true;
-                        break;
-                    case 2:
-                        document.querySelector("input[id='condicionExtraordinaria']").checked = true;
-                        break;
-                    case 3:
-                        document.querySelector("input[id='condicionEspecial']").checked = true;
-                        break;
-                    default:
-                        document.querySelector("input[id='condicionOrdinaria']").checked = false
-                        document.querySelector("input[id='condicionExtraordinaria']").checked = false
-                        document.querySelector("input[id='condicionEspecial']").checked = false
-                        break;
-                }
+                // switch (respuesta.condic) {
+                //     case 1:
+                //         document.querySelector("input[id='condicionOrdinaria']").checked = true;
+                //         break;
+                //     case 2:
+                //         document.querySelector("input[id='condicionExtraordinaria']").checked = true;
+                //         break;
+                //     case 3:
+                //         document.querySelector("input[id='condicionEspecial']").checked = true;
+                //         break;
+                //     default:
+                //         document.querySelector("input[id='condicionOrdinaria']").checked = false
+                //         document.querySelector("input[id='condicionExtraordinaria']").checked = false
+                //         document.querySelector("input[id='condicionEspecial']").checked = false
+                //         break;
+                // }
+                $('[name=condicionActa]').val(respuesta.condic);
                 $('[name=observa]').text(respuesta.observa);
 
                 // adjuntos

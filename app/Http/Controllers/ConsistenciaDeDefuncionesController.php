@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DefuncionesExport;
 use App\Models\Defuncion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
+use Maatwebsite\Excel\Facades\Excel;
+
 ini_set('max_execution_time', 300);
 class ConsistenciaDeDefuncionesController extends Controller
 {
@@ -19,7 +22,7 @@ class ConsistenciaDeDefuncionesController extends Controller
         return view('defunciones.consistencia_de_defunciones', get_defined_vars());
     }
     
-    public function reporte($ano_des,$nro_lib,$usuario,$fch_des_desde,$fch_des_hasta)
+    public function reporte($extension,$ano_des,$nro_lib,$usuario,$fch_des_desde,$fch_des_hasta)
     {
 
         $descripcionFiltro="Considerado todos los registros";
@@ -61,9 +64,10 @@ class ConsistenciaDeDefuncionesController extends Controller
         ->leftJoin('public.motvos', 'motvos.codigo', '=', 'defun.cod_mot')
         ->where($donde)
         ->orderBy('defun.fch_des','asc')
-        ->limit(100)
+        // ->limit(100)
         ->get();
 
+        if($extension == 'pdf'){
         $vista = View::make(
             'defunciones/imprimir_consistencia_defuncion',
             compact('defunciones','descripcionFiltro')
@@ -73,7 +77,11 @@ class ConsistenciaDeDefuncionesController extends Controller
 
         return $pdf->stream();
         return $pdf->download('registro_defunciones.pdf');
+        }
 
+        if($extension=='xls'){
+            return Excel::download(new DefuncionesExport($defunciones,$descripcionFiltro), 'defunciones_export.xlsx');;
+        }
         
     }
 }

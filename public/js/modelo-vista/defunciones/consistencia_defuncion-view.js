@@ -67,7 +67,7 @@ class ConsistenciaDefuncionView {
             }
 
             if(mensaje.length ==0) {
-                let url = "/defunciones/consistencia/reporte/"+ano_des+"/"+nro_lib+"/"+usuario+"/"+fch_des_desde+"/"+fch_des_hasta;
+                let url = "/defunciones/consistencia/reporte/"+e.currentTarget.dataset.extensionReporte+"/"+ano_des+"/"+nro_lib+"/"+usuario+"/"+fch_des_desde+"/"+fch_des_hasta;
                 var win = window.open(url, "_black");
                 win.focus();
             }else{

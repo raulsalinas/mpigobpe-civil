@@ -67,7 +67,7 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::name('consistencia.')->prefix('consistencia')->group(function () {
             Route::get('index', [ConsistenciaDeNacimientosController::class, 'index'])->name('index');
-            Route::get('reporte/{ano_nac?}/{nro_lib?}/{sex_nac?}/{ubigeo?}/{usuario?}/{cen_asi?}/{fch_nac_desde?}/{fch_nac_hasta?}', [ConsistenciaDeNacimientosController::class, 'reporte'])->name('reporte');
+            Route::get('reporte/{extension}/{ano_nac?}/{nro_lib?}/{sex_nac?}/{ubigeo?}/{usuario?}/{cen_asi?}/{fch_nac_desde?}/{fch_nac_hasta?}', [ConsistenciaDeNacimientosController::class, 'reporte'])->name('reporte');
         });
     });
     Route::name('matrimonios.')->prefix('matrimonios')->group(function () {
@@ -89,7 +89,7 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::name('consistencia.')->prefix('consistencia')->group(function () {
             Route::get('index', [ConsistenciaDeMatrimoniosController::class, 'index'])->name('index');
-            Route::get('reporte/{ano_cel?}/{nro_lib?}/{usuario?}/{fch_cel_desde?}/{fch_cel_hasta?}', [ConsistenciaDeMatrimoniosController::class, 'reporte'])->name('reporte');
+            Route::get('reporte/{extension}/{ano_cel?}/{nro_lib?}/{usuario?}/{fch_cel_desde?}/{fch_cel_hasta?}', [ConsistenciaDeMatrimoniosController::class, 'reporte'])->name('reporte');
 
         });
     });
@@ -112,7 +112,7 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::name('consistencia.')->prefix('consistencia')->group(function () {
             Route::get('index', [ConsistenciaDeDefuncionesController::class, 'index'])->name('index');
-            Route::get('reporte/{ano_des?}/{nro_lib?}/{usuario?}/{fch_des_desde?}/{fch_des_hasta?}', [ConsistenciaDeDefuncionesController::class, 'reporte'])->name('reporte');
+            Route::get('reporte/{extension}/{ano_des?}/{nro_lib?}/{usuario?}/{fch_des_desde?}/{fch_des_hasta?}', [ConsistenciaDeDefuncionesController::class, 'reporte'])->name('reporte');
 
         });
     });

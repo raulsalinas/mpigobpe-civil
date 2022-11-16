@@ -38,7 +38,7 @@ class ControlDefuncionView {
 
                 $('[name=tipo]').val(respuesta.tipo);
                 $('[name=usuario]').val(respuesta.usuario);
-
+                $('[name=condicionActa]').val(respuesta.condic);
                 $('[name=observa]').text(respuesta.observa);
 
                 // adjuntos

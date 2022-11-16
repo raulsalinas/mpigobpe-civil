@@ -106,7 +106,7 @@ class ConsistenciaNacimientoView {
             }
 
             if(mensaje.length ==0) {
-                let url = "/nacimientos/consistencia/reporte/"+ano_nac+"/"+nro_lib+"/"+sex_nac+"/"+ubigeo+"/"+usuario+"/"+cen_asi+"/"+fch_nac_desde+"/"+fch_nac_hasta;
+                let url = "/nacimientos/consistencia/reporte/"+e.currentTarget.dataset.extensionReporte+"/"+ano_nac+"/"+nro_lib+"/"+sex_nac+"/"+ubigeo+"/"+usuario+"/"+cen_asi+"/"+fch_nac_desde+"/"+fch_nac_hasta;
                 var win = window.open(url, "_black");
                 win.focus();
             }else{

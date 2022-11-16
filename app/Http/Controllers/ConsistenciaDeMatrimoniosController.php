@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MatrimoniosExport;
 use App\Models\Matrimonio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
+use Maatwebsite\Excel\Facades\Excel;
+
 ini_set('max_execution_time', 300);
 class ConsistenciaDeMatrimoniosController extends Controller
 {
@@ -19,7 +22,7 @@ class ConsistenciaDeMatrimoniosController extends Controller
         return view('matrimonios.consistencia_de_matrimonios', get_defined_vars());
     }
 
-    public function reporte($ano_cel,$nro_lib,$usuario,$fch_cel_desde,$fch_cel_hasta)
+    public function reporte($extension,$ano_cel,$nro_lib,$usuario,$fch_cel_desde,$fch_cel_hasta)
     {
 
         $descripcionFiltro="Considerado todos los registros";
@@ -58,8 +61,9 @@ class ConsistenciaDeMatrimoniosController extends Controller
         ->leftJoin('public.tipregmat', 'tipregmat.codigo', '=', 'matrim.cod_reg')
         ->where($donde)
         ->orderBy('matrim.fch_cel','asc')
-        ->limit(100)
+        // ->limit(100)
         ->get();
+        if($extension == 'pdf'){
 
         $vista = View::make(
             'matrimonios/imprimir_consistencia_matrimonio',
@@ -67,9 +71,12 @@ class ConsistenciaDeMatrimoniosController extends Controller
         )->render();
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($vista);
-
         return $pdf->stream();
         return $pdf->download('registro_matrimonios.pdf');
+        }
+        if($extension=='xls'){
+            return Excel::download(new MatrimoniosExport($matrimonios,$descripcionFiltro), 'matrimonios_export.xlsx');;
+        }
 
         
     }

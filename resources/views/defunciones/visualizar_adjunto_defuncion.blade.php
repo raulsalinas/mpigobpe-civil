@@ -58,7 +58,7 @@
 <script src="{{ asset('assets/lte_3/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('js/tiff.min.js?v=1') }}"></script>
+<script src="{{ asset('js/tiff.min.js')}}?v={{filemtime(public_path('js/tiff.min.js'))}}"></script>
 
 <script>
     var rotate=0;
@@ -74,8 +74,6 @@
     function girarMas90() {
         rotate+=90;
         document.querySelector("canvas").style.transform="rotate(+"+rotate+"deg)";
-
-
     }
 
     $(document).ready(function() {
