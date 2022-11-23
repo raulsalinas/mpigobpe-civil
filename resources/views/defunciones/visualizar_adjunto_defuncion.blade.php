@@ -31,21 +31,32 @@
 
             </div>
             <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item">Inicio</li>
-                    <li class="breadcrumb-item">Defunción</li>
-                    <li class="breadcrumb-item active">Adjunto</li>
-                </ol>
+                <div style="display: flex;flex-wrap: wrap;justify-content: end;">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">Inicio</li>
+                        <li class="breadcrumb-item">Defunción</li>
+                        <li class="breadcrumb-item active">Adjunto</li>
+                    </ol>
+                    <div id="contenedorAdjuntoList">
+                        <ul class="nav justify-content-end">
+                            @foreach ($adjuntos as $adjunto)
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-outline-primary" href="/defunciones/control/visualizar-adjunto/?idregistro={{$adjunto['idRegistro']}}&namefile={{$adjunto['nameFile']}}&year={{$adjunto['year']}}&book={{$adjunto['book']}}&folio={{$adjunto['folio']}}">{{$adjunto['nameFile']}}</a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <div class="content ">
-
     <div class="row">
-        <div class="col-md-12 text-center">
+        <div class="col-md-9 text-center">
             <div class="actaDefuncionAdversoTIF"></div>
+            <div class="actaDefuncionAdversoPDF"></div>
         </div>
     </div>
 </div>
@@ -61,31 +72,34 @@
 <script src="{{ asset('js/tiff.min.js')}}?v={{filemtime(public_path('js/tiff.min.js'))}}"></script>
 
 <script>
-    var rotate=0;
-    function impirmirHoja() {                      
+    var rotate = 0;
+
+    function impirmirHoja() {
         window.print();
 
     }
+
     function girarMenos90() {
-        rotate+=90;
-        document.querySelector("canvas").style.transform="rotate(-"+rotate+"deg)";
-        
+        rotate += 90;
+        document.querySelector("canvas").style.transform = "rotate(-" + rotate + "deg)";
+
     }
+
     function girarMas90() {
-        rotate+=90;
-        document.querySelector("canvas").style.transform="rotate(+"+rotate+"deg)";
+        rotate += 90;
+        document.querySelector("canvas").style.transform = "rotate(+" + rotate + "deg)";
     }
 
-    $(document).ready(function() {
+    function prepareCanvas() {
 
-        let nameFileByURL = (location.search.split('namefile=')[1]).split('?')[0];
+        let nameFileByURL = (location.search.split('namefile=')[1]).split('&')[0];
         let yearByURL = parseInt(location.search.split('year=')[1]);
         let bookByURL = parseInt(location.search.split('book=')[1]);
         let folioByURL = parseInt(location.search.split('folio=')[1]);
         document.querySelector("span[id='claveLibroAño']").textContent = 'Año: ' + (toString(yearByURL).length > 0 ? yearByURL : 'S/N');
         document.querySelector("span[id='claveLibroLibro']").textContent = 'Libro: ' + (toString(bookByURL).length > 0 ? bookByURL : 'S/N');
         document.querySelector("span[id='claveLibroFolio']").textContent = 'Folio: ' + (toString(folioByURL).length > 0 ? folioByURL : 'S/N');
-        if ((nameFileByURL) != null && nameFileByURL.length >0) {
+        if ((nameFileByURL) != null && nameFileByURL.length > 0) {
             // Inicia -> vista extendida
             let body = document.getElementsByTagName("body")[0];
             body.classList.add("sidebar-collapse");
@@ -93,7 +107,7 @@
 
             var xhrA = new XMLHttpRequest();
             xhrA.responseType = 'arraybuffer';
-            xhrA.open('GET', "/fichas/defun/" + nameFileByURL );
+            xhrA.open('GET', "/fichas/defun/" + nameFileByURL);
             xhrA.onload = function(e) {
                 var tiff = new Tiff({
                     buffer: xhrA.response
@@ -103,11 +117,32 @@
             };
             xhrA.send();
         }
+    }
 
+    function prepareFrame() {
+        var ifrm = document.createElement("iframe");
+        ifrm.setAttribute("src", "/fichas/defun/" + nameFileByURL);
+        ifrm.style.width = "800px";
+        ifrm.style.height = "600px";
+        ifrm.style.border = "none";
+        document.querySelector("div[class='actaDefuncionAdversoPDF']").appendChild(ifrm);
+    }
 
+    let yearByURL = parseInt(location.search.split('year=')[1]);
+    if ((location.search.split('namefile=')[1]).split('&')[0].split('.')[1] == 'pdf') {
+        prepareFrame();
+    }
+    if ((location.search.split('namefile=')[1]).split('&')[0].split('.')[1] == 'tif') {
+        prepareCanvas();
+    }
 
-
-
-    });
+    if (document.querySelector("div[id='contenedorAdjuntoList'] ul").childElementCount) { // si existe adjuntos en la lista , se cargará el primero, verificando que fileName es undefined entonces cargará el primer adjunto de la lista por defecto
+        const sizeAdjList = document.querySelector("div[id='contenedorAdjuntoList'] ul").children.length;
+        if (sizeAdjList > 0) {
+            if ([undefined, 'undefined'].includes((location.search.split('namefile=')[1]).split('&')[0])) {
+                document.querySelector("div[id='contenedorAdjuntoList'] ul").children[0].querySelector("a").click()
+            }
+        }
+    }
 </script>
 @endsection

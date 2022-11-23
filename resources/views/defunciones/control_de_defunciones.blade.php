@@ -14,12 +14,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Control de Defunciones {{$tipo}}</h1>
+                <h1>Control de Defunciones <span name="nombreCondicionActa">{{$tipo}}</span></h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item">Inicio</li>
-                    <li class="breadcrumb-item">Defunciones {{$tipo}}</li>
+                    <li class="breadcrumb-item">Defunciones <span name="nombreCondicionActa">{{$tipo}}</span></li>
                     <li class="breadcrumb-item active">Control</li>
                 </ol>
             </div>

@@ -20,7 +20,7 @@ class ControlDeDefuncionesController extends Controller
 {
     public function index(Request $request)
     {
-
+        $tipo =  $request->query('tipo');
         $usuarioList = (new ControlDeNacimientosController)->usuarioList();
         $ubigeoList = (new ControlDeNacimientosController)->ubigeoList();
         $usuario = Auth::user()->usuario;
@@ -35,12 +35,130 @@ class ControlDeDefuncionesController extends Controller
         $data = $id;
         if ($id > 0) {
             $data = Defuncion::find($id);
-            $adjunto = $this->buscarFicha($id,'defun');
-            $data->setAttribute('adjunto',$adjunto);
+            $data->setAttribute('adjunto',$this->obtenerAdjuntos($id));
         }
         return response()->json($data, 200);
     }
 
+    public function obtenerAdjuntos($id){
+        $adjuntos = $this->buscarFicha($id,'defun');
+        return $adjuntos;
+    }
+
+    public function obtenerAdjuntosLista($id){
+        $adjuntos = $this->buscarFicha($id,'defun');
+        $files=[];
+        if($adjuntos['existe_archivo_nombre_base_tif']==true){
+            $files[]=[
+                
+                'idRegistro'=>$adjuntos['idRegistro'],
+                'nameFile'=>$adjuntos['nombre_base'].'.tif',
+                'year'=>$adjuntos['año'],
+                'book'=>$adjuntos['book'],
+                'folio'=>$adjuntos['folio'],
+            ];
+        }
+        if($adjuntos['existe_archivo_nombre_base_pdf']==true){
+            $files[]=[
+                'idRegistro'=>$adjuntos['idRegistro'],
+                'nameFile'=>$adjuntos['nombre_base'].'.pdf',
+                'year'=>$adjuntos['año'],
+                'book'=>$adjuntos['book'],
+                'folio'=>$adjuntos['folio'],
+            ];
+        }
+        if($adjuntos['existe_archivo_nombre_a_tif']==true){
+            $files[]=[
+                'idRegistro'=>$adjuntos['idRegistro'],
+                'nameFile'=>$adjuntos['nombre_base'].'A.tif',
+                'year'=>$adjuntos['año'],
+                'book'=>$adjuntos['book'],
+                'folio'=>$adjuntos['folio'],
+            ];
+        }
+        if($adjuntos['existe_archivo_nombre_a_pdf']==true){
+            $files[]=[
+                'idRegistro'=>$adjuntos['idRegistro'],
+                'nameFile'=>$adjuntos['nombre_base'].'A.pdf',
+                'year'=>$adjuntos['año'],
+                'book'=>$adjuntos['book'],
+                'folio'=>$adjuntos['folio'],
+            ];
+        }
+        if($adjuntos['existe_archivo_nombre_b_tif']==true){
+            $files[]=[
+                'idRegistro'=>$adjuntos['idRegistro'],
+                'nameFile'=>$adjuntos['nombre_base'].'B.pdf',
+                'year'=>$adjuntos['año'],
+                'book'=>$adjuntos['book'],
+                'folio'=>$adjuntos['folio'],
+            ];
+        }
+        if($adjuntos['existe_archivo_nombre_b_pdf']==true){
+            $files[]=[
+                'idRegistro'=>$adjuntos['idRegistro'],
+                'nameFile'=>$adjuntos['nombre_base'].'B.tif',
+                'year'=>$adjuntos['año'],
+                'book'=>$adjuntos['book'],
+                'folio'=>$adjuntos['folio'],
+            ];
+        }
+        if($adjuntos['existe_archivo_nombre_c_tif']==true){
+            $files[]=[
+                'idRegistro'=>$adjuntos['idRegistro'],
+                'nameFile'=>$adjuntos['nombre_base'].'C.tif',
+                'year'=>$adjuntos['año'],
+                'book'=>$adjuntos['book'],
+                'folio'=>$adjuntos['folio'],
+            ];
+        }
+        if($adjuntos['existe_archivo_nombre_c_pdf']==true){
+            $files[]=[
+                'idRegistro'=>$adjuntos['idRegistro'],
+                'nameFile'=>$adjuntos['nombre_base'].'C.pdf',
+                'year'=>$adjuntos['año'],
+                'book'=>$adjuntos['book'],
+                'folio'=>$adjuntos['folio'],
+            ];
+        }
+        if($adjuntos['existe_archivo_nombre_d_tif']==true){
+            $files[]=[
+                'idRegistro'=>$adjuntos['idRegistro'],
+                'nameFile'=>$adjuntos['nombre_base'].'D.tif',
+                'year'=>$adjuntos['año'],
+                'book'=>$adjuntos['book'],
+                'folio'=>$adjuntos['folio'],
+            ];
+        }
+        if($adjuntos['existe_archivo_nombre_d_pdf']==true){
+            $files[]=[
+                'idRegistro'=>$adjuntos['idRegistro'],
+                'nameFile'=>$adjuntos['nombre_base'].'D.pdf',
+                'year'=>$adjuntos['año'],
+                'book'=>$adjuntos['book'],
+                'folio'=>$adjuntos['folio'],
+            ];
+        }
+        if($adjuntos['existe_archivo_nombre_e_tif']==true){
+            $files[]=[
+                'idRegistro'=>$adjuntos['idRegistro'],
+                'nameFile'=>$adjuntos['nombre_base'].'E.tif',
+                'year'=>$adjuntos['año'],
+                'book'=>$adjuntos['book'],
+                'folio'=>$adjuntos['folio'],
+            ];
+        }
+        if($adjuntos['existe_archivo_nombre_e_pdf']==true){
+            $files[]=[
+                'idRegistro'=>$adjuntos['idRegistro'],
+                'nameFile'=>$adjuntos['nombre_base'].'E.pdf',
+                'year'=>$adjuntos['año'],
+                'book'=>$adjuntos['book'],
+                'folio'=>$adjuntos['folio'],
+            ];
+        }
+        return $files;
+    }
     public function buscarFicha($id,$folder)
     {
         /*
@@ -55,8 +173,10 @@ class ControlDeDefuncionesController extends Controller
                 $data= Nacimiento::find($id);
                 $nombreBase = $data->ano_nac.$data->nro_fol;
                 $archivoEncontrado=[
+                    'idRegistro'=>$id,
                     'folder'=>'nacim',
                     'año'=>$data->ano_nac,
+                    'book'=>$data->nro_lib,
                     'folio'=>$data->nro_fol,
                     'nombre_base'=>$nombreBase,
                 ];
@@ -65,8 +185,10 @@ class ControlDeDefuncionesController extends Controller
                 $data= Matrimonio::find($id);
                 $nombreBase = $data->ano_cel.$data->nro_fol;
                 $archivoEncontrado=[
+                    'idRegistro'=>$id,
                     'folder'=>'nacim',
                     'año'=>$data->ano_cel,
+                    'book'=>$data->nro_lib,
                     'folio'=>$data->nro_fol,
                     'nombre_base'=>$nombreBase,
                 ];
@@ -75,8 +197,10 @@ class ControlDeDefuncionesController extends Controller
                 $data= Defuncion::find($id);
                 $nombreBase = $data->ano_des.$data->nro_fol;
                 $archivoEncontrado=[
+                    'idRegistro'=>$id,
                     'folder'=>'nacim',
                     'año'=>$data->ano_des,
+                    'book'=>$data->nro_lib,
                     'folio'=>$data->nro_fol,
                     'nombre_base'=>$nombreBase,
                 ];
@@ -86,23 +210,36 @@ class ControlDeDefuncionesController extends Controller
         }
  
         // $fichas = Storage::disk('fichas-nacimiento')->allFiles();
-        $existeArchivoNombreBase = intval(Storage::disk('fichas-'.$folder)->exists($nombreBase . '.tif'));
+        $existeArchivoNombreBaseTIF = intval(Storage::disk('fichas-'.$folder)->exists($nombreBase . '.tif'));
+        $existeArchivoNombreBasePDF = intval(Storage::disk('fichas-'.$folder)->exists($nombreBase . '.pdf'));
 
-        $existeArchivoNombreA = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'A.TIF'));
-        $existeArchivoNombreB = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'B.TIF'));
-        $existeArchivoNombreC = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'C.TIF'));
-        $existeArchivoNombreD = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'D.TIF'));
-        $existeArchivoNombreE = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'E.TIF'));
+        $existeArchivoNombreATIF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'A.TIF'));
+        $existeArchivoNombreAPDF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'A.PDF'));
+        $existeArchivoNombreBTIF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'B.TIF'));
+        $existeArchivoNombreBPDF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'B.PDF'));
+        $existeArchivoNombreCTIF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'C.TIF'));
+        $existeArchivoNombreCPDF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'C.PDF'));
+        $existeArchivoNombreDTIF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'D.TIF'));
+        $existeArchivoNombreDPDF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'D.PDF'));
+        $existeArchivoNombreETIF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'E.TIF'));
+        $existeArchivoNombreEPDF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'E.PDF'));
 
-        $archivoEncontrado['existe_archivo_nombre_base']=boolval($existeArchivoNombreBase);
-        $archivoEncontrado['existe_archivo_nombre_a']=boolval($existeArchivoNombreA);
-        $archivoEncontrado['existe_archivo_nombre_b']=boolval($existeArchivoNombreB);
-        $archivoEncontrado['existe_archivo_nombre_c']=boolval($existeArchivoNombreC);
-        $archivoEncontrado['existe_archivo_nombre_d']=boolval($existeArchivoNombreD);
-        $archivoEncontrado['existe_archivo_nombre_e']=boolval($existeArchivoNombreE);
+        $archivoEncontrado['existe_archivo_nombre_base_tif']=boolval($existeArchivoNombreBaseTIF);
+        $archivoEncontrado['existe_archivo_nombre_base_pdf']=boolval($existeArchivoNombreBasePDF);
+        $archivoEncontrado['existe_archivo_nombre_a_tif']=boolval($existeArchivoNombreATIF);
+        $archivoEncontrado['existe_archivo_nombre_a_pdf']=boolval($existeArchivoNombreAPDF);
+        $archivoEncontrado['existe_archivo_nombre_b_tif']=boolval($existeArchivoNombreBTIF);
+        $archivoEncontrado['existe_archivo_nombre_b_pdf']=boolval($existeArchivoNombreBPDF);
+        $archivoEncontrado['existe_archivo_nombre_c_tif']=boolval($existeArchivoNombreCTIF);
+        $archivoEncontrado['existe_archivo_nombre_c_pdf']=boolval($existeArchivoNombreCPDF);
+        $archivoEncontrado['existe_archivo_nombre_d_tif']=boolval($existeArchivoNombreDTIF);
+        $archivoEncontrado['existe_archivo_nombre_d_pdf']=boolval($existeArchivoNombreDPDF);
+        $archivoEncontrado['existe_archivo_nombre_e_tif']=boolval($existeArchivoNombreETIF);
+        $archivoEncontrado['existe_archivo_nombre_e_pdf']=boolval($existeArchivoNombreEPDF);
  
         return $archivoEncontrado;
     }
+
 
     public function guardar(Request $request)
     {
@@ -324,6 +461,9 @@ class ControlDeDefuncionesController extends Controller
 
     public function visualizarAdjuntoDefuncion(Request $request)
     {
+        $idRegistro=  $request->query('idregistro');
+
+        $adjuntos = $this->obtenerAdjuntosLista($idRegistro);
         return view('defunciones.visualizar_adjunto_defuncion', get_defined_vars());
     }
 }

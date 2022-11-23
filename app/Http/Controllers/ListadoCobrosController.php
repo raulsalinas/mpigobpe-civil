@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ReporteCobrosExport;
 use App\Models\Cobro;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Exception;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ListadoCobrosController extends Controller
 {
@@ -64,6 +66,12 @@ class ListadoCobrosController extends Controller
             </div>';
         })
         ->rawColumns(['accion','accion-seleccionar'])->make(true);
+    }
+
+    public function reporteCobrosExcel(){
+        return Excel::download(new ReporteCobrosExport(), 'reporte_cobros.xlsx');
+
+
     }
 
 }

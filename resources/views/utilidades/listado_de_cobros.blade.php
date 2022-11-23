@@ -76,6 +76,8 @@
 <script src="{{ asset('assets/lte_3/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/lte_3/plugins/jszip/jszip.min.js') }}"></script>
 
 <script src="{{ asset('js/modelo-vista/utilidades/listado_cobros-view.js?v=1') }}"></script>
 <script src="{{ asset('js/modelo-vista/utilidades/listado_cobros-model.js?v=1') }}"></script>

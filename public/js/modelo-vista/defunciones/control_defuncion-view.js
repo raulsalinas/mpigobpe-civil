@@ -39,13 +39,14 @@ class ControlDefuncionView {
                 $('[name=tipo]').val(respuesta.tipo);
                 $('[name=usuario]').val(respuesta.usuario);
                 $('[name=condicionActa]').val(respuesta.condic);
+                this.updateSubtituloCondicionActa(respuesta.condic);
                 $('[name=observa]').text(respuesta.observa);
 
                 // adjuntos
                 Util.limpiarTabla("tablaListaAdjuntosDeDefuncion");
 
                 let html = '';
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_base == true) {
+                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_base_tif == true) {
                     tempArchivoAdjuntoList.push({
                         id: respuesta.adjunto.nombre_base,
                         fecha_emision: '',
@@ -63,11 +64,37 @@ class ControlDefuncionView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}"  
                         disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + '.tif'}" onclick="descargarAdjuntoDefuncion(event)"
+                        disabled>Descargar</button>
                      </div>
                 </td>
                 </tr>`;
                 }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_a == true) {
+                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_base_pdf == true) {
+                    tempArchivoAdjuntoList.push({
+                        id: respuesta.adjunto.nombre_base,
+                        fecha_emision: '',
+                        nameFile: respuesta.adjunto.nombre_base + '.pdf',
+                        action: '',
+                        file: []
+                    })
+                    html += `<tr style="text-align:center">
+                <td style="text-align:left;">${respuesta.adjunto.nombre_base + '.pdf'}</td>
+                <td style="text-align:center;">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + '.pdf'}"  
+                        data-año="${respuesta.ano_des}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}"  
+                        disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + '.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
+                        disabled>Descargar</button>
+                     </div>
+                </td>
+                </tr>`;
+                }
+                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_a_tif == true) {
                     tempArchivoAdjuntoList.push({
                         id: respuesta.adjunto.nombre_base + 'A',
                         fecha_emision: '',
@@ -79,17 +106,43 @@ class ControlDefuncionView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'A.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.tif'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}"  
+                        data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'A.tif'}" onclick="descargarAdjuntoDefuncion(event)"
+                        disabled>Descargar</button>
                     </div>
                 </td>
                 </tr>`;
                 }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_b == true) {
+                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_a_pdf == true) {
+                    tempArchivoAdjuntoList.push({
+                        id: respuesta.adjunto.nombre_base + 'A',
+                        fecha_emision: '',
+                        nameFile: respuesta.adjunto.nombre_base + 'A.pdf',
+                        action: '',
+                        file: []
+                    })
+                    html += `<tr style="text-align:center">
+                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'A.pdf'}</td>
+                <td style="text-align:center;">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.pdf'}"  
+                        data-año="${respuesta.ano_des}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}" 
+                        disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'A.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
+                        disabled>Descargar</button>
+                    </div>
+                </td>
+                </tr>`;
+                }
+                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_b_tif == true) {
                     tempArchivoAdjuntoList.push({
                         id: respuesta.adjunto.nombre_base + 'B',
                         fecha_emision: '',
@@ -101,17 +154,43 @@ class ControlDefuncionView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'B.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar" 
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.tif'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}"  
+                        data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'B.tif'}" onclick="descargarAdjuntoDefuncion(event)"
+                        disabled>Descargar</button>
                     </div>
                 </td>
                 </tr>`;
                 }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_c == true) {
+                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_b_pdf == true) {
+                    tempArchivoAdjuntoList.push({
+                        id: respuesta.adjunto.nombre_base + 'B',
+                        fecha_emision: '',
+                        nameFile: respuesta.adjunto.nombre_base + 'B.pdf',
+                        action: '',
+                        file: []
+                    })
+                    html += `<tr style="text-align:center">
+                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'B.pdf'}</td>
+                <td style="text-align:center;">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.pdf'}"  
+                        data-año="${respuesta.ano_des}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}" 
+                        disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'B.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
+                        disabled>Descargar</button>
+                    </div>
+                </td>
+                </tr>`;
+                }
+                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_c_tif == true) {
                     tempArchivoAdjuntoList.push({
                         id: respuesta.adjunto.nombre_base + 'C',
                         fecha_emision: '',
@@ -127,13 +206,39 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.tif'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}"  
+                        data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'C.tif'}" onclick="descargarAdjuntoDefuncion(event)"
+                        disabled>Descargar</button>
                     </div>
                 </td>
                 </tr>`;
                 }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_d == true) {
+                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_c_pdf == true) {
+                    tempArchivoAdjuntoList.push({
+                        id: respuesta.adjunto.nombre_base + 'C',
+                        fecha_emision: '',
+                        nameFile: respuesta.adjunto.nombre_base + 'C.pdf',
+                        action: '',
+                        file: []
+                    })
+                    html += `<tr style="text-align:center">
+                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'C.pdf'}</td>
+                <td style="text-align:center;">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.pdf'}"  
+                        data-año="${respuesta.ano_des}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}" 
+                        disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'C.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
+                        disabled>Descargar</button>
+                    </div>
+                </td>
+                </tr>`;
+                }
+                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_d_tif == true) {
                     tempArchivoAdjuntoList.push({
                         id: respuesta.adjunto.nombre_base + 'D',
                         fecha_emision: '',
@@ -149,13 +254,39 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.tif'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}"  
+                        data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'D.tif'}" onclick="descargarAdjuntoDefuncion(event)"
+                        disabled>Descargar</button>
                     </div>
                 </td>
                 </tr>`;
                 }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_e == true) {
+                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_d_pdf == true) {
+                    tempArchivoAdjuntoList.push({
+                        id: respuesta.adjunto.nombre_base + 'D',
+                        fecha_emision: '',
+                        nameFile: respuesta.adjunto.nombre_base + 'D.pdf',
+                        action: '',
+                        file: []
+                    })
+                    html += `<tr style="text-align:center">
+                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'D.pdf'}</td>
+                <td style="text-align:center;">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.pdf'}"  
+                        data-año="${respuesta.ano_des}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}" 
+                        disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'D.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
+                        disabled>Descargar</button>
+                    </div>
+                </td>
+                </tr>`;
+                }
+                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_e_tif == true) {
                     tempArchivoAdjuntoList.push({
                         id: respuesta.adjunto.nombre_base + 'E',
                         fecha_emision: '',
@@ -167,23 +298,49 @@ class ControlDefuncionView {
                 <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'E.tif'}</td>
                 <td style="text-align:center;">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.tif'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}"  
+                        data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'E.tif'}" onclick="descargarAdjuntoDefuncion(event)"
+                        disabled>Descargar</button>
+                    </div>
+                </td>
+                </tr>`;
+                }
+                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_e_pdf == true) {
+                    tempArchivoAdjuntoList.push({
+                        id: respuesta.adjunto.nombre_base + 'E',
+                        fecha_emision: '',
+                        nameFile: respuesta.adjunto.nombre_base + 'E.pdf',
+                        action: '',
+                        file: []
+                    })
+                    html += `<tr style="text-align:center">
+                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'E.pdf'}</td>
+                <td style="text-align:center;">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoDefuncion"  title="Visualizar"  
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.pdf'}"  
+                        data-año="${respuesta.ano_des}"  
+                        data-libro="${respuesta.nro_lib}"  
+                        data-folio="${respuesta.nro_fol}" 
+                        disabled>Visualizar</button>
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'E.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
+                        disabled>Descargar</button>
                     </div>
                 </td>
                 </tr>`;
                 }
                 if (respuesta.adjunto != null &&
-                    respuesta.adjunto.existe_archivo_nombre_base == false &&
-                    respuesta.adjunto.existe_archivo_nombre_a == false &&
-                    respuesta.adjunto.existe_archivo_nombre_b == false &&
-                    respuesta.adjunto.existe_archivo_nombre_c == false &&
-                    respuesta.adjunto.existe_archivo_nombre_d == false &&
-                    respuesta.adjunto.existe_archivo_nombre_e == false) {
+                    (respuesta.adjunto.existe_archivo_nombre_base_tif == false || respuesta.adjunto.existe_archivo_nombre_base_pdf == false) &&
+                    (respuesta.adjunto.existe_archivo_nombre_a_tif == false || respuesta.adjunto.existe_archivo_nombre_a_pdf == false) &&
+                    (respuesta.adjunto.existe_archivo_nombre_b_tif == false || respuesta.adjunto.existe_archivo_nombre_b_pdf == false) &&
+                    (respuesta.adjunto.existe_archivo_nombre_c_tif == false || respuesta.adjunto.existe_archivo_nombre_c_pdf == false) &&
+                    (respuesta.adjunto.existe_archivo_nombre_d_tif == false || respuesta.adjunto.existe_archivo_nombre_d_pdf == false) &&
+                    (respuesta.adjunto.existe_archivo_nombre_e_tif == false || respuesta.adjunto.existe_archivo_nombre_e_pdf == false)) {
                     html += `<tr style="text-align:center">
                 <td style="text-align:center;" colSpan="2">Sin adjuntos para mostrar</td>           
                 </td>
@@ -344,7 +501,7 @@ class ControlDefuncionView {
                         console.log('cancel');
                     }
                 });
-            }else{
+            } else {
                 Util.mensaje("warning", "No seleccionó ningun registro que pueda ser observado");
             }
 
@@ -354,7 +511,7 @@ class ControlDefuncionView {
          */
         $("#botoneraPrincipal").on("click", "a.cancelar", (e) => {
             document.querySelector("span[id='descripcion-de-accion-formulario']").textContent = "";
-            
+
             Util.cambiarEstadoBotonera('HABILITAR', ['nuevo', 'modificar', 'observar']);
             $('#controlDefuncionesForm')[0].reset();
             document.querySelector("div[name='observa']").textContent = "";
@@ -543,14 +700,14 @@ class ControlDefuncionView {
                         return index.row + 1;
                     }, orderable: false, searchable: false, className: 'text-center'
                 },
-                { data: 'ano_des',className: 'text-center' },
+                { data: 'ano_des', className: 'text-center' },
                 { data: 'nro_lib' },
                 { data: 'nro_fol' },
                 { data: 'ape_pat_de' },
                 { data: 'ape_mat_de' },
                 { data: 'nom_des' },
-                { data: 'motivo_defuncion'},
-                { data: 'fch_des'},
+                { data: 'motivo_defuncion' },
+                { data: 'fch_des' },
                 { data: 'usuario' },
                 { data: 'accion-seleccionar', orderable: false, searchable: false, className: 'text-center' }
             ],
@@ -688,5 +845,36 @@ class ControlDefuncionView {
 
         }
     }
+    updateSubtituloCondicionActa(idCondicion) {
+        let titulosCondicionActa = document.querySelectorAll("span[name='nombreCondicionActa']");
+        switch (idCondicion) {
+            case 1:
+                titulosCondicionActa.forEach(element => {
+                    element.textContent = 'Ordinario';
+                });
+                break;
 
+            case 2:
+                titulosCondicionActa.forEach(element => {
+                    element.textContent = 'Extraordinario';
+                });
+                break;
+
+            case 2:
+                titulosCondicionActa.forEach(element => {
+                    element.textContent = 'Especial';
+                });
+                break;
+
+            default:
+                break;
+        }
+    }
+}
+
+
+function descargarAdjuntoDefuncion(obj){
+    let url = `/fichas/defun/${obj.currentTarget.dataset.nameFile}`;
+    var win = window.open(url, "_black");
+    win.focus();
 }

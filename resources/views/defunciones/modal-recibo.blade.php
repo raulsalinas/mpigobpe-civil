@@ -11,7 +11,7 @@
                 @csrf
                 <div class="modal-header">
                     <h4 class="modal-title"></h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" onclick="$('#modalRecibo').modal('hide');" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
                     <h6>Selecciona si corresponde aplicar pago o no para desbloquear las acciones de la sección de adjuntos.</h6>
@@ -32,7 +32,7 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>Recibo Nro</label>
+                                            <label>Recibo Nro *</label>
                                             <input type="text" class="form-control form-control-sm handleNroRecibo" name="nro_recibo" placeholder="" readonly>
                                         </div>
                                     </div>
@@ -47,7 +47,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Fecha</label>
-                                            <input type="date" class="form-control form-control-sm" name="fecha_recibo" placeholder="" readonly>
+                                            <input type="date" class="form-control form-control-sm" name="fecha_recibo" placeholder="" value="{{ date('Y-m-d') }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-sm-8">
@@ -65,14 +65,14 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>Importe S/</label>
+                                            <label>Importe S/ *</label>
                                             <input type="text" class="form-control form-control-sm" name="importe_recibo" placeholder="" readonly>
                                         </div>
                                     </div>
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <label>&nbsp;</label>
-                                            <input type="text" class="form-control form-control-sm" name="detalle_recibo" placeholder="" readonly>
+                                            <input type="text" class="form-control form-control-sm" name="detalle_recibo" placeholder="Comentario adiciona (Opcional)" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-pill btn-primary continuar" id="btnContinuar" data-dismiss="modal" disabled>Continuar</button>
-                        <button type="button" class="btn btn-pill btn-default" id="btnCerrar" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-pill btn-default" id="btnCerrar"  onclick="$('#modalRecibo').modal('hide');" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </form>

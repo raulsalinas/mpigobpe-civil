@@ -45,9 +45,15 @@
                                                 <th width="10">Año</th>
                                                 <th width="10">Nro. Libro</th>
                                                 <th width="10">Nro. Folio</th>
-                                                <th width="50">Apellido Paterno</th>
-                                                <th width="50">Apellido Matero</th>
-                                                <th width="50">Nombres</th>
+                                                <th width="50">Apellido Paterno del Nacido</th>
+                                                <th width="50">Apellido Matero del Nacido</th>
+                                                <th width="50">Nombres del Nacido</th>
+                                                <th width="50">Apellido Paterno del Padre</th>
+                                                <th width="50">Apellido Matero del Padre</th>
+                                                <th width="50">Nombres del Padre</th>
+                                                <th width="50">Apellido Paterno de Madre</th>
+                                                <th width="50">Apellido Matero de Madre</th>
+                                                <th width="50">Nombres de Madre</th>
                                                 <th width="10">Sexo</th>
                                                 <th width="20">Ubigeo</th>
                                                 <th width="20">Fecha de Nacimiento</th>
@@ -92,7 +98,10 @@
         const listadoNacimientoView = new ListadoNacimientoView(new ListadoNacimientoModel(csrf_token));
         listadoNacimientoView.listar(null);
         listadoNacimientoView.eventos();
-
+        // Inicia -> vista extendida
+        let body = document.getElementsByTagName("body")[0];
+        body.classList.add("sidebar-collapse");
+        // termina -> vista extendida
     });
 </script>
 @endsection

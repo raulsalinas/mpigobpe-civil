@@ -63,6 +63,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('actualizar', [ControlDeNacimientosController::class, 'actualizar'])->name('actualizar');
             Route::post('observar', [ControlDeNacimientosController::class, 'observar'])->name('observar');
             Route::get('visualizar-adjunto', [ControlDeNacimientosController::class, 'visualizarAdjuntoNacimiento'])->name('visualizarAdjuntoNacimiento');
+            Route::get('obtener-adjuntos/{idRegistro}', [ControlDeNacimientosController::class, 'obtenerAdjuntos'])->name('obtenerAdjuntos');
+            Route::get('obtener-adjuntos-lista/{idRegistro}', [ControlDeNacimientosController::class, 'obtenerAdjuntosLista'])->name('obtenerAdjuntosLista');
             Route::get('buscar-ficha/{id}/{folder}', [ControlDeNacimientosController::class, 'buscarFicha'])->name('buscar-ficha');
         });
         Route::name('consistencia.')->prefix('consistencia')->group(function () {
@@ -82,6 +84,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('actualizar', [ControlDeMatrimoniosController::class, 'actualizar'])->name('actualizar');
             Route::post('observar', [ControlDeMatrimoniosController::class, 'observar'])->name('observar');
             Route::get('visualizar-adjunto', [ControlDeMatrimoniosController::class, 'visualizarAdjuntoMatrimonio'])->name('visualizarAdjuntoMatrimonio');
+            Route::get('obtener-adjuntos/{idRegistro}', [ControlDeMatrimoniosController::class, 'obtenerAdjuntos'])->name('obtenerAdjuntos');
+            Route::get('obtener-adjuntos-lista/{idRegistro}', [ControlDeMatrimoniosController::class, 'obtenerAdjuntosLista'])->name('obtenerAdjuntosLista');
 
             Route::get('buscar-ficha/{id}/{folder}', [ControlDeMatrimoniosController::class, 'buscarFicha'])->name('buscar-ficha');
 
@@ -105,6 +109,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('actualizar', [ControlDeDefuncionesController::class, 'actualizar'])->name('actualizar');
             Route::post('observar', [ControlDeDefuncionesController::class, 'observar'])->name('observar');
             Route::get('visualizar-adjunto', [ControlDeDefuncionesController::class, 'visualizarAdjuntoDefuncion'])->name('visualizarAdjuntoDefuncion');
+            Route::get('obtener-adjuntos/{idRegistro}', [ControlDeDefuncionesController::class, 'obtenerAdjuntos'])->name('obtenerAdjuntos');
+            Route::get('obtener-adjuntos-lista/{idRegistro}', [ControlDeDefuncionesController::class, 'obtenerAdjuntosLista'])->name('obtenerAdjuntosLista');
 
             Route::get('buscar-ficha/{id}/{folder}', [ControlDeDefuncionesController::class, 'buscarFicha'])->name('buscar-ficha');
 
@@ -119,7 +125,9 @@ Route::middleware(['auth'])->group(function () {
     Route::name('utilidades.')->prefix('utilidades')->group(function () {
         Route::name('cobros.')->prefix('cobros')->group(function () {
             Route::get('index', [ListadoCobrosController::class, 'index'])->name('index');
+            Route::get('reporte-cobros-excel', [ListadoCobrosController::class, 'reporteCobrosExcel'])->name('reporte-cobros-excel');
             Route::post('listar', [ListadoCobrosController::class, 'listar'])->name('listar');
+            
         });
     });
     Route::name('configuracion.')->prefix('configuracion')->group(function () {

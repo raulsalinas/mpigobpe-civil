@@ -84,6 +84,10 @@
         const listadoDefuncionView = new ListadoDefuncionView(new ListadoDefuncionModel(csrf_token));
         listadoDefuncionView.listar(null);
         listadoDefuncionView.eventos();
+        // Inicia -> vista extendida
+        let body = document.getElementsByTagName("body")[0];
+        body.classList.add("sidebar-collapse");
+        // termina -> vista extendida
     });
 </script>
 @endsection

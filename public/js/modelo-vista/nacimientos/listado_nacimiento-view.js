@@ -8,7 +8,21 @@ class ListadoNacimientoView {
     /**
      * Listar mediante DataTables
      */
-    listar = (anio_filtro=null,libro_filtro=null,folio_filtro=null,apellido_paterno_filtro=null,apellido_materno_filtro=null,nombres_filtro=null,fecha_desde_filtro=null,fecha_hasta_filtro=null,condicion_filtro=null) => {
+    listar = (anio_filtro=null
+        ,libro_filtro=null
+        ,folio_filtro=null
+        ,nombres_madre_filtro=null
+        ,apellido_paterno_filtro=null
+        ,apellido_materno_filtro=null
+        ,apellido_paterno_padre_filtro=null
+        ,apellido_materno_padre_filtro=null
+        ,nombres_padre_filtro=null
+        ,apellido_paterno_madre_filtro=null
+        ,apellido_materno_madre_filtro=null
+        ,nombres_filtro=null
+        ,fecha_desde_filtro=null
+        ,fecha_hasta_filtro=null
+        ,condicion_filtro=null) => {
         const $tabla = $('#tablaNacimiento').DataTable({
             dom: 'Bfrtip',
             pageLength: 20,
@@ -45,6 +59,12 @@ class ListadoNacimientoView {
                     'apellido_paterno_filtro':apellido_paterno_filtro,
                     'apellido_materno_filtro':apellido_materno_filtro,
                     'nombres_filtro':nombres_filtro,
+                    'apellido_paterno_padre_filtro':apellido_paterno_padre_filtro,
+                    'apellido_materno_padre_filtro':apellido_materno_padre_filtro,
+                    'nombres_padre_filtro':nombres_padre_filtro,
+                    'apellido_paterno_madre_filtro':apellido_paterno_madre_filtro,
+                    'apellido_materno_madre_filtro':apellido_materno_madre_filtro,
+                    'nombres_madre_filtro':nombres_madre_filtro,
                     'fecha_desde_filtro':fecha_desde_filtro,
                     'fecha_hasta_filtro':fecha_hasta_filtro,
                     'condicion_filtro':condicion_filtro
@@ -63,6 +83,12 @@ class ListadoNacimientoView {
                 { data: 'ape_pat_na' },
                 { data: 'ape_mat_na' },
                 { data: 'nom_nac' },
+                { data: 'ape_pat_pa' },
+                { data: 'ape_mat_pa' },
+                { data: 'nom_pad' },
+                { data: 'ape_pat_ma' },
+                { data: 'ape_mat_ma' },
+                { data: 'nom_mad' },
                 { data: 'sexo_desc', name: 'sexo.nombre' },
                 { data: 'ubigeo_desc', name: 'ubigeo.nombre' },
                 { data: 'fch_nac', className: 'text-center' },
@@ -170,6 +196,12 @@ class ListadoNacimientoView {
             let apellidoPaternoFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='apellido_paterno_filtro']").value;
             let apellidoMaternoFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='apellido_materno_filtro']").value;
             let nombresFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nombres_filtro']").value;
+            let apellidoPaternoPadreFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='apellido_paterno_padre_filtro']").value;
+            let apellidoMaternoPadreFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='apellido_materno_padre_filtro']").value;
+            let nombresPadreFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nombres_padre_filtro']").value;
+            let apellidoPaternoMadreFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='apellido_paterno_madre_filtro']").value;
+            let apellidoMaternoMadreFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='apellido_materno_madre_filtro']").value;
+            let nombresMadreFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nombres_madre_filtro']").value;
             let fechaDesdeFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='fecha_desde_filtro']").value;
             let fechaHastaFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='fecha_hasta_filtro']").value;
 
@@ -183,7 +215,21 @@ class ListadoNacimientoView {
                 }
             });
 
-            this.listar(anioEjeFiltro,nroLibFiltro,nroFolFiltro,apellidoPaternoFiltro,apellidoMaternoFiltro,nombresFiltro,fechaDesdeFiltro,fechaHastaFiltro,condicionFiltro);   
+            this.listar(anioEjeFiltro
+                ,nroLibFiltro
+                ,nroFolFiltro
+                ,apellidoPaternoFiltro
+                ,apellidoMaternoFiltro
+                ,nombresFiltro
+                ,apellidoPaternoPadreFiltro
+                ,apellidoMaternoPadreFiltro
+                ,nombresPadreFiltro
+                ,apellidoPaternoMadreFiltro
+                ,apellidoMaternoMadreFiltro
+                ,nombresMadreFiltro
+                ,fechaDesdeFiltro
+                ,fechaHastaFiltro
+                ,condicionFiltro);   
             $modal.modal("hide");
             let cantidadFiltrosActivos=0;
             if(anioEjeFiltro !=''){cantidadFiltrosActivos++;}
@@ -192,6 +238,12 @@ class ListadoNacimientoView {
             if(apellidoPaternoFiltro !=''){cantidadFiltrosActivos++;}
             if(apellidoMaternoFiltro !=''){cantidadFiltrosActivos++;}
             if(nombresFiltro !=''){cantidadFiltrosActivos++;}
+            if(apellidoPaternoPadreFiltro !=''){cantidadFiltrosActivos++;}
+            if(apellidoMaternoPadreFiltro !=''){cantidadFiltrosActivos++;}
+            if(nombresPadreFiltro !=''){cantidadFiltrosActivos++;}
+            if(apellidoPaternoMadreFiltro !=''){cantidadFiltrosActivos++;}
+            if(apellidoMaternoMadreFiltro !=''){cantidadFiltrosActivos++;}
+            if(nombresMadreFiltro !=''){cantidadFiltrosActivos++;}
             if(fechaDesdeFiltro !=''){cantidadFiltrosActivos++;}
             if(fechaHastaFiltro !=''){cantidadFiltrosActivos++;}
             if(condicionFiltro !=''){cantidadFiltrosActivos++;}

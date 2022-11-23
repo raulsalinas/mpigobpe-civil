@@ -89,6 +89,10 @@
         const listadoMatrimonioView = new ListadoMatrimonioView(new ListadoMatrimonioModel(csrf_token));
         listadoMatrimonioView.listar();
         listadoMatrimonioView.eventos();
+        // Inicia -> vista extendida
+        let body = document.getElementsByTagName("body")[0];
+        body.classList.add("sidebar-collapse");
+        // termina -> vista extendida
     });
 </script>
 @endsection
