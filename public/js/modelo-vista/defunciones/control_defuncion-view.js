@@ -64,8 +64,11 @@ class ControlDefuncionView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}"  
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + '.tif'}" onclick="descargarAdjuntoDefuncion(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + '.tif'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoDefuncion"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + '.tif'}"
+                        disabled>Archivar</button>
                      </div>
                 </td>
                 </tr>`;
@@ -88,8 +91,11 @@ class ControlDefuncionView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}"  
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + '.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + '.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoDefuncion"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + '.pdf'}"
+                        disabled>Archivar</button>
                      </div>
                 </td>
                 </tr>`;
@@ -112,8 +118,11 @@ class ControlDefuncionView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'A.tif'}" onclick="descargarAdjuntoDefuncion(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.tif'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoDefuncion"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.tif'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -136,8 +145,11 @@ class ControlDefuncionView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'A.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoDefuncion"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.pdf'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -160,8 +172,11 @@ class ControlDefuncionView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'B.tif'}" onclick="descargarAdjuntoDefuncion(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.tif'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoDefuncion"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.tif'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -184,8 +199,11 @@ class ControlDefuncionView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'B.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoDefuncion"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.pdf'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -208,8 +226,11 @@ class ControlDefuncionView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'C.tif'}" onclick="descargarAdjuntoDefuncion(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.tif'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoDefuncion"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.tif'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -232,8 +253,11 @@ class ControlDefuncionView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'C.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoDefuncion"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.pdf'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -256,8 +280,11 @@ class ControlDefuncionView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'D.tif'}" onclick="descargarAdjuntoDefuncion(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.tif'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoDefuncion"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.tif'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -280,8 +307,11 @@ class ControlDefuncionView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'D.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoDefuncion"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.pdf'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -304,8 +334,11 @@ class ControlDefuncionView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'E.tif'}" onclick="descargarAdjuntoDefuncion(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.tif'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoDefuncion"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.tif'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -328,8 +361,11 @@ class ControlDefuncionView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'E.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoDefuncion"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.pdf'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -524,6 +560,8 @@ class ControlDefuncionView {
         });
 
 
+
+
         $("#tablaModalDefuncion").on("click", "button.seleccionar", (e) => {
 
             let url = `/defunciones/control/index/?id=${$(e.currentTarget).data('id')}`;
@@ -594,10 +632,17 @@ class ControlDefuncionView {
         });
 
         $('#tablaListaAdjuntosDeDefuncion').on("click", "button.visualizarArchivoAdjunto", (e) => {
-            let url = `/defunciones/control/visualizar-adjunto/?namefile=${$(e.currentTarget).data('nombre-archivo')}?year=${$(e.currentTarget).data('año')}?book=${$(e.currentTarget).data('libro')}?folio=${$(e.currentTarget).data('folio')}`;
-            var win = window.open(url, "_black");
-            win.focus();
+            this.abrirPestañaVisualizarAdjunto(e);
         });
+        $('#tablaListaAdjuntosDeDefuncion').on("click", "button.archivarArchivoAdjunto", (e) => {
+            this.archivarAdjunto(e);
+        });
+
+        // $('#tablaListaAdjuntosDeDefuncion').on("click", "button.visualizarArchivoAdjunto", (e) => {
+        //     let url = `/defunciones/control/visualizar-adjunto/?namefile=${$(e.currentTarget).data('nombre-archivo')}?year=${$(e.currentTarget).data('año')}?book=${$(e.currentTarget).data('libro')}?folio=${$(e.currentTarget).data('folio')}`;
+        //     var win = window.open(url, "_black");
+        //     win.focus();
+        // });
         $('#tablaListaAdjuntosDeDefuncion').on("click", "button.eliminarArchivoAdjunto", (e) => {
             this.eliminarArchivoAdjunto(e.currentTarget)
         });
@@ -641,7 +686,8 @@ class ControlDefuncionView {
             });
 
             Util.mensaje("info", "Se habilitó la botonera de la sección de adjuntos");
-
+            $('#modalRecibo').modal('hide');
+            this.abrirPestañaVisualizarAdjunto(e);
         });
 
 
@@ -809,6 +855,32 @@ class ControlDefuncionView {
         }
     }
 
+    abrirPestañaVisualizarAdjunto(e){
+        let url = `/defunciones/control/visualizar-adjunto/?idregistro=${document.querySelector("input[name='id']").value}&namefile=${$(e.currentTarget).data('nombre-archivo')}&year=${$(e.currentTarget).data('año')}&book=${$(e.currentTarget).data('libro')}&folio=${$(e.currentTarget).data('folio')}`;
+        var win = window.open(url, "_black");
+        win.focus();
+    }
+
+    archivarAdjunto(e){
+        const formData = new FormData();
+        const idRegistro=document.querySelector("input[name='id']").value;
+        formData.append(`idRegistro`, idRegistro);
+        formData.append(`nombreArchivo`, e.currentTarget.dataset.nombreArchivo);
+        const $route = route("matrimonios.control.archivar-adjunto");
+
+        this.model.archivarAdjunto(formData, $route).then((respuesta) => {
+            // console.log(respuesta);
+            Util.mensaje(respuesta.alerta, respuesta.mensaje);
+            if (respuesta.respuesta == "ok") {
+                e.currentTarget.closest('tr').remove();
+            }
+        }).fail(() => {
+            Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
+        }).always(() => {
+
+        });
+    }
+
     addToTablaArchivos(payload) {
 
         let html = '';
@@ -874,7 +946,7 @@ class ControlDefuncionView {
 
 
 function descargarAdjuntoDefuncion(obj){
-    let url = `/fichas/defun/${obj.currentTarget.dataset.nameFile}`;
+    let url = `/fichas/defun/${obj.currentTarget.dataset.nombreArchivo}`;
     var win = window.open(url, "_black");
     win.focus();
 }

@@ -71,8 +71,11 @@ class ControlNacimientoView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}"  
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + '.tif'}" onclick="descargarAdjuntoNacimiento(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar" data-nombre-archivo="${respuesta.adjunto.nombre_base + '.tif'}" onclick="descargarAdjuntoNacimiento(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + '.tif'}"
+                        disabled>Archivar</button>
                      </div>
                 </td>
                 </tr>`;
@@ -95,8 +98,11 @@ class ControlNacimientoView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}"  
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + '.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + '.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + '.pdf'}"
+                        disabled>Archivar</button>
                      </div>
                 </td>
                 </tr>`;
@@ -119,8 +125,11 @@ class ControlNacimientoView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'A.tif'}" onclick="descargarAdjuntoNacimiento(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.tif'}" onclick="descargarAdjuntoNacimiento(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.tif'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -143,8 +152,11 @@ class ControlNacimientoView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'A.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.pdf'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -167,8 +179,11 @@ class ControlNacimientoView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'B.tif'}" onclick="descargarAdjuntoNacimiento(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.tif'}" onclick="descargarAdjuntoNacimiento(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.tif'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -191,8 +206,11 @@ class ControlNacimientoView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'B.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.pdf'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -215,8 +233,11 @@ class ControlNacimientoView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'C.tif'}" onclick="descargarAdjuntoNacimiento(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.tif'}" onclick="descargarAdjuntoNacimiento(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.tif'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -239,8 +260,11 @@ class ControlNacimientoView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'C.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.pdf'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -263,8 +287,11 @@ class ControlNacimientoView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'D.tif'}" onclick="descargarAdjuntoNacimiento(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.tif'}" onclick="descargarAdjuntoNacimiento(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.tif'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -287,8 +314,11 @@ class ControlNacimientoView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'D.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.pdf'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -311,8 +341,11 @@ class ControlNacimientoView {
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
                         disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'E.tif'}" onclick="descargarAdjuntoNacimiento(event)"
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.tif'}" onclick="descargarAdjuntoNacimiento(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.tif'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -334,9 +367,12 @@ class ControlNacimientoView {
                         data-año="${respuesta.ano_nac}"  
                         data-libro="${respuesta.nro_lib}"  
                         data-folio="${respuesta.nro_fol}" 
-                        disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-name-file="${respuesta.adjunto.nombre_base + 'E.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
+                        disabled>Visualizar</button>}
+                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
                         disabled>Descargar</button>
+                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
+                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.pdf'}"
+                        disabled>Archivar</button>
                     </div>
                 </td>
                 </tr>`;
@@ -615,6 +651,9 @@ class ControlNacimientoView {
         $('#tablaListaAdjuntosDeNacimiento').on("click", "button.visualizarArchivoAdjunto", (e) => {
             this.abrirPestañaVisualizarAdjunto(e);
         });
+        $('#tablaListaAdjuntosDeNacimiento').on("click", "button.archivarArchivoAdjunto", (e) => {
+            this.archivarAdjunto(e);
+        });
         $('#tablaListaAdjuntosDeNacimiento').on("click", "button.eliminarArchivoAdjunto", (e) => {
             this.eliminarArchivoAdjunto(e.currentTarget)
         });
@@ -854,6 +893,29 @@ class ControlNacimientoView {
         win.focus();
     }
 
+    archivarAdjunto(e){
+        const formData = new FormData();
+        const idRegistro=document.querySelector("input[name='id']").value;
+        formData.append(`idRegistro`, idRegistro);
+        formData.append(`nombreArchivo`, e.currentTarget.dataset.nombreArchivo);
+        const $route = route("nacimientos.control.archivar-adjunto");
+
+        this.model.archivarAdjunto(formData, $route).then((respuesta) => {
+            // console.log(respuesta);
+            Util.mensaje(respuesta.alerta, respuesta.mensaje);
+            if (respuesta.respuesta == "ok") {
+                // let url = `/nacimientos/control/index/?id=${idRegistro}`;
+                // var win = window.open(url, "_selft");
+                // win.focus();
+                e.currentTarget.closest('tr').remove();
+            }
+        }).fail(() => {
+            Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
+        }).always(() => {
+
+        });
+    }
+
     eliminarArchivoAdjunto(obj) {
         obj.closest("tr").remove();
         var regExp = /[a-zA-Z]/g; //expresión regular
@@ -903,7 +965,7 @@ class ControlNacimientoView {
 }
 
 function descargarAdjuntoNacimiento(obj){
-    let url = `/fichas/nacim/${obj.currentTarget.dataset.nameFile}`;
+    let url = `/fichas/nacim/${obj.currentTarget.dataset.nombreArchivo}`;
     var win = window.open(url, "_black");
     win.focus();
 }

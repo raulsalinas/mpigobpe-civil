@@ -466,4 +466,46 @@ class ControlDeDefuncionesController extends Controller
         $adjuntos = $this->obtenerAdjuntosLista($idRegistro);
         return view('defunciones.visualizar_adjunto_defuncion', get_defined_vars());
     }
+
+    public function archivarAdjunto(Request $request)
+    {
+        try {
+            $respuesta = '';
+            $alerta = '';
+            $mensaje = '';
+            $error = '';
+
+            // $idRegistro =  $request->idregistro;
+            $nombreArchivo =  $request->nombreArchivo;
+
+            $pathSource = Storage::disk('fichas-defun')->getDriver()->getAdapter()->applyPathPrefix($nombreArchivo);
+            $destinationPath = Storage::disk('fichas-defun')->getDriver()->getAdapter()->applyPathPrefix('archivado/' . $nombreArchivo);
+
+            // // make destination folder
+            if (!File::exists(dirname($destinationPath))) {
+                File::makeDirectory(dirname($destinationPath), null, true);
+            }
+
+            File::move($pathSource, $destinationPath);
+
+            $existeArchivo = intval(Storage::disk('fichas')->exists('defun/archivado/' . $nombreArchivo));
+
+            if ($existeArchivo == true) {
+                $respuesta = 'ok';
+                $alerta = 'success';
+                $mensaje = 'El archivo adjunto fue archivado';
+            } else {
+
+                $alerta = 'warning';
+                $mensaje = 'success';
+                $mensaje = 'Hubo un problema al intentar archivar el archivo';
+            }
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = 'error';
+            $mensaje = 'Hubo un problema al intentar archivar el archivo. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
 }

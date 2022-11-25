@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('obtener-adjuntos/{idRegistro}', [ControlDeNacimientosController::class, 'obtenerAdjuntos'])->name('obtenerAdjuntos');
             Route::get('obtener-adjuntos-lista/{idRegistro}', [ControlDeNacimientosController::class, 'obtenerAdjuntosLista'])->name('obtenerAdjuntosLista');
             Route::get('buscar-ficha/{id}/{folder}', [ControlDeNacimientosController::class, 'buscarFicha'])->name('buscar-ficha');
+            Route::post('archivar-adjunto', [ControlDeNacimientosController::class, 'archivarAdjunto'])->name('archivar-adjunto');
         });
         Route::name('consistencia.')->prefix('consistencia')->group(function () {
             Route::get('index', [ConsistenciaDeNacimientosController::class, 'index'])->name('index');
@@ -86,6 +87,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('visualizar-adjunto', [ControlDeMatrimoniosController::class, 'visualizarAdjuntoMatrimonio'])->name('visualizarAdjuntoMatrimonio');
             Route::get('obtener-adjuntos/{idRegistro}', [ControlDeMatrimoniosController::class, 'obtenerAdjuntos'])->name('obtenerAdjuntos');
             Route::get('obtener-adjuntos-lista/{idRegistro}', [ControlDeMatrimoniosController::class, 'obtenerAdjuntosLista'])->name('obtenerAdjuntosLista');
+            Route::post('archivar-adjunto', [ControlDeMatrimoniosController::class, 'archivarAdjunto'])->name('archivar-adjunto');
 
             Route::get('buscar-ficha/{id}/{folder}', [ControlDeMatrimoniosController::class, 'buscarFicha'])->name('buscar-ficha');
 
@@ -111,6 +113,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('visualizar-adjunto', [ControlDeDefuncionesController::class, 'visualizarAdjuntoDefuncion'])->name('visualizarAdjuntoDefuncion');
             Route::get('obtener-adjuntos/{idRegistro}', [ControlDeDefuncionesController::class, 'obtenerAdjuntos'])->name('obtenerAdjuntos');
             Route::get('obtener-adjuntos-lista/{idRegistro}', [ControlDeDefuncionesController::class, 'obtenerAdjuntosLista'])->name('obtenerAdjuntosLista');
+            Route::post('archivar-adjunto', [ControlDeDefuncionesController::class, 'archivarAdjunto'])->name('archivar-adjunto');
 
             Route::get('buscar-ficha/{id}/{folder}', [ControlDeDefuncionesController::class, 'buscarFicha'])->name('buscar-ficha');
 

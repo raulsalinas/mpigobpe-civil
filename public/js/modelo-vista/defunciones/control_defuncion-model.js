@@ -61,4 +61,17 @@ class ControlDefuncionModel {
             data: { _token: this.token },
         });
     }
+
+    archivarAdjunto = (data, route) => {
+        return $.ajax({
+            url: route,
+            type: "POST",
+            processData: false,
+            contentType: false,
+            data: data,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    }
 }
