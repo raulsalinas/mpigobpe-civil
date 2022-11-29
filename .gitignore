@@ -1,8 +1,7 @@
 /node_modules
-/public/fichas
-/public/fichas/nacim
-/public/fichas/matri
-/public/fichas/defun
+/public/fichas/**/*.TIF
+/public/fichas/**/*.tif
+/public/fichas/**/*.pdf
 /public/hot
 /public/storage
 /storage/*.key
@@ -18,3 +17,4 @@ yarn-error.log
 /.idea
 /.vscode
 ._.DS_Store
+.DS_Store
