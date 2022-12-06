@@ -53,6 +53,7 @@ class ControlDeMatrimoniosController extends Controller
                 'year'=>$adjuntos['año'],
                 'book'=>$adjuntos['book'],
                 'folio'=>$adjuntos['folio'],
+                'condic' => $adjuntos['condic'],
             ];
         }
         if($adjuntos['existe_archivo_nombre_base_pdf']==true){
@@ -62,6 +63,7 @@ class ControlDeMatrimoniosController extends Controller
                 'year'=>$adjuntos['año'],
                 'book'=>$adjuntos['book'],
                 'folio'=>$adjuntos['folio'],
+                'condic' => $adjuntos['condic'],
             ];
         }
         if($adjuntos['existe_archivo_nombre_a_tif']==true){
@@ -71,6 +73,7 @@ class ControlDeMatrimoniosController extends Controller
                 'year'=>$adjuntos['año'],
                 'book'=>$adjuntos['book'],
                 'folio'=>$adjuntos['folio'],
+                'condic' => $adjuntos['condic'],
             ];
         }
         if($adjuntos['existe_archivo_nombre_a_pdf']==true){
@@ -80,6 +83,7 @@ class ControlDeMatrimoniosController extends Controller
                 'year'=>$adjuntos['año'],
                 'book'=>$adjuntos['book'],
                 'folio'=>$adjuntos['folio'],
+                'condic' => $adjuntos['condic'],
             ];
         }
         if($adjuntos['existe_archivo_nombre_b_tif']==true){
@@ -89,6 +93,7 @@ class ControlDeMatrimoniosController extends Controller
                 'year'=>$adjuntos['año'],
                 'book'=>$adjuntos['book'],
                 'folio'=>$adjuntos['folio'],
+                'condic' => $adjuntos['condic'],
             ];
         }
         if($adjuntos['existe_archivo_nombre_b_pdf']==true){
@@ -98,6 +103,7 @@ class ControlDeMatrimoniosController extends Controller
                 'year'=>$adjuntos['año'],
                 'book'=>$adjuntos['book'],
                 'folio'=>$adjuntos['folio'],
+                'condic' => $adjuntos['condic'],
             ];
         }
         if($adjuntos['existe_archivo_nombre_c_tif']==true){
@@ -107,6 +113,7 @@ class ControlDeMatrimoniosController extends Controller
                 'year'=>$adjuntos['año'],
                 'book'=>$adjuntos['book'],
                 'folio'=>$adjuntos['folio'],
+                'condic' => $adjuntos['condic'],
             ];
         }
         if($adjuntos['existe_archivo_nombre_c_pdf']==true){
@@ -116,6 +123,7 @@ class ControlDeMatrimoniosController extends Controller
                 'year'=>$adjuntos['año'],
                 'book'=>$adjuntos['book'],
                 'folio'=>$adjuntos['folio'],
+                'condic' => $adjuntos['condic'],
             ];
         }
         if($adjuntos['existe_archivo_nombre_d_tif']==true){
@@ -125,6 +133,7 @@ class ControlDeMatrimoniosController extends Controller
                 'year'=>$adjuntos['año'],
                 'book'=>$adjuntos['book'],
                 'folio'=>$adjuntos['folio'],
+                'condic' => $adjuntos['condic'],
             ];
         }
         if($adjuntos['existe_archivo_nombre_d_pdf']==true){
@@ -134,6 +143,7 @@ class ControlDeMatrimoniosController extends Controller
                 'year'=>$adjuntos['año'],
                 'book'=>$adjuntos['book'],
                 'folio'=>$adjuntos['folio'],
+                'condic' => $adjuntos['condic'],
             ];
         }
         if($adjuntos['existe_archivo_nombre_e_tif']==true){
@@ -143,6 +153,7 @@ class ControlDeMatrimoniosController extends Controller
                 'year'=>$adjuntos['año'],
                 'book'=>$adjuntos['book'],
                 'folio'=>$adjuntos['folio'],
+                'condic' => $adjuntos['condic'],
             ];
         }
         if($adjuntos['existe_archivo_nombre_e_pdf']==true){
@@ -152,11 +163,31 @@ class ControlDeMatrimoniosController extends Controller
                 'year'=>$adjuntos['año'],
                 'book'=>$adjuntos['book'],
                 'folio'=>$adjuntos['folio'],
+                'condic' => $adjuntos['condic'],
             ];
         }
         return $files;
     }
-
+    public function getCarpetaPadreCondicion($id){
+        switch (intval($id)) {
+            case 1:
+          
+                return 'ordinarias';
+                break;
+            
+            case 2:
+                return 'extraordinarias';
+                break;
+            
+            case 3:
+                return 'especiales';
+                break;
+            
+            default:
+                return 'ordinarias';
+                break;
+        }
+    }
     public function buscarFicha($id,$folder)
     {
         /*
@@ -169,6 +200,7 @@ class ControlDeMatrimoniosController extends Controller
         switch ($folder) {
             case 'nacim':
                 $data= Nacimiento::find($id);
+                $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
                 $nombreBase = $data->ano_nac.$data->nro_fol;
                 $archivoEncontrado=[
                     'idRegistro'=>$id,
@@ -177,50 +209,57 @@ class ControlDeMatrimoniosController extends Controller
                     'book'=>$data->nro_lib,
                     'folio'=>$data->nro_fol,
                     'nombre_base'=>$nombreBase,
+                    'condic' => $data->condic,
                 ];
                 break;
             case 'matri':
                 $data= Matrimonio::find($id);
+                $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
                 $nombreBase = $data->ano_cel.$data->nro_fol;
                 $archivoEncontrado=[
                     'idRegistro'=>$id,
-                    'folder'=>'nacim',
+                    'folder'=>'matri',
                     'año'=>$data->ano_cel,
                     'book'=>$data->nro_lib,
                     'folio'=>$data->nro_fol,
                     'nombre_base'=>$nombreBase,
+                    'condic' => $data->condic,
                 ];
                 break;
             case 'defun':
                 $data= Defuncion::find($id);
+                $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
                 $nombreBase = $data->ano_des.$data->nro_fol;
                 $archivoEncontrado=[
                     'idRegistro'=>$id,
-                    'folder'=>'nacim',
+                    'folder'=>'defun',
                     'año'=>$data->ano_des,
                     'book'=>$data->nro_lib,
                     'folio'=>$data->nro_fol,
                     'nombre_base'=>$nombreBase,
+                    'condic' => $data->condic,
                 ];
                 break;
             default:
                 break;
         }
+        $ruta = 'fichas-'.$carpetaPadre.'-'.$folder;
+
  
         // $fichas = Storage::disk('fichas-nacimiento')->allFiles();
-        $existeArchivoNombreBaseTIF = intval(Storage::disk('fichas-'.$folder)->exists($nombreBase . '.tif'));
-        $existeArchivoNombreBasePDF = intval(Storage::disk('fichas-'.$folder)->exists($nombreBase . '.pdf'));
+        $existeArchivoNombreBaseTIF = intval(Storage::disk($ruta)->exists($nombreBase . '.tif'));
+        $existeArchivoNombreBasePDF = intval(Storage::disk($ruta)->exists($nombreBase . '.pdf'));
 
-        $existeArchivoNombreATIF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'A.TIF'));
-        $existeArchivoNombreAPDF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'A.PDF'));
-        $existeArchivoNombreBTIF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'B.TIF'));
-        $existeArchivoNombreBPDF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'B.PDF'));
-        $existeArchivoNombreCTIF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'C.TIF'));
-        $existeArchivoNombreCPDF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'C.PDF'));
-        $existeArchivoNombreDTIF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'D.TIF'));
-        $existeArchivoNombreDPDF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'D.PDF'));
-        $existeArchivoNombreETIF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'E.TIF'));
-        $existeArchivoNombreEPDF = intval(Storage::disk('fichas')->exists($folder.'/'.$nombreBase . 'E.PDF'));
+        $existeArchivoNombreATIF = intval(Storage::disk($ruta)->exists($nombreBase . 'A.TIF'));
+        $existeArchivoNombreAPDF = intval(Storage::disk($ruta)->exists($nombreBase . 'A.PDF'));
+        $existeArchivoNombreBTIF = intval(Storage::disk($ruta)->exists($nombreBase . 'B.TIF'));
+        $existeArchivoNombreBPDF = intval(Storage::disk($ruta)->exists($nombreBase . 'B.PDF'));
+        $existeArchivoNombreCTIF = intval(Storage::disk($ruta)->exists($nombreBase . 'C.TIF'));
+        $existeArchivoNombreCPDF = intval(Storage::disk($ruta)->exists($nombreBase . 'C.PDF'));
+        $existeArchivoNombreDTIF = intval(Storage::disk($ruta)->exists($nombreBase . 'D.TIF'));
+        $existeArchivoNombreDPDF = intval(Storage::disk($ruta)->exists($nombreBase . 'D.PDF'));
+        $existeArchivoNombreETIF = intval(Storage::disk($ruta)->exists($nombreBase . 'E.TIF'));
+        $existeArchivoNombreEPDF = intval(Storage::disk($ruta)->exists($nombreBase . 'E.PDF'));
 
         $archivoEncontrado['existe_archivo_nombre_base_tif']=boolval($existeArchivoNombreBaseTIF);
         $archivoEncontrado['existe_archivo_nombre_base_pdf']=boolval($existeArchivoNombreBasePDF);
@@ -363,6 +402,8 @@ class ControlDeMatrimoniosController extends Controller
             $matrimonio->condic = $request->condicionActa;
             $matrimonio->save();
 
+            $carpetaPadre= $this->getCarpetaPadreCondicion($request->condicionActa);
+            $ruta = 'fichas-'.$carpetaPadre.'-matri';
             // inicia el guardado de adjuntos
             $newNameFile='';
             $archivoAdjuntoLength = $request->archivo_adjunto != null ? count($request->archivo_adjunto) : 0;
@@ -372,7 +413,7 @@ class ControlDeMatrimoniosController extends Controller
                         // $file = $archivo->getClientOriginalName();
                         // $extension = pathinfo($file, PATHINFO_EXTENSION);
                         $newNameFile = $request->nombre_adjunto[$key];
-                        Storage::disk('fichas-matri')->put($newNameFile, File::get($archivo));
+                        Storage::disk($ruta)->put($newNameFile, File::get($archivo));
         
                     }
                 }
@@ -450,9 +491,11 @@ class ControlDeMatrimoniosController extends Controller
 
             // $idRegistro =  $request->idregistro;
             $nombreArchivo =  $request->nombreArchivo;
-
-            $pathSource = Storage::disk('fichas-matri')->getDriver()->getAdapter()->applyPathPrefix($nombreArchivo);
-            $destinationPath = Storage::disk('fichas-matri')->getDriver()->getAdapter()->applyPathPrefix('archivado/' . $nombreArchivo);
+            $data = Matrimonio::find($request->idregistro);
+            $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
+            $ruta = 'fichas-'.$carpetaPadre.'-matri';
+            $pathSource = Storage::disk($ruta)->getDriver()->getAdapter()->applyPathPrefix($nombreArchivo);
+            $destinationPath = Storage::disk($ruta)->getDriver()->getAdapter()->applyPathPrefix('archivado/' . $nombreArchivo);
 
             // // make destination folder
             if (!File::exists(dirname($destinationPath))) {
@@ -461,7 +504,7 @@ class ControlDeMatrimoniosController extends Controller
 
             File::move($pathSource, $destinationPath);
 
-            $existeArchivo = intval(Storage::disk('fichas')->exists('matri/archivado/' . $nombreArchivo));
+            $existeArchivo = intval(Storage::disk($ruta)->exists('archivado/' . $nombreArchivo));
 
             if ($existeArchivo == true) {
                 $respuesta = 'ok';

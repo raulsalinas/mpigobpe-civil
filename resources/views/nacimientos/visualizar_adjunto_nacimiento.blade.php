@@ -22,7 +22,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="mb-2">Adjunto de Nacimiento <span class="badge badge-pill badge-secondary" id="claveLibroAño"></span> <span class="badge badge-pill badge-secondary" id="claveLibroLibro"></span> <span class="badge badge-pill badge-secondary" id="claveLibroFolio"></span></h1>
+                <h1 class="mb-2" style="display: flex;">Adjunto de Nacimiento <div style="font-size: 0.9rem;padding: 4px;"><span class="badge badge-pill badge-secondary" id="claveLibroAño"></span> <span class="badge badge-pill badge-secondary" id="claveLibroLibro"></span> <span class="badge badge-pill badge-secondary" id="claveLibroFolio"></span> <span class="badge badge-pill badge-secondary" id="claveLibroCondic"></span></div></h1>
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-outline-primary" onclick="impirmirHoja()"><i class="fas fa-print"></i> Imprimir</button>
                     <button type="button" class="btn btn-outline-primary" onclick="girarMenos90()"><i class="fas fa-undo"></i> -90º</button>
@@ -37,12 +37,12 @@
                         <li class="breadcrumb-item">Nacimientos</li>
                         <li class="breadcrumb-item active">Adjunto</li>
                     </ol>
-     
+
                     <div id="contenedorAdjuntoList">
                         <ul class="nav justify-content-end">
                             @foreach ($adjuntos as $adjunto)
                             <li class="nav-item" style="padding-left: 1rem;">
-                                <a class="nav-link btn btn-outline-primary" href="/nacimientos/control/visualizar-adjunto/?idregistro={{$adjunto['idRegistro']}}&namefile={{$adjunto['nameFile']}}&year={{$adjunto['year']}}&book={{$adjunto['book']}}&folio={{$adjunto['folio']}}">{{$adjunto['nameFile']}}</a>
+                                <a class="nav-link btn btn-outline-primary" href="/nacimientos/control/visualizar-adjunto/?idregistro={{$adjunto['idRegistro']}}&namefile={{$adjunto['nameFile']}}&year={{$adjunto['year']}}&book={{$adjunto['book']}}&folio={{$adjunto['folio']}}&condic={{$adjunto['condic']}}">{{$adjunto['nameFile']}}</a>
                             </li>
                             @endforeach
                         </ul>
@@ -94,14 +94,36 @@
 
     }
 
+    function getCarpetaPadreCondicion(idCondic) {
+        switch (parseInt(idCondic)) {
+            case 1:
+                return 'ordinarias';
+                break;
+
+            case 2:
+                return 'extraordinarias';
+                break;
+
+            case 3:
+                return 'especiales';
+                break;
+
+            default:
+                return 'ordinarias';
+                break;
+        }
+    }
+
     function prepareCanvas() {
         let nameFileByURL = (location.search.split('namefile=')[1]).split('&')[0];
         let yearByURL = parseInt(location.search.split('year=')[1]);
         let bookByURL = parseInt(location.search.split('book=')[1]);
         let folioByURL = parseInt(location.search.split('folio=')[1]);
+        let condicByURL = parseInt(location.search.split('condic=')[1]);
         document.querySelector("span[id='claveLibroAño']").textContent = 'Año: ' + (toString(yearByURL).length > 0 ? yearByURL : 'S/N');
         document.querySelector("span[id='claveLibroLibro']").textContent = 'Libro: ' + (toString(bookByURL).length > 0 ? bookByURL : 'S/N');
         document.querySelector("span[id='claveLibroFolio']").textContent = 'Folio: ' + (toString(folioByURL).length > 0 ? folioByURL : 'S/N');
+        document.querySelector("span[id='claveLibroCondic']").textContent = 'Condición: ' + (toString(condicByURL).length > 0 ? getCarpetaPadreCondicion(condicByURL) : 'S/C');
         if ((nameFileByURL) != null && nameFileByURL.length > 0) {
             // Inicia -> vista extendida
             let body = document.getElementsByTagName("body")[0];
@@ -110,7 +132,7 @@
 
             var xhrA = new XMLHttpRequest();
             xhrA.responseType = 'arraybuffer';
-            xhrA.open('GET', "/fichas/nacim/" + nameFileByURL);
+            xhrA.open('GET', "/fichas/"+getCarpetaPadreCondicion()+"/nacim/" + nameFileByURL);
             xhrA.onload = function(e) {
                 var tiff = new Tiff({
                     buffer: xhrA.response
@@ -123,8 +145,9 @@
     }
 
     function prepareFrame() {
+        let nameFileByURL = (location.search.split('namefile=')[1]).split('&')[0];
         var ifrm = document.createElement("iframe");
-        ifrm.setAttribute("src", "/fichas/nacim/" + nameFileByURL);
+        ifrm.setAttribute("src", "/fichas/"+getCarpetaPadreCondicion()+"/nacim/" + nameFileByURL);
         ifrm.style.width = "800px";
         ifrm.style.height = "600px";
         ifrm.style.border = "none";

@@ -62,7 +62,8 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + '.tif'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}"  
+                        data-folio="${respuesta.nro_fol}"
+                        data-condic="${respuesta.condic}"  
                         disabled>Visualizar</button>
                         <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + '.tif'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
@@ -89,7 +90,8 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + '.pdf'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}"  
+                        data-folio="${respuesta.nro_fol}"
+                        data-condic="${respuesta.condic}"  
                         disabled>Visualizar</button>
                         <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + '.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
@@ -116,7 +118,8 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.tif'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
+                        data-folio="${respuesta.nro_fol}"
+                        data-condic="${respuesta.condic}" 
                         disabled>Visualizar</button>
                         <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.tif'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
@@ -143,7 +146,8 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.pdf'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
+                        data-folio="${respuesta.nro_fol}"
+                        data-condic="${respuesta.condic}" 
                         disabled>Visualizar</button>
                         <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
@@ -170,7 +174,8 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.tif'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
+                        data-folio="${respuesta.nro_fol}"
+                        data-condic="${respuesta.condic}" 
                         disabled>Visualizar</button>
                         <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.tif'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
@@ -197,7 +202,8 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.pdf'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
+                        data-folio="${respuesta.nro_fol}"
+                        data-condic="${respuesta.condic}" 
                         disabled>Visualizar</button>
                         <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
@@ -224,7 +230,8 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.tif'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
+                        data-folio="${respuesta.nro_fol}"
+                        data-condic="${respuesta.condic}" 
                         disabled>Visualizar</button>
                         <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.tif'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
@@ -251,7 +258,8 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.pdf'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
+                        data-folio="${respuesta.nro_fol}"
+                        data-condic="${respuesta.condic}" 
                         disabled>Visualizar</button>
                         <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
@@ -278,7 +286,8 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.tif'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
+                        data-folio="${respuesta.nro_fol}"
+                        data-condic="${respuesta.condic}" 
                         disabled>Visualizar</button>
                         <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.tif'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
@@ -305,7 +314,8 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.pdf'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
+                        data-folio="${respuesta.nro_fol}"
+                        data-condic="${respuesta.condic}" 
                         disabled>Visualizar</button>
                         <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
@@ -332,7 +342,8 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.tif'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
+                        data-folio="${respuesta.nro_fol}"
+                        data-condic="${respuesta.condic}" 
                         disabled>Visualizar</button>
                         <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.tif'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
@@ -359,7 +370,8 @@ class ControlDefuncionView {
                         data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.pdf'}"  
                         data-año="${respuesta.ano_des}"  
                         data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
+                        data-folio="${respuesta.nro_fol}"
+                        data-condic="${respuesta.condic}" 
                         disabled>Visualizar</button>
                         <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoDefuncion"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.pdf'}" onclick="descargarAdjuntoDefuncion(event)"
                         disabled>Descargar</button>
@@ -856,7 +868,7 @@ class ControlDefuncionView {
     }
 
     abrirPestañaVisualizarAdjunto(e){
-        let url = `/defunciones/control/visualizar-adjunto/?idregistro=${document.querySelector("input[name='id']").value}&namefile=${$(e.currentTarget).data('nombre-archivo')}&year=${$(e.currentTarget).data('año')}&book=${$(e.currentTarget).data('libro')}&folio=${$(e.currentTarget).data('folio')}`;
+        let url = `/defunciones/control/visualizar-adjunto/?idregistro=${document.querySelector("input[name='id']").value}&namefile=${$(e.currentTarget).data('nombre-archivo')}&year=${$(e.currentTarget).data('año')}&book=${$(e.currentTarget).data('libro')}&folio=${$(e.currentTarget).data('folio')}&condic=${$(e.currentTarget).data('condic')}`;
         var win = window.open(url, "_black");
         win.focus();
     }

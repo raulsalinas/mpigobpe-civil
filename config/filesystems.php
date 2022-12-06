@@ -45,9 +45,9 @@ return [
             'driver' => 'local',
             'root' => public_path('fichas'),
         ],
-        'fichas-nacim' => [
+        'fichas-ordinarias-nacim' => [
             'driver' => 'local',
-            'root' => public_path('fichas/nacim'),
+            'root' => public_path('fichas/ordinarias/nacim'),
         ],
         'fichas-matri' => [
             'driver' => 'local',
