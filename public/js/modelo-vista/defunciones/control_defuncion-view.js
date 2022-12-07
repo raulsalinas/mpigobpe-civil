@@ -956,9 +956,28 @@ class ControlDefuncionView {
     }
 }
 
+function getCarpetaPadreCondicion(){
+    let condicionActa = document.querySelector("input[name='condicionActa']").value;
+    switch (parseInt(condicionActa)) {
+        case 1:
+            return 'ordinarias';
+            break;
+        case 2:
+            return 'extraordinarias';
+            break;
+        case 3:
+            return 'especiales';
+            break;
+    
+        default:
+            return 'ordinarias';
+            break;
+    }
+}
+
 
 function descargarAdjuntoDefuncion(obj){
-    let url = `/fichas/defun/${obj.currentTarget.dataset.nombreArchivo}`;
+    let url = `/fichas/${getCarpetaPadreCondicion()}/defun/${obj.currentTarget.dataset.nombreArchivo}`;
     var win = window.open(url, "_black");
     win.focus();
 }

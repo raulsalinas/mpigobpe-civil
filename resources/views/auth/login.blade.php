@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-sm btn-warning btn-block btn-flat"><i class="fas fa-sign-in-alt"></i> INICIAR SESION</button>
                 </div>
-                <div style="text-align: center; font-size: 0.7rem">Versión 1.3.2</d>
+                <div style="text-align: center; font-size: 0.7rem">Versión 1.3.4</d>
 
             </form>
         </div>

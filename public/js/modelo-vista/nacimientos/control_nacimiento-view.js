@@ -976,8 +976,27 @@ class ControlNacimientoView {
 
 }
 
+function getCarpetaPadreCondicion(){
+    let condicionActa = document.querySelector("input[name='condicionActa']").value;
+    switch (parseInt(condicionActa)) {
+        case 1:
+            return 'ordinarias';
+            break;
+        case 2:
+            return 'extraordinarias';
+            break;
+        case 3:
+            return 'especiales';
+            break;
+    
+        default:
+            return 'ordinarias';
+            break;
+    }
+}
+
 function descargarAdjuntoNacimiento(obj){
-    let url = `/fichas/nacim/${obj.currentTarget.dataset.nombreArchivo}`;
+    let url = `/fichas/${getCarpetaPadreCondicion()}/nacim/${obj.currentTarget.dataset.nombreArchivo}`;
     var win = window.open(url, "_black");
     win.focus();
 }
