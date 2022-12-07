@@ -520,7 +520,7 @@ class ControlDeDefuncionesController extends Controller
 
             // $idRegistro =  $request->idregistro;
             $nombreArchivo =  $request->nombreArchivo;
-            $data = Matrimonio::find($request->idregistro);
+            $data = Matrimonio::find($request->idRegistro);
             $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
             $ruta = 'fichas-'.$carpetaPadre.'-defun';
             $pathSource = Storage::disk($ruta)->getDriver()->getAdapter()->applyPathPrefix($nombreArchivo);

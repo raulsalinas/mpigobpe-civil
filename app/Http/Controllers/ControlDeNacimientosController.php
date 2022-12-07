@@ -544,7 +544,7 @@ class ControlDeNacimientosController extends Controller
 
             // $idRegistro =  $request->idregistro;
             $nombreArchivo =  $request->nombreArchivo;
-            $data = Nacimiento::find($request->idregistro);
+            $data = Nacimiento::find($request->idRegistro);
             $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
             $ruta = 'fichas-'.$carpetaPadre.'-nacim';
             $pathSource = Storage::disk($ruta)->getDriver()->getAdapter()->applyPathPrefix($nombreArchivo);
