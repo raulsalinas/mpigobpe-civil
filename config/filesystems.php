@@ -49,6 +49,38 @@ return [
             'driver' => 'local',
             'root' => public_path('fichas/ordinarias/nacim'),
         ],
+        'fichas-ordinarias-matri' => [
+            'driver' => 'local',
+            'root' => public_path('fichas/ordinarias/matri'),
+        ],
+        'fichas-ordinarias-defun' => [
+            'driver' => 'local',
+            'root' => public_path('fichas/ordinarias/defun'),
+        ],
+        'fichas-extraordinarias-nacim' => [
+            'driver' => 'local',
+            'root' => public_path('fichas/extraordinarias/nacim'),
+        ],
+        'fichas-extraordinarias-matri' => [
+            'driver' => 'local',
+            'root' => public_path('fichas/extraordinarias/matri'),
+        ],
+        'fichas-extraordinarias-defun' => [
+            'driver' => 'local',
+            'root' => public_path('fichas/extraordinarias/defun'),
+        ],
+        'fichas-especiales-nacim' => [
+            'driver' => 'local',
+            'root' => public_path('fichas/especiales/nacim'),
+        ],
+        'fichas-especiales-matri' => [
+            'driver' => 'local',
+            'root' => public_path('fichas/especiales/matri'),
+        ],
+        'fichas-especiales-defun' => [
+            'driver' => 'local',
+            'root' => public_path('fichas/especiales/defun'),
+        ],
         'fichas-matri' => [
             'driver' => 'local',
             'root' => public_path('fichas/matri'),
