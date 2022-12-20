@@ -41,28 +41,28 @@ class ListadoDeNacimientosController extends Controller
             return $query->whereRaw("nacimi.nro_fol = '" . $request->folio_filtro."'");
         })
         ->when((($request->apellido_paterno_filtro) !=null && ($request->apellido_paterno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("nacimi.ape_pat_na = '" . strtoupper($request->apellido_paterno_filtro)."'");
+            return $query->whereRaw("nacimi.ape_pat_na like '" . strtoupper($request->apellido_paterno_filtro)."%'");
         })
         ->when((($request->apellido_materno_filtro) !=null && ($request->apellido_materno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("nacimi.ape_mat_na = '" . strtoupper($request->apellido_materno_filtro)."'");
+            return $query->whereRaw("nacimi.ape_mat_na like '" . strtoupper($request->apellido_materno_filtro)."%'");
         })
         ->when((($request->nombres_filtro) !=null && ($request->nombres_filtro) !=''), function ($query)  use ($request) {
             return $query->whereRaw("nacimi.nom_nac like '%" . strtoupper($request->nombres_filtro)."%'");
         })
         ->when((($request->apellido_paterno_padre_filtro) !=null && ($request->apellido_paterno_padre_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("nacimi.ape_pat_pa = '" . strtoupper($request->apellido_paterno_padre_filtro)."'");
+            return $query->whereRaw("nacimi.ape_pat_pa like '" . strtoupper($request->apellido_paterno_padre_filtro)."%'");
         })
         ->when((($request->apellido_materno_padre_filtro) !=null && ($request->apellido_materno_padre_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("nacimi.ape_mat_pa = '" . strtoupper($request->apellido_materno_padre_filtro)."'");
+            return $query->whereRaw("nacimi.ape_mat_pa like '" . strtoupper($request->apellido_materno_padre_filtro)."%'");
         })
         ->when((($request->nombres_padre_filtro) !=null && ($request->nombres_padre_filtro) !=''), function ($query)  use ($request) {
             return $query->whereRaw("nacimi.nom_pad like '%" . strtoupper($request->nombres_padre_filtro)."%'");
         })
         ->when((($request->apellido_paterno_madre_filtro) !=null && ($request->apellido_paterno_madre_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("nacimi.ape_pat_ma = '" . strtoupper($request->apellido_paterno_madre_filtro)."'");
+            return $query->whereRaw("nacimi.ape_pat_ma like '" . strtoupper($request->apellido_paterno_madre_filtro)."%'");
         })
         ->when((($request->apellido_materno_madre_filtro) !=null && ($request->apellido_materno_madre_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("nacimi.ape_mat_ma = '" . strtoupper($request->apellido_materno_madre_filtro)."'");
+            return $query->whereRaw("nacimi.ape_mat_ma like '" . strtoupper($request->apellido_materno_madre_filtro)."%'");
         })
         ->when((($request->nombres_madre_filtro) !=null && ($request->nombres_madre_filtro) !=''), function ($query)  use ($request) {
             return $query->whereRaw("nacimi.nom_mad like '%" . strtoupper($request->nombres_madre_filtro)."%'");

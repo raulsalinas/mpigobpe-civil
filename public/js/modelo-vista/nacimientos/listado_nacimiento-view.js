@@ -11,15 +11,15 @@ class ListadoNacimientoView {
     listar = (anio_filtro=null
         ,libro_filtro=null
         ,folio_filtro=null
-        ,nombres_madre_filtro=null
         ,apellido_paterno_filtro=null
         ,apellido_materno_filtro=null
+        ,nombres_filtro=null
         ,apellido_paterno_padre_filtro=null
         ,apellido_materno_padre_filtro=null
         ,nombres_padre_filtro=null
         ,apellido_paterno_madre_filtro=null
         ,apellido_materno_madre_filtro=null
-        ,nombres_filtro=null
+        ,nombres_madre_filtro=null
         ,fecha_desde_filtro=null
         ,fecha_hasta_filtro=null
         ,condicion_filtro=null) => {
