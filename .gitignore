@@ -2,6 +2,13 @@
 /public/fichas/**/*.TIF
 /public/fichas/**/*.tif
 /public/fichas/**/*.pdf
+/public/fichas/**/*.dat
+/public/fichas/**/*.rar
+/public/fichas/**/*.zip
+/public/fichas/**/*.db
+/public/fichas/**/*.psd
+/public/fichas/**/*.jpg
+/public/fichas/**/*.DS_Store
 /public/hot
 /public/storage
 /storage/*.key
