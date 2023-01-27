@@ -45,19 +45,18 @@
                                                 <th width="10">Año</th>
                                                 <th width="10">Nro. Libro</th>
                                                 <th width="10">Nro. Folio</th>
+                                                <th width="50">Nombres del Nacido</th>
                                                 <th width="50">Apellido Paterno del Nacido</th>
                                                 <th width="50">Apellido Matero del Nacido</th>
-                                                <th width="50">Nombres del Nacido</th>
-                                                <th width="50">Apellido Paterno del Padre</th>
-                                                <th width="50">Apellido Matero del Padre</th>
-                                                <th width="50">Nombres del Padre</th>
-                                                <th width="50">Apellido Paterno de Madre</th>
-                                                <th width="50">Apellido Matero de Madre</th>
-                                                <th width="50">Nombres de Madre</th>
                                                 <th width="10">Sexo</th>
-                                                <th width="20">Ubigeo</th>
                                                 <th width="20">Fecha de Nacimiento</th>
+                                                <th width="20">Ubigeo</th>
+                                                <th width="50">Nombres del Padre</th>
+                                                <th width="50">Apellidos del Padre</th>
+                                                <th width="50">Nombres de la Madre</th>
+                                                <th width="50">Apellidos de la Madre</th>
                                                 <th width="20">Fecha de Inscripción</th>
+                                                <th width="20">Condición</th>
                                                 <th width="20">Acción</th>
                                             </tr>
                                         </thead>

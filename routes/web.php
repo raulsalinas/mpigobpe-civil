@@ -162,5 +162,22 @@ Route::middleware(['auth'])->group(function () {
         Route::post('guardar-motivo-defuncion', [ConfiguracionController::class, 'guardarMotivoDefuncion'])->name('guardar-motivo-defuncion');
         Route::post('actualizar-motivo-defuncion', [ConfiguracionController::class, 'actualizarMotivoDefuncion'])->name('actualizar-motivo-defuncion');
 
+        // Route::get('indexar-fichas-nacimiento-ordinarias', [ConfiguracionController::class, 'indexarFichasNacimientoOrdinarias'])->name('indexar-fichas-nacimiento-ordinarias');
+        // Route::get('indexar-fichas-nacimiento-extraordinarias', [ConfiguracionController::class, 'indexarFichasNacimientoExtraordinarias'])->name('indexar-fichas-nacimiento-extraordinarias');
+
+        // Route::get('indexar-fichas-matrimonio-ordinarias', [ConfiguracionController::class, 'indexarFichasMatrimonioOrdinarias'])->name('indexar-fichas-matrimonio-ordinarias');
+        // Route::get('indexar-fichas-matrimonio-extraordinarias', [ConfiguracionController::class, 'indexarFichasMatrimonioExtraordinarias'])->name('indexar-fichas-matrimonio-extraordinarias');
+
+        // Route::get('indexar-fichas-defuncion-ordinarias', [ConfiguracionController::class, 'indexarFichasDefuncionOrdinarias'])->name('indexar-fichas-defuncion-ordinarias');
+        // Route::get('indexar-fichas-defuncion-extraordinarias', [ConfiguracionController::class, 'indexarFichasDefuncionExtraordinarias'])->name('indexar-fichas-defuncion-extraordinarias');
+
+        // Route::get('registrar-fichas-nacimiento-ordinarias', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinarias'])->name('registrar-fichas-nacimiento-ordinarias');
+        // Route::get('registrar-fichas-nacimiento-ordinariasA', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinariasA'])->name('registrar-fichas-nacimiento-ordinariasA');
+        // Route::get('registrar-fichas-nacimiento-ordinariBas', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinariaBs'])->name('registrar-fichas-nacimiento-ordinariasB');
+        // Route::get('registrar-fichas-nacimiento-ordinaCrias', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinariCas'])->name('registrar-fichas-nacimiento-ordinariasC');
+        // Route::get('registrar-fichas-nacimiento-ordiDnarias', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinarDias'])->name('registrar-fichas-nacimiento-ordinariasD');
+        
+
+
     });
 });

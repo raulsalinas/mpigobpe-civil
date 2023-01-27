@@ -8,21 +8,8 @@ class ListadoNacimientoView {
     /**
      * Listar mediante DataTables
      */
-    listar = (anio_filtro=null
-        ,libro_filtro=null
-        ,folio_filtro=null
-        ,apellido_paterno_filtro=null
-        ,apellido_materno_filtro=null
-        ,nombres_filtro=null
-        ,apellido_paterno_padre_filtro=null
-        ,apellido_materno_padre_filtro=null
-        ,nombres_padre_filtro=null
-        ,apellido_paterno_madre_filtro=null
-        ,apellido_materno_madre_filtro=null
-        ,nombres_madre_filtro=null
-        ,fecha_desde_filtro=null
-        ,fecha_hasta_filtro=null
-        ,condicion_filtro=null) => {
+    listar = ( ano_eje=null ,nro_lib=null ,nro_fol=null ,ano_nac=null ,nom_nac=null ,ape_pat_nac=null ,ape_mat_nac=null ,nom_pad=null ,ape_pad=null ,nom_mad=null ,ape_mad=null ,fch_nac_desde=null ,fch_nac_hasta=null ,condic=null
+        ) => {
         const $tabla = $('#tablaNacimiento').DataTable({
             dom: 'Bfrtip',
             pageLength: 20,
@@ -48,27 +35,11 @@ class ListadoNacimientoView {
                 $('#btnBuscar').html('<i class="fas fa-search"></i>').prop('disabled', false);
                 $('#tablaNacimiento_filter input').trigger('focus');
             },
-            order: [[2, 'asc']],
+            order: [[1, 'desc']],
             ajax: {
                 url: route('nacimientos.listar'),
                 method: 'POST',
-                data: {
-                    'anio_filtro':anio_filtro,
-                    'libro_filtro':libro_filtro,
-                    'folio_filtro':folio_filtro,
-                    'apellido_paterno_filtro':apellido_paterno_filtro,
-                    'apellido_materno_filtro':apellido_materno_filtro,
-                    'nombres_filtro':nombres_filtro,
-                    'apellido_paterno_padre_filtro':apellido_paterno_padre_filtro,
-                    'apellido_materno_padre_filtro':apellido_materno_padre_filtro,
-                    'nombres_padre_filtro':nombres_padre_filtro,
-                    'apellido_paterno_madre_filtro':apellido_paterno_madre_filtro,
-                    'apellido_materno_madre_filtro':apellido_materno_madre_filtro,
-                    'nombres_madre_filtro':nombres_madre_filtro,
-                    'fecha_desde_filtro':fecha_desde_filtro,
-                    'fecha_hasta_filtro':fecha_hasta_filtro,
-                    'condicion_filtro':condicion_filtro
-                        },
+                data: {ano_eje ,nro_lib ,nro_fol ,ano_nac ,nom_nac ,ape_pat_nac ,ape_mat_nac ,nom_pad ,ape_pad ,nom_mad ,ape_mad ,fch_nac_desde ,fch_nac_hasta ,condic},
                 headers: { 'X-CSRF-TOKEN': csrf_token }
             },
             columns: [
@@ -80,19 +51,20 @@ class ListadoNacimientoView {
                 { data: 'ano_nac',className: 'text-center' },
                 { data: 'nro_lib' },
                 { data: 'nro_fol' },
-                { data: 'ape_pat_na' },
-                { data: 'ape_mat_na' },
                 { data: 'nom_nac' },
-                { data: 'ape_pat_pa' },
-                { data: 'ape_mat_pa' },
-                { data: 'nom_pad' },
-                { data: 'ape_pat_ma' },
-                { data: 'ape_mat_ma' },
-                { data: 'nom_mad' },
-                { data: 'sexo_desc', name: 'sexo.nombre' },
-                { data: 'ubigeo_desc', name: 'ubigeo.nombre' },
+                { data: 'ape_pat_nac' },
+                { data: 'ape_mat_nac' },
+                { data: 'sex_nac' },
                 { data: 'fch_nac', className: 'text-center' },
+                { data: 'ubigeo_desc', name: 'ubigeo.nombre' },
+                { data: 'nom_pad' },
+                { data: 'ape_pad' },
+                { data: 'nom_mad' },
+                { data: 'ape_mad' },
                 { data: 'fch_ing',  className: 'text-center' },
+                { data: 'condic',  className: 'text-center', render: function(data,type,row,index){
+                    return row.condic==1?'Ordinario':(row.condic ==2?'Extraordinario':(row.condic==3?'Especial':''));
+                } },
                 { data: 'accion', orderable: false, searchable: false, className: 'text-center' }
             ],
             buttons: [
@@ -190,63 +162,46 @@ class ListadoNacimientoView {
         $("#modal-filtro_nacimientos").on("click", "button.filtrar", (e) => {
             const $modal=$("#modal-filtro_nacimientos");
 
-            let anioEjeFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='anio_eje_filtro']").value;
-            let nroLibFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nro_lib_filtro']").value;
-            let nroFolFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nro_fol_filtro']").value;
-            let apellidoPaternoFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='apellido_paterno_filtro']").value;
-            let apellidoMaternoFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='apellido_materno_filtro']").value;
-            let nombresFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nombres_filtro']").value;
-            let apellidoPaternoPadreFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='apellido_paterno_padre_filtro']").value;
-            let apellidoMaternoPadreFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='apellido_materno_padre_filtro']").value;
-            let nombresPadreFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nombres_padre_filtro']").value;
-            let apellidoPaternoMadreFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='apellido_paterno_madre_filtro']").value;
-            let apellidoMaternoMadreFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='apellido_materno_madre_filtro']").value;
-            let nombresMadreFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nombres_madre_filtro']").value;
-            let fechaDesdeFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='fecha_desde_filtro']").value;
-            let fechaHastaFiltro= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='fecha_hasta_filtro']").value;
-
-            let condicionFiltro;
-            let condicion= document.querySelectorAll("div[id='modal-filtro_nacimientos'] input[name='condicionActaRadioOptions']");
+            let ano_eje= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='ano_eje']").value;
+            let nro_lib= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nro_lib']").value;
+            let nro_fol= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nro_fol']").value;
+            let ano_nac= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='ano_nac']").value;
+            let nom_nac= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nom_nac']").value;
+            let ape_pat_nac= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='ape_pat_nac']").value;
+            let ape_mat_nac= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='ape_mat_nac']").value;
+            let nom_pad= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nom_pad']").value;
+            let ape_pad= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='ape_pad']").value;
+            let nom_mad= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nom_mad']").value;
+            let ape_mad= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='ape_mad']").value;
+            let fch_nac_desde= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='fch_nac_desde']").value;
+            let fch_nac_hasta= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='fch_nac_hasta']").value;
+            let condic;
+            let condicion= document.querySelectorAll("div[id='modal-filtro_nacimientos'] input[name='condic']");
             condicion.forEach(element => {
                 if(element.checked){
-                    condicionFiltro=element.value;
+                    condic=element.value;
                 }else{
-                    condicionFiltro='';
+                    condic='';
                 }
             });
 
-            this.listar(anioEjeFiltro
-                ,nroLibFiltro
-                ,nroFolFiltro
-                ,apellidoPaternoFiltro
-                ,apellidoMaternoFiltro
-                ,nombresFiltro
-                ,apellidoPaternoPadreFiltro
-                ,apellidoMaternoPadreFiltro
-                ,nombresPadreFiltro
-                ,apellidoPaternoMadreFiltro
-                ,apellidoMaternoMadreFiltro
-                ,nombresMadreFiltro
-                ,fechaDesdeFiltro
-                ,fechaHastaFiltro
-                ,condicionFiltro);   
+            this.listar( ano_eje ,nro_lib ,nro_fol ,ano_nac ,nom_nac ,ape_pat_nac ,ape_mat_nac ,nom_pad ,ape_pad ,nom_mad ,ape_mad ,fch_nac_desde ,fch_nac_hasta ,condic);   
             $modal.modal("hide");
             let cantidadFiltrosActivos=0;
-            if(anioEjeFiltro !=''){cantidadFiltrosActivos++;}
-            if(nroLibFiltro != ''){cantidadFiltrosActivos++;}
-            if(nroFolFiltro != ''){cantidadFiltrosActivos++;}
-            if(apellidoPaternoFiltro !=''){cantidadFiltrosActivos++;}
-            if(apellidoMaternoFiltro !=''){cantidadFiltrosActivos++;}
-            if(nombresFiltro !=''){cantidadFiltrosActivos++;}
-            if(apellidoPaternoPadreFiltro !=''){cantidadFiltrosActivos++;}
-            if(apellidoMaternoPadreFiltro !=''){cantidadFiltrosActivos++;}
-            if(nombresPadreFiltro !=''){cantidadFiltrosActivos++;}
-            if(apellidoPaternoMadreFiltro !=''){cantidadFiltrosActivos++;}
-            if(apellidoMaternoMadreFiltro !=''){cantidadFiltrosActivos++;}
-            if(nombresMadreFiltro !=''){cantidadFiltrosActivos++;}
-            if(fechaDesdeFiltro !=''){cantidadFiltrosActivos++;}
-            if(fechaHastaFiltro !=''){cantidadFiltrosActivos++;}
-            if(condicionFiltro !=''){cantidadFiltrosActivos++;}
+            if(ano_eje !=''){cantidadFiltrosActivos++;}
+            if(nro_lib != ''){cantidadFiltrosActivos++;}
+            if(nro_fol != ''){cantidadFiltrosActivos++;}
+            if(ano_nac !=''){cantidadFiltrosActivos++;}
+            if(nom_nac !=''){cantidadFiltrosActivos++;}
+            if(ape_pat_nac !=''){cantidadFiltrosActivos++;}
+            if(ape_mat_nac !=''){cantidadFiltrosActivos++;}
+            if(nom_pad !=''){cantidadFiltrosActivos++;}
+            if(ape_pad !=''){cantidadFiltrosActivos++;}
+            if(nom_mad !=''){cantidadFiltrosActivos++;}
+            if(ape_mad !=''){cantidadFiltrosActivos++;}
+            if(fch_nac_desde !=''){cantidadFiltrosActivos++;}
+            if(fch_nac_hasta !=''){cantidadFiltrosActivos++;}
+            if(condic !=''){cantidadFiltrosActivos++;}
             document.querySelector("div[id='tablaNacimiento_wrapper'] button[id='btnFiltrarNacimientos']").innerHTML='<i class="fas fa-filter"></i> Filtrar: '+cantidadFiltrosActivos;
         });
 

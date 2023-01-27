@@ -1,6 +1,6 @@
 <div class="modal fade" id="modal-filtro_nacimientos" tabindex="-1" role="dialog" aria-labelledby="modal-filtro_nacimientos">
 
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <form id="formulario-filtro-nacimiento" method="POST" autocomplete="off">
                 <input type="hidden" name="_method" value="POST">
@@ -23,7 +23,7 @@
                                                     <div class="form-group">
                                                         <label>Año:</label>
                                                         <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm" name="anio_eje_filtro">
+                                                            <input type="text" class="form-control form-control-sm" name="ano_eje">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -31,7 +31,7 @@
                                                     <div class="form-group">
                                                         <label>Libro:</label>
                                                         <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm" name="nro_lib_filtro">
+                                                            <input type="text" class="form-control form-control-sm" name="nro_lib">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -40,7 +40,7 @@
                                                     <div class="form-group">
                                                         <label>Folio:</label>
                                                         <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm" name="nro_fol_filtro">
+                                                            <input type="text" class="form-control form-control-sm" name="nro_fol">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -57,27 +57,35 @@
                                         <h5 class="card-title mb-2">Datos del nacido</h5>
                                         <div class="card-text">
                                             <div class="row">
+                                                <div class="col-sm-2">
+                                                    <div class="form-group">
+                                                        <label>Año nacim.:</label>
+                                                        <div class="input-group date" data-target-input="nearest">
+                                                            <input type="text" class="form-control form-control-sm datetimepicker-input" name="ano_nac">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
                                                         <label>Nombres:</label>
                                                         <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm datetimepicker-input" name="nombres_filtro">
+                                                            <input type="text" class="form-control form-control-sm datetimepicker-input" name="nom_nac">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <div class="form-group">
                                                         <label>Apellido Paterno:</label>
                                                         <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm" name="apellido_paterno_filtro">
+                                                            <input type="text" class="form-control form-control-sm" name="ape_pat_nac">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <div class="form-group">
                                                         <label>Apellido Materno:</label>
                                                         <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm" name="apellido_materno_filtro">
+                                                            <input type="text" class="form-control form-control-sm" name="ape_mat_nac">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -96,25 +104,17 @@
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
-                                                        <label>Nombres:</label>
+                                                        <label>Nombres del padre:</label>
                                                         <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm datetimepicker-input" name="nombres_padre_filtro">
+                                                            <input type="text" class="form-control form-control-sm datetimepicker-input" name="nom_pad">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
-                                                        <label>Apellido Paterno:</label>
+                                                        <label>Apellidos del padre:</label>
                                                         <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm" name="apellido_paterno_padre_filtro">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <div class="form-group">
-                                                        <label>Apellido Materno:</label>
-                                                        <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm" name="apellido_materno_padre_filtro">
+                                                            <input type="text" class="form-control form-control-sm" name="ape_pad">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -131,25 +131,17 @@
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
-                                                        <label>Nombres:</label>
+                                                        <label>Nombres de la madre:</label>
                                                         <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm datetimepicker-input" name="nombres_madre_filtro">
+                                                            <input type="text" class="form-control form-control-sm datetimepicker-input" name="nom_mad">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="form-group">
-                                                        <label>Apellido Paterno:</label>
+                                                        <label>Apellidos de la madre:</label>
                                                         <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm" name="apellido_paterno_madre_filtro">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-12">
-                                                    <div class="form-group">
-                                                        <label>Apellido Materno:</label>
-                                                        <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm" name="apellido_materno_madre_filtro">
+                                                            <input type="text" class="form-control form-control-sm" name="ape_mad">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -175,7 +167,7 @@
                                             <div class="form-group">
                                                 <label>Fecha Desde:</label>
                                                 <div class="input-group date" data-target-input="nearest">
-                                                    <input type="date" class="form-control form-control-sm datetimepicker-input" name="fecha_desde_filtro">
+                                                    <input type="date" class="form-control form-control-sm datetimepicker-input" name="fch_nac_desde">
                                                 </div>
                                             </div>
                                         </div>
@@ -183,7 +175,7 @@
                                             <div class="form-group">
                                                 <label>Fecha Hasta:</label>
                                                 <div class="input-group date" data-target-input="nearest">
-                                                    <input type="date" class="form-control form-control-sm datetimepicker-input" name="fecha_hasta_filtro">
+                                                    <input type="date" class="form-control form-control-sm datetimepicker-input" name="fch_nac_hasta">
                                                 </div>
                                             </div>
                                         </div>
@@ -196,15 +188,15 @@
                         <div class="row text-center">
                             <div class="col-md-12">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="condicionActaRadioOptions" id="condicionOrdinaria" value="1">
+                                    <input class="form-check-input" type="radio" name="condic" id="condicionOrdinaria" value="1">
                                     <label class="form-check-label" for="inlineRadio1">Ordinario</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="condicionActaRadioOptions" id="condicionExtraordinaria" value="2">
+                                    <input class="form-check-input" type="radio" name="condic" id="condicionExtraordinaria" value="2">
                                     <label class="form-check-label" for="inlineRadio2">Extraordinario</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="condicionActaRadioOptions" id="condicionEspecial" value="3">
+                                    <input class="form-check-input" type="radio" name="condic" id="condicionEspecial" value="3">
                                     <label class="form-check-label" for="inlineRadio3">Especial</label>
                                 </div>
                             </div>
