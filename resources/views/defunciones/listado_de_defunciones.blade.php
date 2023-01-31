@@ -42,15 +42,16 @@
                                         <thead>
                                             <tr>
                                                 <th width="10">N°</th>
-                                                <th width="10">Año</th>
+                                                <th width="10">Año Eje.</th>
                                                 <th width="10">Nro. Libro</th>
                                                 <th width="10">Nro. Folio</th>
-                                                <th width="50">Apellido Paterno</th>
-                                                <th width="50">Apellido Matero</th>
+                                                <th width="50">ApellidoS</th>
                                                 <th width="50">Nombres</th>
                                                 <th width="50">Motivo de deceso</th>
                                                 <th width="20">Fecha de deceso</th>
                                                 <th width="20">Registrado por</th>
+                                                <th width="20">Fecha Registro</th>
+                                                <th width="20">Obs.</th>
                                                 <th width="20">Acción</th>
                                             </tr>
                                         </thead>

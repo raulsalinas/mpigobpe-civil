@@ -70,18 +70,18 @@ class AdjuntoHelper
             case 'matrimonios':
                 if ($idArchivo >0) {
                     $ficha = FichasMatrimonio::where('id', $idArchivo)->first();
-                    $registro = Matrimonio::where('id', $ficha->matrim_id)->first();
+                    $registro = Matrimonio::with('condicion')->where('id', $ficha->matrim_id)->first();
                 } else {
-                    $registro = Matrimonio::where('id', $idRegistro)->first();
+                    $registro = Matrimonio::with('condicion')->where('id', $idRegistro)->first();
                 }
                 break;
 
             case 'defunciones':
                 if ($idArchivo >0) {
                     $ficha = FichasDefuncion::where('id', $idArchivo)->first();
-                    $registro = Defuncion::where('id', $ficha->defun_id)->first();
+                    $registro = Defuncion::with('condicion')->where('id', $ficha->defun_id)->first();
                 } else {
-                    $registro = Defuncion::where('id', $idRegistro)->first();
+                    $registro = Defuncion::with('condicion')->where('id', $idRegistro)->first();
                 }
                 break;
 
@@ -90,7 +90,7 @@ class AdjuntoHelper
                 break;
         }
 
-        return  ['ano' => $registro->ano_eje, 'libro' => $registro->nro_lib, 'folio' => $registro->nro_fol, 'condicion' => $registro->condicion->nombre];
+        return  ['ano' => $registro->ano_eje, 'libro' => $registro->nro_lib, 'folio' => $registro->nro_fol, 'condicion' => $registro->condicion? $registro->condicion->nombre:''];
     }
 
     public static function anularAdjunto(Request $request)

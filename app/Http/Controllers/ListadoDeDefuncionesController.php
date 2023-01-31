@@ -24,47 +24,44 @@ class ListadoDeDefuncionesController extends Controller
         ->leftJoin('public.tipregdef', 'tipregdef.codigo', '=', 'defun.tipo')
         ->leftJoin('public.motvos', 'motvos.codigo', '=', 'defun.cod_mot')
         
-        ->when((($request->anio_filtro) !=null && ($request->anio_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("defun.ano_des = '".$request->anio_filtro."'");
+        ->when((($request->ano_eje) !=null && ($request->ano_eje) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("defun.ano_eje = '".$request->ano_eje."'");
         })
-        ->when((($request->libro_filtro) !=null && ($request->libro_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("defun.nro_lib = '" . $request->libro_filtro."'");
+        ->when((($request->nro_lib) !=null && ($request->nro_lib) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("defun.nro_lib = '" . $request->nro_lib."'");
         })
-        ->when((($request->folio_filtro) !=null && ($request->folio_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("defun.nro_fol = '" . $request->folio_filtro."'");
+        ->when((($request->nro_fol) !=null && ($request->nro_fol) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("defun.nro_fol = '" . $request->nro_fol."'");
         })
-        ->when((($request->apellido_paterno_filtro) !=null && ($request->apellido_paterno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("defun.ape_pat_de = '" . strtoupper($request->apellido_paterno_filtro)."'");
+        ->when((($request->ape_des) !=null && ($request->ape_des) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("defun.ape_des like '" . strtoupper($request->ape_des)."%'");
         })
-        ->when((($request->apellido_materno_filtro) !=null && ($request->apellido_materno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("defun.ape_mat_de = '" . strtoupper($request->apellido_materno_filtro)."'");
-        })
-        ->when((($request->nombre_filtro) !=null && ($request->apellido_materno_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("defun.nom_des = '" . strtoupper($request->apellido_materno_filtro)."'");
+        ->when((($request->nom_des) !=null && ($request->nom_des) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("defun.nom_des like '" . strtoupper($request->nom_des)."%'");
         })
  
-        ->when(((($request->fecha_desde_filtro) !=null && ($request->fecha_desde_filtro) !='') && (($request->fecha_hasta_filtro) ==null || ($request->fecha_hasta_filtro) =='')), function ($query)  use ($request) {
-            return $query->whereRaw("defun.fch_des >= '" . $request->fecha_desde_filtro."'");
+        ->when(((($request->fch_des_desde) !=null && ($request->fch_des_desde) !='') && (($request->fch_des_hasta) ==null || ($request->fch_des_hasta) =='')), function ($query)  use ($request) {
+            return $query->whereRaw("nacimi.fch_nac >= '" . $request->fch_des_desde."'");
         })
-        ->when(((($request->fecha_hasta_filtro) !=null && ($request->fecha_hasta_filtro) !='') && (($request->fecha_desde_filtro) ==null || ($request->fecha_desde_filtro) =='')), function ($query)  use ($request) {
-            return $query->whereRaw("defun.fch_des <='" . $request->fecha_hasta_filtro."'");
+        ->when(((($request->fch_des_hasta) !=null && ($request->fch_des_hasta) !='') && (($request->fch_des_desde) ==null || ($request->fch_des_desde) =='')), function ($query)  use ($request) {
+            return $query->whereRaw("nacimi.fch_nac <='" . $request->fch_des_hasta."'");
         })
-        ->when(((($request->fecha_hasta_filtro) !=null && ($request->fecha_hasta_filtro) !='') && (($request->fecha_desde_filtro) !=null || ($request->fecha_desde_filtro) !='')), function ($query)  use ($request) {
-            return $query->whereBetween("defun.fch_des", [$request->fecha_desde_filtro,$request->fecha_hasta_filtro]);
+        ->when((($request->condic) !=null && ($request->condic) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("nacimi.condic = '" . $request->condic."'");
         })
   
-        ->where('defun.ano_des','!=','');
+        ->where('defun.ano_des','>',0);
 
         return DataTables::of($data)
         // ->editColumn('fch_nac', function ($data) { return date('d/m/Y', strtotime($data->fch_nac)); })
         ->addColumn('accion', function ($data) { return 
             '<div class="btn-group" role="group">
-                <button type="button" class="btn btn-xs btn-primary ver" data-id="'.$data->id.'" data-año="'.$data->ano_des.'" data-libro="'.$data->nro_lib.'" data-folio="'.$data->nro_fol.'" ><span class="fas fa-eye"></span></button>
+                <button type="button" class="btn btn-xs btn-primary ver" data-id="'.$data->id.'" data-año="'.$data->ano_eje.'" data-libro="'.$data->nro_lib.'" data-folio="'.$data->nro_fol.'" ><span class="fas fa-eye"></span></button>
             </div>';
         })
         ->addColumn('accion-seleccionar', function ($data) { return 
             '<div class="btn-group" role="group">
-            <button type="button" class="btn btn-xs btn-success seleccionar" data-id="'.$data->id.'" data-año="'.$data->ano_des.'" data-libro="'.$data->nro_lib.'" data-folio="'.$data->nro_fol.'" >Seleccionar</button>
+            <button type="button" class="btn btn-xs btn-success seleccionar" data-id="'.$data->id.'" data-año="'.$data->ano_eje.'" data-libro="'.$data->nro_lib.'" data-folio="'.$data->nro_fol.'" >Seleccionar</button>
             </div>';
         })
         ->rawColumns(['accion','accion-seleccionar'])->make(true);

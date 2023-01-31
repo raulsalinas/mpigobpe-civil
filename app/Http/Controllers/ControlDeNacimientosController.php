@@ -66,94 +66,7 @@ class ControlDeNacimientosController extends Controller
                 break;
         }
     }
-    public function buscarFicha($id, $folder)
-    {
-        /*
-        $carpeta : nacim, matri, defun
-        */
-        $variantes = ['A', 'B', 'C', 'D', 'E'];
-        $nombreBase = '';
-        $archivoEncontrado = [];
 
-        switch ($folder) {
-            case 'nacim':
-                $data = Nacimiento::find($id);
-                $carpetaPadre = $this->getCarpetaPadreCondicion($data->condic);
-                $nombreBase = $data->ano_nac . $data->nro_fol;
-                $archivoEncontrado = [
-                    'idRegistro' => $id,
-                    'folder' => 'nacim',
-                    'año' => $data->ano_nac,
-                    'book' => $data->nro_lib,
-                    'folio' => $data->nro_fol,
-                    'nombre_base' => $nombreBase,
-                    'condic' => $data->condic,
-                ];
-                break;
-            case 'matri':
-                $data = Matrimonio::find($id);
-                $carpetaPadre = $this->getCarpetaPadreCondicion($data->condic);
-
-                $nombreBase = $data->ano_cel . $data->nro_fol;
-                $archivoEncontrado = [
-                    'idRegistro' => $id,
-                    'folder' => 'matri',
-                    'año' => $data->ano_cel,
-                    'book' => $data->nro_lib,
-                    'folio' => $data->nro_fol,
-                    'nombre_base' => $nombreBase,
-                    'condic' => $data->condic,
-                ];
-                break;
-            case 'defun':
-                $data = Defuncion::find($id);
-                $carpetaPadre = $this->getCarpetaPadreCondicion($data->condic);
-                $nombreBase = $data->ano_des . $data->nro_fol;
-                $archivoEncontrado = [
-                    'idRegistro' => $id,
-                    'folder' => 'defun',
-                    'año' => $data->ano_des,
-                    'book' => $data->nro_lib,
-                    'folio' => $data->nro_fol,
-                    'nombre_base' => $nombreBase,
-                    'condic' => $data->condic,
-                ];
-                break;
-            default:
-                break;
-        }
-        $ruta = 'fichas-' . $carpetaPadre . '-' . $folder;
-
-        // $fichas = Storage::disk('fichas-nacimiento')->allFiles();
-        $existeArchivoNombreBaseTIF = intval(Storage::disk($ruta)->exists($nombreBase . '.tif'));
-        $existeArchivoNombreBasePDF = intval(Storage::disk($ruta)->exists($nombreBase . '.pdf'));
-
-        $existeArchivoNombreATIF = intval(Storage::disk($ruta)->exists($nombreBase . 'A.TIF'));
-        $existeArchivoNombreAPDF = intval(Storage::disk($ruta)->exists($nombreBase . 'A.PDF'));
-        $existeArchivoNombreBTIF = intval(Storage::disk($ruta)->exists($nombreBase . 'B.TIF'));
-        $existeArchivoNombreBPDF = intval(Storage::disk($ruta)->exists($nombreBase . 'B.PDF'));
-        $existeArchivoNombreCTIF = intval(Storage::disk($ruta)->exists($nombreBase . 'C.TIF'));
-        $existeArchivoNombreCPDF = intval(Storage::disk($ruta)->exists($nombreBase . 'C.PDF'));
-        $existeArchivoNombreDTIF = intval(Storage::disk($ruta)->exists($nombreBase . 'D.TIF'));
-        $existeArchivoNombreDPDF = intval(Storage::disk($ruta)->exists($nombreBase . 'D.PDF'));
-        $existeArchivoNombreETIF = intval(Storage::disk($ruta)->exists($nombreBase . 'E.TIF'));
-        $existeArchivoNombreEPDF = intval(Storage::disk($ruta)->exists($nombreBase . 'E.PDF'));
-
-        $archivoEncontrado['existe_archivo_nombre_base_tif'] = boolval($existeArchivoNombreBaseTIF);
-        $archivoEncontrado['existe_archivo_nombre_base_pdf'] = boolval($existeArchivoNombreBasePDF);
-        $archivoEncontrado['existe_archivo_nombre_a_tif'] = boolval($existeArchivoNombreATIF);
-        $archivoEncontrado['existe_archivo_nombre_a_pdf'] = boolval($existeArchivoNombreAPDF);
-        $archivoEncontrado['existe_archivo_nombre_b_tif'] = boolval($existeArchivoNombreBTIF);
-        $archivoEncontrado['existe_archivo_nombre_b_pdf'] = boolval($existeArchivoNombreBPDF);
-        $archivoEncontrado['existe_archivo_nombre_c_tif'] = boolval($existeArchivoNombreCTIF);
-        $archivoEncontrado['existe_archivo_nombre_c_pdf'] = boolval($existeArchivoNombreCPDF);
-        $archivoEncontrado['existe_archivo_nombre_d_tif'] = boolval($existeArchivoNombreDTIF);
-        $archivoEncontrado['existe_archivo_nombre_d_pdf'] = boolval($existeArchivoNombreDPDF);
-        $archivoEncontrado['existe_archivo_nombre_e_tif'] = boolval($existeArchivoNombreETIF);
-        $archivoEncontrado['existe_archivo_nombre_e_pdf'] = boolval($existeArchivoNombreEPDF);
-
-        return $archivoEncontrado;
-    }
 
     public function guardar(Request $request)
     {
@@ -170,7 +83,7 @@ class ControlDeNacimientosController extends Controller
                 $nuevoNacimiento = new Nacimiento();
                 $nuevoNacimiento->ano_eje = $request->ano_eje;
                 $nuevoNacimiento->nro_lib = $request->nro_lib;
-                $nuevoNacimiento->ano_nac = Carbon::createFromFormat('Y-m-d', $request->fch_nac)->format('Y');;
+                $nuevoNacimiento->ano_nac = Carbon::createFromFormat('Y-m-d', $request->fch_nac)->format('Y');
                 $nuevoNacimiento->nro_fol = $request->nro_fol;
 
                 $nuevoNacimiento->ape_pat_nac = Str::upper($request->ape_pat_nac);
