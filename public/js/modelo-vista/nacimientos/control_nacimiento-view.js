@@ -67,6 +67,7 @@ class ControlNacimientoView {
                             nombre_extension: element.nombre_extension,
                             nombre_sin_extension: element.nombre_sin_extension,
                             tipo: 'nacimientos',
+                            idtipo: 1,
                             ruta: element.ruta,
                             condic_id: element.condic_id,
                             accion: '',
@@ -310,7 +311,7 @@ class ControlNacimientoView {
 
         $("#botoneraPrincipal").on("click", "a.imprimir", (e) => {
             const idNacimi = document.querySelector("input[name='id']").value;
-            const ano = document.querySelector("input[name='ano_nac']").value;
+            const ano = document.querySelector("input[name='ano_eje']").value;
             const libro = document.querySelector("input[name='nro_lib']").value;
             const folio = document.querySelector("input[name='nro_fol']").value;
             document.querySelector("div[id='modalRecibo'] button[id='btnGuardarRecibo']").removeAttribute("disabled");
@@ -390,7 +391,7 @@ class ControlNacimientoView {
             Util.mensaje("info", "Se habilitó la botonera de la sección de adjuntos");
             $('#modalRecibo').modal('hide');
 
-            abrirPestañaVisualizarAdjunto(idRegistro, 0);
+            abrirPestañaVisualizarAdjunto(1,idRegistro, 0);
         });
     }
 

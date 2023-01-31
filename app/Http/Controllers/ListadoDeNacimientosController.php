@@ -62,14 +62,14 @@ class ListadoDeNacimientosController extends Controller
         ->when((($request->ape_mad) !=null && ($request->ape_mad) !=''), function ($query)  use ($request) {
             return $query->whereRaw("nacimi.ape_mad like '" . strtoupper($request->ape_mad)."%'");
         }) 
+        ->when(((($request->fch_nac_desde) !=null && ($request->fch_nac_desde) !='') && (($request->fch_nac_hasta) ==null || ($request->fch_nac_hasta) =='')), function ($query)  use ($request) {
+            return $query->whereRaw("nacimi.fch_nac >= '" . $request->fch_nac_desde."'");
+        })
         ->when(((($request->fch_nac_hasta) !=null && ($request->fch_nac_hasta) !='') && (($request->fch_nac_desde) ==null || ($request->fch_nac_desde) =='')), function ($query)  use ($request) {
             return $query->whereRaw("nacimi.fch_nac <='" . $request->fch_nac_hasta."'");
         })
-        ->when(((($request->fch_nac_hasta) !=null && ($request->fch_nac_hasta) !='') && (($request->fch_nac_desde) !=null || ($request->fch_nac_desde) !='')), function ($query)  use ($request) {
-            return $query->whereBetween("nacimi.fch_nac", [$request->fch_nac_desde,$request->fch_nac_hasta]);
-        })
-        ->when((($request->condicion_filtro) !=null && ($request->condicion_filtro) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("nacimi.condic = '" . $request->condicion_filtro."'");
+        ->when((($request->condic) !=null && ($request->condic) !=''), function ($query)  use ($request) {
+            return $query->whereRaw("nacimi.condic = '" . $request->condic."'");
         })
         ->where('nacimi.ano_nac','>',0);
 

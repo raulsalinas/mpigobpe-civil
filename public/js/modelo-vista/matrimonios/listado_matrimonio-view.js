@@ -8,7 +8,7 @@ class ListadoMatrimonioView {
     /**
      * Listar mediante DataTables
      */
-    listar = (anio_filtro=null,libro_filtro=null,folio_filtro=null,apellido_paterno_marido_filtro=null,apellido_materno_marido_filtro=null,nombres_marido_filtro=null,apellido_paterno_esposa_filtro=null,apellido_materno_esposa_filtro=null,nombres_esposa_filtro=null,fecha_desde_filtro=null,fecha_hasta_filtro=null) => {
+    listar = (ano_eje=null ,nro_lib=null ,nro_fol=null ,ape_mar=null ,nom_mar=null ,ape_esp=null ,nom_esp=null ,fch_cel_desde=null ,fch_cel_hasta=null ,condic=null) => {
         const $tabla = $('#tablaMatrimonio').DataTable({
             dom: 'Bfrtip',
             pageLength: 20,
@@ -38,19 +38,8 @@ class ListadoMatrimonioView {
             ajax: {
                 url: route('matrimonios.listar'),
                 method: 'POST',
-                data: {
-                    'anio_filtro':anio_filtro,
-                    'libro_filtro':libro_filtro,
-                    'folio_filtro':folio_filtro,
-                    'apellido_paterno_marido_filtro':apellido_paterno_marido_filtro,
-                    'apellido_materno_marido_filtro':apellido_materno_marido_filtro,
-                    'nombres_marido_filtro':nombres_marido_filtro,
-                    'apellido_paterno_esposa_filtro':apellido_paterno_esposa_filtro,
-                    'apellido_materno_esposa_filtro':apellido_materno_esposa_filtro,
-                    'nombres_esposa_filtro':nombres_esposa_filtro,
-                    'fecha_desde_filtro':fecha_desde_filtro,
-                    'fecha_hasta_filtro':fecha_hasta_filtro
-                        },
+                data: {ano_eje,nro_lib,nro_fol,ape_mar,nom_mar,ape_esp,nom_esp,fch_cel_desde,fch_cel_hasta,condic},
+
                 headers: { 'X-CSRF-TOKEN': csrf_token }
             },
             columns: [
@@ -59,19 +48,21 @@ class ListadoMatrimonioView {
                         return index.row + 1;
                     }, orderable: false, searchable: false, className: 'text-center'
                 },
-                { data: 'ano_cel',className: 'text-center' },
+                { data: 'ano_eje',className: 'text-center' },
                 { data: 'nro_lib' },
                 { data: 'nro_fol' },
-                { data: 'ape_pat_ma' },
-                { data: 'ape_mat_ma' },
+                { data: 'ape_mar' },
                 { data: 'nom_mar' },
                 { data: 'ubigeo_marido', name:'ubigeo_marido.nombre' },
-                { data: 'ape_pat_es' },
-                { data: 'ape_mat_es' },
+                { data: 'ape_esp' },
                 { data: 'nom_esp' },
                 { data: 'ubigeo_esposa', name:'ubigeo_esposa.nombre' },
                 { data: 'fch_cel'},
                 { data: 'fch_reg'},
+                { data: 'condic',  className: 'text-center', render: function(data,type,row,index){
+                    return row.condic==1?'Ordinario':(row.condic ==2?'Extraordinario':(row.condic==3?'Especial':''));
+                } },
+                { data: 'observa'},
                 { data: 'accion', orderable: false, searchable: false, className: 'text-center' }
             ],
             buttons: [
@@ -142,33 +133,38 @@ class ListadoMatrimonioView {
         $("#modal-filtro_matrimonios").on("click", "button.filtrar", (e) => {
             const $modal=$("#modal-filtro_matrimonios");
 
-            let anioEjeFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='anio_eje_filtro']").value;
-            let nroLibFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nro_lib_filtro']").value;
-            let nroFolFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nro_fol_filtro']").value;
-            let apellidoPaternoMaridoFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='apellido_paterno_marido_filtro']").value;
-            let apellidoMaternoMaridoFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='apellido_materno_marido_filtro']").value;
-            let nombresMaridoFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nombres_marido_filtro']").value;
-            let apellidoPaternoEsposaFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='apellido_paterno_esposa_filtro']").value;
-            let apellidoMaternoEsposaFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='apellido_materno_esposa_filtro']").value;
-            let nombresEsposaFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nombres_esposa_filtro']").value;
-            let fechaDesdeFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='fecha_desde_filtro']").value;
-            let fechaHastaFiltro= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='fecha_hasta_filtro']").value;
+            let ano_eje= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='ano_eje']").value;
+            let nro_lib= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nro_lib']").value;
+            let nro_fol= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nro_fol']").value;
+            let ape_mar= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='ape_mar']").value;
+            let nom_mar= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nom_mar']").value;
+            let ape_esp= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='ape_esp']").value;
+            let nom_esp= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nom_esp']").value;
+            let fch_cel_desde= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='fch_cel_desde']").value;
+            let fch_cel_hasta= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='fch_cel_hasta']").value;
+            let condic;
+            let condicion= document.querySelectorAll("div[id='modal-filtro_matrimonios'] input[name='condic']");
+            condicion.forEach(element => {
+                if(element.checked){
+                    condic=element.value;
+                }else{
+                    condic='';
+                }
+            });
 
-
-            this.listar(anioEjeFiltro,nroLibFiltro,nroFolFiltro,apellidoPaternoMaridoFiltro,apellidoMaternoMaridoFiltro,nombresMaridoFiltro,apellidoPaternoEsposaFiltro,apellidoMaternoEsposaFiltro,nombresEsposaFiltro,fechaDesdeFiltro,fechaHastaFiltro);   
+            this.listar(ano_eje,nro_lib,nro_fol,ape_mar,nom_mar,ape_esp,nom_esp,fch_cel_desde,fch_cel_hasta,condic);   
             $modal.modal("hide");
             let cantidadFiltrosActivos=0;
-            if(anioEjeFiltro !=''){cantidadFiltrosActivos++;}
-            if(nroLibFiltro != ''){cantidadFiltrosActivos++;}
-            if(nroFolFiltro != ''){cantidadFiltrosActivos++;}
-            if(apellidoPaternoMaridoFiltro !=''){cantidadFiltrosActivos++;}
-            if(apellidoMaternoMaridoFiltro !=''){cantidadFiltrosActivos++;}
-            if(nombresMaridoFiltro !=''){cantidadFiltrosActivos++;}
-            if(apellidoPaternoEsposaFiltro !=''){cantidadFiltrosActivos++;}
-            if(apellidoMaternoEsposaFiltro !=''){cantidadFiltrosActivos++;}
-            if(nombresEsposaFiltro !=''){cantidadFiltrosActivos++;}
-            if(fechaDesdeFiltro !=''){cantidadFiltrosActivos++;}
-            if(fechaHastaFiltro !=''){cantidadFiltrosActivos++;}
+            if(ano_eje !=''){cantidadFiltrosActivos++;}
+            if(nro_lib != ''){cantidadFiltrosActivos++;}
+            if(nro_fol != ''){cantidadFiltrosActivos++;}
+            if(ape_mar !=''){cantidadFiltrosActivos++;}
+            if(nom_mar !=''){cantidadFiltrosActivos++;}
+            if(ape_esp !=''){cantidadFiltrosActivos++;}
+            if(nom_esp !=''){cantidadFiltrosActivos++;}
+            if(fch_cel_desde !=''){cantidadFiltrosActivos++;}
+            if(fch_cel_hasta !=''){cantidadFiltrosActivos++;}
+            if(condic !=''){cantidadFiltrosActivos++;}
             document.querySelector("div[id='tablaMatrimonio_wrapper'] button[id='btnFiltrarMatrimonios']").innerHTML='<i class="fas fa-filter"></i> Filtrar: '+cantidadFiltrosActivos;
 
         });

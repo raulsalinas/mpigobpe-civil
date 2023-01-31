@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\AdjuntoHelper;
 use App\Models\Cobro;
 use App\Models\Defuncion;
+use App\Models\FichasMatrimonio;
 use App\Models\Matrimonio;
 use App\Models\Nacimiento;
 use App\Models\Recibo;
@@ -14,6 +16,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ControlDeMatrimoniosController extends Controller
 {
@@ -32,220 +35,91 @@ class ControlDeMatrimoniosController extends Controller
         $data = $id;
         if ($id > 0) {
             $data = Matrimonio::find($id);
-            $data->setAttribute('adjunto',$this->obtenerAdjuntos($id));
+            $adjuntoHelper = new AdjuntoHelper();
+            $data->setAttribute('adjuntos', $adjuntoHelper->obtenerAdjuntos($id, 'matrimonios'));
         }
         return response()->json($data, 200);
     }
 
-    public function obtenerAdjuntos($id){
-        $adjuntos = $this->buscarFicha($id,'matri');
-        return $adjuntos;
-    }
-
-    public function obtenerAdjuntosLista($id){
-        $adjuntos = $this->buscarFicha($id,'matri');
-        $files=[];
-        if($adjuntos['existe_archivo_nombre_base_tif']==true){
-            $files[]=[
-                
-                'idRegistro'=>$adjuntos['idRegistro'],
-                'nameFile'=>$adjuntos['nombre_base'].'.tif',
-                'year'=>$adjuntos['año'],
-                'book'=>$adjuntos['book'],
-                'folio'=>$adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if($adjuntos['existe_archivo_nombre_base_pdf']==true){
-            $files[]=[
-                'idRegistro'=>$adjuntos['idRegistro'],
-                'nameFile'=>$adjuntos['nombre_base'].'.pdf',
-                'year'=>$adjuntos['año'],
-                'book'=>$adjuntos['book'],
-                'folio'=>$adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if($adjuntos['existe_archivo_nombre_a_tif']==true){
-            $files[]=[
-                'idRegistro'=>$adjuntos['idRegistro'],
-                'nameFile'=>$adjuntos['nombre_base'].'A.tif',
-                'year'=>$adjuntos['año'],
-                'book'=>$adjuntos['book'],
-                'folio'=>$adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if($adjuntos['existe_archivo_nombre_a_pdf']==true){
-            $files[]=[
-                'idRegistro'=>$adjuntos['idRegistro'],
-                'nameFile'=>$adjuntos['nombre_base'].'A.pdf',
-                'year'=>$adjuntos['año'],
-                'book'=>$adjuntos['book'],
-                'folio'=>$adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if($adjuntos['existe_archivo_nombre_b_tif']==true){
-            $files[]=[
-                'idRegistro'=>$adjuntos['idRegistro'],
-                'nameFile'=>$adjuntos['nombre_base'].'B.pdf',
-                'year'=>$adjuntos['año'],
-                'book'=>$adjuntos['book'],
-                'folio'=>$adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if($adjuntos['existe_archivo_nombre_b_pdf']==true){
-            $files[]=[
-                'idRegistro'=>$adjuntos['idRegistro'],
-                'nameFile'=>$adjuntos['nombre_base'].'B.tif',
-                'year'=>$adjuntos['año'],
-                'book'=>$adjuntos['book'],
-                'folio'=>$adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if($adjuntos['existe_archivo_nombre_c_tif']==true){
-            $files[]=[
-                'idRegistro'=>$adjuntos['idRegistro'],
-                'nameFile'=>$adjuntos['nombre_base'].'C.tif',
-                'year'=>$adjuntos['año'],
-                'book'=>$adjuntos['book'],
-                'folio'=>$adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if($adjuntos['existe_archivo_nombre_c_pdf']==true){
-            $files[]=[
-                'idRegistro'=>$adjuntos['idRegistro'],
-                'nameFile'=>$adjuntos['nombre_base'].'C.pdf',
-                'year'=>$adjuntos['año'],
-                'book'=>$adjuntos['book'],
-                'folio'=>$adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if($adjuntos['existe_archivo_nombre_d_tif']==true){
-            $files[]=[
-                'idRegistro'=>$adjuntos['idRegistro'],
-                'nameFile'=>$adjuntos['nombre_base'].'D.tif',
-                'year'=>$adjuntos['año'],
-                'book'=>$adjuntos['book'],
-                'folio'=>$adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if($adjuntos['existe_archivo_nombre_d_pdf']==true){
-            $files[]=[
-                'idRegistro'=>$adjuntos['idRegistro'],
-                'nameFile'=>$adjuntos['nombre_base'].'D.pdf',
-                'year'=>$adjuntos['año'],
-                'book'=>$adjuntos['book'],
-                'folio'=>$adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if($adjuntos['existe_archivo_nombre_e_tif']==true){
-            $files[]=[
-                'idRegistro'=>$adjuntos['idRegistro'],
-                'nameFile'=>$adjuntos['nombre_base'].'E.tif',
-                'year'=>$adjuntos['año'],
-                'book'=>$adjuntos['book'],
-                'folio'=>$adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if($adjuntos['existe_archivo_nombre_e_pdf']==true){
-            $files[]=[
-                'idRegistro'=>$adjuntos['idRegistro'],
-                'nameFile'=>$adjuntos['nombre_base'].'E.pdf',
-                'year'=>$adjuntos['año'],
-                'book'=>$adjuntos['book'],
-                'folio'=>$adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        return $files;
-    }
-    public function getCarpetaPadreCondicion($id){
+    public function getCarpetaPadreCondicion($id)
+    {
         switch (intval($id)) {
             case 1:
-          
+
                 return 'ordinarias';
                 break;
-            
+
             case 2:
                 return 'extraordinarias';
                 break;
-            
+
             case 3:
                 return 'especiales';
                 break;
-            
+
             default:
                 return 'ordinarias';
                 break;
         }
     }
-    public function buscarFicha($id,$folder)
+    public function buscarFicha($id, $folder)
     {
         /*
         $carpeta : nacim, matri, defun
         */
-        $variantes=['A','B','C','D','E'];
+        $variantes = ['A', 'B', 'C', 'D', 'E'];
         $nombreBase = '';
-        $archivoEncontrado=[];
+        $archivoEncontrado = [];
 
         switch ($folder) {
             case 'nacim':
-                $data= Nacimiento::find($id);
-                $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
-                $nombreBase = $data->ano_nac.$data->nro_fol;
-                $archivoEncontrado=[
-                    'idRegistro'=>$id,
-                    'folder'=>'nacim',
-                    'año'=>$data->ano_nac,
-                    'book'=>$data->nro_lib,
-                    'folio'=>$data->nro_fol,
-                    'nombre_base'=>$nombreBase,
+                $data = Nacimiento::find($id);
+                $carpetaPadre = $this->getCarpetaPadreCondicion($data->condic);
+                $nombreBase = $data->ano_nac . $data->nro_fol;
+                $archivoEncontrado = [
+                    'idRegistro' => $id,
+                    'folder' => 'nacim',
+                    'año' => $data->ano_nac,
+                    'book' => $data->nro_lib,
+                    'folio' => $data->nro_fol,
+                    'nombre_base' => $nombreBase,
                     'condic' => $data->condic,
                 ];
                 break;
             case 'matri':
-                $data= Matrimonio::find($id);
-                $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
-                $nombreBase = $data->ano_cel.$data->nro_fol;
-                $archivoEncontrado=[
-                    'idRegistro'=>$id,
-                    'folder'=>'matri',
-                    'año'=>$data->ano_cel,
-                    'book'=>$data->nro_lib,
-                    'folio'=>$data->nro_fol,
-                    'nombre_base'=>$nombreBase,
+                $data = Matrimonio::find($id);
+                $carpetaPadre = $this->getCarpetaPadreCondicion($data->condic);
+                $nombreBase = $data->ano_cel . $data->nro_fol;
+                $archivoEncontrado = [
+                    'idRegistro' => $id,
+                    'folder' => 'matri',
+                    'año' => $data->ano_cel,
+                    'book' => $data->nro_lib,
+                    'folio' => $data->nro_fol,
+                    'nombre_base' => $nombreBase,
                     'condic' => $data->condic,
                 ];
                 break;
             case 'defun':
-                $data= Defuncion::find($id);
-                $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
-                $nombreBase = $data->ano_des.$data->nro_fol;
-                $archivoEncontrado=[
-                    'idRegistro'=>$id,
-                    'folder'=>'defun',
-                    'año'=>$data->ano_des,
-                    'book'=>$data->nro_lib,
-                    'folio'=>$data->nro_fol,
-                    'nombre_base'=>$nombreBase,
+                $data = Defuncion::find($id);
+                $carpetaPadre = $this->getCarpetaPadreCondicion($data->condic);
+                $nombreBase = $data->ano_des . $data->nro_fol;
+                $archivoEncontrado = [
+                    'idRegistro' => $id,
+                    'folder' => 'defun',
+                    'año' => $data->ano_des,
+                    'book' => $data->nro_lib,
+                    'folio' => $data->nro_fol,
+                    'nombre_base' => $nombreBase,
                     'condic' => $data->condic,
                 ];
                 break;
             default:
                 break;
         }
-        $ruta = 'fichas-'.$carpetaPadre.'-'.$folder;
+        $ruta = 'fichas-' . $carpetaPadre . '-' . $folder;
 
- 
+
         // $fichas = Storage::disk('fichas-nacimiento')->allFiles();
         $existeArchivoNombreBaseTIF = intval(Storage::disk($ruta)->exists($nombreBase . '.tif'));
         $existeArchivoNombreBasePDF = intval(Storage::disk($ruta)->exists($nombreBase . '.pdf'));
@@ -261,25 +135,25 @@ class ControlDeMatrimoniosController extends Controller
         $existeArchivoNombreETIF = intval(Storage::disk($ruta)->exists($nombreBase . 'E.TIF'));
         $existeArchivoNombreEPDF = intval(Storage::disk($ruta)->exists($nombreBase . 'E.PDF'));
 
-        $archivoEncontrado['existe_archivo_nombre_base_tif']=boolval($existeArchivoNombreBaseTIF);
-        $archivoEncontrado['existe_archivo_nombre_base_pdf']=boolval($existeArchivoNombreBasePDF);
-        $archivoEncontrado['existe_archivo_nombre_a_tif']=boolval($existeArchivoNombreATIF);
-        $archivoEncontrado['existe_archivo_nombre_a_pdf']=boolval($existeArchivoNombreAPDF);
-        $archivoEncontrado['existe_archivo_nombre_b_tif']=boolval($existeArchivoNombreBTIF);
-        $archivoEncontrado['existe_archivo_nombre_b_pdf']=boolval($existeArchivoNombreBPDF);
-        $archivoEncontrado['existe_archivo_nombre_c_tif']=boolval($existeArchivoNombreCTIF);
-        $archivoEncontrado['existe_archivo_nombre_c_pdf']=boolval($existeArchivoNombreCPDF);
-        $archivoEncontrado['existe_archivo_nombre_d_tif']=boolval($existeArchivoNombreDTIF);
-        $archivoEncontrado['existe_archivo_nombre_d_pdf']=boolval($existeArchivoNombreDPDF);
-        $archivoEncontrado['existe_archivo_nombre_e_tif']=boolval($existeArchivoNombreETIF);
-        $archivoEncontrado['existe_archivo_nombre_e_pdf']=boolval($existeArchivoNombreEPDF);
+        $archivoEncontrado['existe_archivo_nombre_base_tif'] = boolval($existeArchivoNombreBaseTIF);
+        $archivoEncontrado['existe_archivo_nombre_base_pdf'] = boolval($existeArchivoNombreBasePDF);
+        $archivoEncontrado['existe_archivo_nombre_a_tif'] = boolval($existeArchivoNombreATIF);
+        $archivoEncontrado['existe_archivo_nombre_a_pdf'] = boolval($existeArchivoNombreAPDF);
+        $archivoEncontrado['existe_archivo_nombre_b_tif'] = boolval($existeArchivoNombreBTIF);
+        $archivoEncontrado['existe_archivo_nombre_b_pdf'] = boolval($existeArchivoNombreBPDF);
+        $archivoEncontrado['existe_archivo_nombre_c_tif'] = boolval($existeArchivoNombreCTIF);
+        $archivoEncontrado['existe_archivo_nombre_c_pdf'] = boolval($existeArchivoNombreCPDF);
+        $archivoEncontrado['existe_archivo_nombre_d_tif'] = boolval($existeArchivoNombreDTIF);
+        $archivoEncontrado['existe_archivo_nombre_d_pdf'] = boolval($existeArchivoNombreDPDF);
+        $archivoEncontrado['existe_archivo_nombre_e_tif'] = boolval($existeArchivoNombreETIF);
+        $archivoEncontrado['existe_archivo_nombre_e_pdf'] = boolval($existeArchivoNombreEPDF);
         return $archivoEncontrado;
     }
 
     public function guardar(Request $request)
     {
         try {
-            $validar = $this->validarSiExisteRegistroDuplicado($request->ano_naci, $request->nro_lib, $request->nro_fol);
+            $validar = $this->validarSiExisteRegistroDuplicado($request->ano_eje, $request->nro_lib, $request->nro_fol);
 
             if ($validar > 0) {
                 $respuesta = 'duplicado';
@@ -289,18 +163,16 @@ class ControlDeMatrimoniosController extends Controller
             } else {
                 $now = Carbon::now();
                 $nuevoMatrimonio = new Matrimonio();
-                $nuevoMatrimonio->ano_cel = $request->ano_cel;
-                $nuevoMatrimonio->ano_eje = $now->year;
+                $nuevoMatrimonio->ano_cel = Carbon::createFromFormat('Y-m-d', $request->fch_cel)->format('Y');
+                $nuevoMatrimonio->ano_eje = $request->ano_eje;
                 $nuevoMatrimonio->nro_lib = $request->nro_lib;
                 $nuevoMatrimonio->nro_fol = $request->nro_fol;
 
-                $nuevoMatrimonio->ape_pat_ma = $request->ape_pat_ma;
-                $nuevoMatrimonio->ape_mat_ma = $request->ape_mat_ma;
-                $nuevoMatrimonio->nom_mar = $request->nom_mar;
-                $nuevoMatrimonio->ubigeo1 = $request->ubigeo1;
-                $nuevoMatrimonio->ape_pat_es = $request->ape_pat_es;
-                $nuevoMatrimonio->ape_mat_es = $request->ape_mat_es;
-                $nuevoMatrimonio->nom_esp = $request->nom_esp;
+                $nuevoMatrimonio->ape_mar = Str::upper($request->ape_mar);
+                $nuevoMatrimonio->nom_mar = Str::upper($request->nom_mar);
+                $nuevoMatrimonio->ubigeo1 = Str::upper($request->ubigeo1);
+                $nuevoMatrimonio->ape_esp = Str::upper($request->ape_esp);
+                $nuevoMatrimonio->nom_esp = Str::upper($request->nom_esp);
                 $nuevoMatrimonio->ubigeo2 = $request->ubigeo2;
                 $nuevoMatrimonio->fch_cel = $request->fch_cel;
                 $nuevoMatrimonio->fch_reg = $request->fch_reg;
@@ -308,6 +180,45 @@ class ControlDeMatrimoniosController extends Controller
                 $nuevoMatrimonio->usuario = Auth::user()->usuario; //$request->usuario;
                 $nuevoMatrimonio->condic = $request->condicionActa;
                 $nuevoMatrimonio->save();
+
+
+                // inicia el guardado de adjuntos
+
+                $carpetaPadre = $this->getCarpetaPadreCondicion($request->condicionActa);
+                $ruta = 'fichas-' . $carpetaPadre . '-matri';
+                $nombreCompletoArchivo = '';
+                $archivoAdjuntoLength = $request->archivo_list != null ? count($request->archivo_list) : 0;
+                $rutaDisco = config('filesystems.disks.' . $ruta)['root'];
+                $array = explode("\\", $rutaDisco);
+                $i = 0;
+                foreach ($array as $key => $string) {
+                    if (strpos($string, 'fichas') === 0) {
+                        $i = $key;
+                    }
+                }
+                $rutaFicha = '/' . $array[$i] . '/';
+
+                if ($archivoAdjuntoLength > 0) {
+                    foreach (($request->archivo_list) as $key => $archivo) {
+                        if ($archivo != null && $request->accion_list[$key] == 'GUARDAR') {
+                            $nombreCompletoArchivo = $request->nombre_completo_list[$key];
+                            Storage::disk($ruta)->put($nombreCompletoArchivo, File::get($archivo));
+
+
+                            $nuevoArchivo = new FichasMatrimonio();
+                            $nuevoArchivo->condic_id = $nuevoMatrimonio->condic;
+                            $nuevoArchivo->nombre_completo = $request->nombre_completo_list[$key];
+                            $nuevoArchivo->nombre_sin_extension = $request->nombre_sin_extension_list[$key];
+                            $nuevoArchivo->ruta = $rutaFicha . $request->nombre_completo_list[$key];
+                            $nuevoArchivo->nombre_extension = $request->nombre_extension_list[$key];
+                            $nuevoArchivo->nacimi_id = $nuevoMatrimonio->id;
+                            $nuevoArchivo->created_at = Carbon::now();
+                            $nuevoArchivo->save();
+                        }
+                    }
+                }
+                // terminar el guardado de adjuntos
+
 
                 $respuesta = 'ok';
                 $alerta = 'success';
@@ -330,12 +241,12 @@ class ControlDeMatrimoniosController extends Controller
             if ($request->aplicaRecibo == true) {
                 $nuevoCobro = new Cobro();
                 $nuevoCobro->recibo = $request->nro_recibo;
-                $nuevoCobro->tipo ='M';
+                $nuevoCobro->tipo = 'M';
                 $nuevoCobro->fecha = $request->fecha_recibo;
                 $nuevoCobro->ano = $request->ano;
                 $nuevoCobro->libro = $request->libro;
                 $nuevoCobro->folio = $request->folio;
-                $nuevoCobro->estado ='P';
+                $nuevoCobro->estado = 'P';
                 $nuevoCobro->monto = $request->importe_recibo;
                 $nuevoCobro->solicitant = $request->nombre_solicitante_recibo;
                 $nuevoCobro->save();
@@ -387,13 +298,12 @@ class ControlDeMatrimoniosController extends Controller
 
             $matrimonio = Matrimonio::find($request->id);
 
-            $matrimonio->ape_pat_ma = $request->ape_pat_ma;
-            $matrimonio->ape_mat_ma = $request->ape_mat_ma;
-            $matrimonio->nom_mar = $request->nom_mar;
-            $matrimonio->ubigeo1 = $request->ubigeo1;
-            $matrimonio->ape_pat_es = $request->ape_pat_es;
-            $matrimonio->ape_mat_es = $request->ape_mat_es;
-            $matrimonio->nom_esp = $request->nom_esp;
+            $matrimonio->ano_cel = Carbon::createFromFormat('Y-m-d', $request->fch_cel)->format('Y');
+            $matrimonio->ape_mar = Str::upper($request->ape_mar);
+            $matrimonio->nom_mar = Str::upper($request->nom_mar);
+            $matrimonio->ubigeo1 = Str::upper($request->ubigeo1);
+            $matrimonio->ape_esp = Str::upper($request->ape_esp);
+            $matrimonio->nom_esp = Str::upper($request->nom_esp);
             $matrimonio->ubigeo2 = $request->ubigeo2;
             $matrimonio->fch_cel = $request->fch_cel;
             $matrimonio->fch_reg = $request->fch_reg;
@@ -402,22 +312,41 @@ class ControlDeMatrimoniosController extends Controller
             $matrimonio->condic = $request->condicionActa;
             $matrimonio->save();
 
-            $carpetaPadre= $this->getCarpetaPadreCondicion($request->condicionActa);
-            $ruta = 'fichas-'.$carpetaPadre.'-matri';
+
             // inicia el guardado de adjuntos
-            $newNameFile='';
-            $archivoAdjuntoLength = $request->archivo_adjunto != null ? count($request->archivo_adjunto) : 0;
-            if($archivoAdjuntoLength>0){
-                foreach (($request->archivo_adjunto) as $key => $archivo) {
-                    if ($archivo != null) {
-                        // $file = $archivo->getClientOriginalName();
-                        // $extension = pathinfo($file, PATHINFO_EXTENSION);
-                        $newNameFile = $request->nombre_adjunto[$key];
-                        Storage::disk($ruta)->put($newNameFile, File::get($archivo));
-        
+
+            $carpetaPadre = $this->getCarpetaPadreCondicion($request->condicionActa);
+            $ruta = 'fichas-' . $carpetaPadre . '-matri';
+            $nombreCompletoArchivo = '';
+            $archivoAdjuntoLength = $request->archivo_list != null ? count($request->archivo_list) : 0;
+            $rutaDisco = config('filesystems.disks.' . $ruta)['root'];
+            $array = explode("\\", $rutaDisco);
+            $i = 0;
+            foreach ($array as $key => $string) {
+                if (strpos($string, 'fichas') === 0) {
+                    $i = $key;
+                }
+            }
+            $rutaFicha = '/' . $array[$i] . '/';
+
+            if ($archivoAdjuntoLength > 0) {
+                foreach (($request->archivo_list) as $key => $archivo) {
+                    if ($archivo != null && $request->accion_list[$key] == 'GUARDAR') {
+                        $nombreCompletoArchivo = $request->nombre_completo_list[$key];
+                        Storage::disk($ruta)->put($nombreCompletoArchivo, File::get($archivo));
+
+
+                        $nuevoArchivo = new FichasMatrimonio();
+                        $nuevoArchivo->condic_id = $matrimonio->condic;
+                        $nuevoArchivo->nombre_completo = $request->nombre_completo_list[$key];
+                        $nuevoArchivo->nombre_sin_extension = $request->nombre_sin_extension_list[$key];
+                        $nuevoArchivo->ruta = $rutaFicha . $request->nombre_completo_list[$key];
+                        $nuevoArchivo->nombre_extension = $request->nombre_extension_list[$key];
+                        $nuevoArchivo->nacimi_id = $matrimonio->id;
+                        $nuevoArchivo->created_at = Carbon::now();
+                        $nuevoArchivo->save();
                     }
                 }
-
             }
             // terminar el guardado de adjuntos
 
@@ -437,11 +366,11 @@ class ControlDeMatrimoniosController extends Controller
         return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'id' => $matrimonio->id ?? '', 'error' => $error), 200);
     }
 
-    public function validarSiExisteRegistroDuplicado($ano_cel, $nro_lib, $nro_fol)
+    public function validarSiExisteRegistroDuplicado($ano_eje, $nro_lib, $nro_fol)
     {
         $CantidadRegistrosDeMatrimonio = Matrimonio::where(
             [
-                ['ano_cel', $ano_cel],
+                ['ano_cel', $ano_eje],
                 ['nro_lib', $nro_lib],
                 ['nro_fol', $nro_fol]
             ]
@@ -475,10 +404,9 @@ class ControlDeMatrimoniosController extends Controller
 
     public function visualizarAdjuntoMatrimonio(Request $request)
     {
-        $idRegistro=  $request->query('idregistro');
+        $idRegistro =  $request->query('idregistro');
 
-        $adjuntos = $this->obtenerAdjuntosLista($idRegistro);
-        return view('matrimonios.visualizar_adjunto_matrimonio', get_defined_vars());
+        return view('adjuntos.visualizar_adjuntos', get_defined_vars());
     }
 
     public function archivarAdjunto(Request $request)
@@ -492,8 +420,8 @@ class ControlDeMatrimoniosController extends Controller
             // $idRegistro =  $request->idregistro;
             $nombreArchivo =  $request->nombreArchivo;
             $data = Matrimonio::find($request->idRegistro);
-            $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
-            $ruta = 'fichas-'.$carpetaPadre.'-matri';
+            $carpetaPadre = $this->getCarpetaPadreCondicion($data->condic);
+            $ruta = 'fichas-' . $carpetaPadre . '-matri';
             $pathSource = Storage::disk($ruta)->getDriver()->getAdapter()->applyPathPrefix($nombreArchivo);
             $destinationPath = Storage::disk($ruta)->getDriver()->getAdapter()->applyPathPrefix('archivado/' . $nombreArchivo);
 

@@ -45,140 +45,6 @@ class ControlDeNacimientosController extends Controller
         return response()->json($data, 200);
     }
 
-    // public function obtenerAdjuntos($id)
-    // {
-    //     $adjuntos = $this->buscarFicha($id, 'nacim');
-    //     return $adjuntos;
-    // }
-
-    public function obtenerAdjuntosLista($id)
-    {
-        $adjuntos = $this->buscarFicha($id, 'nacim');
-        $files = [];
-        if ($adjuntos['existe_archivo_nombre_base_tif'] == true) {
-            $files[] = [
-
-                'idRegistro' => $adjuntos['idRegistro'],
-                'nameFile' => $adjuntos['nombre_base'] . '.tif',
-                'year' => $adjuntos['año'],
-                'book' => $adjuntos['book'],
-                'folio' => $adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if ($adjuntos['existe_archivo_nombre_base_pdf'] == true) {
-            $files[] = [
-                'idRegistro' => $adjuntos['idRegistro'],
-                'nameFile' => $adjuntos['nombre_base'] . '.pdf',
-                'year' => $adjuntos['año'],
-                'book' => $adjuntos['book'],
-                'folio' => $adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if ($adjuntos['existe_archivo_nombre_a_tif'] == true) {
-            $files[] = [
-                'idRegistro' => $adjuntos['idRegistro'],
-                'nameFile' => $adjuntos['nombre_base'] . 'A.tif',
-                'year' => $adjuntos['año'],
-                'book' => $adjuntos['book'],
-                'folio' => $adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if ($adjuntos['existe_archivo_nombre_a_pdf'] == true) {
-            $files[] = [
-                'idRegistro' => $adjuntos['idRegistro'],
-                'nameFile' => $adjuntos['nombre_base'] . 'A.pdf',
-                'year' => $adjuntos['año'],
-                'book' => $adjuntos['book'],
-                'folio' => $adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if ($adjuntos['existe_archivo_nombre_b_tif'] == true) {
-            $files[] = [
-                'idRegistro' => $adjuntos['idRegistro'],
-                'nameFile' => $adjuntos['nombre_base'] . 'B.pdf',
-                'year' => $adjuntos['año'],
-                'book' => $adjuntos['book'],
-                'folio' => $adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if ($adjuntos['existe_archivo_nombre_b_pdf'] == true) {
-            $files[] = [
-                'idRegistro' => $adjuntos['idRegistro'],
-                'nameFile' => $adjuntos['nombre_base'] . 'B.tif',
-                'year' => $adjuntos['año'],
-                'book' => $adjuntos['book'],
-                'folio' => $adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if ($adjuntos['existe_archivo_nombre_c_tif'] == true) {
-            $files[] = [
-                'idRegistro' => $adjuntos['idRegistro'],
-                'nameFile' => $adjuntos['nombre_base'] . 'C.tif',
-                'year' => $adjuntos['año'],
-                'book' => $adjuntos['book'],
-                'folio' => $adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if ($adjuntos['existe_archivo_nombre_c_pdf'] == true) {
-            $files[] = [
-                'idRegistro' => $adjuntos['idRegistro'],
-                'nameFile' => $adjuntos['nombre_base'] . 'C.pdf',
-                'year' => $adjuntos['año'],
-                'book' => $adjuntos['book'],
-                'folio' => $adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if ($adjuntos['existe_archivo_nombre_d_tif'] == true) {
-            $files[] = [
-                'idRegistro' => $adjuntos['idRegistro'],
-                'nameFile' => $adjuntos['nombre_base'] . 'D.tif',
-                'year' => $adjuntos['año'],
-                'book' => $adjuntos['book'],
-                'folio' => $adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if ($adjuntos['existe_archivo_nombre_d_pdf'] == true) {
-            $files[] = [
-                'idRegistro' => $adjuntos['idRegistro'],
-                'nameFile' => $adjuntos['nombre_base'] . 'D.pdf',
-                'year' => $adjuntos['año'],
-                'book' => $adjuntos['book'],
-                'folio' => $adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if ($adjuntos['existe_archivo_nombre_e_tif'] == true) {
-            $files[] = [
-                'idRegistro' => $adjuntos['idRegistro'],
-                'nameFile' => $adjuntos['nombre_base'] . 'E.tif',
-                'year' => $adjuntos['año'],
-                'book' => $adjuntos['book'],
-                'folio' => $adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        if ($adjuntos['existe_archivo_nombre_e_pdf'] == true) {
-            $files[] = [
-                'idRegistro' => $adjuntos['idRegistro'],
-                'nameFile' => $adjuntos['nombre_base'] . 'E.pdf',
-                'year' => $adjuntos['año'],
-                'book' => $adjuntos['book'],
-                'folio' => $adjuntos['folio'],
-                'condic' => $adjuntos['condic'],
-            ];
-        }
-        return $files;
-    }
-
     public function getCarpetaPadreCondicion($id)
     {
         switch (intval($id)) {
@@ -302,9 +168,9 @@ class ControlDeNacimientosController extends Controller
             } else {
                 $now = Carbon::now();
                 $nuevoNacimiento = new Nacimiento();
-                $nuevoNacimiento->ano_eje = $now->year;
+                $nuevoNacimiento->ano_eje = $request->ano_eje;
                 $nuevoNacimiento->nro_lib = $request->nro_lib;
-                $nuevoNacimiento->ano_nac = $request->ano_nac;
+                $nuevoNacimiento->ano_nac = Carbon::createFromFormat('Y-m-d', $request->fch_nac)->format('Y');;
                 $nuevoNacimiento->nro_fol = $request->nro_fol;
 
                 $nuevoNacimiento->ape_pat_nac = Str::upper($request->ape_pat_nac);
@@ -463,7 +329,7 @@ class ControlDeNacimientosController extends Controller
 
             $nacimiento = Nacimiento::find($request->id);
 
-            $nacimiento->ano_nac = $request->ano_nac;
+            $nacimiento->ano_nac =  Carbon::createFromFormat('Y-m-d', $request->fch_nac)->format('Y');
 
             $nacimiento->ape_pat_nac = $request->ape_pat_nac;
             $nacimiento->ape_mat_nac = $request->ape_mat_nac;

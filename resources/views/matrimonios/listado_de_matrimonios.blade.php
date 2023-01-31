@@ -42,19 +42,19 @@
                                         <thead>
                                             <tr>
                                                 <th width="10">N°</th>
-                                                <th width="10">Año</th>
+                                                <th width="10">Año Ejec.</th>
                                                 <th width="10">Nro. Libro</th>
                                                 <th width="10">Nro. Folio</th>
-                                                <th width="50">Apellido Paterno del Esposo</th>
-                                                <th width="50">Apellido Matero del Esposo</th>
-                                                <th width="50">Nombres del Esposo</th>
-                                                <th width="50">Ubigeo Esposo</th>
-                                                <th width="50">Apellido Paterno del Esposa</th>
-                                                <th width="50">Apellido Matero del Esposa</th>
+                                                <th width="50">Apellido de Marido</th>
+                                                <th width="50">Nombres de Marido</th>
+                                                <th width="50">Ubigeo de Marido</th>
+                                                <th width="50">Apellidos de Esposa</th>
                                                 <th width="50">Nombres del Esposa</th>
-                                                <th width="50">Ubigeo Esposa</th>
+                                                <th width="50">Ubigeo de Esposa</th>
                                                 <th width="20">Fecha Celebración</th>
                                                 <th width="20">Fecha Inscripción</th>
+                                                <th width="20">Concición</th>
+                                                <th width="20">Obs.</th>
                                                 <th width="20">Acción</th>
                                             </tr>
                                         </thead>

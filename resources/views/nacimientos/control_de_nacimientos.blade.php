@@ -31,7 +31,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <form id="controlNacimientoForm" enctype="multipart/form-data">
+            <form id="controlNacimientoForm" enctype="multipart/form-data" name="nacimientos" idtipo="1">
                 @csrf
                 <input type="text" style="display:none;" name="id">
                 <input type="text" style="display:none;" name="condicionActa">
@@ -107,14 +107,6 @@
                                         <h3 class="card-title m-2">Del nacido</h3>
                                     </div>
                                     <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label>Año nacimiento</label>
-                                                    <input type="text" class="form-control form-control-sm" name="ano_nac" placeholder="" readonly>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">

@@ -7,6 +7,7 @@ class AdjuntoView {
     }
 
     mostrarAnoLibroFolioRegistroAdjunto = (idRegistroByURL, idArchivoByURL=null,tipo) => {
+        console.log(idRegistroByURL, idArchivoByURL,tipo);
         this.model.mostrarAnoLibroFolioRegistroAdjunto(idRegistroByURL,idArchivoByURL,tipo).then((respuesta) => {
 
             $("span[id='tipo']").text(tipo.charAt(0).toUpperCase()+tipo.slice(1));
@@ -199,7 +200,8 @@ class AdjuntoView {
         $("body").on("click", "button.visualizarAdjunto", (e) => {
             let idRegistro = $(e.currentTarget).data('id-registro') ?? 0;
             let idArchivo = $(e.currentTarget).data('id-archivo') ?? 0;
-            abrirPestañaVisualizarAdjunto(idRegistro, idArchivo);
+            let idTipo = $(e.currentTarget).data('id-tipo') ?? '';
+            abrirPestañaVisualizarAdjunto(idTipo,idRegistro, idArchivo);
             
         });
         $("body").on("click", "button.eliminarAdjunto", (e) => {
@@ -228,9 +230,29 @@ class AdjuntoView {
 }
 
 
-function abrirPestañaVisualizarAdjunto(idRegistro = null, idArchivo = null) {
+function abrirPestañaVisualizarAdjunto(idTipo,idRegistro = null, idArchivo = null) {
+
+    let tipo = 0;
+    switch (parseInt(idTipo)) {
+        case 1:
+            tipo = 'nacimientos';
+            break;
+
+        case 2:
+            tipo = 'matrimonios';
+            break;
+
+        case 3:
+            tipo = 'defunciones';
+
+            break;
+
+        default:
+            break;
+    }
+
     // let url = `/nacimientos/control/visualizar-adjunto/?idregistro=${document.querySelector("input[name='id']").value}&namefile=${$(e.currentTarget).data('nombre-archivo')}&year=${$(e.currentTarget).data('año')}&book=${$(e.currentTarget).data('libro')}&folio=${$(e.currentTarget).data('folio')}&condic=${$(e.currentTarget).data('condic')}`;
-    let url = `/nacimientos/control/visualizar-adjunto/?idregistro=${idRegistro}&idarchivo=${idArchivo}`;
+    let url = `/${tipo}/control/visualizar-adjunto/?tipo=${idTipo}&idregistro=${idRegistro}&idarchivo=${idArchivo}`;
     var win = window.open(url, "_black");
     win.focus();
 }
@@ -310,7 +332,8 @@ function agregarAdjunto(obj) {
                     let payload = {
                         id: makeId(),
                         nombre_completo: nombreCompleto,
-                        tipo:$("span[id='tipo']").text().toLowerCase(),
+                        tipo:$("form").attr("name"),
+                        idtipo:$("form").attr("idtipo"),
                         nombre_sin_extension: nombreSinExtension,
                         nombre_extension: extension,
                         ruta:'',
@@ -341,13 +364,13 @@ function agregarAdjunto(obj) {
 }
 
 function addToTablaArchivos(payload) {
-
+// console.log(payload);
     let html = '';
     html = `<tr id="${payload.id}" style="text-align:center">
         <td style="text-align:left;">${payload.nombre_sin_extension}.${payload.nombre_extension}</td>
         <td style="text-align:center;">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-outline-primary btn-xs visualizarAdjunto" name="btnVisualizarAdjunto" title="Visualizar" data-id="${payload.id}"  disabled>Visualizar</button>
+                <button type="button" class="btn btn-outline-primary btn-xs visualizarAdjunto" name="btnVisualizarAdjunto" title="Visualizar" data-id="${payload.id}"  data-id-tipo="${payload.tipo}"  disabled>Visualizar</button>
                 <button type="button" class="btn btn-outline-danger btn-xs eliminarAdjunto"  name="btnEliminarAdjunto" title="Eliminar" data-id="${payload.id}" >Eliminar</button>
             </div>
         </td>

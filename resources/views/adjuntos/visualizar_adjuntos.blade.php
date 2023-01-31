@@ -22,7 +22,8 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="mb-2" style="display: flex;">Adjuntos -&nbsp;<span id="tipo"></span> <div style="font-size: 0.9rem;padding: 4px;"><span class="badge badge-pill badge-secondary" id="claveLibroAño"></span> <span class="badge badge-pill badge-secondary" id="claveLibroLibro"></span> <span class="badge badge-pill badge-secondary" id="claveLibroFolio"></span> <span class="badge badge-pill badge-secondary" id="claveLibroCondic"></span></div>
+                <h1 class="mb-2" style="display: flex;">Adjuntos -&nbsp;<span id="tipo"></span>
+                    <div style="font-size: 0.9rem;padding: 4px;"><span class="badge badge-pill badge-secondary" id="claveLibroAño"></span> <span class="badge badge-pill badge-secondary" id="claveLibroLibro"></span> <span class="badge badge-pill badge-secondary" id="claveLibroFolio"></span> <span class="badge badge-pill badge-secondary" id="claveLibroCondic"></span></div>
                 </h1>
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-outline-primary" onclick="impirmirHoja()"><i class="fas fa-print"></i> Imprimir</button>
@@ -76,12 +77,31 @@
 
 <script>
     $(document).ready(function() {
+        let idTipoByURL = parseInt(location.search.split('tipo=')[1]);
         let idRegistroByURL = parseInt(location.search.split('idregistro=')[1]);
         let idArchivoByURL = parseInt(location.search.split('idarchivo=')[1]);
+        let tipo = 0;
+        switch (parseInt(idTipoByURL)) {
+            case 1:
+                tipo = 'nacimientos';
+                break;
+
+            case 2:
+                tipo = 'matrimonios';
+                break;
+
+            case 3:
+                tipo = 'defunciones';
+
+                break;
+
+            default:
+                break;
+        }
 
         const adjuntoView = new AdjuntoView(new AdjuntoModel(csrf_token));
-        adjuntoView.listarAdjuntos(idRegistroByURL, idArchivoByURL, 'nacimientos');
-        adjuntoView.mostrarAnoLibroFolioRegistroAdjunto(idRegistroByURL, idArchivoByURL, 'nacimientos');
+        adjuntoView.listarAdjuntos(idRegistroByURL, idArchivoByURL, tipo);
+        adjuntoView.mostrarAnoLibroFolioRegistroAdjunto(idRegistroByURL, idArchivoByURL, tipo);
         adjuntoView.eventos();
 
     });

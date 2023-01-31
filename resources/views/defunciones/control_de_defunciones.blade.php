@@ -30,7 +30,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <form id="controlDefuncionesForm" enctype="multipart/form-data">
+            <form id="controlDefuncionesForm" enctype="multipart/form-data"  name="defunciones" idtipo="3">
             @csrf
                 <input type="text" style="display:none;" name="id">
                 <input type="text" style="display:none;" name="condicionActa">

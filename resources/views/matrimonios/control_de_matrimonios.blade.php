@@ -4,7 +4,8 @@
 <link rel="stylesheet" href="{{ asset('assets/lte_3/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/lte_3/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/lte_3/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
- 
+<link rel="stylesheet" href="{{ asset('assets/lte_3/plugins/select2/css/select2.min.css') }}">
+
 @endsection
 
 @section('title')Control de Matrimonios @endsection
@@ -30,7 +31,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <form id="controlMatrimoniosForm" enctype="multipart/form-data">
+            <form id="controlMatrimoniosForm" enctype="multipart/form-data" name="matrimonios" idtipo="2">
             @csrf
                 <input type="text" style="display:none;" name="id">
                 <input type="text" style="display:none;" name="condicionActa">
@@ -38,9 +39,6 @@
                 <div class="col-md-7 text-left">
                     <div class="" id="botoneraPrincipal">
                         <div class="card-body">
-                            <a class="btn btn-app btn-sm bg-secondary buscar">
-                                <i class="fas fa-search"></i> Buscar
-                            </a>
                             <a class="btn btn-app btn-sm bg-secondary imprimir">
                                 <i class="fas fa-print"></i> Imprimir
                             </a>
@@ -81,8 +79,8 @@
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
-                                                        <label>Año</label>
-                                                        <input type="text" class="form-control form-control-sm" name="ano_cel" placeholder="" readonly>
+                                                        <label>Año ejecución</label>
+                                                        <input type="text" class="form-control form-control-sm" name="ano_eje" placeholder="" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -106,20 +104,14 @@
                             <div class="col-md-12">
                                 <div class="card card-secondary">
                                     <div class="">
-                                        <h3 class="card-title m-2">Del esposo</h3>
+                                        <h3 class="card-title m-2">Del marido</h3>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label>Apellido paterno</label>
-                                                    <input type="text" class="form-control form-control-sm" name="ape_pat_ma" placeholder="" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Apellido materno</label>
-                                                    <input type="text" class="form-control form-control-sm" name="ape_mat_ma" placeholder="" readonly>
+                                                    <label>Apellidos</label>
+                                                    <input type="text" class="form-control form-control-sm" name="ape_mar" placeholder="" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
@@ -131,7 +123,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Ubigeo</label>
-                                                    <select class="form-control form-control-sm" name="ubigeo1" readonly>
+                                                    <select class="form-control form-control-sm select2" name="ubigeo1" readonly>
                                                         <option value="">Seleccione una opción</option>
                                                         @foreach ($ubigeoList as $ubigeo)
                                                         <option value="{{$ubigeo->codigo}}">{{$ubigeo->nombre}}</option>
@@ -152,14 +144,8 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label>Apellido paterno</label>
-                                                    <input type="text" class="form-control form-control-sm" name="ape_pat_es" placeholder="" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Apellido materno</label>
-                                                    <input type="text" class="form-control form-control-sm" name="ape_mat_es" placeholder="" readonly>
+                                                    <label>Apellidos</label>
+                                                    <input type="text" class="form-control form-control-sm" name="ape_esp" placeholder="" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
@@ -171,7 +157,7 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group">
                                                         <label>Ubigeo</label>
-                                                        <select class="form-control form-control-sm" name="ubigeo2" readonly>
+                                                        <select class="form-control form-control-sm select2" name="ubigeo2" readonly>
                                                             <option value="">Seleccione una opción</option>
                                                             @foreach ($ubigeoList as $ubigeo)
                                                             <option value="{{$ubigeo->codigo}}">{{$ubigeo->nombre}}</option>
@@ -291,6 +277,7 @@
                                         </div>
                                         <div class="" id="headingOne">
                                             <div class="card-body">
+                                                <input type="text" style="display:none;" name="observa">
                                                 <div class="text-wrap text-uppercase" name="observa"></div>
                                             </div>
                                         </div>
@@ -320,12 +307,16 @@
 <script src="{{ asset('assets/lte_3/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<script src="{{ asset('assets/lte_3/plugins/select2/js/select2.min.js') }}"></script>
 <script src="{{ asset('js/modelo-vista/matrimonios/control_matrimonio-view.js')}}?v={{filemtime(public_path('js/modelo-vista/matrimonios/control_matrimonio-view.js'))}}"></script>
 <script src="{{ asset('js/modelo-vista/matrimonios/control_matrimonio-model.js?v=3') }}"></script>
-
+<script src="{{ asset('js/modelo-vista/adjuntos/adjunto-view.js')}}?v={{filemtime(public_path('js/modelo-vista/adjuntos/adjunto-view.js'))}}"></script>
+<script src="{{ asset('js/modelo-vista/adjuntos/adjunto-model.js')}}?v={{filemtime(public_path('js/modelo-vista/adjuntos/adjunto-model.js'))}}"></script>
 <script>
     $(document).ready(function() {
         bsCustomFileInput.init();
+
+        $('.select2').select2();
 
         // Inicia -> vista extendida
         let body = document.getElementsByTagName("body")[0];
@@ -335,6 +326,9 @@
         const controlMatrimonioView = new ControlMatrimonioView(new ControlMatrimonioModel(csrf_token));
         controlMatrimonioView.obtenerMatrimonio();
         controlMatrimonioView.eventos();
+
+        const adjuntoView = new AdjuntoView(new AdjuntoModel(csrf_token));
+        adjuntoView.eventos();
 
 
     });

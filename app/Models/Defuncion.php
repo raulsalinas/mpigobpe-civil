@@ -14,4 +14,10 @@ class Defuncion extends Model
     // protected $primaryKey = 'id';
     // public $incrementing = false;
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+
+    public function condicion()
+    {
+        return $this->hasOne('App\Models\Condicion', 'id','condic');
+
+    }
 }

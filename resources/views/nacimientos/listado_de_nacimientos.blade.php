@@ -42,7 +42,7 @@
                                         <thead>
                                             <tr>
                                                 <th width="10">N°</th>
-                                                <th width="10">Año</th>
+                                                <th width="10">Año Ejec.</th>
                                                 <th width="10">Nro. Libro</th>
                                                 <th width="10">Nro. Folio</th>
                                                 <th width="50">Nombres del Nacido</th>
@@ -57,6 +57,7 @@
                                                 <th width="50">Apellidos de la Madre</th>
                                                 <th width="20">Fecha de Inscripción</th>
                                                 <th width="20">Condición</th>
+                                                <th width="20">Obs.</th>
                                                 <th width="20">Acción</th>
                                             </tr>
                                         </thead>

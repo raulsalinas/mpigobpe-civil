@@ -101,6 +101,7 @@ class ListadoNacimientoView {
                 { data: 'condic',  className: 'text-center', render: function(data,type,row,index){
                     return row.condic==1?'Ordinario':(row.condic ==2?'Extraordinario':(row.condic==3?'Especial':''));
                 } },
+                { data: 'observa'},
                 { data: 'accion', orderable: false, searchable: false, className: 'text-center' }
             ]
         });
