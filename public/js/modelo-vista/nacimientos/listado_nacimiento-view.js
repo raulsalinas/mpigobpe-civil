@@ -11,7 +11,42 @@ class ListadoNacimientoView {
     listar = ( ano_eje=null ,nro_lib=null ,nro_fol=null ,ano_nac=null ,nom_nac=null ,ape_pat_nac=null ,ape_mat_nac=null ,nom_pad=null ,ape_pad=null ,nom_mad=null ,ape_mad=null ,fch_nac_desde=null ,fch_nac_hasta=null ,condic=null
         ) => {
         const $tabla = $('#tablaNacimiento').DataTable({
-            dom: 'Bfrtip',
+            dom: 'Blfrtip',
+        lengthChange: false,
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+            ],
+            buttons: [
+                {
+                    text: '<i class="fas fa-filter"></i> Filtrar: 0',
+                    action: function () {
+                        $("#modal-filtro_nacimientos").find(".modal-title").text("Filtrar nacimientos");
+                        // $("#btnFiltrar").html("Registrar");
+                        // $("#btnFiltrar").data("evento", "registrar");
+                        $("#modal-filtro_nacimientos").modal("show");
+
+
+                    },
+                    className: 'btn btn-sm btn-info filtrar',
+                    attr:  {
+                        id: 'btnFiltrarNacimientos'
+                    }
+                },
+                {
+                    text: '<i class="fas fa-clear"></i> Limpiar filtros activos',
+                    action: ()=> {
+                        document.getElementById('formulario-filtro-nacimiento').reset();
+                        document.querySelector("div[id='tablaNacimiento_wrapper'] button[id='btnFiltrarNacimientos']").innerHTML='<i class="fas fa-filter"></i> Filtrar: 0';
+                        this.listar(null);
+
+                    },
+                    className: 'btn btn-sm btn-default limpiar',
+                    attr:  {
+                        id: 'btnLimpiarFiltroNacimientos'
+                    }
+                }
+            ],
             pageLength: 20,
             language: idioma,
             destroy: true,
@@ -44,11 +79,12 @@ class ListadoNacimientoView {
             },
             columns: [
                 {
-                    render: function (data, type, row, index) {
-                        return index.row + 1;
+                    render: function (data, type, row, meta) {
+                        
+                        return meta.row + meta.settings._iDisplayStart + 1;;
                     }, orderable: false, searchable: false, className: 'text-center'
                 },
-                { data: 'ano_nac',className: 'text-center' },
+                { data: 'ano_eje',className: 'text-center' },
                 { data: 'nro_lib' },
                 { data: 'nro_fol' },
                 { data: 'nom_nac' },
@@ -66,36 +102,6 @@ class ListadoNacimientoView {
                     return row.condic==1?'Ordinario':(row.condic ==2?'Extraordinario':(row.condic==3?'Especial':''));
                 } },
                 { data: 'accion', orderable: false, searchable: false, className: 'text-center' }
-            ],
-            buttons: [
-                {
-                    text: '<i class="fas fa-filter"></i> Filtrar: 0',
-                    action: function () {
-                        $("#modal-filtro_nacimientos").find(".modal-title").text("Filtrar nacimientos");
-                        // $("#btnFiltrar").html("Registrar");
-                        // $("#btnFiltrar").data("evento", "registrar");
-                        $("#modal-filtro_nacimientos").modal("show");
-
-
-                    },
-                    className: 'btn btn-sm btn-info filtrar',
-                    attr:  {
-                        id: 'btnFiltrarNacimientos'
-                    }
-                },
-                {
-                    text: '<i class="fas fa-clear"></i> Limpiar filtros activos',
-                    action: ()=> {
-                        document.getElementById('formulario-filtro-nacimiento').reset();
-                        document.querySelector("div[id='tablaNacimiento_wrapper'] button[id='btnFiltrarNacimientos']").innerHTML='<i class="fas fa-filter"></i> Filtrar: 0';
-                        this.listar(null);
-
-                    },
-                    className: 'btn btn-sm btn-default limpiar',
-                    attr:  {
-                        id: 'btnLimpiarFiltroNacimientos'
-                    }
-                }
             ]
         });
         $tabla.on('search.dt', function () {

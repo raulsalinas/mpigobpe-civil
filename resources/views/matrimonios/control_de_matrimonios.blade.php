@@ -266,7 +266,7 @@
                                         </div>
                                         <br>
                                         <div class="row">
-                                            <table class="table table-bordered" id="tablaListaAdjuntosDeMatrimonio">
+                                            <table class="table table-bordered" id="tablaListaAdjuntos">
                                                 <thead class="thead-dark">
                                                     <tr>
                                                         <th scope="col" style="width: 70%">Archivo</th>

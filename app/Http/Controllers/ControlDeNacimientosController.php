@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\AdjuntoHelper;
 use App\Models\CentroAsistencial;
 use App\Models\Cobro;
 use App\Models\Defuncion;
+use App\Models\FichasNacimiento;
 use App\Models\Matrimonio;
 use App\Models\Nacimiento;
 use App\Models\Recibo;
@@ -17,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ControlDeNacimientosController extends Controller
 {
@@ -36,16 +39,17 @@ class ControlDeNacimientosController extends Controller
         $data = $id;
         if ($id > 0) {
             $data = Nacimiento::find($id);
-            $data->setAttribute('adjunto', $this->obtenerAdjuntos($id));
+            $adjuntoHelper = new AdjuntoHelper();
+            $data->setAttribute('adjuntos', $adjuntoHelper->obtenerAdjuntos($id, 'nacimientos'));
         }
         return response()->json($data, 200);
     }
 
-    public function obtenerAdjuntos($id)
-    {
-        $adjuntos = $this->buscarFicha($id, 'nacim');
-        return $adjuntos;
-    }
+    // public function obtenerAdjuntos($id)
+    // {
+    //     $adjuntos = $this->buscarFicha($id, 'nacim');
+    //     return $adjuntos;
+    // }
 
     public function obtenerAdjuntosLista($id)
     {
@@ -175,21 +179,22 @@ class ControlDeNacimientosController extends Controller
         return $files;
     }
 
-    public function getCarpetaPadreCondicion($id){
+    public function getCarpetaPadreCondicion($id)
+    {
         switch (intval($id)) {
             case 1:
-          
+
                 return 'ordinarias';
                 break;
-            
+
             case 2:
                 return 'extraordinarias';
                 break;
-            
+
             case 3:
                 return 'especiales';
                 break;
-            
+
             default:
                 return 'ordinarias';
                 break;
@@ -207,7 +212,7 @@ class ControlDeNacimientosController extends Controller
         switch ($folder) {
             case 'nacim':
                 $data = Nacimiento::find($id);
-                $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
+                $carpetaPadre = $this->getCarpetaPadreCondicion($data->condic);
                 $nombreBase = $data->ano_nac . $data->nro_fol;
                 $archivoEncontrado = [
                     'idRegistro' => $id,
@@ -221,7 +226,7 @@ class ControlDeNacimientosController extends Controller
                 break;
             case 'matri':
                 $data = Matrimonio::find($id);
-                $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
+                $carpetaPadre = $this->getCarpetaPadreCondicion($data->condic);
 
                 $nombreBase = $data->ano_cel . $data->nro_fol;
                 $archivoEncontrado = [
@@ -236,7 +241,7 @@ class ControlDeNacimientosController extends Controller
                 break;
             case 'defun':
                 $data = Defuncion::find($id);
-                $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
+                $carpetaPadre = $this->getCarpetaPadreCondicion($data->condic);
                 $nombreBase = $data->ano_des . $data->nro_fol;
                 $archivoEncontrado = [
                     'idRegistro' => $id,
@@ -251,7 +256,7 @@ class ControlDeNacimientosController extends Controller
             default:
                 break;
         }
-        $ruta = 'fichas-'.$carpetaPadre.'-'.$folder;
+        $ruta = 'fichas-' . $carpetaPadre . '-' . $folder;
 
         // $fichas = Storage::disk('fichas-nacimiento')->allFiles();
         $existeArchivoNombreBaseTIF = intval(Storage::disk($ruta)->exists($nombreBase . '.tif'));
@@ -287,7 +292,7 @@ class ControlDeNacimientosController extends Controller
     public function guardar(Request $request)
     {
         try {
-            $validar = $this->validarSiExisteRegistroDuplicado($request->ano_naci, $request->nro_lib, $request->nro_fol);
+            $validar = $this->validarSiExisteRegistroDuplicado($request->ano_eje, $request->nro_lib, $request->nro_fol);
 
             if ($validar > 0) {
                 $respuesta = 'duplicado';
@@ -297,13 +302,15 @@ class ControlDeNacimientosController extends Controller
             } else {
                 $now = Carbon::now();
                 $nuevoNacimiento = new Nacimiento();
-                $nuevoNacimiento->ano_nac = $request->ano_nac;
                 $nuevoNacimiento->ano_eje = $now->year;
                 $nuevoNacimiento->nro_lib = $request->nro_lib;
+                $nuevoNacimiento->ano_nac = $request->ano_nac;
                 $nuevoNacimiento->nro_fol = $request->nro_fol;
-                $nuevoNacimiento->ape_pat_na = $request->ape_pat_na;
-                $nuevoNacimiento->ape_mat_na = $request->ape_mat_na;
-                $nuevoNacimiento->nom_nac = $request->nom_nac;
+
+                $nuevoNacimiento->ape_pat_nac = Str::upper($request->ape_pat_nac);
+                $nuevoNacimiento->ape_mat_nac = Str::upper($request->ape_mat_nac);
+                $nuevoNacimiento->nom_nac = Str::upper($request->nom_nac);
+
                 $nuevoNacimiento->cen_asi = $request->cen_asi;
                 $nuevoNacimiento->sex_nac = $request->sex_nac;
                 $nuevoNacimiento->ubigeo = $request->ubigeo;
@@ -311,26 +318,57 @@ class ControlDeNacimientosController extends Controller
                 $nuevoNacimiento->fch_ing = $request->fch_ing;
                 $nuevoNacimiento->tipo = $request->tipo;
                 $nuevoNacimiento->usuario = Auth::user()->usuario; //$request->usuario;
-                $nuevoNacimiento->ape_pat_ma = $request->ape_pat_ma;
-                $nuevoNacimiento->ape_mat_ma = $request->ape_mat_ma;
-                $nuevoNacimiento->nom_mad = $request->nom_mad;
-                $nuevoNacimiento->dir_mad = $request->dir_mad;
-                $nuevoNacimiento->ape_pat_pa = $request->ape_pat_pa;
-                $nuevoNacimiento->ape_mat_pa = $request->ape_mat_pa;
-                $nuevoNacimiento->nom_pad = $request->nom_pad;
-                $nuevoNacimiento->dir_pad = $request->dir_pad;
+
+                $nuevoNacimiento->ape_mad = Str::upper($request->ape_mad);
+                $nuevoNacimiento->nom_mad = Str::upper($request->nom_mad);
+                $nuevoNacimiento->dir_mad = Str::upper($request->dir_mad);
+
+                $nuevoNacimiento->ape_pad = Str::upper($request->ape_pad);
+                $nuevoNacimiento->nom_pad = Str::upper($request->nom_pad);
+                $nuevoNacimiento->dir_pad = Str::upper($request->dir_pad);
+
+                $nuevoNacimiento->observa = Str::upper($request->observa);
+
                 $nuevoNacimiento->condic = $request->condicionActa;
                 $nuevoNacimiento->save();
 
-                // if ($request->aplicaRecibo == true) {
-                //     $nuevorecibo = new Recibo();
-                //     $nuevorecibo->fecibo = $request->nro_recibo;
-                //     $nuevorecibo->fecha = $request->fecha_recibo;
-                //     $nuevorecibo->tipo = $request->tipo_recibo;
-                //     $nuevorecibo->monto = $request->importe_recibo;
-                //     $nuevorecibo->nombre = $request->nombre_solicitante_recibo;
-                //     $nuevorecibo->save();
-                // }
+
+                // inicia el guardado de adjuntos
+
+                $carpetaPadre = $this->getCarpetaPadreCondicion($request->condicionActa);
+                $ruta = 'fichas-' . $carpetaPadre . '-nacim';
+                $nombreCompletoArchivo = '';
+                $archivoAdjuntoLength = $request->archivo_list != null ? count($request->archivo_list) : 0;
+                $rutaDisco = config('filesystems.disks.' . $ruta)['root'];
+                $array = explode("\\", $rutaDisco);
+                $i = 0;
+                foreach ($array as $key => $string) {
+                    if (strpos($string, 'fichas') === 0) {
+                        $i = $key;
+                    }
+                }
+                $rutaFicha = '/' . $array[$i] . '/';
+
+                if ($archivoAdjuntoLength > 0) {
+                    foreach (($request->archivo_list) as $key => $archivo) {
+                        if ($archivo != null && $request->accion_list[$key] == 'GUARDAR') {
+                            $nombreCompletoArchivo = $request->nombre_completo_list[$key];
+                            Storage::disk($ruta)->put($nombreCompletoArchivo, File::get($archivo));
+
+
+                            $nuevoArchivo = new FichasNacimiento();
+                            $nuevoArchivo->condic_id = $nuevoNacimiento->condic;
+                            $nuevoArchivo->nombre_completo = $request->nombre_completo_list[$key];
+                            $nuevoArchivo->nombre_sin_extension = $request->nombre_sin_extension_list[$key];
+                            $nuevoArchivo->ruta = $rutaFicha . $request->nombre_completo_list[$key];
+                            $nuevoArchivo->nombre_extension = $request->nombre_extension_list[$key];
+                            $nuevoArchivo->nacimi_id = $nuevoNacimiento->id;
+                            $nuevoArchivo->created_at = Carbon::now();
+                            $nuevoArchivo->save();
+                        }
+                    }
+                }
+                // terminar el guardado de adjuntos
 
                 $respuesta = 'ok';
                 $alerta = 'success';
@@ -344,6 +382,20 @@ class ControlDeNacimientosController extends Controller
             $error = $ex;
         }
         return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'id' => $nuevoNacimiento->id ?? '', 'error' => $error), 200);
+    }
+
+    public function ruta(Request $request)
+    {
+        $ruta = 'fichas-' . 'ordinarias' . '-nacim';
+        $i = 0;
+        $rutaFicha = config('filesystems.disks.' . $ruta)['root'];
+        $array = explode("\\", $rutaFicha);
+        foreach ($array as $key => $string) {
+            if (strpos($string, 'fichas') === 0) {
+                $i = $key;
+            }
+        }
+        return $array[$i];
     }
 
     public function guardarRecibo(Request $request)
@@ -410,13 +462,13 @@ class ControlDeNacimientosController extends Controller
         try {
 
             $nacimiento = Nacimiento::find($request->id);
+
             $nacimiento->ano_nac = $request->ano_nac;
-            // $nacimiento->ano_eje = $request->ano_eje;
-            $nacimiento->nro_lib = $request->nro_lib;
-            $nacimiento->nro_fol = $request->nro_fol;
-            $nacimiento->ape_pat_na = $request->ape_pat_na;
-            $nacimiento->ape_mat_na = $request->ape_mat_na;
+
+            $nacimiento->ape_pat_nac = $request->ape_pat_nac;
+            $nacimiento->ape_mat_nac = $request->ape_mat_nac;
             $nacimiento->nom_nac = $request->nom_nac;
+
             $nacimiento->cen_asi = $request->cen_asi;
             $nacimiento->sex_nac = $request->sex_nac;
             $nacimiento->ubigeo = $request->ubigeo;
@@ -424,29 +476,53 @@ class ControlDeNacimientosController extends Controller
             $nacimiento->fch_ing = $request->fch_ing;
             $nacimiento->tipo = $request->tipo;
             $nacimiento->usuario = Auth::user()->usuario; //$request->usuario;
-            $nacimiento->ape_pat_ma = $request->ape_pat_ma;
-            $nacimiento->ape_mat_ma = $request->ape_mat_ma;
+
+            $nacimiento->ape_mad = $request->ape_mad;
             $nacimiento->nom_mad = $request->nom_mad;
             $nacimiento->dir_mad = $request->dir_mad;
-            $nacimiento->ape_pat_pa = $request->ape_pat_pa;
-            $nacimiento->ape_mat_pa = $request->ape_mat_pa;
+
+            $nacimiento->ape_pad = $request->ape_pad;
             $nacimiento->nom_pad = $request->nom_pad;
             $nacimiento->dir_pad = $request->dir_pad;
+
+            $nacimiento->observa = $request->observa;
+
             $nacimiento->condic = $request->condicionActa;
             $nacimiento->save();
 
-            $carpetaPadre= $this->getCarpetaPadreCondicion($request->condicionActa);
-            $ruta = 'fichas-'.$carpetaPadre.'-nacim';
+
             // inicia el guardado de adjuntos
-            $newNameFile = '';
-            $archivoAdjuntoLength = $request->archivo_adjunto != null ? count($request->archivo_adjunto) : 0;
+
+            $carpetaPadre = $this->getCarpetaPadreCondicion($request->condicionActa);
+            $ruta = 'fichas-' . $carpetaPadre . '-nacim';
+            $nombreCompletoArchivo = '';
+            $archivoAdjuntoLength = $request->archivo_list != null ? count($request->archivo_list) : 0;
+            $rutaDisco = config('filesystems.disks.' . $ruta)['root'];
+            $array = explode("\\", $rutaDisco);
+            $i = 0;
+            foreach ($array as $key => $string) {
+                if (strpos($string, 'fichas') === 0) {
+                    $i = $key;
+                }
+            }
+            $rutaFicha = '/' . $array[$i] . '/';
+
             if ($archivoAdjuntoLength > 0) {
-                foreach (($request->archivo_adjunto) as $key => $archivo) {
-                    if ($archivo != null) {
-                        // $file = $archivo->getClientOriginalName();
-                        // $extension = pathinfo($file, PATHINFO_EXTENSION);
-                        $newNameFile = $request->nombre_adjunto[$key];
-                        Storage::disk($ruta)->put($newNameFile, File::get($archivo));
+                foreach (($request->archivo_list) as $key => $archivo) {
+                    if ($archivo != null && $request->accion_list[$key] == 'GUARDAR') {
+                        $nombreCompletoArchivo = $request->nombre_completo_list[$key];
+                        Storage::disk($ruta)->put($nombreCompletoArchivo, File::get($archivo));
+
+
+                        $nuevoArchivo = new FichasNacimiento();
+                        $nuevoArchivo->condic_id = $nacimiento->condic;
+                        $nuevoArchivo->nombre_completo = $request->nombre_completo_list[$key];
+                        $nuevoArchivo->nombre_sin_extension = $request->nombre_sin_extension_list[$key];
+                        $nuevoArchivo->ruta = $rutaFicha . $request->nombre_completo_list[$key];
+                        $nuevoArchivo->nombre_extension = $request->nombre_extension_list[$key];
+                        $nuevoArchivo->nacimi_id = $nacimiento->id;
+                        $nuevoArchivo->created_at = Carbon::now();
+                        $nuevoArchivo->save();
                     }
                 }
             }
@@ -468,11 +544,11 @@ class ControlDeNacimientosController extends Controller
         return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'id' => $nacimiento->id ?? '', 'error' => $error), 200);
     }
 
-    public function validarSiExisteRegistroDuplicado($ano_naci, $nro_lib, $nro_fol)
+    public function validarSiExisteRegistroDuplicado($ano_eje, $nro_lib, $nro_fol)
     {
         $CantidadRegistrosDeNacimientos = Nacimiento::where(
             [
-                ['ano_naci', $ano_naci],
+                ['ano_eje', $ano_eje],
                 ['nro_lib', $nro_lib],
                 ['nro_fol', $nro_fol]
             ]
@@ -530,51 +606,9 @@ class ControlDeNacimientosController extends Controller
     {
         $idRegistro =  $request->query('idregistro');
 
-        $adjuntos = $this->obtenerAdjuntosLista($idRegistro);
-        return view('nacimientos.visualizar_adjunto_nacimiento', get_defined_vars());
-    }
+        // $adjuntoHelper = new AdjuntoHelper();
+        // $adjuntos= $adjuntoHelper->obtenerAdjuntos($idRegistro,'nacimientos');
 
-    public function archivarAdjunto(Request $request)
-    {
-        try {
-            $respuesta = '';
-            $alerta = '';
-            $mensaje = '';
-            $error = '';
-
-            // $idRegistro =  $request->idregistro;
-            $nombreArchivo =  $request->nombreArchivo;
-            $data = Nacimiento::find($request->idRegistro);
-            $carpetaPadre= $this->getCarpetaPadreCondicion($data->condic);
-            $ruta = 'fichas-'.$carpetaPadre.'-nacim';
-            $pathSource = Storage::disk($ruta)->getDriver()->getAdapter()->applyPathPrefix($nombreArchivo);
-            $destinationPath = Storage::disk($ruta)->getDriver()->getAdapter()->applyPathPrefix('archivado/' . $nombreArchivo);
-
-            // // make destination folder
-            if (!File::exists(dirname($destinationPath))) {
-                File::makeDirectory(dirname($destinationPath), null, true);
-            }
-
-            File::move($pathSource, $destinationPath);
-
-            $existeArchivo = intval(Storage::disk($ruta)->exists('archivado/' . $nombreArchivo));
-
-            if ($existeArchivo == true) {
-                $respuesta = 'ok';
-                $alerta = 'success';
-                $mensaje = 'El archivo adjunto fue archivado';
-            } else {
-
-                $alerta = 'warning';
-                $mensaje = 'success';
-                $mensaje = 'Hubo un problema al intentar archivar el archivo';
-            }
-        } catch (Exception $ex) {
-            $respuesta = 'error';
-            $alerta = 'error';
-            $mensaje = 'Hubo un problema al intentar archivar el archivo. Por favor intente de nuevo';
-            $error = $ex;
-        }
-        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+        return view('adjuntos.visualizar_adjuntos', get_defined_vars());
     }
 }

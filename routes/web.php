@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\AdjuntoHelper;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CobrosController;
 use App\Http\Controllers\ConfiguracionController;
@@ -66,7 +67,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('obtener-adjuntos/{idRegistro}', [ControlDeNacimientosController::class, 'obtenerAdjuntos'])->name('obtenerAdjuntos');
             Route::get('obtener-adjuntos-lista/{idRegistro}', [ControlDeNacimientosController::class, 'obtenerAdjuntosLista'])->name('obtenerAdjuntosLista');
             Route::get('buscar-ficha/{id}/{folder}', [ControlDeNacimientosController::class, 'buscarFicha'])->name('buscar-ficha');
-            Route::post('archivar-adjunto', [ControlDeNacimientosController::class, 'archivarAdjunto'])->name('archivar-adjunto');
+            Route::get('ruta', [ControlDeNacimientosController::class, 'ruta']);
         });
         Route::name('consistencia.')->prefix('consistencia')->group(function () {
             Route::get('index', [ConsistenciaDeNacimientosController::class, 'index'])->name('index');
@@ -124,6 +125,12 @@ Route::middleware(['auth'])->group(function () {
             Route::get('reporte/{extension}/{ano_des?}/{nro_lib?}/{usuario?}/{fch_des_desde?}/{fch_des_hasta?}', [ConsistenciaDeDefuncionesController::class, 'reporte'])->name('reporte');
 
         });
+    });
+    Route::name('adjunto.')->prefix('adjunto')->group(function () {
+        Route::get('obtener/{idRegistro}/{tipo}', [AdjuntoHelper::class, 'obtenerAdjuntos'])->name('obtener');
+        Route::get('mostrar-ano-libro-folio-registro-adjunto/{idRegistro}/{idArchivo}/{tipo}', [AdjuntoHelper::class, 'obtenerAnoLibroFolioDeAdjunto'])->name('mostrar-ano-libro-folio-registro-adjunto');
+        Route::post('anular', [AdjuntoHelper::class, 'anularAdjunto'])->name('anular');
+
     });
     Route::name('utilidades.')->prefix('utilidades')->group(function () {
         Route::name('cobros.')->prefix('cobros')->group(function () {

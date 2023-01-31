@@ -90,8 +90,11 @@ class Util {
             if( btn.classList.contains(btnAfectado) ==true){
                 if(HABILITAR_DESHABILITAR == 'HABILITAR'){
                     btn.classList.remove("disabled");
+                    $('.select2').removeAttr('disabled');
+
                 }else if(HABILITAR_DESHABILITAR == 'DESHABILITAR'){
                     btn.classList.add("disabled");
+                    $('.select2').attr('disabled','disabled');
 
                 }
             }

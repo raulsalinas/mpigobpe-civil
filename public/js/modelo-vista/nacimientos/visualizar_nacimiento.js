@@ -77,19 +77,21 @@ function prepareFrame() {
     document.querySelector("div[class='actaNacimientoAdversoPDF']").appendChild(ifrm);
 }
 
-let yearByURL = parseInt(location.search.split('year=')[1]);
-if ((location.search.split('namefile=')[1]).split('&')[0].split('.')[1] == 'pdf') {
-    prepareFrame();
-}
-if ((location.search.split('namefile=')[1]).split('&')[0].split('.')[1] == 'tif') {
-    prepareCanvas();
-}
+// let yearByURL = parseInt(location.search.split('year=')[1]);
+// if ((location.search.split('namefile=')[1]).split('&')[0].split('.')[1] == 'pdf') {
+//     prepareFrame();
+// }
+// if ((location.search.split('namefile=')[1]).split('&')[0].split('.')[1] == 'tif') {
+//     prepareCanvas();
+// }
 
-if (document.querySelector("div[id='contenedorAdjuntoList'] ul").childElementCount) { // si existe adjuntos en la lista , se cargará el primero, verificando que fileName es undefined entonces cargará el primer adjunto de la lista por defecto
-    const sizeAdjList = document.querySelector("div[id='contenedorAdjuntoList'] ul").children.length;
-    if (sizeAdjList > 0) {
-        if ([undefined, 'undefined'].includes((location.search.split('namefile=')[1]).split('&')[0])) {
-            document.querySelector("div[id='contenedorAdjuntoList'] ul").children[0].querySelector("a").click()
-        }
-    }
-}
+// if (document.querySelector("div[id='contenedorAdjuntoList'] ul").childElementCount) { // si existe adjuntos en la lista , se cargará el primero, verificando que fileName es undefined entonces cargará el primer adjunto de la lista por defecto
+//     const sizeAdjList = document.querySelector("div[id='contenedorAdjuntoList'] ul").children.length;
+//     if (sizeAdjList > 0) {
+//         if ([undefined, 'undefined'].includes((location.search.split('namefile=')[1]).split('&')[0])) {
+//             document.querySelector("div[id='contenedorAdjuntoList'] ul").children[0].querySelector("a").click()
+//         }
+//     }
+// }
+
+

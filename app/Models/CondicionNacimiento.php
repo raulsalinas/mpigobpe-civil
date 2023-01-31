@@ -11,5 +11,6 @@ class CondicionNacimiento extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'public.condic_naci';
+    // protected $primaryKey = 'id';
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 }

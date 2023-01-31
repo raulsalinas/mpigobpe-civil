@@ -26,9 +26,9 @@
                                 <p>Control</p>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('nacimientos.control.index', ['tipo' => 'Ordinario', 'id_tipo'=>1]) }}">Ordinario</a></li>
-                                <li><a class="dropdown-item" href="{{ route('nacimientos.control.index', ['tipo' => 'Extraordinario', 'id_tipo'=>2]) }}">Extraordinario</a></li>
-                                <li><a class="dropdown-item" href="{{ route('nacimientos.control.index', ['tipo' => 'Especial', 'id_tipo'=>3]) }}">Especial</a></li>
+                                <li><a class="dropdown-item" href="{{ route('nacimientos.control.index', ['id_tipo'=>1]) }}">Ordinario</a></li>
+                                <li><a class="dropdown-item" href="{{ route('nacimientos.control.index', ['id_tipo'=>2]) }}">Extraordinario</a></li>
+                                <li><a class="dropdown-item" href="{{ route('nacimientos.control.index', ['id_tipo'=>3]) }}">Especial</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">

@@ -15,14 +15,15 @@
 </style>
 @endsection
 
-@section('title')Adjunto de Nacimientos @endsection
+@section('title')Visualización de adjuntos @endsection
 
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="mb-2" style="display: flex;">Adjunto de Nacimiento <div style="font-size: 0.9rem;padding: 4px;"><span class="badge badge-pill badge-secondary" id="claveLibroAño"></span> <span class="badge badge-pill badge-secondary" id="claveLibroLibro"></span> <span class="badge badge-pill badge-secondary" id="claveLibroFolio"></span> <span class="badge badge-pill badge-secondary" id="claveLibroCondic"></span></div></h1>
+                <h1 class="mb-2" style="display: flex;">Adjuntos -&nbsp;<span id="tipo"></span> <div style="font-size: 0.9rem;padding: 4px;"><span class="badge badge-pill badge-secondary" id="claveLibroAño"></span> <span class="badge badge-pill badge-secondary" id="claveLibroLibro"></span> <span class="badge badge-pill badge-secondary" id="claveLibroFolio"></span> <span class="badge badge-pill badge-secondary" id="claveLibroCondic"></span></div>
+                </h1>
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-outline-primary" onclick="impirmirHoja()"><i class="fas fa-print"></i> Imprimir</button>
                     <button type="button" class="btn btn-outline-primary" onclick="girarMenos90()"><i class="fas fa-undo"></i> -90º</button>
@@ -34,17 +35,12 @@
                 <div style="display: flex;flex-wrap: wrap;justify-content: end;">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item">Inicio</li>
-                        <li class="breadcrumb-item">Nacimientos</li>
+                        <li class="breadcrumb-item"><span id="tipo"></span></li>
                         <li class="breadcrumb-item active">Adjunto</li>
                     </ol>
 
                     <div id="contenedorAdjuntoList">
                         <ul class="nav justify-content-end">
-                            @foreach ($adjuntos as $adjunto)
-                            <li class="nav-item" style="padding-left: 1rem;">
-                                <a class="nav-link btn btn-outline-primary" href="/nacimientos/control/visualizar-adjunto/?idregistro={{$adjunto['idRegistro']}}&namefile={{$adjunto['nameFile']}}&year={{$adjunto['year']}}&book={{$adjunto['book']}}&folio={{$adjunto['folio']}}&condic={{$adjunto['condic']}}">{{$adjunto['nameFile']}}</a>
-                            </li>
-                            @endforeach
                         </ul>
                     </div>
 
@@ -58,8 +54,8 @@
 <div class="content ">
     <div class="row">
         <div class="col-md-9 text-center">
-            <div class="actaNacimientoAdversoTIF"></div>
-            <div class="actaNacimientoAdversoPDF"></div>
+            <div class="actaAdversoTIF"></div>
+            <div class="actaAdversoPDF"></div>
         </div>
     </div>
 </div>
@@ -74,7 +70,21 @@
 <script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('js/tiff.min.js')}}?v={{filemtime(public_path('js/tiff.min.js'))}}"></script>
 <script src="{{ asset('js/modelo-vista/nacimientos/visualizar_nacimiento.js')}}?v={{filemtime(public_path('js/modelo-vista/nacimientos/visualizar_nacimiento.js'))}}"></script>
+<script src="{{ asset('js/modelo-vista/adjuntos/adjunto-view.js')}}?v={{filemtime(public_path('js/modelo-vista/adjuntos/adjunto-view.js'))}}"></script>
+<script src="{{ asset('js/modelo-vista/adjuntos/adjunto-model.js')}}?v={{filemtime(public_path('js/modelo-vista/adjuntos/adjunto-model.js'))}}"></script>
 
 
+<script>
+    $(document).ready(function() {
+        let idRegistroByURL = parseInt(location.search.split('idregistro=')[1]);
+        let idArchivoByURL = parseInt(location.search.split('idarchivo=')[1]);
+
+        const adjuntoView = new AdjuntoView(new AdjuntoModel(csrf_token));
+        adjuntoView.listarAdjuntos(idRegistroByURL, idArchivoByURL, 'nacimientos');
+        adjuntoView.mostrarAnoLibroFolioRegistroAdjunto(idRegistroByURL, idArchivoByURL, 'nacimientos');
+        adjuntoView.eventos();
+
+    });
+</script>
 
 @endsection

@@ -86,8 +86,19 @@
 <script src="{{ asset('assets/lte_3/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
 
+
+
+<script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/pdfmake.min.js') }}"></script>
+
+
+<script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/buttons.flash.min.js') }}"></script>
+<script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script> 
 <script src="{{ asset('js/modelo-vista/nacimientos/listado_nacimiento-view.js?v=1') }}"></script>
 <script src="{{ asset('js/modelo-vista/nacimientos/listado_nacimiento-model.js?v=1') }}"></script>
 

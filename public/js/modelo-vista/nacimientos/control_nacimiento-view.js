@@ -1,4 +1,3 @@
-var tempArchivoAdjuntoList = [];
 class ControlNacimientoView {
 
     constructor(model) {
@@ -6,7 +5,8 @@ class ControlNacimientoView {
 
         let searchParams = new URLSearchParams(window.location.search);
         document.querySelector("input[name='condicionActa']").value = searchParams.get('id_tipo');
-
+        this.condicionActa=searchParams.get('id_tipo');
+        this.updateSubtituloCondicionActa(parseInt(searchParams.get('id_tipo')));
     }
 
     /**
@@ -21,399 +21,106 @@ class ControlNacimientoView {
             this.model.cargarDatosNacimiento(idByURL).then((respuesta) => {
                 console.log(respuesta);
                 $('[name=id]').val(respuesta.id);
-                $('[name=ano_nac]').val(respuesta.ano_nac);
+                $('[name=ano_eje]').val(respuesta.ano_eje);
                 $('[name=nro_lib]').val(respuesta.nro_lib);
                 $('[name=nro_fol]').val(respuesta.nro_fol);
 
-                $('[name=ape_pat_na]').val(respuesta.ape_pat_na);
-                $('[name=ape_mat_na]').val(respuesta.ape_mat_na);
-                $('[name=nom_nac]').val(respuesta.nom_nac);
+                $('[name=ano_nac]').val(respuesta.ano_nac);
+                $('[name=ape_pat_nac]').val(respuesta.ape_pat_nac);
+                $('[name=ape_mat_nac]').val(respuesta.ape_mat_nac);
                 $('[name=nom_nac]').val(respuesta.nom_nac);
                 $('[name=sex_nac]').val(respuesta.sex_nac);
-                $('[name=ubigeo]').val(respuesta.ubigeo);
+                // $('[name="cen_asi"]').val(respuesta.cen_asi);
+                // $('[name="ubigeo"]').val(respuesta.ubigeo);
+                $('[name="cen_asi"]').val(respuesta.cen_asi).trigger('change')
+                $('[name="ubigeo"]').val(respuesta.ubigeo).trigger('change')
+
+                
                 $('[name=fch_nac]').val(respuesta.fch_nac);
                 $('[name=fch_ing]').val(respuesta.fch_ing);
                 $('[name=tipo]').val(respuesta.tipo);
                 $('[name=usuario]').val(respuesta.usuario);
 
-                $('[name=ape_pat_ma]').val(respuesta.ape_pat_ma);
-                $('[name=ape_mat_ma]').val(respuesta.ape_mat_ma);
+                $('[name=ape_pad]').val(respuesta.ape_pad);
+                $('[name=nom_pad]').val(respuesta.nom_pad);
+                $('[name=dir_pad]').val(respuesta.dir_pad);
+
+                $('[name=ape_mad]').val(respuesta.ape_mad);
                 $('[name=nom_mad]').val(respuesta.nom_mad);
                 $('[name=dir_mad]').val(respuesta.dir_mad);
 
-                $('[name=ape_pat_pa]').val(respuesta.ape_pat_pa);
-                $('[name=ape_mat_pa]').val(respuesta.ape_mat_pa);
-                $('[name=nom_pad]').val(respuesta.nom_pad);
-                $('[name=dir_pad]').val(respuesta.dir_pad);
                 $('[name=condicionActa]').val(respuesta.condic);
+                this.condicionActa=respuesta.condic;
                 this.updateSubtituloCondicionActa(respuesta.condic);
                 $('[name=observa]').text(respuesta.observa);
+                $('[name=observa]').val(respuesta.observa);
 
                 // adjuntos
-                Util.limpiarTabla("tablaListaAdjuntosDeNacimiento");
+                Util.limpiarTabla("tablaListaAdjuntos");
 
                 let html = '';
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_base_tif == true) {
-                    tempArchivoAdjuntoList.push({
-                        id: respuesta.adjunto.nombre_base,
-                        fecha_emision: '',
-                        nameFile: respuesta.adjunto.nombre_base + '.tif',
-                        action: '',
-                        file: []
-                    })
-                    html += `<tr style="text-align:center">
-                <td style="text-align:left;">${respuesta.adjunto.nombre_base + '.tif'}</td>
-                <td style="text-align:center;">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + '.tif'}"  
-                        data-año="${respuesta.ano_nac}"  
-                        data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}"  
-                        data-condic="${respuesta.condic}"  
-                        disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar" data-nombre-archivo="${respuesta.adjunto.nombre_base + '.tif'}" onclick="descargarAdjuntoNacimiento(event)"
-                        disabled>Descargar</button>
-                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + '.tif'}"
-                        disabled>Archivar</button>
-                     </div>
-                </td>
-                </tr>`;
-                }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_base_pdf == true) {
-                    tempArchivoAdjuntoList.push({
-                        id: respuesta.adjunto.nombre_base,
-                        fecha_emision: '',
-                        nameFile: respuesta.adjunto.nombre_base + '.pdf',
-                        action: '',
-                        file: []
-                    })
-                    html += `<tr style="text-align:center">
-                <td style="text-align:left;">${respuesta.adjunto.nombre_base + '.pdf'}</td>
-                <td style="text-align:center;">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + '.pdf'}"  
-                        data-año="${respuesta.ano_nac}"  
-                        data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}"  
-                        data-condic="${respuesta.condic}"  
-                        disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + '.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
-                        disabled>Descargar</button>
-                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + '.pdf'}"
-                        disabled>Archivar</button>
-                     </div>
-                </td>
-                </tr>`;
-                }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_a_tif == true) {
-                    tempArchivoAdjuntoList.push({
-                        id: respuesta.adjunto.nombre_base + 'A',
-                        fecha_emision: '',
-                        nameFile: respuesta.adjunto.nombre_base + 'A.tif',
-                        action: '',
-                        file: []
-                    })
-                    html += `<tr style="text-align:center">
-                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'A.tif'}</td>
-                <td style="text-align:center;">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.tif'}"  
-                        data-año="${respuesta.ano_nac}"  
-                        data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
-                        data-condic="${respuesta.condic}" 
-                        disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.tif'}" onclick="descargarAdjuntoNacimiento(event)"
-                        disabled>Descargar</button>
-                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.tif'}"
-                        disabled>Archivar</button>
-                    </div>
-                </td>
-                </tr>`;
-                }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_a_pdf == true) {
-                    tempArchivoAdjuntoList.push({
-                        id: respuesta.adjunto.nombre_base + 'A',
-                        fecha_emision: '',
-                        nameFile: respuesta.adjunto.nombre_base + 'A.pdf',
-                        action: '',
-                        file: []
-                    })
-                    html += `<tr style="text-align:center">
-                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'A.pdf'}</td>
-                <td style="text-align:center;">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.pdf'}"  
-                        data-año="${respuesta.ano_nac}"  
-                        data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
-                        data-condic="${respuesta.condic}" 
-                        disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
-                        disabled>Descargar</button>
-                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'A.pdf'}"
-                        disabled>Archivar</button>
-                    </div>
-                </td>
-                </tr>`;
-                }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_b_tif == true) {
-                    tempArchivoAdjuntoList.push({
-                        id: respuesta.adjunto.nombre_base + 'B',
-                        fecha_emision: '',
-                        nameFile: respuesta.adjunto.nombre_base + 'B.tif',
-                        action: '',
-                        file: []
-                    })
-                    html += `<tr style="text-align:center">
-                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'B.tif'}</td>
-                <td style="text-align:center;">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.tif'}"  
-                        data-año="${respuesta.ano_nac}"  
-                        data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
-                        data-condic="${respuesta.condic}" 
-                        disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.tif'}" onclick="descargarAdjuntoNacimiento(event)"
-                        disabled>Descargar</button>
-                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.tif'}"
-                        disabled>Archivar</button>
-                    </div>
-                </td>
-                </tr>`;
-                }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_b_pdf == true) {
-                    tempArchivoAdjuntoList.push({
-                        id: respuesta.adjunto.nombre_base + 'B',
-                        fecha_emision: '',
-                        nameFile: respuesta.adjunto.nombre_base + 'B.pdf',
-                        action: '',
-                        file: []
-                    })
-                    html += `<tr style="text-align:center">
-                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'B.pdf'}</td>
-                <td style="text-align:center;">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.pdf'}"  
-                        data-año="${respuesta.ano_nac}"  
-                        data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
-                        data-condic="${respuesta.condic}" 
-                        disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
-                        disabled>Descargar</button>
-                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'B.pdf'}"
-                        disabled>Archivar</button>
-                    </div>
-                </td>
-                </tr>`;
-                }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_c_tif == true) {
-                    tempArchivoAdjuntoList.push({
-                        id: respuesta.adjunto.nombre_base + 'C',
-                        fecha_emision: '',
-                        nameFile: respuesta.adjunto.nombre_base + 'C.tif',
-                        action: '',
-                        file: []
-                    })
-                    html += `<tr style="text-align:center">
-                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'C.tif'}</td>
-                <td style="text-align:center;">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.tif'}"  
-                        data-año="${respuesta.ano_nac}"  
-                        data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
-                        data-condic="${respuesta.condic}" 
-                        disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.tif'}" onclick="descargarAdjuntoNacimiento(event)"
-                        disabled>Descargar</button>
-                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.tif'}"
-                        disabled>Archivar</button>
-                    </div>
-                </td>
-                </tr>`;
-                }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_c_pdf == true) {
-                    tempArchivoAdjuntoList.push({
-                        id: respuesta.adjunto.nombre_base + 'C',
-                        fecha_emision: '',
-                        nameFile: respuesta.adjunto.nombre_base + 'C.pdf',
-                        action: '',
-                        file: []
-                    })
-                    html += `<tr style="text-align:center">
-                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'C.pdf'}</td>
-                <td style="text-align:center;">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.pdf'}"  
-                        data-año="${respuesta.ano_nac}"  
-                        data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
-                        data-condic="${respuesta.condic}" 
-                        disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
-                        disabled>Descargar</button>
-                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'C.pdf'}"
-                        disabled>Archivar</button>
-                    </div>
-                </td>
-                </tr>`;
-                }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_d_tif == true) {
-                    tempArchivoAdjuntoList.push({
-                        id: respuesta.adjunto.nombre_base + 'D',
-                        fecha_emision: '',
-                        nameFile: respuesta.adjunto.nombre_base + 'D.tif',
-                        action: '',
-                        file: []
-                    })
-                    html += `<tr style="text-align:center">
-                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'D.tif'}</td>
-                <td style="text-align:center;">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.tif'}"  
-                        data-año="${respuesta.ano_nac}"  
-                        data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
-                        data-condic="${respuesta.condic}" 
-                        disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.tif'}" onclick="descargarAdjuntoNacimiento(event)"
-                        disabled>Descargar</button>
-                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.tif'}"
-                        disabled>Archivar</button>
-                    </div>
-                </td>
-                </tr>`;
-                }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_d_pdf == true) {
-                    tempArchivoAdjuntoList.push({
-                        id: respuesta.adjunto.nombre_base + 'D',
-                        fecha_emision: '',
-                        nameFile: respuesta.adjunto.nombre_base + 'D.pdf',
-                        action: '',
-                        file: []
-                    })
-                    html += `<tr style="text-align:center">
-                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'D.pdf'}</td>
-                <td style="text-align:center;">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.pdf'}"  
-                        data-año="${respuesta.ano_nac}"  
-                        data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
-                        data-condic="${respuesta.condic}" 
-                        disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
-                        disabled>Descargar</button>
-                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'D.pdf'}"
-                        disabled>Archivar</button>
-                    </div>
-                </td>
-                </tr>`;
-                }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_e_tif == true) {
-                    tempArchivoAdjuntoList.push({
-                        id: respuesta.adjunto.nombre_base + 'E',
-                        fecha_emision: '',
-                        nameFile: respuesta.adjunto.nombre_base + 'E.tif',
-                        action: '',
-                        file: []
-                    })
-                    html += `<tr style="text-align:center">
-                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'E.tif'}</td>
-                <td style="text-align:center;">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.tif'}"  
-                        data-año="${respuesta.ano_nac}"  
-                        data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
-                        data-condic="${respuesta.condic}" 
-                        disabled>Visualizar</button>
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.tif'}" onclick="descargarAdjuntoNacimiento(event)"
-                        disabled>Descargar</button>
-                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.tif'}"
-                        disabled>Archivar</button>
-                    </div>
-                </td>
-                </tr>`;
-                }
-                if (respuesta.adjunto != null && respuesta.adjunto.existe_archivo_nombre_e_pdf == true) {
-                    tempArchivoAdjuntoList.push({
-                        id: respuesta.adjunto.nombre_base + 'E',
-                        fecha_emision: '',
-                        nameFile: respuesta.adjunto.nombre_base + 'E.pdf',
-                        action: '',
-                        file: []
-                    })
-                    html += `<tr style="text-align:center">
-                <td style="text-align:left;">${respuesta.adjunto.nombre_base + 'E.pdf'}</td>
-                <td style="text-align:center;">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento"  title="Visualizar"  
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.pdf'}"  
-                        data-año="${respuesta.ano_nac}"  
-                        data-libro="${respuesta.nro_lib}"  
-                        data-folio="${respuesta.nro_fol}" 
-                        data-condic="${respuesta.condic}" 
-                        disabled>Visualizar</button>}
-                        <button type="button" class="btn btn-outline-primary btn-xs " name="btnDescargarAdjuntoNacimiento"  title="Descargar"data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.pdf'}" onclick="descargarAdjuntoNacimiento(event)"
-                        disabled>Descargar</button>
-                        <button type="button" class="btn btn-outline-danger btn-xs archivarArchivoAdjunto" name="btnArchivarAdjuntoNacimiento"  title="Archivar" 
-                        data-nombre-archivo="${respuesta.adjunto.nombre_base + 'E.pdf'}"
-                        disabled>Archivar</button>
-                    </div>
-                </td>
-                </tr>`;
-                }
-                if (respuesta.adjunto != null &&
-                    (respuesta.adjunto.existe_archivo_nombre_base_tif == false || respuesta.adjunto.existe_archivo_nombre_base_pdf == false) &&
-                    (respuesta.adjunto.existe_archivo_nombre_a_tif == false || respuesta.adjunto.existe_archivo_nombre_a_pdf == false) &&
-                    (respuesta.adjunto.existe_archivo_nombre_b_tif == false || respuesta.adjunto.existe_archivo_nombre_b_pdf == false) &&
-                    (respuesta.adjunto.existe_archivo_nombre_c_tif == false || respuesta.adjunto.existe_archivo_nombre_c_pdf == false) &&
-                    (respuesta.adjunto.existe_archivo_nombre_d_tif == false || respuesta.adjunto.existe_archivo_nombre_d_pdf == false) &&
-                    (respuesta.adjunto.existe_archivo_nombre_e_tif == false || respuesta.adjunto.existe_archivo_nombre_e_pdf == false)) {
-                    html += `<tr style="text-align:center">
-                <td style="text-align:center;" colSpan="2">Sin adjuntos para mostrar</td>           
-                </td>
-                </tr>`;
-                }
+                if (respuesta.adjuntos.length > 0) {
+                    (respuesta.adjuntos).forEach(element => {
+                        tempArchivoAdjuntoList.push({
+                            id: element.id,
+                            nombre_completo: element.nombre_completo,
+                            nombre_extension: element.nombre_extension,
+                            nombre_sin_extension: element.nombre_sin_extension,
+                            tipo: 'nacimientos',
+                            ruta: element.ruta,
+                            condic_id: element.condic_id,
+                            accion: '',
+                            archivo: []
+                        })
 
-                document.querySelector("table[id='tablaListaAdjuntosDeNacimiento'] tbody").insertAdjacentHTML('beforeend', html);
+                        html += `<tr style="text-align:center">
+                        <td style="text-align:left;">${element.nombre_completo}</td>
+                        <td style="text-align:center;">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-primary btn-xs visualizarAdjunto" name="btnVisualizarAdjunto"  title="Visualizar" 
+                                data-id-registro="${respuesta.id}"  
+                                data-id-archivo="${element.id}"  
+                                data-tipo="nacimientos"  
+                                data-ruta="${element.ruta}"  
+                                disabled>Visualizar</button>
+                                <button type="button" class="btn btn-outline-primary btn-xs descargarAdjunto " name="btnDescargarAdjunto"  title="Descargar" 
+                                data-id-registro="${respuesta.id}"  
+                                data-id-archivo="${element.id}"  
+                                data-tipo="nacimientos"  
+                                data-ruta="${element.ruta}" 
+                                disabled>Descargar</button>
+                                <button type="button" class="btn btn-outline-danger btn-xs anularAdjunto" name="btnAnularadjunto"  title="Archivar" 
+                                data-id-registro="${respuesta.id}"  
+                                data-id-archivo="${element.id}"  
+                                data-tipo="nacimientos"  
+                                data-ruta="${element.ruta}" 
+                                >Anular</button>
+                            </div>
+                        </td>
+                        </tr>`;
 
+                    });
+                    document.querySelector("table[id='tablaListaAdjuntos'] tbody").insertAdjacentHTML('beforeend', html);
 
-
-
-
+                } else if (respuesta.adjuntos.length == 0) {
+                    this.mostrarAdjuntosSinResultados();
+                }
             }).fail(() => {
                 Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
             });
         } else {
-        }
+            this.mostrarAdjuntosSinResultados();
 
+        }
+    }
+
+    mostrarAdjuntosSinResultados() {
+        let html='';
+            html += `<tr style="text-align:center">
+        <td style="text-align:center;" colSpan="2">Sin adjuntos para mostrar</td>           
+        </td>
+        </tr>`;
+        document.querySelector("table[id='tablaListaAdjuntos'] tbody").insertAdjacentHTML('beforeend', html);
     }
 
     /**
@@ -426,21 +133,18 @@ class ControlNacimientoView {
         /**
          * buscar - Buscar en modal de listado de nacimientos
          */
-        $("#botoneraPrincipal").on("click", "a.buscar", (e) => {
+        // $("#botoneraPrincipal").on("click", "a.buscar", (e) => {
 
-            $modal.find(".modal-title").text('Listado de Nacimientos');
-            $modal.modal('show');
-            this.listarNacimientos();
-        });
+        //     $modal.find(".modal-title").text('Listado de Nacimientos');
+        //     $modal.modal('show');
+        //     this.listarNacimientos();
+        // });
 
         /**
          * nuevo - Nuevo nacimiento
          */
         $("#botoneraPrincipal").on("click", "a.nuevo", (e) => {
-
-            // let url = `/nacimientos/control/index`;
-            // var win = window.open(url, "_self");
-            // win.focus();
+ 
 
             document.querySelector("span[id='descripcion-de-accion-formulario']").textContent = "Nuevo Registro";
             Util.cambiarEstadoBotonera('DESHABILITAR', ['nuevo', 'modificar', 'observar']);
@@ -449,7 +153,7 @@ class ControlNacimientoView {
 
             $('#controlNacimientoForm')[0].reset();
             Util.readOnlyAllInputForm("controlNacimientoForm", false);
-            Util.limpiarTabla("tablaListaAdjuntosDeNacimiento");
+            Util.limpiarTabla("tablaListaAdjuntos");
             document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
             document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
             // document.querySelector("input[id='condicionOrdinaria']").removeAttribute("disabled");
@@ -457,6 +161,10 @@ class ControlNacimientoView {
             // document.querySelector("input[id='condicionEspecial']").removeAttribute("disabled");
             document.querySelector("input[id='siAplicaRecibo']").removeAttribute("disabled");
             document.querySelector("input[id='noAplicaRecibo']").removeAttribute("disabled");
+            tempArchivoAdjuntoList=[];
+
+            window.history.replaceState(null, null, window.location.pathname+'?id_tipo='+this.condicionActa);
+            document.querySelector("input[name='condicionActa']").value =this.condicionActa;
         });
 
         /**
@@ -467,11 +175,14 @@ class ControlNacimientoView {
             let formData = new FormData($('#controlNacimientoForm')[0]);
             if (tempArchivoAdjuntoList.length > 0) {
                 tempArchivoAdjuntoList.forEach(element => {
-                    if (element.action == 'GUARDAR') {
-                        formData.append(`id_adjunto[]`, element.id);
-                        formData.append(`archivo_adjunto[]`, element.file);
-                        formData.append(`nombre_adjunto[]`, element.nameFile);
-                        formData.append(`accion_adjunto[]`, 'GUARDAR');
+                    if (element.accion == 'GUARDAR') {
+                        formData.append(`id_list[]`, element.id);
+                        formData.append(`nombre_completo_list[]`, element.nombre_completo);
+                        formData.append(`nombre_extension_list[]`, element.nombre_extension);
+                        formData.append(`nombre_sin_extension_list[]`, element.nombre_sin_extension);
+                        formData.append(`tipo_list[]`, element.tipo);
+                        formData.append(`accion_list[]`, 'GUARDAR');
+                        formData.append(`archivo_list[]`, element.archivo);
                     }
                 });
             }
@@ -482,7 +193,7 @@ class ControlNacimientoView {
                 if (respuesta.respuesta == "ok") {
                     // window.history.pushState({ 'id': respuesta.id }, '', '/nacimientos/control/index');
                     let url = `/nacimientos/control/index/?id=${respuesta.id}`;
-                    var win = window.open(url, "_selft");
+                    var win = window.open(url, "_self");
                     win.focus();
                 }
             }).fail(() => {
@@ -501,10 +212,9 @@ class ControlNacimientoView {
 
             Util.cambiarEstadoBotonera('DESHABILITAR', ['nuevo', 'observar']);
             Util.cambiarEstadoBotonera('HABILITAR', ['guardar']);
-            Util.readOnlyAllInputForm("controlNacimientoForm", false, ['ano_nac', 'nro_lib', 'nro_fol']);
+            Util.readOnlyAllInputForm("controlNacimientoForm", false, ['ano_eje', 'nro_lib', 'nro_fol']);
 
 
-            // Util.limpiarTabla("tablaListaAdjuntosDeNacimiento");
             document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
             document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
             // document.querySelector("input[id='condicionOrdinaria']").removeAttribute("disabled");
@@ -515,9 +225,8 @@ class ControlNacimientoView {
 
 
         });
-        /**
-         * modificar - Modificar registro
-         */
+    
+
         $("#botoneraPrincipal").on("click", "a.observar", (e) => {
 
             if (document.querySelector("input[name='id']").value > 0) {
@@ -570,9 +279,8 @@ class ControlNacimientoView {
             }
 
         });
-        /**
-         * cancelar - Cancelar acción de accion nuevo, editar 
-         */
+    
+
         $("#botoneraPrincipal").on("click", "a.cancelar", (e) => {
             document.querySelector("span[id='descripcion-de-accion-formulario']").textContent = "";
 
@@ -580,7 +288,7 @@ class ControlNacimientoView {
             $('#controlNacimientoForm')[0].reset();
             document.querySelector("div[name='observa']").textContent = "";
             Util.readOnlyAllInputForm("controlNacimientoForm", false);
-            Util.limpiarTabla("tablaListaAdjuntosDeNacimiento");
+            Util.limpiarTabla("tablaListaAdjuntos");
             document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
             document.querySelector("input[id='adjuntosNacimiento']").removeAttribute("disabled");
             // document.querySelector("input[id='condicionOrdinaria']").removeAttribute("disabled");
@@ -588,6 +296,7 @@ class ControlNacimientoView {
             // document.querySelector("input[id='condicionEspecial']").removeAttribute("disabled");
             document.querySelector("input[id='siAplicaRecibo']").removeAttribute("disabled");
             document.querySelector("input[id='noAplicaRecibo']").removeAttribute("disabled");
+            tempArchivoAdjuntoList=[];
         });
 
 
@@ -599,14 +308,12 @@ class ControlNacimientoView {
 
         });
 
-        /**
-         * imprimir - Imprimir nacimiento 
-         */
         $("#botoneraPrincipal").on("click", "a.imprimir", (e) => {
             const idNacimi = document.querySelector("input[name='id']").value;
             const ano = document.querySelector("input[name='ano_nac']").value;
             const libro = document.querySelector("input[name='nro_lib']").value;
             const folio = document.querySelector("input[name='nro_fol']").value;
+            document.querySelector("div[id='modalRecibo'] button[id='btnGuardarRecibo']").removeAttribute("disabled");
 
             if (parseInt(idNacimi) > 0) {
                 document.querySelector("div[id='modalRecibo'] input[name='nacimi_id']").value = idNacimi;
@@ -625,29 +332,9 @@ class ControlNacimientoView {
                 document.querySelector("input[name='detalle_recibo']").removeAttribute("readOnly");
 
             } else {
-                const swalWithBootstrapButtons = Swal.mixin({
-                    customClass: {
-                        confirmButton: 'btn btn-success',
-                        cancelButton: 'btn btn-danger'
-                    },
-                    buttonsStyling: false
-                })
 
-                swalWithBootstrapButtons.fire({
-                    title: 'Primero debe seleccionar un registro',
-                    text: "Desea ver el listado?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Si, ver listado',
-                    cancelButtonText: 'No, cerrar',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $modal.find(".modal-title").text('Listado de Nacimientos');
-                        $modal.modal('show');
-                        this.listarNacimientos();
-                    }
-                })
+                Util.mensaje("info", "Primero debe seleccionar un registro");
+
             }
         });
 
@@ -660,17 +347,6 @@ class ControlNacimientoView {
             }
         });
 
-        $('#tablaListaAdjuntosDeNacimiento').on("click", "button.visualizarArchivoAdjunto", (e) => {
-            this.abrirPestañaVisualizarAdjunto(e);
-        });
-        $('#tablaListaAdjuntosDeNacimiento').on("click", "button.archivarArchivoAdjunto", (e) => {
-            this.archivarAdjunto(e);
-        });
-        $('#tablaListaAdjuntosDeNacimiento').on("click", "button.eliminarArchivoAdjunto", (e) => {
-            this.eliminarArchivoAdjunto(e.currentTarget)
-        });
-
- 
 
         $('#modalRecibo').on("click", "button.guardarRecibo", (e) => {
             const $form = new FormData($('#formulario-recibo')[0]);
@@ -681,7 +357,8 @@ class ControlNacimientoView {
                 Util.mensaje(respuesta.alerta, respuesta.mensaje);
                 if (respuesta.respuesta == "ok") {
                     document.querySelector("div[id='modalRecibo'] button[id='btnContinuar']").removeAttribute("disabled");
-                    $('#modalRecibo').modal('hide');
+                    // $('#modalRecibo').modal('hide');
+                    document.querySelector("div[id='modalRecibo'] button[id='btnGuardarRecibo']").setAttribute("disabled",true);
                 }
             }).fail(() => {
                 Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
@@ -703,8 +380,8 @@ class ControlNacimientoView {
         });
 
         $('#modalRecibo').on("click", "button.continuar", (e) => {
-            const elementTablaListaAdjuntos = document.querySelectorAll("table[id='tablaListaAdjuntosDeNacimiento'] tbody tr button");
-
+            const elementTablaListaAdjuntos = document.querySelectorAll("table[id='tablaListaAdjuntos'] tbody tr button");
+            const idRegistro = document.querySelector("form[id='controlNacimientoForm'] input[name='id']").value;
 
             [].forEach.call(elementTablaListaAdjuntos, child => {
                 child.removeAttribute("disabled");
@@ -712,263 +389,110 @@ class ControlNacimientoView {
 
             Util.mensaje("info", "Se habilitó la botonera de la sección de adjuntos");
             $('#modalRecibo').modal('hide');
-            this.abrirPestañaVisualizarAdjunto(e);
-        });
 
-
-        $(document).on("change", "input.handleChangeAgregarAdjunto", (e) => {
-            this.agregarAdjunto(e.currentTarget);
-        });
-
-    }
-
-
-    listarNacimientos = (anio_filtro = null, libro_filtro = null, folio_filtro = null, apellido_paterno_filtro = null, apellido_materno_filtro = null, nombres_filtro = null, fecha_desde_filtro = null, fecha_hasta_filtro = null) => {
-        const $tabla = $('#tablaModalNacimiento').DataTable({
-            dom: 'Bfrtip',
-            pageLength: 20,
-            language: idioma,
-            destroy: true,
-            serverSide: true,
-            initComplete: function (settings, json) {
-                const $filter = $('#tablaModalNacimiento_filter');
-                const $input = $filter.find('input');
-                $filter.append('<button id="btnBuscar" class="btn btn-default btn-sm pull-right" type="button"><i class="fas fa-search"></i></button>');
-                $input.off();
-                $input.on('keyup', (e) => {
-                    if (e.key == 'Enter') {
-                        $('#btnBuscar').trigger('click');
-                    }
-                });
-                $('#btnBuscar').on('click', (e) => {
-                    $tabla.search($input.val()).draw();
-                });
-            },
-            drawCallback: function (settings) {
-                $('#tablaModalNacimiento_filter input').prop('disabled', false);
-                $('#btnBuscar').html('<i class="fas fa-search"></i>').prop('disabled', false);
-                $('#tablaModalNacimiento_filter input').trigger('focus');
-            },
-            order: [[2, 'asc']],
-            ajax: {
-                url: route('nacimientos.listar'),
-                method: 'POST',
-                data: {
-                    'anio_filtro': anio_filtro,
-                    'libro_filtro': libro_filtro,
-                    'folio_filtro': folio_filtro,
-                    'apellido_paterno_filtro': apellido_paterno_filtro,
-                    'apellido_materno_filtro': apellido_materno_filtro,
-                    'nombres_filtro': nombres_filtro,
-                    'fecha_desde_filtro': fecha_desde_filtro,
-                    'fecha_hasta_filtro': fecha_hasta_filtro
-                },
-                headers: { 'X-CSRF-TOKEN': csrf_token }
-            },
-            columns: [
-                {
-                    render: function (data, type, row, index) {
-                        return index.row + 1;
-                    }, orderable: false, searchable: false, className: 'text-center'
-                },
-                { data: 'ano_nac' },
-                { data: 'nro_lib' },
-                { data: 'nro_fol' },
-                { data: 'ape_pat_na' },
-                { data: 'ape_mat_na' },
-                { data: 'nom_nac' },
-                { data: 'sexo_desc', name: 'sexo.nombre' },
-                { data: 'ubigeo_desc', name: 'ubigeo.nombre' },
-                { data: 'fch_nac' },
-                { data: 'fch_ing' },
-                { data: 'accion-seleccionar', orderable: false, searchable: false, className: 'text-center' }
-            ],
-            buttons: []
-        });
-        $tabla.on('search.dt', function () {
-            $('#tablaModalNacimiento_filter input').attr('disabled', true);
-            $('#btnBuscar').html('<i class="fas fa-clock" aria-hidden="true"></i>').prop('disabled', true);
-        });
-        $tabla.on('init.dt', function (e, settings, processing) {
-            $(e.currentTarget).LoadingOverlay('show', { imageAutoResize: true, progress: true, imageColor: '#3c8dbc' });
-        });
-        $tabla.on('processing.dt', function (e, settings, processing) {
-            if (processing) {
-                $(e.currentTarget).LoadingOverlay('show', { imageAutoResize: true, progress: true, imageColor: '#3c8dbc' });
-            } else {
-                $(e.currentTarget).LoadingOverlay("hide", true);
-            }
+            abrirPestañaVisualizarAdjunto(idRegistro, 0);
         });
     }
 
-    makeId() {
-        let ID = "";
-        let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        for (let i = 0; i < 12; i++) {
-            ID += characters.charAt(Math.floor(Math.random() * 36));
-        }
-        return ID;
-    }
+    // listarNacimientos = (anio_filtro = null, libro_filtro = null, folio_filtro = null, apellido_paterno_filtro = null, apellido_materno_filtro = null, nombres_filtro = null, fecha_desde_filtro = null, fecha_hasta_filtro = null) => {
+    //     const $tabla = $('#tablaModalNacimiento').DataTable({
+    //         dom: 'Bfrtip',
+    //         pageLength: 20,
+    //         language: idioma,
+    //         destroy: true,
+    //         serverSide: true,
+    //         initComplete: function (settings, json) {
+    //             const $filter = $('#tablaModalNacimiento_filter');
+    //             const $input = $filter.find('input');
+    //             $filter.append('<button id="btnBuscar" class="btn btn-default btn-sm pull-right" type="button"><i class="fas fa-search"></i></button>');
+    //             $input.off();
+    //             $input.on('keyup', (e) => {
+    //                 if (e.key == 'Enter') {
+    //                     $('#btnBuscar').trigger('click');
+    //                 }
+    //             });
+    //             $('#btnBuscar').on('click', (e) => {
+    //                 $tabla.search($input.val()).draw();
+    //             });
+    //         },
+    //         drawCallback: function (settings) {
+    //             $('#tablaModalNacimiento_filter input').prop('disabled', false);
+    //             $('#btnBuscar').html('<i class="fas fa-search"></i>').prop('disabled', false);
+    //             $('#tablaModalNacimiento_filter input').trigger('focus');
+    //         },
+    //         order: [[2, 'asc']],
+    //         ajax: {
+    //             url: route('nacimientos.listar'),
+    //             method: 'POST',
+    //             data: {
+    //                 'anio_filtro': anio_filtro,
+    //                 'libro_filtro': libro_filtro,
+    //                 'folio_filtro': folio_filtro,
+    //                 'apellido_paterno_filtro': apellido_paterno_filtro,
+    //                 'apellido_materno_filtro': apellido_materno_filtro,
+    //                 'nombres_filtro': nombres_filtro,
+    //                 'fecha_desde_filtro': fecha_desde_filtro,
+    //                 'fecha_hasta_filtro': fecha_hasta_filtro
+    //             },
+    //             headers: { 'X-CSRF-TOKEN': csrf_token }
+    //         },
+    //         columns: [
+    //             {
+    //                 render: function (data, type, row, index) {
+    //                     return index.row + 1;
+    //                 }, orderable: false, searchable: false, className: 'text-center'
+    //             },
+    //             { data: 'ano_nac' },
+    //             { data: 'nro_lib' },
+    //             { data: 'nro_fol' },
+    //             { data: 'ape_pat_na' },
+    //             { data: 'ape_mat_na' },
+    //             { data: 'nom_nac' },
+    //             { data: 'sexo_desc', name: 'sexo.nombre' },
+    //             { data: 'ubigeo_desc', name: 'ubigeo.nombre' },
+    //             { data: 'fch_nac' },
+    //             { data: 'fch_ing' },
+    //             { data: 'accion-seleccionar', orderable: false, searchable: false, className: 'text-center' }
+    //         ],
+    //         buttons: []
+    //     });
+    //     $tabla.on('search.dt', function () {
+    //         $('#tablaModalNacimiento_filter input').attr('disabled', true);
+    //         $('#btnBuscar').html('<i class="fas fa-clock" aria-hidden="true"></i>').prop('disabled', true);
+    //     });
+    //     $tabla.on('init.dt', function (e, settings, processing) {
+    //         $(e.currentTarget).LoadingOverlay('show', { imageAutoResize: true, progress: true, imageColor: '#3c8dbc' });
+    //     });
+    //     $tabla.on('processing.dt', function (e, settings, processing) {
+    //         if (processing) {
+    //             $(e.currentTarget).LoadingOverlay('show', { imageAutoResize: true, progress: true, imageColor: '#3c8dbc' });
+    //         } else {
+    //             $(e.currentTarget).LoadingOverlay("hide", true);
+    //         }
+    //     });
+    // }
 
-    estaHabilitadoLaExtension(file) {
-        let extension = (file.name.match(/(?<=\.)\w+$/g) != null) ? file.name.match(/(?<=\.)\w+$/g)[0].toLowerCase() : ''; // assuming that this file has any extension
-        if (extension !== 'tif' && extension !== 'pdf') {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    obtenerNombreDeNuevoAdjunto() {
-        let nombreBaseAdjunto = ''.concat(document.querySelector("input[name='ano_nac']").value, document.querySelector("input[name='nro_fol']").value);
-        let sufijo = ["A", "B", "C", "D", "E"];
-        tempArchivoAdjuntoList.forEach(element => {
-
-            if (element.action == '' || element.action == 'GUARDAR') {
-                let nombreSinExtension = element.nameFile.slice(1, -4);
-                if (nombreSinExtension.slice(-1) == "A") {
-                    const isElement = (element) => element == "A";
-                    sufijo.splice(sufijo.findIndex(isElement), 1);
-                } else if (nombreSinExtension.slice(-1) == "B") {
-                    const isElement = (element) => element == "B";
-                    sufijo.splice(sufijo.findIndex(isElement), 1);
-                } else if (nombreSinExtension.slice(-1) == "C") {
-                    const isElement = (element) => element == "C";
-                    sufijo.splice(sufijo.findIndex(isElement), 1);
-                } else if (nombreSinExtension.slice(-1) == "D") {
-                    const isElement = (element) => element == "D";
-                    sufijo.splice(sufijo.findIndex(isElement), 1);
-                }
-            }
-        });
-        return nombreBaseAdjunto + sufijo[0];
-
-    }
-    agregarAdjunto(obj) {
-        if ((obj.files.length + tempArchivoAdjuntoList.length) <= 5) {
-            if (obj.files != undefined && obj.files.length > 0) {
-                Array.prototype.forEach.call(obj.files, (file) => {
-
-                    if (this.estaHabilitadoLaExtension(file) == true) {
-                        const extension = file.name.substring(file.name.lastIndexOf('.')+1, file.name.length) || file.name;
-                        const nombreAdjunto = this.obtenerNombreDeNuevoAdjunto() +'.'+extension;
-                        let payload = {
-                            id: this.makeId(),
-                            fecha_emision: moment().format('YYYY-MM-DD'),
-                            nameFile: nombreAdjunto,
-                            action: 'GUARDAR',
-                            file: file
-                        };
-                        this.addToTablaArchivos(payload);
-
-                        tempArchivoAdjuntoList.push(payload);
-                        // console.log(tempArchivoAdjuntoList);
-                        // console.log(payload);
-                    } else {
-                        Swal.fire(
-                            'Este tipo de archivo no esta permitido adjuntar',
-                            file.name,
-                            'warning'
-                        );
-                    }
-                });
-            }
-        } else {
-            Swal.fire(
-                'Esta permitido adjuntar un máximo de 5 adjuntos',
-                '',
-                'warning'
-            );
-        }
-    }
-
-    addToTablaArchivos(payload) {
-
-        let html = '';
-        html = `<tr id="${payload.id}" style="text-align:center">
-            <td style="text-align:left;">${payload.nameFile}</td>
-            <td style="text-align:center;">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-primary btn-xs visualizarArchivoAdjunto" name="btnVisualizarAdjuntoNacimiento" title="Visualizar" data-id="${payload.id}"  disabled>Visualizar</button>
-                    <button type="button" class="btn btn-outline-danger btn-xs eliminarArchivoAdjunto"  name="btnEliminarAdjuntoNacimiento" title="Eliminar" data-id="${payload.id}" >Eliminar</button>
-                </div>
-            </td>
-            </tr>`;
-
-        document.querySelector("table[id='tablaListaAdjuntosDeNacimiento'] tbody").insertAdjacentHTML('beforeend', html);
-
-    }
-
-    abrirPestañaVisualizarAdjunto(e){
-        let url = `/nacimientos/control/visualizar-adjunto/?idregistro=${document.querySelector("input[name='id']").value}&namefile=${$(e.currentTarget).data('nombre-archivo')}&year=${$(e.currentTarget).data('año')}&book=${$(e.currentTarget).data('libro')}&folio=${$(e.currentTarget).data('folio')}&condic=${$(e.currentTarget).data('condic')}`;
-        var win = window.open(url, "_black");
-        win.focus();
-    }
-
-    archivarAdjunto(e){
-        const formData = new FormData();
-        const idRegistro=document.querySelector("input[name='id']").value;
-        formData.append(`idRegistro`, idRegistro);
-        formData.append(`nombreArchivo`, e.currentTarget.dataset.nombreArchivo);
-        const $route = route("nacimientos.control.archivar-adjunto");
-
-        this.model.archivarAdjunto(formData, $route).then((respuesta) => {
-            // console.log(respuesta);
-            Util.mensaje(respuesta.alerta, respuesta.mensaje);
-            if (respuesta.respuesta == "ok") {
-                // let url = `/nacimientos/control/index/?id=${idRegistro}`;
-                // var win = window.open(url, "_selft");
-                // win.focus();
-                e.currentTarget.closest('tr').remove();
-            }
-        }).fail(() => {
-            Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
-        }).always(() => {
-
-        });
-    }
-
-    eliminarArchivoAdjunto(obj) {
-        obj.closest("tr").remove();
-        var regExp = /[a-zA-Z]/g; //expresión regular
-        if ((regExp.test(obj.dataset.id) == true)) {
-            tempArchivoAdjuntoList = tempArchivoAdjuntoList.filter((element, i) => element.id != obj.dataset.id);
-        } else {
-            if (tempArchivoAdjuntoList.length > 0) {
-                let indice = tempArchivoAdjuntoList.findIndex(elemnt => elemnt.id == obj.dataset.id);
-                tempArchivoAdjuntoList[indice].action = 'ELIMINAR';
-            } else {
-                Swal.fire(
-                    '',
-                    'Hubo un error inesperado al intentar eliminar el adjunto, puede que no el objecto este vacio, elimine adjuntos y vuelva a seleccionar',
-                    'error'
-                );
-            }
-
-        }
-    }
-
-    updateSubtituloCondicionActa(idCondicion){
+    updateSubtituloCondicionActa(idCondicion) {
         let titulosCondicionActa = document.querySelectorAll("span[name='nombreCondicionActa']");
         switch (idCondicion) {
             case 1:
                 titulosCondicionActa.forEach(element => {
-                    element.textContent ='Ordinario';
+                    element.textContent = 'Ordinario';
                 });
                 break;
-        
+
             case 2:
                 titulosCondicionActa.forEach(element => {
-                    element.textContent ='Extraordinario';
+                    element.textContent = 'Extraordinario';
                 });
                 break;
-        
+
             case 2:
                 titulosCondicionActa.forEach(element => {
-                    element.textContent ='Especial';
+                    element.textContent = 'Especial';
                 });
                 break;
-        
+
             default:
                 break;
         }
@@ -976,7 +500,7 @@ class ControlNacimientoView {
 
 }
 
-function getCarpetaPadreCondicion(){
+function getCarpetaPadreCondicion() {
     let condicionActa = document.querySelector("input[name='condicionActa']").value;
     switch (parseInt(condicionActa)) {
         case 1:
@@ -988,15 +512,11 @@ function getCarpetaPadreCondicion(){
         case 3:
             return 'especiales';
             break;
-    
+
         default:
             return 'ordinarias';
             break;
     }
 }
 
-function descargarAdjuntoNacimiento(obj){
-    let url = `/fichas/${getCarpetaPadreCondicion()}/nacim/${obj.currentTarget.dataset.nombreArchivo}`;
-    var win = window.open(url, "_black");
-    win.focus();
-}
+
