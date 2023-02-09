@@ -65,6 +65,8 @@ class AdjuntoView {
                 this.prepareCanvas(archivo.ruta);
             }else if(archivo.nombre_extension == 'pdf' || archivo.nombre_extension=='PDF'){
                 this.prepareFrame(archivo.ruta);
+            }else if(archivo.nombre_extension == 'png' || archivo.nombre_extension=='jpg'){
+                this.prepareImagen(archivo.ruta);
             }
         }else{
             Util.mensaje("error", "Hubo un problema al intentar obtener el archivo. Por favor vuelva a intentarlo");
@@ -121,6 +123,27 @@ class AdjuntoView {
 
             };
             xhrA.send();
+    }
+
+
+    prepareImagen(ruta) {
+        document.querySelector("div[class='actaAdversoPNGJPG']").innerHTML='';
+
+        
+        $('.actaAdversoPNGJPG').LoadingOverlay("show", {
+            imageAutoResize: true,
+            progress: true,
+            imageColor: "#3c8dbc"
+        });
+
+        var ifrm = document.createElement("img");
+        ifrm.setAttribute("src", ruta);
+        ifrm.style.width = "800px";
+        ifrm.style.height = "600px";
+        ifrm.style.border = "none";
+        document.querySelector("div[class='actaAdversoPNGJPG']").appendChild(ifrm);
+        $('.actaAdversoPNGJPG').LoadingOverlay("hide", true);
+
     }
 
     eventos = () =>{
@@ -269,7 +292,7 @@ function makeId() {
 
 function estaHabilitadoLaExtension(file) {
     let extension = (file.name.match(/(?<=\.)\w+$/g) != null) ? file.name.match(/(?<=\.)\w+$/g)[0].toLowerCase() : ''; // assuming that this file has any extension
-    if (extension !== 'tif' && extension !== 'pdf') {
+    if(!['tif','pdf','png','jpg'].includes(extension)){
         return false;
     } else {
         return true;

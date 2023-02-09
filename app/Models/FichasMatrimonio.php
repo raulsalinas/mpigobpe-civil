@@ -11,4 +11,10 @@ class FichasMatrimonio extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'public.fichas_matrim';
+
+    public function condicion()
+    {
+        return $this->hasOne('App\Models\Condicion', 'id','condic_id');
+
+    }
 }

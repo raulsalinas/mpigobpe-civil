@@ -8,6 +8,8 @@
                 <input type="hidden" name="ano" value="0">
                 <input type="hidden" name="libro" value="0">
                 <input type="hidden" name="folio" value="0">
+                <input type="hidden" name="condic" value="0">
+
                 @csrf
                 <div class="modal-header">
                     <h4 class="modal-title"></h4>

@@ -220,6 +220,7 @@ class ControlDeNacimientosController extends Controller
                 $nuevoCobro->estado = 'P';
                 $nuevoCobro->monto = $request->importe_recibo;
                 $nuevoCobro->solicitant = $request->nombre_solicitante_recibo;
+                $nuevoCobro->condic = isset($request->condic)?$request->condic:null;
                 $nuevoCobro->save();
             }
 

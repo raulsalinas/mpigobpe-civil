@@ -93,7 +93,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Folio</label>
-                                                    <input type="text" class="form-control form-control-sm" name="nro_fol" placeholder="" readonly>
+                                                    <input type="text" maxlength="10" class="form-control form-control-sm" name="nro_fol" placeholder="" readonly>
                                                 </div>
                                             </div>
                                         </div>

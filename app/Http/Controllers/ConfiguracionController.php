@@ -535,187 +535,187 @@ class ConfiguracionController extends Controller
         return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
     }
 
-    // public function indexarFichasNacimientoOrdinarias()
-    // {
-    //     $FichaOrdinariaNacimientoList = Storage::disk('fichas-ordinarias-nacim')->allFiles();
-    //     foreach ($FichaOrdinariaNacimientoList as $key => $fichaOrdinariaNacim) {
-    //         $ficha = new FichasNacimiento();
-    //         $ficha->condic_id = 1;
-    //         $ficha->nombre_completo = $fichaOrdinariaNacim;
-    //         $ficha->nombre_sin_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_FILENAME);
-    //         $ficha->nombre_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_EXTENSION);
-    //         $ficha->ruta = '/fichas/ordinarias/nacim/' . $fichaOrdinariaNacim;
-    //         $ficha->estado = 1;
-    //         $ficha->save();
-    //     }
+    public function indexarFichasNacimientoOrdinarias()
+    {
+        $FichaOrdinariaNacimientoList = Storage::disk('fichas-ordinarias-nacim')->allFiles();
+        foreach ($FichaOrdinariaNacimientoList as $key => $fichaOrdinariaNacim) {
+            $ficha = new FichasNacimiento();
+            $ficha->condic_id = 1;
+            $ficha->nombre_completo = $fichaOrdinariaNacim;
+            $ficha->nombre_sin_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_FILENAME);
+            $ficha->nombre_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_EXTENSION);
+            $ficha->ruta = '/fichas/ordinarias/nacim/' . $fichaOrdinariaNacim;
+            $ficha->estado = 1;
+            $ficha->save();
+        }
 
-    //     return "Se termino de indexar todas las fichas";
-    // }
-    // public function indexarFichasNacimientoExtraordinarias()
-    // {
-    //     $FichaOrdinariaNacimientoList = Storage::disk('fichas-extraordinarias-nacim')->allFiles();
-    //     foreach ($FichaOrdinariaNacimientoList as $key => $fichaOrdinariaNacim) {
-    //         $ficha = new FichasNacimiento();
-    //         $ficha->condic_id = 2;
-    //         $ficha->nombre_completo = $fichaOrdinariaNacim;
-    //         $ficha->nombre_sin_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_FILENAME);
-    //         $ficha->nombre_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_EXTENSION);
-    //         $ficha->ruta = '/fichas/extraordiarias/nacim/' . $fichaOrdinariaNacim;
-    //         $ficha->estado = 1;
-    //         $ficha->save();
-    //     }
+        return "Se termino de indexar todas las fichas";
+    }
+    public function indexarFichasNacimientoExtraordinarias()
+    {
+        $FichaOrdinariaNacimientoList = Storage::disk('fichas-extraordinarias-nacim')->allFiles();
+        foreach ($FichaOrdinariaNacimientoList as $key => $fichaOrdinariaNacim) {
+            $ficha = new FichasNacimiento();
+            $ficha->condic_id = 2;
+            $ficha->nombre_completo = $fichaOrdinariaNacim;
+            $ficha->nombre_sin_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_FILENAME);
+            $ficha->nombre_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_EXTENSION);
+            $ficha->ruta = '/fichas/extraordinarias/nacim/' . $fichaOrdinariaNacim;
+            $ficha->estado = 1;
+            $ficha->save();
+        }
 
-    //     return "Se termino de indexar todas las fichas";
-    // }
+        return "Se termino de indexar todas las fichas";
+    }
 
-    // public function registrarFichasNacimientoOrdinarias()
-    // {
-    //     $nacimientosOrdinarios= Nacimiento::where("condic",1)->get();
-    //     $fichas=[];
-    //     foreach ($nacimientosOrdinarios as $keyr => $r) {
-    //         $fichas= FichasNacimiento::where([['nombre_sin_extension',$r->ano_nac.$r->nro_fol],['condic_id',1]])
-    //         ->get();
-    //         foreach ($fichas as $keyf => $f) {
-    //         $ficha = FichasNacimiento::where([['id',$f->id],['condic_id',1]])->first();
-    //         if(($ficha)){
-    //             $ficha->nacimi_id = $r->id;
-    //             $ficha->save();
-    //         }
-    //         }
-    //     }
-    //     return "Se termino de registrar la fichas que coinciden con el código del registro";
-    // }
-    // public function registrarFichasNacimientoOrdinariasA()
-    // {
-    //     $nacimientosOrdinarios= Nacimiento::where("condic",1)->get();
-    //     $fichas=[];
-    //     foreach ($nacimientosOrdinarios as $keyr => $r) {
-    //         $fichas= FichasNacimiento::where([['nombre_sin_extension',$r->ano_nac.$r->nro_fol.'A'],['condic_id',1]])
-    //         ->get();
-    //         foreach ($fichas as $keyf => $f) {
-    //         $ficha = FichasNacimiento::where([['id',$f->id],['condic_id',1]])->first();
-    //         if(($ficha)){
-    //             $ficha->nacimi_id = $r->id;
-    //             $ficha->save();
-    //         }
-    //         }
-    //     }
-    //     return "Se termino de registrar la fichas A que coinciden con el código del registro";
-    // }
-    // public function registrarFichasNacimientoOrdinariasB()
-    // {
-    //     $nacimientosOrdinarios= Nacimiento::where("condic",1)->get();
-    //     $fichas=[];
-    //     foreach ($nacimientosOrdinarios as $keyr => $r) {
-    //         $fichas= FichasNacimiento::where([['nombre_sin_extension',$r->ano_nac.$r->nro_fol.'B'],['condic_id',1]])
-    //         ->get();
-    //         foreach ($fichas as $keyf => $f) {
-    //         $ficha = FichasNacimiento::where([['id',$f->id],['condic_id',1]])->first();
-    //         if(($ficha)){
-    //             $ficha->nacimi_id = $r->id;
-    //             $ficha->save();
-    //         }
-    //         }
-    //     }
-    //     return "Se termino de registrar la fichas B que coinciden con el código del registro";
-    // }
-    // public function registrarFichasNacimientoOrdinariasC()
-    // {
-    //     $nacimientosOrdinarios= Nacimiento::where("condic",1)->get();
-    //     $fichas=[];
-    //     foreach ($nacimientosOrdinarios as $keyr => $r) {
-    //         $fichas= FichasNacimiento::where([['nombre_sin_extension',$r->ano_nac.$r->nro_fol.'C'],['condic_id',1]])
-    //         ->get();
-    //         foreach ($fichas as $keyf => $f) {
-    //         $ficha = FichasNacimiento::where([['id',$f->id],['condic_id',1]])->first();
-    //         if(($ficha)){
-    //             $ficha->nacimi_id = $r->id;
-    //             $ficha->save();
-    //         }
-    //         }
-    //     }
-    //     return "Se termino de registrar la fichas C que coinciden con el código del registro";
-    // }
-    // public function registrarFichasNacimientoOrdinariasD()
-    // {
-    //     $nacimientosOrdinarios= Nacimiento::where("condic",1)->get();
-    //     $fichas=[];
-    //     foreach ($nacimientosOrdinarios as $keyr => $r) {
-    //         $fichas= FichasNacimiento::where([['nombre_sin_extension',$r->ano_nac.$r->nro_fol.'D'],['condic_id',1]])
-    //         ->get();
-    //         foreach ($fichas as $keyf => $f) {
-    //         $ficha = FichasNacimiento::where([['id',$f->id],['condic_id',1]])->first();
-    //         if(($ficha)){
-    //             $ficha->nacimi_id = $r->id;
-    //             $ficha->save();
-    //         }
-    //         }
-    //     }
-    //     return "Se termino de registrar la fichas D que coinciden con el código del registro";
-    // }
+    public function registrarFichasNacimientoOrdinarias()
+    {
+        $nacimientosOrdinarios= Nacimiento::where("condic",1)->get();
+        $fichas=[];
+        foreach ($nacimientosOrdinarios as $keyr => $r) {
+            $fichas= FichasNacimiento::where([['nombre_sin_extension',$r->ano_nac.$r->nro_fol],['condic_id',1]])
+            ->get();
+            foreach ($fichas as $keyf => $f) {
+            $ficha = FichasNacimiento::where([['id',$f->id],['condic_id',1]])->first();
+            if(($ficha)){
+                $ficha->nacimi_id = $r->id;
+                $ficha->save();
+            }
+            }
+        }
+        return "Se termino de registrar la fichas que coinciden con el código del registro";
+    }
+    public function registrarFichasNacimientoOrdinariasA()
+    {
+        $nacimientosOrdinarios= Nacimiento::where("condic",1)->get();
+        $fichas=[];
+        foreach ($nacimientosOrdinarios as $keyr => $r) {
+            $fichas= FichasNacimiento::where([['nombre_sin_extension',$r->ano_nac.$r->nro_fol.'A'],['condic_id',1]])
+            ->get();
+            foreach ($fichas as $keyf => $f) {
+            $ficha = FichasNacimiento::where([['id',$f->id],['condic_id',1]])->first();
+            if(($ficha)){
+                $ficha->nacimi_id = $r->id;
+                $ficha->save();
+            }
+            }
+        }
+        return "Se termino de registrar la fichas A que coinciden con el código del registro";
+    }
+    public function registrarFichasNacimientoOrdinariasB()
+    {
+        $nacimientosOrdinarios= Nacimiento::where("condic",1)->get();
+        $fichas=[];
+        foreach ($nacimientosOrdinarios as $keyr => $r) {
+            $fichas= FichasNacimiento::where([['nombre_sin_extension',$r->ano_nac.$r->nro_fol.'B'],['condic_id',1]])
+            ->get();
+            foreach ($fichas as $keyf => $f) {
+            $ficha = FichasNacimiento::where([['id',$f->id],['condic_id',1]])->first();
+            if(($ficha)){
+                $ficha->nacimi_id = $r->id;
+                $ficha->save();
+            }
+            }
+        }
+        return "Se termino de registrar la fichas B que coinciden con el código del registro";
+    }
+    public function registrarFichasNacimientoOrdinariasC()
+    {
+        $nacimientosOrdinarios= Nacimiento::where("condic",1)->get();
+        $fichas=[];
+        foreach ($nacimientosOrdinarios as $keyr => $r) {
+            $fichas= FichasNacimiento::where([['nombre_sin_extension',$r->ano_nac.$r->nro_fol.'C'],['condic_id',1]])
+            ->get();
+            foreach ($fichas as $keyf => $f) {
+            $ficha = FichasNacimiento::where([['id',$f->id],['condic_id',1]])->first();
+            if(($ficha)){
+                $ficha->nacimi_id = $r->id;
+                $ficha->save();
+            }
+            }
+        }
+        return "Se termino de registrar la fichas C que coinciden con el código del registro";
+    }
+    public function registrarFichasNacimientoOrdinariasD()
+    {
+        $nacimientosOrdinarios= Nacimiento::where("condic",1)->get();
+        $fichas=[];
+        foreach ($nacimientosOrdinarios as $keyr => $r) {
+            $fichas= FichasNacimiento::where([['nombre_sin_extension',$r->ano_nac.$r->nro_fol.'D'],['condic_id',1]])
+            ->get();
+            foreach ($fichas as $keyf => $f) {
+            $ficha = FichasNacimiento::where([['id',$f->id],['condic_id',1]])->first();
+            if(($ficha)){
+                $ficha->nacimi_id = $r->id;
+                $ficha->save();
+            }
+            }
+        }
+        return "Se termino de registrar la fichas D que coinciden con el código del registro";
+    }
 
-    // public function indexarFichasMatrimonioOrdinarias()
-    // {
-    //     $FichaOrdinariaNacimientoList = Storage::disk('fichas-ordinarias-matri')->allFiles();
-    //     foreach ($FichaOrdinariaNacimientoList as $key => $fichaOrdinariaNacim) {
-    //         $ficha = new FichasMatrimonio();
-    //         $ficha->condic_id = 1;
-    //         $ficha->nombre_completo = $fichaOrdinariaNacim;
-    //         $ficha->nombre_sin_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_FILENAME);
-    //         $ficha->nombre_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_EXTENSION);
-    //         $ficha->ruta = '/fichas/ordinarias/matri/' . $fichaOrdinariaNacim;
-    //         $ficha->estado = 1;
-    //         $ficha->save();
-    //     }
+    public function indexarFichasMatrimonioOrdinarias()
+    {
+        $FichaOrdinariaNacimientoList = Storage::disk('fichas-ordinarias-matri')->allFiles();
+        foreach ($FichaOrdinariaNacimientoList as $key => $fichaOrdinariaNacim) {
+            $ficha = new FichasMatrimonio();
+            $ficha->condic_id = 1;
+            $ficha->nombre_completo = $fichaOrdinariaNacim;
+            $ficha->nombre_sin_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_FILENAME);
+            $ficha->nombre_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_EXTENSION);
+            $ficha->ruta = '/fichas/ordinarias/matri/' . $fichaOrdinariaNacim;
+            $ficha->estado = 1;
+            $ficha->save();
+        }
 
-    //     return "Se termino de indexar todas las fichas";
-    // }
-    // public function indexarFichasMatrimonioExtraordinarias()
-    // {
-    //     $FichaOrdinariaNacimientoList = Storage::disk('fichas-extraordinarias-matri')->allFiles();
-    //     foreach ($FichaOrdinariaNacimientoList as $key => $fichaOrdinariaNacim) {
-    //         $ficha = new FichasMatrimonio();
-    //         $ficha->condic_id = 2;
-    //         $ficha->nombre_completo = $fichaOrdinariaNacim;
-    //         $ficha->nombre_sin_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_FILENAME);
-    //         $ficha->nombre_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_EXTENSION);
-    //         $ficha->ruta = '/fichas/extraordiarias/matri/' . $fichaOrdinariaNacim;
-    //         $ficha->estado = 1;
-    //         $ficha->save();
-    //     }
+        return "Se termino de indexar todas las fichas";
+    }
+    public function indexarFichasMatrimonioExtraordinarias()
+    {
+        $FichaOrdinariaNacimientoList = Storage::disk('fichas-extraordinarias-matri')->allFiles();
+        foreach ($FichaOrdinariaNacimientoList as $key => $fichaOrdinariaNacim) {
+            $ficha = new FichasMatrimonio();
+            $ficha->condic_id = 2;
+            $ficha->nombre_completo = $fichaOrdinariaNacim;
+            $ficha->nombre_sin_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_FILENAME);
+            $ficha->nombre_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_EXTENSION);
+            $ficha->ruta = '/fichas/extraordinarias/matri/' . $fichaOrdinariaNacim;
+            $ficha->estado = 1;
+            $ficha->save();
+        }
 
-    //     return "Se termino de indexar todas las fichas";
-    // }
-    // public function indexarFichasDefuncionOrdinarias()
-    // {
-    //     $FichaOrdinariaNacimientoList = Storage::disk('fichas-ordinarias-defun')->allFiles();
-    //     foreach ($FichaOrdinariaNacimientoList as $key => $fichaOrdinariaNacim) {
-    //         $ficha = new FichasDefuncion();
-    //         $ficha->condic_id = 1;
-    //         $ficha->nombre_completo = $fichaOrdinariaNacim;
-    //         $ficha->nombre_sin_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_FILENAME);
-    //         $ficha->nombre_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_EXTENSION);
-    //         $ficha->ruta = '/fichas/ordinarias/defun/' . $fichaOrdinariaNacim;
-    //         $ficha->estado = 1;
-    //         $ficha->save();
-    //     }
+        return "Se termino de indexar todas las fichas";
+    }
+    public function indexarFichasDefuncionOrdinarias()
+    {
+        $FichaOrdinariaNacimientoList = Storage::disk('fichas-ordinarias-defun')->allFiles();
+        foreach ($FichaOrdinariaNacimientoList as $key => $fichaOrdinariaNacim) {
+            $ficha = new FichasDefuncion();
+            $ficha->condic_id = 1;
+            $ficha->nombre_completo = $fichaOrdinariaNacim;
+            $ficha->nombre_sin_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_FILENAME);
+            $ficha->nombre_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_EXTENSION);
+            $ficha->ruta = '/fichas/ordinarias/defun/' . $fichaOrdinariaNacim;
+            $ficha->estado = 1;
+            $ficha->save();
+        }
 
-    //     return "Se termino de indexar todas las fichas";
-    // }
-    // public function indexarFichasDefuncionExtraordinarias()
-    // {
-    //     $FichaOrdinariaNacimientoList = Storage::disk('fichas-extraordinarias-defun')->allFiles();
-    //     foreach ($FichaOrdinariaNacimientoList as $key => $fichaOrdinariaNacim) {
-    //         $ficha = new FichasDefuncion();
-    //         $ficha->condic_id = 2;
-    //         $ficha->nombre_completo = $fichaOrdinariaNacim;
-    //         $ficha->nombre_sin_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_FILENAME);
-    //         $ficha->nombre_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_EXTENSION);
-    //         $ficha->ruta = '/fichas/extraordiarias/defun/' . $fichaOrdinariaNacim;
-    //         $ficha->estado = 1;
-    //         $ficha->save();
-    //     }
+        return "Se termino de indexar todas las fichas";
+    }
+    public function indexarFichasDefuncionExtraordinarias()
+    {
+        $FichaOrdinariaNacimientoList = Storage::disk('fichas-extraordinarias-defun')->allFiles();
+        foreach ($FichaOrdinariaNacimientoList as $key => $fichaOrdinariaNacim) {
+            $ficha = new FichasDefuncion();
+            $ficha->condic_id = 2;
+            $ficha->nombre_completo = $fichaOrdinariaNacim;
+            $ficha->nombre_sin_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_FILENAME);
+            $ficha->nombre_extension = pathinfo($fichaOrdinariaNacim, PATHINFO_EXTENSION);
+            $ficha->ruta = '/fichas/extraordinarias/defun/' . $fichaOrdinariaNacim;
+            $ficha->estado = 1;
+            $ficha->save();
+        }
 
-    //     return "Se termino de indexar todas las fichas";
-    // }
+        return "Se termino de indexar todas las fichas";
+    }
 }

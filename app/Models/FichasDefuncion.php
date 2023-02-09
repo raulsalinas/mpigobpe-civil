@@ -11,4 +11,10 @@ class FichasDefuncion extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'public.fichas_defun';
+
+    public function condicion()
+    {
+        return $this->hasOne('App\Models\Condicion', 'id','condic_id');
+
+    }
 }

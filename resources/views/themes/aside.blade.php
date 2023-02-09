@@ -112,6 +112,12 @@
                         <p>Cobros</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('utilidades.fichas.index') }}" class="nav-link">
+                        <i class="nav-icon fa-sharp fa-solid fa-hard-drive nav-icon text-warning"></i>
+                        <p>Fichas</p>
+                    </a>
+                </li>
             </ul>
             @if(Auth::user()->esAdministrador())
             <ul class="nav nav-pills nav-sidebar flex-column nav-legacy nav-flat nav-compact" data-widget="treeview" role="menu" data-accordion="false">

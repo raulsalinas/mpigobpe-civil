@@ -157,12 +157,12 @@ class ControlDeDefuncionesController extends Controller
 
             if ($request->aplicaRecibo == true) {
                 $nuevorecibo = new Recibo();
-                $nuevorecibo->fecibo = $request->nro_recibo;
+                $nuevorecibo->recibo = $request->nro_recibo;
                 $nuevorecibo->fecha = $request->fecha_recibo;
                 $nuevorecibo->tipo = $request->tipo_recibo;
                 $nuevorecibo->monto = $request->importe_recibo;
                 $nuevorecibo->nombre = $request->nombre_solicitante_recibo;
-                $nuevorecibo->nacimi_id = $request->nacimi_id;
+                $nuevorecibo->defun_id = $request->defun_id;
                 $nuevorecibo->save();
             }
 
@@ -193,6 +193,7 @@ class ControlDeDefuncionesController extends Controller
                 $nuevoCobro->folio = $request->folio;
                 $nuevoCobro->estado = 'P';
                 $nuevoCobro->monto = $request->importe_recibo;
+                $nuevoCobro->condic = isset($request->condic)?$request->condic:null;
                 $nuevoCobro->solicitant = $request->nombre_solicitante_recibo;
                 $nuevoCobro->save();
             }

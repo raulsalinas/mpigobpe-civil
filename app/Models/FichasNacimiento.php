@@ -11,4 +11,10 @@ class FichasNacimiento extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'public.fichas_nacimi';
+
+    public function condicion()
+    {
+        return $this->hasOne('App\Models\Condicion', 'id','condic_id');
+
+    }
 }

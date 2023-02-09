@@ -57,6 +57,7 @@
         <div class="col-md-9 text-center">
             <div class="actaAdversoTIF"></div>
             <div class="actaAdversoPDF"></div>
+            <div class="actaAdversoPNGJPG"></div>
         </div>
     </div>
 </div>

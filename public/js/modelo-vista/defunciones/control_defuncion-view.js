@@ -293,18 +293,20 @@ class ControlDefuncionView {
          * imprimir - Imprimir matrimonio 
          */
         $("#botoneraPrincipal").on("click", "a.imprimir", (e) => {
-            const idNacimi = document.querySelector("input[name='id']").value;
+            const id = document.querySelector("input[name='id']").value;
             const ano = document.querySelector("input[name='ano_eje']").value;
             const libro = document.querySelector("input[name='nro_lib']").value;
             const folio = document.querySelector("input[name='nro_fol']").value;
+            const condic = document.querySelector("input[name='condicionActa']").value;
             document.querySelector("div[id='modalRecibo'] button[id='btnGuardarRecibo']").removeAttribute("disabled");
 
 
-            if (parseInt(idNacimi) > 0) {
-                document.querySelector("div[id='modalRecibo'] input[name='nacimi_id']").value = idNacimi;
+            if (parseInt(id) > 0) {
+                document.querySelector("div[id='modalRecibo'] input[name='defun_id']").value = id;
                 document.querySelector("div[id='modalRecibo'] input[name='ano']").value = ano;
                 document.querySelector("div[id='modalRecibo'] input[name='libro']").value = libro;
                 document.querySelector("div[id='modalRecibo'] input[name='folio']").value = folio;
+                document.querySelector("div[id='modalRecibo'] input[name='condic']").value = condic;
 
                 $("#modalRecibo").find(".modal-title").text('Recibo');
                 $("#modalRecibo").modal('show')

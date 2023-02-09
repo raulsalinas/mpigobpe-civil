@@ -4,10 +4,11 @@
         <div class="modal-content">
             <form id="formulario-recibo" method="POST" autocomplete="off">
                 <input type="hidden" name="_method" value="POST">
-                <input type="hidden" name="nacimi_id" value="0">
+                <input type="hidden" name="defun_id" value="0">
                 <input type="hidden" name="ano" value="0">
                 <input type="hidden" name="libro" value="0">
                 <input type="hidden" name="folio" value="0">
+                <input type="hidden" name="condic" value="0">
                 @csrf
                 <div class="modal-header">
                     <h4 class="modal-title"></h4>
