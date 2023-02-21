@@ -81,6 +81,7 @@ class ControlNacimientoView {
                                 <button type="button" class="btn btn-outline-primary btn-xs visualizarAdjunto" name="btnVisualizarAdjunto"  title="Visualizar" 
                                 data-id-registro="${respuesta.id}"  
                                 data-id-archivo="${element.id}"  
+                                data-id-tipo="1"  
                                 data-tipo="nacimientos"  
                                 data-ruta="${element.ruta}"  
                                 disabled>Visualizar</button>
@@ -94,6 +95,7 @@ class ControlNacimientoView {
                                 data-id-registro="${respuesta.id}"  
                                 data-id-archivo="${element.id}"  
                                 data-tipo="nacimientos"  
+                                data-id-tipo="1"  
                                 data-ruta="${element.ruta}" 
                                 >Anular</button>
                             </div>

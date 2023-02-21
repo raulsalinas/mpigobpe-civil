@@ -65,7 +65,7 @@ class AdjuntoView {
                 this.prepareCanvas(archivo.ruta);
             }else if(archivo.nombre_extension == 'pdf' || archivo.nombre_extension=='PDF'){
                 this.prepareFrame(archivo.ruta);
-            }else if(archivo.nombre_extension == 'png' || archivo.nombre_extension=='jpg'){
+            }else if(archivo.nombre_extension == 'png' || archivo.nombre_extension=='jpg' || archivo.nombre_extension=='jpeg' || archivo.nombre_extension=='gif' || archivo.nombre_extension=='svg' || archivo.nombre_extension=='bmp' || archivo.nombre_extension=='apng'){
                 this.prepareImagen(archivo.ruta);
             }
         }else{
@@ -292,7 +292,7 @@ function makeId() {
 
 function estaHabilitadoLaExtension(file) {
     let extension = (file.name.match(/(?<=\.)\w+$/g) != null) ? file.name.match(/(?<=\.)\w+$/g)[0].toLowerCase() : ''; // assuming that this file has any extension
-    if(!['tif','pdf','png','jpg'].includes(extension)){
+    if(!['tif','pdf','png','jpg','jpeg','gif','svg','bmp','apng'].includes(extension)){
         return false;
     } else {
         return true;

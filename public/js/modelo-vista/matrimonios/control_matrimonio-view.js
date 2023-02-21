@@ -74,6 +74,7 @@ class ControlMatrimonioView {
                                 <button type="button" class="btn btn-outline-primary btn-xs visualizarAdjunto" name="btnVisualizarAdjunto"  title="Visualizar" 
                                 data-id-registro="${respuesta.id}"  
                                 data-id-archivo="${element.id}"  
+                                data-id-tipo="2"  
                                 data-tipo="matrimonios"  
                                 data-ruta="${element.ruta}"  
                                 disabled>Visualizar</button>
@@ -86,7 +87,8 @@ class ControlMatrimonioView {
                                 <button type="button" class="btn btn-outline-danger btn-xs anularAdjunto" name="btnAnularadjunto"  title="Archivar" 
                                 data-id-registro="${respuesta.id}"  
                                 data-id-archivo="${element.id}"  
-                                data-tipo="matrimonios"  
+                                data-tipo="matrimonios" 
+                                data-id-tipo="2"   
                                 data-ruta="${element.ruta}" 
                                 >Anular</button>
                             </div>

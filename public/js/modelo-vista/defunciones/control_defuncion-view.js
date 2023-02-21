@@ -71,6 +71,7 @@ class ControlDefuncionView {
                                 <button type="button" class="btn btn-outline-primary btn-xs visualizarAdjunto" name="btnVisualizarAdjunto"  title="Visualizar" 
                                 data-id-registro="${respuesta.id}"  
                                 data-id-archivo="${element.id}"  
+                                data-id-tipo="3"  
                                 data-tipo="defunciones"  
                                 data-ruta="${element.ruta}"  
                                 disabled>Visualizar</button>
@@ -83,7 +84,8 @@ class ControlDefuncionView {
                                 <button type="button" class="btn btn-outline-danger btn-xs anularAdjunto" name="btnAnularadjunto"  title="Archivar" 
                                 data-id-registro="${respuesta.id}"  
                                 data-id-archivo="${element.id}"  
-                                data-tipo="defunciones"  
+                                data-tipo="defunciones"
+                                data-id-tipo="3"    
                                 data-ruta="${element.ruta}" 
                                 >Anular</button>
                             </div>
