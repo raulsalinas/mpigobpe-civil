@@ -62,10 +62,16 @@ class AdjuntoView {
     mostrarAdjuntoEnPantallaSegunExtension(archivo){
         if(archivo.hasOwnProperty('id')){
             if(archivo.nombre_extension == 'tif' || archivo.nombre_extension=='TIF' ){
+                document.querySelector("div[class~='actaAdversoPDF']").innerHTML='';
+                document.querySelector("div[class~='actaAdversoPNGJPG']").innerHTML='';
                 this.prepareCanvas(archivo.ruta);
             }else if(archivo.nombre_extension == 'pdf' || archivo.nombre_extension=='PDF'){
+                document.querySelector("div[class~='actaAdversoTIF']").innerHTML='';
+                document.querySelector("div[class~='actaAdversoPNGJPG']").innerHTML='';
                 this.prepareFrame(archivo.ruta);
             }else if(archivo.nombre_extension == 'png' || archivo.nombre_extension=='jpg' || archivo.nombre_extension=='jpeg' || archivo.nombre_extension=='gif' || archivo.nombre_extension=='svg' || archivo.nombre_extension=='bmp' || archivo.nombre_extension=='apng'){
+                document.querySelector("div[class~='actaAdversoPDF']").innerHTML='';
+                document.querySelector("div[class~='actaAdversoTIF']").innerHTML='';
                 this.prepareImagen(archivo.ruta);
             }
         }else{

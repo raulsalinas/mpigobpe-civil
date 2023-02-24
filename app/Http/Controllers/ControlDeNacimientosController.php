@@ -68,6 +68,19 @@ class ControlDeNacimientosController extends Controller
     }
 
 
+    public function comprobarRutaAdjuntos($condicionActa)
+    {
+
+        $carpetaPadre = $this->getCarpetaPadreCondicion($condicionActa);
+        $ruta = 'fichas-' . $carpetaPadre . '-nacim';
+        $rutaDisco = config('filesystems.disks.' . $ruta)['root'];
+        $iniciarRuta= strpos($rutaDisco, 'fichas');
+        $newRuta = substr($rutaDisco,$iniciarRuta);
+        $rutaFicha = '/' . $newRuta . '/';
+        
+        return $rutaFicha;
+    }
+
     public function guardar(Request $request)
     {
         try {
@@ -119,14 +132,9 @@ class ControlDeNacimientosController extends Controller
                 $nombreCompletoArchivo = '';
                 $archivoAdjuntoLength = $request->archivo_list != null ? count($request->archivo_list) : 0;
                 $rutaDisco = config('filesystems.disks.' . $ruta)['root'];
-                $array = explode("\\", $rutaDisco);
-                $i = 0;
-                foreach ($array as $key => $string) {
-                    if (strpos($string, 'fichas') === 0) {
-                        $i = $key;
-                    }
-                }
-                $rutaFicha = '/' . $array[$i] . '/';
+                $iniciarRuta= strpos($rutaDisco, 'fichas');
+                $newRuta = substr($rutaDisco,$iniciarRuta);
+                $rutaFicha = '/' . $newRuta . '/';
 
                 if ($archivoAdjuntoLength > 0) {
                     foreach (($request->archivo_list) as $key => $archivo) {
@@ -278,14 +286,9 @@ class ControlDeNacimientosController extends Controller
             $nombreCompletoArchivo = '';
             $archivoAdjuntoLength = $request->archivo_list != null ? count($request->archivo_list) : 0;
             $rutaDisco = config('filesystems.disks.' . $ruta)['root'];
-            $array = explode("\\", $rutaDisco);
-            $i = 0;
-            foreach ($array as $key => $string) {
-                if (strpos($string, 'fichas') === 0) {
-                    $i = $key;
-                }
-            }
-            $rutaFicha = '/' . $array[$i] . '/';
+            $iniciarRuta= strpos($rutaDisco, 'fichas');
+            $newRuta = substr($rutaDisco,$iniciarRuta);
+            $rutaFicha = '/' . $newRuta . '/';
 
             if ($archivoAdjuntoLength > 0) {
                 foreach (($request->archivo_list) as $key => $archivo) {

@@ -49,7 +49,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('total-nacimientos', [HomeController::class, 'totalNacimientos'])->name('totalNacimientos');
     Route::get('total-matrimonios', [HomeController::class, 'totalMatrimonios'])->name('totalMatrimonios');
     Route::get('total-defunciones', [HomeController::class, 'totalDefunciones'])->name('totalDefunciones');
-
+    
+    Route::get('comprobar-ruta-nacimientos/{idCondicionActa}', [ControlDeNacimientosController::class, 'comprobarRutaAdjuntos'])->name('comprobarRutaAdjuntos');
 
     Route::name('nacimientos.')->prefix('nacimientos')->group(function () {
         Route::get('index', [ListadoDeNacimientosController::class, 'index'])->name('index');

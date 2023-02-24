@@ -81,7 +81,7 @@ class ListadoNacimientoView {
                 {
                     render: function (data, type, row, meta) {
                         
-                        return meta.row + meta.settings._iDisplayStart + 1;;
+                        return meta.row + meta.settings._iDisplayStart + 1;
                     }, orderable: false, searchable: false, className: 'text-center'
                 },
                 { data: 'ano_eje',className: 'text-center' },

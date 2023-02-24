@@ -44,16 +44,19 @@ class ListadoFichasView {
             columns: [
                 {
                     render: function (data, type, row, index) {
-                        return index.row + 1;
+                        return index.row + index.settings._iDisplayStart + 1;
+
                     }, orderable: false, searchable: false, className: 'text-center'
                 },
-                { data: 'condicion.nombre', className: 'text-center' },
+                { data: 'condicion.nombre', className: 'text-center',defaultContent:'' },
                 { data: 'nombre_completo',className: 'text-left'  },
                 { data: 'nombre_sin_extension', className: 'text-left' },
                 { data: 'ruta', className: 'text-left' },
                 { data: 'nombre_extension', className: 'text-center' },
                 { data: 'nacimi_id', className: 'text-center' },
-                { data: 'created_at', className: 'text-center'  },
+                { data: 'created_at', className: 'text-center', render:function(data, type, row, index){
+                    return moment(row.created_at).format('DD-MM-YYYY');
+                }},
                 { data: 'deleted_at', className: 'text-center' },
                 { data: 'id', className: 'text-center',  render:function(data, type, row, index){
                     return `<a href="${row.ruta}" target="_blank">${row.nombre_completo}</a>`;
