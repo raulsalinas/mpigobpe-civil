@@ -145,8 +145,9 @@ class AdjuntoView {
         var ifrm = document.createElement("img");
         ifrm.setAttribute("src", ruta);
         ifrm.style.width = "800px";
-        ifrm.style.height = "600px";
+        ifrm.style.height = "auto";
         ifrm.style.border = "none";
+        ifrm.style.margin = "auto";
         document.querySelector("div[class='actaAdversoPNGJPG']").appendChild(ifrm);
         $('.actaAdversoPNGJPG').LoadingOverlay("hide", true);
 

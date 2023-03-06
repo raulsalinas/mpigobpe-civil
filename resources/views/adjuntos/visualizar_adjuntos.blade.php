@@ -54,7 +54,7 @@
 
 <div class="content ">
     <div class="row">
-        <div class="col-md-9 text-center">
+        <div class="col-md-12 text-center">
             <div class="actaAdversoTIF"></div>
             <div class="actaAdversoPDF"></div>
             <div class="actaAdversoPNGJPG"></div>
