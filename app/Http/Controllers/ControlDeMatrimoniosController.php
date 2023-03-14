@@ -206,7 +206,7 @@ class ControlDeMatrimoniosController extends Controller
                             $nuevoArchivo->nombre_sin_extension = $request->nombre_sin_extension_list[$key];
                             $nuevoArchivo->ruta = $rutaFicha . $request->nombre_completo_list[$key];
                             $nuevoArchivo->nombre_extension = $request->nombre_extension_list[$key];
-                            $nuevoArchivo->nacimi_id = $nuevoMatrimonio->id;
+                            $nuevoArchivo->matrim_id = $nuevoMatrimonio->id;
                             $nuevoArchivo->created_at = Carbon::now();
                             $nuevoArchivo->save();
                         }
@@ -333,7 +333,7 @@ class ControlDeMatrimoniosController extends Controller
                         $nuevoArchivo->nombre_sin_extension = $request->nombre_sin_extension_list[$key];
                         $nuevoArchivo->ruta = $rutaFicha . $request->nombre_completo_list[$key];
                         $nuevoArchivo->nombre_extension = $request->nombre_extension_list[$key];
-                        $nuevoArchivo->nacimi_id = $matrimonio->id;
+                        $nuevoArchivo->matrim_id = $matrimonio->id;
                         $nuevoArchivo->created_at = Carbon::now();
                         $nuevoArchivo->save();
                     }

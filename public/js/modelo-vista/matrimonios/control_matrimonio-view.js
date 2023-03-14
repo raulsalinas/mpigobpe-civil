@@ -172,7 +172,7 @@ class ControlMatrimonioView {
             let formData = new FormData($('#controlMatrimoniosForm')[0]);
             if (tempArchivoAdjuntoList.length > 0) {
                 tempArchivoAdjuntoList.forEach(element => {
-                    if (element.action == 'GUARDAR') {
+                    if (element.accion == 'GUARDAR') {
                         formData.append(`id_list[]`, element.id);
                         formData.append(`nombre_completo_list[]`, element.nombre_completo);
                         formData.append(`nombre_extension_list[]`, element.nombre_extension);
@@ -184,7 +184,7 @@ class ControlMatrimonioView {
                 });
             }
             const $route = route(document.querySelector("input[name='id']").value > 0 ? "matrimonios.control.actualizar" : "matrimonios.control.guardar");
-            console.log($route);
+            // console.log($route);
             this.model.registrarMatrimonio(formData, $route).then((respuesta) => {
                 Util.mensaje(respuesta.alerta, respuesta.mensaje);
                 if (respuesta.respuesta == "ok") {

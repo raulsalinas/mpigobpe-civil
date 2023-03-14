@@ -129,7 +129,7 @@ class ControlDeDefuncionesController extends Controller
                             $nuevoArchivo->nombre_sin_extension = $request->nombre_sin_extension_list[$key];
                             $nuevoArchivo->ruta = $rutaFicha . $request->nombre_completo_list[$key];
                             $nuevoArchivo->nombre_extension = $request->nombre_extension_list[$key];
-                            $nuevoArchivo->nacimi_id = $nuevaDefuncion->id;
+                            $nuevoArchivo->defun_id = $nuevaDefuncion->id;
                             $nuevoArchivo->created_at = Carbon::now();
                             $nuevoArchivo->save();
                         }
@@ -255,7 +255,7 @@ class ControlDeDefuncionesController extends Controller
                         $nuevoArchivo->nombre_sin_extension = $request->nombre_sin_extension_list[$key];
                         $nuevoArchivo->ruta = $rutaFicha . $request->nombre_completo_list[$key];
                         $nuevoArchivo->nombre_extension = $request->nombre_extension_list[$key];
-                        $nuevoArchivo->nacimi_id = $defuncion->id;
+                        $nuevoArchivo->defun_id = $defuncion->id;
                         $nuevoArchivo->created_at = Carbon::now();
                         $nuevoArchivo->save();
                     }

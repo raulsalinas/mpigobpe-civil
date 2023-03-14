@@ -161,7 +161,7 @@ class ControlDefuncionView {
             let formData = new FormData($('#controlDefuncionesForm')[0]);
             if (tempArchivoAdjuntoList.length > 0) {
                 tempArchivoAdjuntoList.forEach(element => {
-                    if (element.action == 'GUARDAR') {
+                    if (element.accion == 'GUARDAR') {
                         formData.append(`id_list[]`, element.id);
                         formData.append(`nombre_completo_list[]`, element.nombre_completo);
                         formData.append(`nombre_extension_list[]`, element.nombre_extension);
