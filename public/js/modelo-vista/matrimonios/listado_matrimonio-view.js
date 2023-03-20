@@ -127,6 +127,10 @@ class ListadoMatrimonioView {
 
         });
 
+        $('.busquedaEnTiempo').on('keyup', this.debounce(function () {
+            document.querySelector("button[id='btnFiltrar']").click();
+        }, 500));
+
         /**
          * filtrar - Filtrar de listado de matrimonio
          */
@@ -153,7 +157,7 @@ class ListadoMatrimonioView {
             });
 
             this.listar(ano_eje,nro_lib,nro_fol,ape_mar,nom_mar,ape_esp,nom_esp,fch_cel_desde,fch_cel_hasta,condic);   
-            $modal.modal("hide");
+            // $modal.modal("hide");
             let cantidadFiltrosActivos=0;
             if(ano_eje !=''){cantidadFiltrosActivos++;}
             if(nro_lib != ''){cantidadFiltrosActivos++;}
@@ -170,4 +174,19 @@ class ListadoMatrimonioView {
         });
 
     }
+
+    debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            var later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
 }

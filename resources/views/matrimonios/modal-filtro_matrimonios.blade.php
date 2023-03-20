@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                     <label>Apellidos (Marido):</label>
                                     <div class="input-group date"  data-target-input="nearest">
-                                        <input type="text" class="form-control form-control-sm" name="ape_mar">
+                                        <input type="text" class="form-control form-control-sm busquedaEnTiempo" name="ape_mar">
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                 <div class="form-group">
                                     <label>Nombres (Marido):</label>
                                     <div class="input-group date"  data-target-input="nearest">
-                                        <input type="text" class="form-control form-control-sm datetimepicker-input" name="nom_mar">
+                                        <input type="text" class="form-control form-control-sm datetimepicker-input busquedaEnTiempo" name="nom_mar">
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                                 <div class="form-group">
                                     <label>Apellidos (Esposa):</label>
                                     <div class="input-group date"  data-target-input="nearest">
-                                        <input type="text" class="form-control form-control-sm" name="ape_esp">
+                                        <input type="text" class="form-control form-control-sm busquedaEnTiempo" name="ape_esp">
                                     </div>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                                 <div class="form-group">
                                     <label>Nombres (Esposa):</label>
                                     <div class="input-group date"  data-target-input="nearest">
-                                        <input type="text" class="form-control form-control-sm datetimepicker-input" name="nom_esp">
+                                        <input type="text" class="form-control form-control-sm datetimepicker-input busquedaEnTiempo" name="nom_esp">
                                     </div>
                                 </div>
                             </div>

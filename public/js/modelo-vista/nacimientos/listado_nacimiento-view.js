@@ -138,6 +138,10 @@ class ListadoNacimientoView {
 
         });
 
+        $('.busquedaEnTiempo').on('keyup', this.debounce(function () {
+            document.querySelector("button[id='btnFiltrar']").click();
+        }, 500));
+
         /**
          * Editar - Cargar información por ID y llenar en el formulario
          */
@@ -193,7 +197,7 @@ class ListadoNacimientoView {
             });
 
             this.listar( ano_eje ,nro_lib ,nro_fol ,ano_nac ,nom_nac ,ape_pat_nac ,ape_mat_nac ,nom_pad ,ape_pad ,nom_mad ,ape_mad ,fch_nac_desde ,fch_nac_hasta ,condic);   
-            $modal.modal("hide");
+            // $modal.modal("hide");
             let cantidadFiltrosActivos=0;
             if(ano_eje !=''){cantidadFiltrosActivos++;}
             if(nro_lib != ''){cantidadFiltrosActivos++;}
@@ -231,4 +235,24 @@ class ListadoNacimientoView {
         // });
 
     }
+
+
+    // Returns a function, that, as long as it continues to be invoked, will not
+    // be triggered. The function will be called after it stops being called for
+    // N milliseconds. If `immediate` is passed, trigger the function on the
+    // leading edge, instead of the trailing.
+    debounce(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            var later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    };
 }

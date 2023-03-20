@@ -69,7 +69,7 @@
                                                     <div class="form-group">
                                                         <label>Nombres:</label>
                                                         <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm datetimepicker-input" name="nom_nac">
+                                                            <input type="text" class="form-control form-control-sm datetimepicker-input busquedaEnTiempo" name="nom_nac">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -77,7 +77,7 @@
                                                     <div class="form-group">
                                                         <label>Apellido Paterno:</label>
                                                         <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm" name="ape_pat_nac">
+                                                            <input type="text" class="form-control form-control-sm busquedaEnTiempo" name="ape_pat_nac">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -85,7 +85,7 @@
                                                     <div class="form-group">
                                                         <label>Apellido Materno:</label>
                                                         <div class="input-group date" data-target-input="nearest">
-                                                            <input type="text" class="form-control form-control-sm" name="ape_mat_nac">
+                                                            <input type="text" class="form-control form-control-sm busquedaEnTiempo" name="ape_mat_nac">
                                                         </div>
                                                     </div>
                                                 </div>
