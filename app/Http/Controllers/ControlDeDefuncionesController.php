@@ -330,47 +330,47 @@ class ControlDeDefuncionesController extends Controller
         return view('adjuntos.visualizar_adjuntos', get_defined_vars());
     }
 
-    public function archivarAdjunto(Request $request)
-    {
-        try {
-            $respuesta = '';
-            $alerta = '';
-            $mensaje = '';
-            $error = '';
+    // public function archivarAdjunto(Request $request)
+    // {
+    //     try {
+    //         $respuesta = '';
+    //         $alerta = '';
+    //         $mensaje = '';
+    //         $error = '';
 
-            // $idRegistro =  $request->idregistro;
-            $nombreArchivo =  $request->nombreArchivo;
-            $data = Matrimonio::find($request->idRegistro);
-            $carpetaPadre = $this->getCarpetaPadreCondicion($data->condic);
-            $ruta = 'fichas-' . $carpetaPadre . '-defun';
-            $pathSource = Storage::disk($ruta)->getDriver()->getAdapter()->applyPathPrefix($nombreArchivo);
-            $destinationPath = Storage::disk($ruta)->getDriver()->getAdapter()->applyPathPrefix('archivado/' . $nombreArchivo);
+    //         // $idRegistro =  $request->idregistro;
+    //         $nombreArchivo =  $request->nombreArchivo;
+    //         $data = Matrimonio::find($request->idRegistro);
+    //         $carpetaPadre = $this->getCarpetaPadreCondicion($data->condic);
+    //         $ruta = 'fichas-' . $carpetaPadre . '-defun';
+    //         $pathSource = Storage::disk($ruta)->getDriver()->getAdapter()->applyPathPrefix($nombreArchivo);
+    //         $destinationPath = Storage::disk($ruta)->getDriver()->getAdapter()->applyPathPrefix('archivado/' . $nombreArchivo);
 
-            // // make destination folder
-            if (!File::exists(dirname($destinationPath))) {
-                File::makeDirectory(dirname($destinationPath), null, true);
-            }
+    //         // // make destination folder
+    //         if (!File::exists(dirname($destinationPath))) {
+    //             File::makeDirectory(dirname($destinationPath), null, true);
+    //         }
 
-            File::move($pathSource, $destinationPath);
+    //         File::move($pathSource, $destinationPath);
 
-            $existeArchivo = intval(Storage::disk($ruta)->exists('archivado/' . $nombreArchivo));
+    //         $existeArchivo = intval(Storage::disk($ruta)->exists('archivado/' . $nombreArchivo));
 
-            if ($existeArchivo == true) {
-                $respuesta = 'ok';
-                $alerta = 'success';
-                $mensaje = 'El archivo adjunto fue archivado';
-            } else {
+    //         if ($existeArchivo == true) {
+    //             $respuesta = 'ok';
+    //             $alerta = 'success';
+    //             $mensaje = 'El archivo adjunto fue archivado';
+    //         } else {
 
-                $alerta = 'warning';
-                $mensaje = 'success';
-                $mensaje = 'Hubo un problema al intentar archivar el archivo';
-            }
-        } catch (Exception $ex) {
-            $respuesta = 'error';
-            $alerta = 'error';
-            $mensaje = 'Hubo un problema al intentar archivar el archivo. Por favor intente de nuevo';
-            $error = $ex;
-        }
-        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
-    }
+    //             $alerta = 'warning';
+    //             $mensaje = 'success';
+    //             $mensaje = 'Hubo un problema al intentar archivar el archivo';
+    //         }
+    //     } catch (Exception $ex) {
+    //         $respuesta = 'error';
+    //         $alerta = 'error';
+    //         $mensaje = 'Hubo un problema al intentar archivar el archivo. Por favor intente de nuevo';
+    //         $error = $ex;
+    //     }
+    //     return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    // }
 }
