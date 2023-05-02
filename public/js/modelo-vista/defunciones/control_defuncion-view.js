@@ -263,6 +263,61 @@ class ControlDefuncionView {
 
         });
         /**
+         * modificar - Modificar registro
+         */
+        $("#botoneraPrincipal").on("click", "a.eliminar", (e) => {
+
+            if (document.querySelector("input[name='id']").value > 0) {
+                document.querySelector("span[id='descripcion-de-accion-formulario']").textContent = "Eliminar Registro";
+
+                let observacion = '';
+                Swal.fire({
+                    title: 'Ingrese un sustento',
+                    input: 'textarea',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    showCancelButton: true,
+                    confirmButtonText: 'Guardar',
+
+                    allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        observacion = result.value;
+
+                        const $data = {
+                            'id': document.querySelector("form[id='controlDefuncionesForm'] input[name='id']").value,
+                            'observa': observacion
+                        };
+                        const $route = route("defunciones.control.eliminar");
+                        // console.log($data);
+                        this.model.observarDefuncion($data, $route).then((respuesta) => {
+                            Util.mensaje(respuesta.alerta, respuesta.mensaje);
+                            if (respuesta.respuesta == "ok") {
+                                let url = `/defunciones/control/index/?id_tipo=${this.condicionActa}`;
+                                var win = window.open(url, "_self");
+                                win.focus();
+                            }
+                        }).fail(() => {
+                            Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
+                        }).always(() => {
+
+                        });
+
+                    } else {
+                        console.log('cancel');
+                    }
+                });
+            } else {
+                Util.mensaje("warning", "No seleccionó ningun registro que pueda ser eliminado");
+            }
+
+        });
+
+        
+        /**
          * cancelar - Cancelar acción de accion nuevo, editar 
          */
         $("#botoneraPrincipal").on("click", "a.cancelar", (e) => {
@@ -382,6 +437,48 @@ class ControlDefuncionView {
             abrirPestañaVisualizarAdjunto(3,idRegistro, 0);
         });
 
+        $('#controlDefuncionesForm').on("click", "button.agregarLugar", (e) => {
+            e.preventDefault();
+            $("#modal-agregar_lugar").find(".modal-title").text("Nuevo Lugar");
+            $('#formulario-agregar_lugar')[0].reset();
+            $("#modal-agregar_lugar").modal("show");
+
+
+        });
+
+        $('#modal-agregar_lugar').on("click", "button.guardar", (e) => {
+            const $form = new FormData($('#formulario-agregar_lugar')[0]);
+            const $route = route("configuracion.guardar-lugares");
+            this.model.registrarMaestroLugares($form, $route).then((respuesta) => {
+                console.log(respuesta);
+                Util.mensaje(respuesta.alerta, respuesta.mensaje);
+                if (respuesta.respuesta == "ok") {
+                    if(respuesta.data.codigo != '' && respuesta.data.nombre != ''){
+                        this.agregarNuevoLugarASelect(respuesta.data);
+                    }
+
+                    document.querySelector("form[id='formulario-agregar_lugar'] input[name='id']").value="";
+                    $('#modal-agregar_lugar').modal('hide');
+
+                }
+            }).fail(() => {
+                Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
+            }).always(() => {
+
+            });
+
+        });
+
+
+    }
+
+    agregarNuevoLugarASelect(data){
+        // console.log(data);
+        const sel = document.querySelector("select[name='lugar']");
+        const opt = document.createElement("option");
+        opt.value = data.codigo;
+        opt.text = data.nombre;
+        sel.add(opt, null);
     }
 
     updateSubtituloCondicionActa(idCondicion) {

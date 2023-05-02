@@ -65,6 +65,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('guardar-cobro', [ControlDeNacimientosController::class, 'guardarCobro'])->name('guardar-cobro');
             Route::post('actualizar', [ControlDeNacimientosController::class, 'actualizar'])->name('actualizar');
             Route::post('observar', [ControlDeNacimientosController::class, 'observar'])->name('observar');
+            Route::post('recuperar', [ControlDeNacimientosController::class, 'recuperar'])->name('recuperar');
+            Route::post('eliminar', [ControlDeNacimientosController::class, 'eliminar'])->name('eliminar');
             Route::get('visualizar-adjunto', [ControlDeNacimientosController::class, 'visualizarAdjuntoNacimiento'])->name('visualizarAdjuntoNacimiento');
             Route::get('obtener-adjuntos/{idRegistro}', [ControlDeNacimientosController::class, 'obtenerAdjuntos'])->name('obtenerAdjuntos');
             Route::get('obtener-adjuntos-lista/{idRegistro}', [ControlDeNacimientosController::class, 'obtenerAdjuntosLista'])->name('obtenerAdjuntosLista');
@@ -87,6 +89,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('guardar', [ControlDeMatrimoniosController::class, 'guardar'])->name('guardar');
             Route::post('actualizar', [ControlDeMatrimoniosController::class, 'actualizar'])->name('actualizar');
             Route::post('observar', [ControlDeMatrimoniosController::class, 'observar'])->name('observar');
+            Route::post('recuperar', [ControlDeMatrimoniosController::class, 'recuperar'])->name('recuperar');
+            Route::post('eliminar', [ControlDeMatrimoniosController::class, 'eliminar'])->name('eliminar');
             Route::get('visualizar-adjunto', [ControlDeMatrimoniosController::class, 'visualizarAdjuntoMatrimonio'])->name('visualizarAdjuntoMatrimonio');
             Route::get('obtener-adjuntos/{idRegistro}', [ControlDeMatrimoniosController::class, 'obtenerAdjuntos'])->name('obtenerAdjuntos');
             Route::get('obtener-adjuntos-lista/{idRegistro}', [ControlDeMatrimoniosController::class, 'obtenerAdjuntosLista'])->name('obtenerAdjuntosLista');
@@ -113,6 +117,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('guardar', [ControlDeDefuncionesController::class, 'guardar'])->name('guardar');
             Route::post('actualizar', [ControlDeDefuncionesController::class, 'actualizar'])->name('actualizar');
             Route::post('observar', [ControlDeDefuncionesController::class, 'observar'])->name('observar');
+            Route::post('recuperar', [ControlDeDefuncionesController::class, 'recuperar'])->name('recuperar');
+            Route::post('eliminar', [ControlDeDefuncionesController::class, 'eliminar'])->name('eliminar');
             Route::get('visualizar-adjunto', [ControlDeDefuncionesController::class, 'visualizarAdjuntoDefuncion'])->name('visualizarAdjuntoDefuncion');
             Route::get('obtener-adjuntos/{idRegistro}', [ControlDeDefuncionesController::class, 'obtenerAdjuntos'])->name('obtenerAdjuntos');
             Route::get('obtener-adjuntos-lista/{idRegistro}', [ControlDeDefuncionesController::class, 'obtenerAdjuntosLista'])->name('obtenerAdjuntosLista');
@@ -178,20 +184,26 @@ Route::middleware(['auth'])->group(function () {
         Route::post('guardar-motivo-defuncion', [ConfiguracionController::class, 'guardarMotivoDefuncion'])->name('guardar-motivo-defuncion');
         Route::post('actualizar-motivo-defuncion', [ConfiguracionController::class, 'actualizarMotivoDefuncion'])->name('actualizar-motivo-defuncion');
 
-        Route::get('indexar-fichas-nacimiento-ordinarias', [ConfiguracionController::class, 'indexarFichasNacimientoOrdinarias'])->name('indexar-fichas-nacimiento-ordinarias');
-        Route::get('indexar-fichas-nacimiento-extraordinarias', [ConfiguracionController::class, 'indexarFichasNacimientoExtraordinarias'])->name('indexar-fichas-nacimiento-extraordinarias');
+        Route::post('listar-lugares', [ConfiguracionController::class, 'listarLugares'])->name('listar-lugares');
+        Route::get('visualizar-lugares/{id}', [ConfiguracionController::class, 'visualizarLugares'])->name('visualizar-lugares');
+        Route::post('guardar-lugares', [ConfiguracionController::class, 'guardarLugares'])->name('guardar-lugares');
+        Route::post('actualizar-lugares', [ConfiguracionController::class, 'actualizarLugares'])->name('actualizar-lugares');
 
-        Route::get('indexar-fichas-matrimonio-ordinarias', [ConfiguracionController::class, 'indexarFichasMatrimonioOrdinarias'])->name('indexar-fichas-matrimonio-ordinarias');
-        Route::get('indexar-fichas-matrimonio-extraordinarias', [ConfiguracionController::class, 'indexarFichasMatrimonioExtraordinarias'])->name('indexar-fichas-matrimonio-extraordinarias');
 
-        Route::get('indexar-fichas-defuncion-ordinarias', [ConfiguracionController::class, 'indexarFichasDefuncionOrdinarias'])->name('indexar-fichas-defuncion-ordinarias');
-        Route::get('indexar-fichas-defuncion-extraordinarias', [ConfiguracionController::class, 'indexarFichasDefuncionExtraordinarias'])->name('indexar-fichas-defuncion-extraordinarias');
+        // Route::get('indexar-fichas-nacimiento-ordinarias', [ConfiguracionController::class, 'indexarFichasNacimientoOrdinarias'])->name('indexar-fichas-nacimiento-ordinarias');
+        // Route::get('indexar-fichas-nacimiento-extraordinarias', [ConfiguracionController::class, 'indexarFichasNacimientoExtraordinarias'])->name('indexar-fichas-nacimiento-extraordinarias');
 
-        Route::get('registrar-fichas-nacimiento-ordinarias', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinarias'])->name('registrar-fichas-nacimiento-ordinarias');
-        Route::get('registrar-fichas-nacimiento-ordinariasA', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinariasA'])->name('registrar-fichas-nacimiento-ordinariasA');
-        Route::get('registrar-fichas-nacimiento-ordinariBas', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinariaBs'])->name('registrar-fichas-nacimiento-ordinariasB');
-        Route::get('registrar-fichas-nacimiento-ordinaCrias', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinariCas'])->name('registrar-fichas-nacimiento-ordinariasC');
-        Route::get('registrar-fichas-nacimiento-ordiDnarias', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinarDias'])->name('registrar-fichas-nacimiento-ordinariasD');
+        // Route::get('indexar-fichas-matrimonio-ordinarias', [ConfiguracionController::class, 'indexarFichasMatrimonioOrdinarias'])->name('indexar-fichas-matrimonio-ordinarias');
+        // Route::get('indexar-fichas-matrimonio-extraordinarias', [ConfiguracionController::class, 'indexarFichasMatrimonioExtraordinarias'])->name('indexar-fichas-matrimonio-extraordinarias');
+
+        // Route::get('indexar-fichas-defuncion-ordinarias', [ConfiguracionController::class, 'indexarFichasDefuncionOrdinarias'])->name('indexar-fichas-defuncion-ordinarias');
+        // Route::get('indexar-fichas-defuncion-extraordinarias', [ConfiguracionController::class, 'indexarFichasDefuncionExtraordinarias'])->name('indexar-fichas-defuncion-extraordinarias');
+
+        // Route::get('registrar-fichas-nacimiento-ordinarias', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinarias'])->name('registrar-fichas-nacimiento-ordinarias');
+        // Route::get('registrar-fichas-nacimiento-ordinariasA', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinariasA'])->name('registrar-fichas-nacimiento-ordinariasA');
+        // Route::get('registrar-fichas-nacimiento-ordinariBas', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinariaBs'])->name('registrar-fichas-nacimiento-ordinariasB');
+        // Route::get('registrar-fichas-nacimiento-ordinaCrias', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinariCas'])->name('registrar-fichas-nacimiento-ordinariasC');
+        // Route::get('registrar-fichas-nacimiento-ordiDnarias', [ConfiguracionController::class, 'registrarFichasNacimientoOrdinarDias'])->name('registrar-fichas-nacimiento-ordinariasD');
         
 
 

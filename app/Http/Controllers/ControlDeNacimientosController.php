@@ -362,6 +362,54 @@ class ControlDeNacimientosController extends Controller
         }
         return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
     }
+    public function recuperar(Request $request)
+    {
+        try {
+
+            $nacimiento = Nacimiento::withTrashed()->find($request->id);
+            $nacimiento->deleted_at =null;
+            $nacimiento->save();
+            $respuesta = 'ok';
+            $alerta = 'success';
+            if ($request->id > 0) {
+                $mensaje = 'Se ha recuperado el registro';
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo recuperar del registro';
+            }
+            $error = '';
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = 'error';
+            $mensaje = 'Hubo un problema al recuperar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
+
+    public function eliminar(Request $request)
+    {
+        try {
+
+            $nacimiento = Nacimiento::find($request->id);
+            $nacimiento->observa = $request->observa;
+            $nacimiento->save();
+            $nacimiento->delete();
+            $respuesta = 'ok';
+            $alerta = 'success';
+            if ($request->id > 0) {
+                $mensaje = 'Se ha eliminado el registro';
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo eliminar el registro';
+            }
+            $error = '';
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = 'error';
+            $mensaje = 'Hubo un problema al eliminar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
 
     public function controlAsistencialList()
     {

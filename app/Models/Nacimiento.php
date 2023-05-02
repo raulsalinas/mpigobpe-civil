@@ -13,7 +13,7 @@ class Nacimiento extends Model
     protected $table = 'public.nacimi';
     protected $primaryKey = 'id';
     // public $incrementing = false;
-    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
+    protected $hidden = ['created_at', 'updated_at'];
 
     public function condicion()
     {

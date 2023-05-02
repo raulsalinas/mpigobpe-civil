@@ -123,6 +123,23 @@ class ListadoDefuncionView {
 
         });
 
+        $("#tablaDefuncion").on("click", "button.recuperar", (e) => {
+
+            const $route = route("defunciones.control.recuperar");
+            this.model.recuperarDefuncion({'id':$(e.currentTarget).data('id')}, $route).then((respuesta) => {
+                Util.mensaje(respuesta.alerta, respuesta.mensaje);
+                if (respuesta.respuesta == "ok") {
+                    this.listar(null);
+                }
+            }).fail(() => {
+                Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
+            }).always(() => {
+
+            });
+
+
+        });
+
         $('.busquedaEnTiempo').on('keyup', this.debounce(function () {
             document.querySelector("button[id='btnFiltrar']").click();
         }, 500));

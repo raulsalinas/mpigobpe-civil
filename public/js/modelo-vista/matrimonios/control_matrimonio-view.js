@@ -274,6 +274,59 @@ class ControlMatrimonioView {
 
         });
         /**
+         * modificar - Modificar registro
+         */
+        $("#botoneraPrincipal").on("click", "a.eliminar", (e) => {
+
+            if (document.querySelector("input[name='id']").value > 0) {
+                document.querySelector("span[id='descripcion-de-accion-formulario']").textContent = "Eliminar Registro";
+
+                let observacion = '';
+                Swal.fire({
+                    title: 'Ingrese un sustento',
+                    input: 'textarea',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    showCancelButton: true,
+                    confirmButtonText: 'Guardar',
+
+                    allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        observacion = result.value;
+
+                        const $data = {
+                            'id': document.querySelector("form[id='controlMatrimoniosForm'] input[name='id']").value,
+                            'observa': observacion
+                        };
+                        const $route = route("matrimonios.control.eliminar");
+                        // console.log($data);
+                        this.model.observarMatrimonio($data, $route).then((respuesta) => {
+                            Util.mensaje(respuesta.alerta, respuesta.mensaje);
+                            if (respuesta.respuesta == "ok") {
+                                let url = `/matrimonios/control/index/?id_tipo=${this.condicionActa}`;
+                                var win = window.open(url, "_self");
+                                win.focus();
+                            }
+                        }).fail(() => {
+                            Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
+                        }).always(() => {
+
+                        });
+
+                    } else {
+                        console.log('cancel');
+                    }
+                });
+            }else{
+                Util.mensaje("warning", "No seleccionó ningun registro que pueda ser eliminado");
+            }
+
+        });
+        /**
          * cancelar - Cancelar acción de accion nuevo, editar 
          */
         $("#botoneraPrincipal").on("click", "a.cancelar", (e) => {

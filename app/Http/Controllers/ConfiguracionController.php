@@ -7,6 +7,7 @@ use App\Models\Defuncion;
 use App\Models\FichasDefuncion;
 use App\Models\FichasMatrimonio;
 use App\Models\FichasNacimiento;
+use App\Models\Lugar;
 use App\Models\MotivoDefuncion;
 use App\Models\Nacimiento;
 use App\Models\TipoRegistro;
@@ -293,9 +294,21 @@ class ConfiguracionController extends Controller
             $mensaje = "";
             $respuesta = "";
 
-            if (strlen($request->codigo) > 0 || strlen($request->nombre) > 0) {
+
+            $codigo='';
+            if (strlen($request->codigo) > 0) {
+                $codigo=$request->codigo;
+                
+            }else{
+                $ultimoLugar= CentroAsistencial::withTrashed()->orderBy('codigo','desc')->first();
+                $codigo=intval($ultimoLugar->codigo)+1;
+
+            }
+
+
+            if (strlen($request->nombre) > 0) {
                 $centroAsistencial = new CentroAsistencial();
-                $centroAsistencial->codigo = $request->codigo;
+                $centroAsistencial->codigo = $codigo;
                 $centroAsistencial->nombre = strtoupper($request->nombre ?? '');
                 $centroAsistencial->direccion = strtoupper($request->direccion ?? '');
                 $centroAsistencial->save();
@@ -309,11 +322,11 @@ class ConfiguracionController extends Controller
             }
         } catch (Exception $ex) {
             $respuesta = 'error';
-            $alerta = strlen($request->codigo);
+            $alerta = strlen($codigo);
             $mensaje = 'Hubo un problema al registrar. Por favor intente de nuevo';
             $error = $ex;
         }
-        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje,'data'=>['codigo'=>$codigo,"nombre"=>$request->nombre], 'error' => $error), 200);
     }
 
     public function actualizarCentroAsistencial(Request $request)
@@ -518,6 +531,109 @@ class ConfiguracionController extends Controller
                         $motivoDefuncion->deleted_at = new Carbon();
                     }
                     $motivoDefuncion->save();
+
+                    $respuesta = 'ok';
+                    $alerta = 'success';
+                    $mensaje = 'Se ha actualizado el registro';
+                }
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo actualizar el registro';
+            }
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = 'error';
+            $mensaje = 'Hubo un problema al registrar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
+
+    
+    public function listarLugares(Request $request)
+    {
+        $data = Lugar::withTrashed()
+            ->when((($request->nombre_filtro) != null && ($request->nombre_filtro) != ''), function ($query)  use ($request) {
+                return $query->whereRaw("lugar.nombre = '" . $request->nombre_filtro . "'");
+            });
+
+        return DataTables::of($data)
+            ->addColumn('accion', function ($data) {
+                return
+                    '<div class="btn-group" role="group">
+                <button type="button" class="btn btn-xs btn-warning editar" data-id="' . $data->id . '" title="Editar" ><span class="fas fa-edit"></span></button>
+            </div>';
+            })
+            ->rawColumns(['accion'])->make(true);
+    }
+
+    public function visualizarLugares($id)
+    {
+        $data = Lugar::withTrashed()->find($id);
+        return $data;
+    }
+
+    public function guardarLugares(Request $request)
+    {
+        try {
+            $error = "";
+            $alerta = "";
+            $mensaje = "";
+            $respuesta = "";
+
+            $codigo='';
+            if (strlen($request->codigo) > 0) {
+                $codigo=$request->codigo;
+                
+            }else{
+                $ultimoLugar= Lugar::withTrashed()->orderBy('codigo','desc')->first();
+                $codigo=intval($ultimoLugar->codigo)+1;
+
+            }
+
+            if(strlen($request->nombre) > 0){
+                $lugar = new Lugar();
+                $lugar->codigo = $codigo;
+                $lugar->nombre = strtoupper($request->nombre ?? '');
+                $lugar->save();
+
+                $respuesta = 'ok';
+                $alerta = 'success';
+                $mensaje = 'Se ha guardado un nuevo registro';
+            }else {
+                $mensaje = 'Hubo un problema, no se pudo guardar el registro, debe llenar los campos';
+                $alerta = 'warning';
+                $respuesta = 'warning';
+
+            }
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = strlen($codigo);
+            $mensaje = 'Hubo un problema al registrar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje,'data'=>['codigo'=>$codigo,"nombre"=>$request->nombre], 'error' => $error), 200);
+    }
+
+    public function actualizarLugares(Request $request)
+    {
+        try {
+            $error = "";
+            $alerta = "";
+            $mensaje = "";
+            $respuesta = "";
+
+            if ($request->id > 0) {
+                $lugar = Lugar::withTrashed()->find($request->id);
+
+                if ($lugar->id > 0) {
+                    $lugar->codigo = $request->codigo;
+                    $lugar->nombre = strtoupper($request->nombre ?? '');
+                    if ($request->estado == 'ACTIVO') {
+                        $lugar->deleted_at = null;
+                    } else if ($request->estado == 'INACTIVO') {
+                        $lugar->deleted_at = new Carbon();
+                    }
+                    $lugar->save();
 
                     $respuesta = 'ok';
                     $alerta = 'success';

@@ -311,6 +311,55 @@ class ControlDeDefuncionesController extends Controller
         return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
     }
 
+    public function recuperar(Request $request)
+    {
+        try {
+
+            $defuncion = Defuncion::withTrashed()->find($request->id);
+            $defuncion->deleted_at =null;
+            $defuncion->save();
+            $respuesta = 'ok';
+            $alerta = 'success';
+            if ($request->id > 0) {
+                $mensaje = 'Se ha recuperado el registro';
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo recuperar el registro';
+            }
+            $error = '';
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = 'error';
+            $mensaje = 'Hubo un problema al recuperar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
+
+    public function eliminar(Request $request)
+    {
+        try {
+
+            $defuncion = Defuncion::find($request->id);
+            $defuncion->observa = $request->observa;
+            $defuncion->save();
+            $defuncion->delete();
+            $respuesta = 'ok';
+            $alerta = 'success';
+            if ($request->id > 0) {
+                $mensaje = 'Se ha eliminado el registro';
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo eliminar el registro';
+            }
+            $error = '';
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = 'error';
+            $mensaje = 'Hubo un problema al eliminar el registro. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
+
     public function lugarList()
     {
         $data = Lugar::where('codigo', '!=', null)->get();

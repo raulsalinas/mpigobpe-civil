@@ -282,6 +282,57 @@ class ControlNacimientoView {
             }
 
         });
+
+        $("#botoneraPrincipal").on("click", "a.eliminar", (e) => {
+
+            if (document.querySelector("input[name='id']").value > 0) {
+                document.querySelector("span[id='descripcion-de-accion-formulario']").textContent = "Eliminar Registro";
+
+                let observacion = '';
+                Swal.fire({
+                    title: 'Ingrese un sustento',
+                    input: 'textarea',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    showCancelButton: true,
+                    confirmButtonText: 'Guardar',
+
+                    allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        observacion = result.value;
+
+                        const $data = {
+                            'id': document.querySelector("form[id='controlNacimientoForm'] input[name='id']").value,
+                            'observa': observacion
+                        };
+                        const $route = route("nacimientos.control.eliminar");
+                        // console.log($data);
+                        this.model.observarNacimiento($data, $route).then((respuesta) => {
+                            Util.mensaje(respuesta.alerta, respuesta.mensaje);
+                            if (respuesta.respuesta == "ok") {
+                                let url = `/nacimientos/control/index?id_tipo=${this.condicionActa}`;
+                                var win = window.open(url, "_self");
+                                win.focus();
+                            }
+                        }).fail(() => {
+                            Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
+                        }).always(() => {
+
+                        });
+
+                    } else {
+                        console.log('cancel');
+                    }
+                });
+            } else {
+                Util.mensaje("warning", "No seleccionó ningun registro que pueda ser eliminado");
+            }
+
+        });
     
 
         $("#botoneraPrincipal").on("click", "a.cancelar", (e) => {
@@ -398,6 +449,47 @@ class ControlNacimientoView {
 
             abrirPestañaVisualizarAdjunto(1,idRegistro, 0);
         });
+
+        $('#controlNacimientoForm').on("click", "button.agregarCentro", (e) => {
+            e.preventDefault();
+            $("#modal-agregar_centro").find(".modal-title").text("Nuevo Centro");
+            $('#formulario-agregar_centro')[0].reset();
+            $("#modal-agregar_centro").modal("show");
+        });
+
+        $('#modal-agregar_centro').on("click", "button.guardar", (e) => {
+            const $form = new FormData($('#formulario-agregar_centro')[0]);
+            const $route = route("configuracion.guardar-centro-asistencial");
+            this.model.registrarMaestroCentroAsistencial($form, $route).then((respuesta) => {
+                console.log(respuesta);
+                Util.mensaje(respuesta.alerta, respuesta.mensaje);
+                if (respuesta.respuesta == "ok") {
+                    if(respuesta.data.codigo != '' && respuesta.data.nombre != ''){
+                        this.agregarNuevoCentroASelect(respuesta.data);
+                    }
+
+                    document.querySelector("form[id='formulario-agregar_centro'] input[name='id']").value="";
+                    $('#modal-agregar_centro').modal('hide');
+
+                }
+            }).fail(() => {
+                Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
+            }).always(() => {
+            });
+        });
+
+        
+
+
+    }
+
+    agregarNuevoCentroASelect(data){
+        // console.log(data);
+        const sel = document.querySelector("select[name='cen_asi']");
+        const opt = document.createElement("option");
+        opt.value = data.codigo;
+        opt.text = data.nombre;
+        sel.add(opt, null);
     }
 
     // listarNacimientos = (anio_filtro = null, libro_filtro = null, folio_filtro = null, apellido_paterno_filtro = null, apellido_materno_filtro = null, nombres_filtro = null, fecha_desde_filtro = null, fecha_hasta_filtro = null) => {

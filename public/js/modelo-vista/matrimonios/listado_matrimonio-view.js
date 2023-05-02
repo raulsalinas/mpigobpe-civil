@@ -127,6 +127,23 @@ class ListadoMatrimonioView {
 
         });
 
+        $("#tablaMatrimonio").on("click", "button.recuperar", (e) => {
+
+            const $route = route("matrimonios.control.recuperar");
+            this.model.recuperarMatrimonio({'id':$(e.currentTarget).data('id')}, $route).then((respuesta) => {
+                Util.mensaje(respuesta.alerta, respuesta.mensaje);
+                if (respuesta.respuesta == "ok") {
+                    this.listar(null);
+                }
+            }).fail(() => {
+                Util.mensaje("error", "Hubo un problema. Por favor vuelva a intentarlo");
+            }).always(() => {
+
+            });
+
+
+        });
+
         $('.busquedaEnTiempo').on('keyup', this.debounce(function () {
             document.querySelector("button[id='btnFiltrar']").click();
         }, 500));

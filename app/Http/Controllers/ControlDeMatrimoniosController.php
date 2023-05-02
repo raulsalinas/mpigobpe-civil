@@ -393,6 +393,55 @@ class ControlDeMatrimoniosController extends Controller
         return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
     }
 
+    public function recuperar(Request $request)
+    {
+        try {
+
+            $matrimonio = Matrimonio::withTrashed()->find($request->id);
+            $matrimonio->deleted_at = null;
+            $matrimonio->save();
+            $respuesta = 'ok';
+            $alerta = 'success';
+            if ($request->id > 0) {
+                $mensaje = 'Se ha recuperado el registro';
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo recuperar el registro';
+            }
+            $error = '';
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = 'error';
+            $mensaje = 'Hubo un problema al recuperar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
+    
+    public function eliminar(Request $request)
+    {
+        try {
+
+            $matrimonio = Matrimonio::find($request->id);
+            $matrimonio->observa = $request->observa;
+            $matrimonio->save();
+            $matrimonio->delete();
+            $respuesta = 'ok';
+            $alerta = 'success';
+            if ($request->id > 0) {
+                $mensaje = 'Se ha eliminado el registro';
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo eliminar el registro';
+            }
+            $error = '';
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = 'error';
+            $mensaje = 'Hubo un problema al eliminar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
+
     public function visualizarAdjuntoMatrimonio(Request $request)
     {
         $idRegistro =  $request->query('idregistro');

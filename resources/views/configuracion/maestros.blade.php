@@ -52,6 +52,9 @@
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="motivo_defuncion-tab" data-toggle="tab" data-target="#motivo_defuncion" type="button" role="tab" aria-controls="motivo_defuncion" aria-selected="false">Motivos de Defunción</button>
                                     </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="lugares-tab" data-toggle="tab" data-target="#lugares" type="button" role="tab" aria-controls="lugares" aria-selected="false">Lugares</button>
+                                    </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="ubigeo" role="tabpanel" aria-labelledby="ubigeo-tab">
@@ -159,6 +162,32 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="tab-pane fade" id="lugares" role="tabpanel" aria-labelledby="lugares-tab">
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-condensed" id="tablaLugares">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th width="5%">Codigo</th>
+                                                                        <th width="40%">Nombre</th>
+                                                                        <th width="10%">Fecha creación</th>
+                                                                        <th width="10%">Fecha actualización</th>
+                                                                        <th width="10%">Fecha anulación</th>
+                                                                        <th width="5%">Acción</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody></tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -173,6 +202,7 @@
 @include('configuracion.modal-centro_asistencial')
 @include('configuracion.modal-tipo_registro')
 @include('configuracion.modal-motivo_defuncion')
+@include('configuracion.modal-lugares')
 
 
 @endsection
@@ -193,6 +223,8 @@
 <script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_tipo_registro-model.js?v=2') }}"></script>
 <script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_motivo_defuncion-view.js?v=2') }}"></script>
 <script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_motivo_defuncion-model.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_lugares-view.js?v=2') }}"></script>
+<script src="{{ asset('js/modelo-vista/configuraciones/gestionar_maestro_lugares-model.js?v=2') }}"></script>
 
 <script>
     $(document).ready(function() {
@@ -223,7 +255,10 @@
         gestionarMaestroMotivoDefuncionView.listarMotivoDefuncion();
         gestionarMaestroMotivoDefuncionView.eventos();
 
-   
+        const gestionarMaestroLugaresView = new GestionarMaestroLugaresView(new GestionarMaestroLugaresModel(csrf_token));
+        gestionarMaestroLugaresView.listarLugares();
+        gestionarMaestroLugaresView.eventos();
+
     });
 
     $(document).on("click","li.nav-item", function (e) {

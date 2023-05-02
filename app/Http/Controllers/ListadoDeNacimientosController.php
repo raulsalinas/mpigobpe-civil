@@ -22,7 +22,7 @@ class ListadoDeNacimientosController extends Controller
     public function listar(Request $request)
     {
 
-        $data = Nacimiento::select('nacimi.*', 
+        $data = Nacimiento::withTrashed()->select('nacimi.*', 
         'ubigeo.nombre as ubigeo_desc',
         'condic.nombre as condicion_desc'
         )
@@ -62,23 +62,49 @@ class ListadoDeNacimientosController extends Controller
         ->when((($request->ape_mad) !=null && ($request->ape_mad) !=''), function ($query)  use ($request) {
             return $query->whereRaw("nacimi.ape_mad like '" . strtoupper($request->ape_mad)."%'");
         }) 
-        ->when(((($request->fch_nac_desde) !=null && ($request->fch_nac_desde) !='') && (($request->fch_nac_hasta) ==null || ($request->fch_nac_hasta) =='')), function ($query)  use ($request) {
+        ->when(($request->fch_nac_desde) !=null , function ($query)  use ($request) {
             return $query->whereRaw("nacimi.fch_nac >= '" . $request->fch_nac_desde."'");
         })
-        ->when(((($request->fch_nac_hasta) !=null && ($request->fch_nac_hasta) !='') && (($request->fch_nac_desde) ==null || ($request->fch_nac_desde) =='')), function ($query)  use ($request) {
+        ->when(($request->fch_nac_hasta) !=null , function ($query)  use ($request) {
             return $query->whereRaw("nacimi.fch_nac <='" . $request->fch_nac_hasta."'");
         })
-        ->when((($request->condic) !=null && ($request->condic) !=''), function ($query)  use ($request) {
-            return $query->whereRaw("nacimi.condic = '" . $request->condic."'");
+        
+        ->when((($request->condic != null)), function ($query)  use ($request) {
+            if(in_array($request->condic,[1,2,3])){
+                return $query->whereRaw("nacimi.condic = '" . $request->condic."'");
+            }else{
+                if($request->condic==4){ // mostrar registros habilitados
+                    return $query->whereRaw("nacimi.deleted_at isNull" );
+                }else if($request->condic == 5){ // mostrar anulados
+                    return $query->whereRaw("nacimi.deleted_at notNull" );
+                }
+
+            }
         })
+        ->when(!isset($request->condic), function ($query) {
+            return $query->whereRaw("nacimi.deleted_at isNull" );
+        })
+        
         ->where('nacimi.ano_nac','>',0);
 
         return DataTables::of($data)
         // ->editColumn('fch_nac', function ($data) { return date('d/m/Y', strtotime($data->fch_nac)); })
-        ->addColumn('accion', function ($data) { return 
-            '<div class="btn-group" role="group">
-                <button type="button" class="btn btn-xs btn-primary ver" data-id="'.$data->id.'" data-año="'.$data->ano_eje.'" data-libro="'.$data->nro_lib.'" data-folio="'.$data->nro_fol.'" ><span class="fas fa-eye"></span></button>
-            </div>';
+        ->addColumn('accion', function ($data) { 
+            $btnVer = '<div class="btn-group" role="group">
+            <button type="button" class="btn btn-xs btn-primary ver" title="Ver" data-id="'.$data->id.'" data-año="'.$data->ano_eje.'" data-libro="'.$data->nro_lib.'" data-folio="'.$data->nro_fol.'" ><span class="fas fa-eye"></span></button>
+        </div>';
+            $btnRecuperar = '<div class="btn-group" role="group">
+            <button type="button" class="btn btn-xs btn-warning recuperar" title="Restaurar" data-id="'.$data->id.'" data-año="'.$data->ano_eje.'" data-libro="'.$data->nro_lib.'" data-folio="'.$data->nro_fol.'" ><span class="fa-solid fa-trash-can-arrow-up"></span></button>
+        </div>';
+
+            if($data->deleted_at != null && $data->deleted_at != ''){
+                
+                return $btnVer.$btnRecuperar;
+            }else{
+                return $btnVer; 
+            }
+
+            
         })
         ->addColumn('accion-seleccionar', function ($data) { return 
             '<div class="btn-group" role="group">

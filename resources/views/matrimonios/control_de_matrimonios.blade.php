@@ -54,6 +54,9 @@
                             <a class="btn btn-app btn-sm bg-secondary observar">
                                 <i class="fas fa-exclamation-triangle"></i> Observar
                             </a>
+                            <a class="btn btn-app btn-sm bg-secondary eliminar">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </a>
                             <a class="btn btn-app btn-sm bg-secondary cancelar">
                                 <i class="fas fa-cancel"></i> Cancelar
                             </a>

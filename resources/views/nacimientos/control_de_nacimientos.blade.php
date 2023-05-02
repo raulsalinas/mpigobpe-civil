@@ -54,6 +54,9 @@
                                 <a class="btn btn-app btn-sm bg-secondary observar">
                                     <i class="fas fa-exclamation-triangle"></i> Observar
                                 </a>
+                                <a class="btn btn-app btn-sm bg-secondary eliminar">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </a>
                                 <a class="btn btn-app btn-sm bg-secondary cancelar">
                                     <i class="fas fa-cancel"></i> Cancelar
                                 </a>
@@ -108,114 +111,88 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Apellido paterno</label>
                                                     <input type="text" class="form-control form-control-sm" name="ape_pat_nac" placeholder="" readonly>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Apellido materno</label>
                                                     <input type="text" class="form-control form-control-sm" name="ape_mat_nac" placeholder="" readonly>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Nombres</label>
                                                     <input type="text" class="form-control form-control-sm" name="nom_nac" placeholder="" readonly>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Centro Asistencial</label>
-                                                    <select class="form-control form-control-sm select2" name="cen_asi" readonly>
+                                                    <div style="display:flex;">
+                                                        <div class="col-sm-9">
+                                                            <select class="form-control form-control-sm select2" name="cen_asi" readonly>
+                                                                <option value="">Seleccione una opción</option>
+                                                                @foreach ($controlAsistencialList as $centro)
+                                                                <option value="{{$centro->codigo}}">{{$centro->nombre}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <button type="submit" class="btn btn-primary agregarCentro">Agregar centro</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class=" col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Sexo</label>
+                                                    <select class="form-control form-control-sm" name="sex_nac" readonly>
                                                         <option value="">Seleccione una opción</option>
-                                                        @foreach ($controlAsistencialList as $centro)
-                                                        <option value="{{$centro->codigo}}">{{$centro->nombre}}</option>
+                                                        <option value="M">MASCULINO</option>
+                                                        <option value="F">FEMENINO</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Ubigeo</label>
+                                                    <select class="form-control form-control-sm select2" name="ubigeo" readonly>
+                                                        <option value="">Seleccione una opción</option>
+                                                        @foreach ($ubigeoList as $ubigeo)
+                                                        <option value="{{$ubigeo->codigo}}">{{$ubigeo->nombre}} ({{$ubigeo->codigo}})</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class=" col-sm-6">
-                                                            <div class="form-group">
-                                                                <label>Sexo</label>
-                                                                <select class="form-control form-control-sm" name="sex_nac" readonly>
-                                                                    <option value="">Seleccione una opción</option>
-                                                                    <option value="M">MASCULINO</option>
-                                                                    <option value="F">FEMENINO</option>
-                                                                </select>
-                                                            </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label>Ubigeo</label>
-                                                        <select class="form-control form-control-sm select2" name="ubigeo" readonly>
-                                                            <option value="">Seleccione una opción</option>
-                                                            @foreach ($ubigeoList as $ubigeo)
-                                                            <option value="{{$ubigeo->codigo}}">{{$ubigeo->nombre}} ({{$ubigeo->codigo}})</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class=" row pt2 pl-2 pr-2 pt-1">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="card card-secondary">
-                                                <div class="">
-                                                    <h3 class="card-title m-2">Fechas</h3>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Nacimiento</label>
-                                                                <input type="date" class="form-control form-control-sm" name="fch_nac" placeholder="" readonly>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label>Inscripción</label>
-                                                                <input type="date" class="form-control form-control-sm" name="fch_ing" placeholder="" readonly>
-                                                            </div>
+                        </div>
+                        <div class=" row pt2 pl-2 pr-2 pt-1">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card card-secondary">
+                                            <div class="">
+                                                <h3 class="card-title m-2">Fechas</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Nacimiento</label>
+                                                            <input type="date" class="form-control form-control-sm" name="fch_nac" placeholder="" readonly>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="card card-secondary">
-                                                <div class="">
-                                                    <h3 class="card-title m-2">Datos de registrador</h3>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <div class="form-group">
-                                                                <label>Tipo de registro</label>
-                                                                <select class="form-control form-control-sm" name="tipo" readonly>
-                                                                    <option value="">Seleccione una opción</option>
-                                                                    @foreach ($tipoRegistroList as $tipo)
-                                                                    <option value="{{$tipo->codigo}}">{{$tipo->nombre}}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class=" col-sm-6">
-                                                            <div class="form-group">
-                                                                <label>Registrador</label>
-                                                                <input type="text" class="form-control form-control-sm" name="usuario" placeholder="{{$usuario}}" value="{{$usuario}}" disabled>
-                                                            </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Inscripción</label>
+                                                            <input type="date" class="form-control form-control-sm" name="fch_ing" placeholder="" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -224,66 +201,30 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row pt2 pl-2 pr-2 pt-1">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="card card-secondary">
-                                                <div class="">
-                                                    <h3 class="card-title m-2">De la madre</h3>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label>Apellidos</label>
-                                                                <input type="text" class="form-control form-control-sm" name="ape_mad" placeholder="" readonly>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label>Nombres</label>
-                                                                <input type="text" class="form-control form-control-sm" name="nom_mad" placeholder="" readonly>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label>Dirección</label>
-                                                                <input type="text" class="form-control form-control-sm" name="dir_mad" placeholder="" readonly>
-                                                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card card-secondary">
+                                            <div class="">
+                                                <h3 class="card-title m-2">Datos de registrador</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Tipo de registro</label>
+                                                            <select class="form-control form-control-sm" name="tipo" readonly>
+                                                                <option value="">Seleccione una opción</option>
+                                                                @foreach ($tipoRegistroList as $tipo)
+                                                                <option value="{{$tipo->codigo}}">{{$tipo->nombre}}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="card card-secondary">
-                                                <div class="">
-                                                    <h3 class="card-title m-2">Datos del padre</h3>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label>Apellidos</label>
-                                                                <input type="text" class="form-control form-control-sm" name="ape_pad" placeholder="" readonly>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label>Nombre</label>
-                                                                <input type="text" class="form-control form-control-sm" name="nom_pad" placeholder="" readonly>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-sm-12">
-                                                            <div class="form-group">
-                                                                <label>Dirección</label>
-                                                                <input type="text" class="form-control form-control-sm" name="dir_pad" placeholder="" readonly>
-                                                            </div>
+                                                    <div class=" col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>Registrador</label>
+                                                            <input type="text" class="form-control form-control-sm" name="usuario" placeholder="{{$usuario}}" value="{{$usuario}}" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -293,44 +234,113 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="row mt-2 pt2 pl-2 pr-2 pt-1">
-                                <div class="col-md-12">
-                                    <div class="card card-secondary" id="card-recibo">
-                                        <div class="">
-                                            <h3 class="card-title m-2">Adjuntos</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="custom-file mt-2">
-                                                    <input type="file" multiple class="custom-file-input handleChangeAgregarAdjunto" id="adjuntosNacimiento" name="adjuntosNacimiento" lang="es" disabled>
-                                                    <label class="custom-file-label" for="adjuntosNacimiento" data-label="Elegir">
-                                                        <span class="d-inline-block text-truncate w-75">
-                                                            Elige varios archivos
-                                                        </span>
-                                                    </label>
-                                                </div>
+                        <div class="row pt2 pl-2 pr-2 pt-1">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card card-secondary">
+                                            <div class="">
+                                                <h3 class="card-title m-2">De la madre</h3>
                                             </div>
-                                            <br>
-                                            <div class="row">
-                                                <table class="table table-bordered" id="tablaListaAdjuntos">
-                                                    <thead class="thead-dark">
-                                                        <tr>
-                                                            <th scope="col" style="width: 70%">Archivo</th>
-                                                            <th scope="col">Acción</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>Apellidos</label>
+                                                            <input type="text" class="form-control form-control-sm" name="ape_mad" placeholder="" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>Nombres</label>
+                                                            <input type="text" class="form-control form-control-sm" name="nom_mad" placeholder="" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>Dirección</label>
+                                                            <input type="text" class="form-control form-control-sm" name="dir_mad" placeholder="" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card card-secondary">
+                                            <div class="">
+                                                <h3 class="card-title m-2">Datos del padre</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>Apellidos</label>
+                                                            <input type="text" class="form-control form-control-sm" name="ape_pad" placeholder="" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>Nombre</label>
+                                                            <input type="text" class="form-control form-control-sm" name="nom_pad" placeholder="" readonly>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group">
+                                                            <label>Dirección</label>
+                                                            <input type="text" class="form-control form-control-sm" name="dir_pad" placeholder="" readonly>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mt-2 pt2 pl-2 pr-2 pt-1">
+                            <div class="col-md-12">
+                                <div class="card card-secondary" id="card-recibo">
+                                    <div class="">
+                                        <h3 class="card-title m-2">Adjuntos</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="custom-file mt-2">
+                                                <input type="file" multiple class="custom-file-input handleChangeAgregarAdjunto" id="adjuntosNacimiento" name="adjuntosNacimiento" lang="es" disabled>
+                                                <label class="custom-file-label" for="adjuntosNacimiento" data-label="Elegir">
+                                                    <span class="d-inline-block text-truncate w-75">
+                                                        Elige varios archivos
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row">
+                                            <table class="table table-bordered" id="tablaListaAdjuntos">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col" style="width: 70%">Archivo</th>
+                                                        <th scope="col">Acción</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
-                            <!-- <div class="row mt-2 pt2 pl-2 pr-2 pt-1">
+                        <!-- <div class="row mt-2 pt2 pl-2 pr-2 pt-1">
                             <div class="col-md-12">
                                 <div class="card card-secondary" id="card-recibo">
                                     <div class="">
@@ -357,29 +367,29 @@
                         </div> -->
 
 
-                            <div class="row mt-2 pt2 pl-2 pr-2 pt-1">
-                                <div class="col-md-12">
-                                    <div class="accordion" id="accordionExample">
-                                        <div class="card">
-                                            <div class="">
-                                                <h3 class="card-title m-2">Observacion</h3>
-                                            </div>
-                                            <div class="" id="headingOne">
-                                                <div class="card-body">
-                                                    <input type="text" style="display:none;" name="observa">
+                        <div class="row mt-2 pt2 pl-2 pr-2 pt-1">
+                            <div class="col-md-12">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="card">
+                                        <div class="">
+                                            <h3 class="card-title m-2">Observacion</h3>
+                                        </div>
+                                        <div class="" id="headingOne">
+                                            <div class="card-body">
+                                                <input type="text" style="display:none;" name="observa">
 
-                                                    <div class="text-wrap text-uppercase" name="observa">
+                                                <div class="text-wrap text-uppercase" name="observa">
 
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+
                     </div>
+                </div>
             </form>
         </div>
     </div>
@@ -387,6 +397,7 @@
 
 @include('nacimientos.modal-listado_de_nacimientos')
 @include('nacimientos.modal-recibo')
+@include('nacimientos.modal-agregar_centro')
 
 
 

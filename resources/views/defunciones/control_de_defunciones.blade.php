@@ -55,6 +55,9 @@
                                 <a class="btn btn-app btn-sm bg-secondary observar">
                                     <i class="fas fa-exclamation-triangle"></i> Observar
                                 </a>
+                                <a class="btn btn-app btn-sm bg-secondary eliminar">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </a>
                                 <a class="btn btn-app btn-sm bg-secondary cancelar">
                                     <i class="fas fa-cancel"></i> Cancelar
                                 </a>
@@ -137,15 +140,22 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class=" col-sm-12">
-                                                <div class="form-group">
-                                                    <label>Lugar</label>
-                                                    <select class="form-control form-control-sm" name="lugar" readonly>
-                                                        <option value="">Seleccione una opción</option>
-                                                        @foreach ($lugarList as $lugar)
-                                                        <option value="{{$lugar->codigo}}">{{$lugar->nombre}}</option>
-                                                        @endforeach
-                                                    </select>
+                                            <div class="col-sm-12">
+                                                <label>Lugar</label>
+                                                <div style="display:flex;">
+                                                    <div class="col-sm-9">
+                                                        <select class="form-control form-control-sm select2" name="lugar" width="auto" readonly>
+                                                            <option value="">Seleccione una opción</option>
+                                                            @foreach ($lugarList as $lugar)
+                                                            <option value="{{$lugar->codigo}}">{{$lugar->nombre}}</option>
+                                                            @endforeach
+                                                        </select>
+
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <button type="submit" class="btn btn-primary agregarLugar">Agregar Lugar</button>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -302,6 +312,7 @@
 
 @include('defunciones.modal-listado_de_defunciones')
 @include('defunciones.modal-recibo')
+@include('defunciones.modal-agregar_lugar')
 
 
 
