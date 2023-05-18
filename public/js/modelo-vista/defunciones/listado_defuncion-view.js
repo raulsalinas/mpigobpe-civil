@@ -87,6 +87,17 @@ class ListadoDefuncionView {
                     attr:  {
                         id: 'btnLimpiarFiltroDefunciones'
                     }
+                },
+                {
+                    text: '<span class="far fa-file-excel"></span> Descargar',
+                    attr: {
+                        id: 'btnDescargarListadoDefuncionExcel'
+                    },
+                    action: () => {
+                        this.descargarListadoDefuncionExcel();
+    
+                    },
+                    className: 'btn btn-sm btn-default'
                 }
             ]
         });
@@ -199,4 +210,27 @@ class ListadoDefuncionView {
             if (callNow) func.apply(context, args);
         };
     };
+
+    descargarListadoDefuncionExcel(){
+
+        let ano_eje= document.querySelector("div[id='modal-filtro_defunciones'] input[name='ano_eje']").value;
+        let nro_lib= document.querySelector("div[id='modal-filtro_defunciones'] input[name='nro_lib']").value;
+        let nro_fol= document.querySelector("div[id='modal-filtro_defunciones'] input[name='nro_fol']").value;
+        let ape_des= document.querySelector("div[id='modal-filtro_defunciones'] input[name='ape_des']").value;
+        let nom_des= document.querySelector("div[id='modal-filtro_defunciones'] input[name='nom_des']").value;
+        let fch_des_desde= document.querySelector("div[id='modal-filtro_defunciones'] input[name='fch_des_desde']").value;
+        let fch_des_hasta= document.querySelector("div[id='modal-filtro_defunciones'] input[name='fch_des_hasta']").value;
+        let condic;
+        let condicion= document.querySelectorAll("div[id='modal-filtro_defunciones'] input[name='condic']");
+        condicion.forEach(element => {
+            if(element.checked){
+                condic=element.value;
+            }else{
+                condic='';
+            }
+        });        
+
+        window.open(`listado-defuncion-excel/${ano_eje !=''?ano_eje:'SIN_FILTRO'}/${nro_lib!=''?nro_lib:'SIN_FILTRO'}/${nro_fol!=''?nro_fol:'SIN_FILTRO'}/${ape_des!=''?ape_des:'SIN_FILTRO'}/${nom_des!=''?nom_des:'SIN_FILTRO'}/${fch_des_desde!=''?fch_des_desde:'SIN_FILTRO'}/${fch_des_hasta!=''?fch_des_hasta:'SIN_FILTRO'}/${condic!=''?condic:'SIN_FILTRO'}`);
+
+    }
 }

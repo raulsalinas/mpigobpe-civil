@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\descargarListadoDefuncionExcel;
 use App\Models\Defuncion;
-use App\Models\Nacimiento;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Exception;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ListadoDeDefuncionesController extends Controller
 {
@@ -15,8 +16,60 @@ class ListadoDeDefuncionesController extends Controller
         return view('defunciones.listado_de_defunciones', get_defined_vars());
     }
 
+    public function reporteDefuncion($ano_eje,$nro_lib,$nro_fol,$ape_des,$nom_des,$fch_des_desde,$fch_des_hasta,$condic){
+        $data = Defuncion::withTrashed()->select('defun.*',
+        'tipregdef.nombre as tipo_registro_defuncion',
+        'motvos.nombre as motivo_defuncion'
+        )
+        ->leftJoin('public.tipregdef', 'tipregdef.codigo', '=', 'defun.tipo')
+        ->leftJoin('public.motvos', 'motvos.codigo', '=', 'defun.cod_mot')
+        
+        ->when((($ano_eje) !=null && ($ano_eje) !='SIN_FILTRO'), function ($query)  use ($ano_eje) {
+            return $query->whereRaw("defun.ano_eje = '".$ano_eje."'");
+        })
+        ->when((($nro_lib) !=null && ($nro_lib) !='SIN_FILTRO'), function ($query)  use ($nro_lib) {
+            return $query->whereRaw("defun.nro_lib = '" . $nro_lib."'");
+        })
+        ->when((($nro_fol) !=null && ($nro_fol) !='SIN_FILTRO'), function ($query)  use ($nro_fol) {
+            return $query->whereRaw("defun.nro_fol = '" . $nro_fol."'");
+        })
+        ->when((($ape_des) !=null && ($ape_des) !='SIN_FILTRO'), function ($query)  use ($ape_des) {
+            return $query->whereRaw("defun.ape_des like '" . strtoupper($ape_des)."%'");
+        })
+        ->when((($nom_des) !=null && ($nom_des) !='SIN_FILTRO'), function ($query)  use ($nom_des) {
+            return $query->whereRaw("defun.nom_des like '" . strtoupper($nom_des)."%'");
+        })
+ 
+        ->when(($fch_des_desde) !=null && ($fch_des_desde) != 'SIN_FILTRO' , function ($query)  use ($fch_des_desde) {
+            return $query->whereRaw("defun.fch_des >= '" . $fch_des_desde."'");
+        })
+        ->when(($fch_des_hasta) !=null && ($fch_des_hasta) !='SIN_FILTRO' , function ($query)  use ($fch_des_hasta) {
+            return $query->whereRaw("defun.fch_des <='" . $fch_des_hasta."'");
+        })
+
+        ->when((($condic != null) && $condic !='SIN_FILTRO'), function ($query)  use ($condic) {
+            if(in_array($condic,[1,2,3])){
+                return $query->whereRaw("defun.condic = '" . $condic."'");
+            }else{
+                if($condic==4){ // mostrar registros habilitados
+                    return $query->whereRaw("defun.deleted_at isNull" );
+                }else if($condic == 5){ // mostrar anulados
+                    return $query->whereRaw("defun.deleted_at notNull" );
+                }
+
+            }
+        })
+        ->when(!isset($condic), function ($query) {
+            return $query->whereRaw("defun.deleted_at isNull" );
+        })
+  
+        ->where('defun.ano_des','>',0)->get();
+
+        return $data;
+    }
+
     public function listar(Request $request)
-    {
+    {        
         $data = Defuncion::withTrashed()->select('defun.*',
         'tipregdef.nombre as tipo_registro_defuncion',
         'motvos.nombre as motivo_defuncion'
@@ -92,4 +145,9 @@ class ListadoDeDefuncionesController extends Controller
     }
 
 
+    function descargarListadoDefuncionExcel($ano_eje,$nro_lib,$nro_fol,$ape_des,$nom_des,$fch_des_desde,$fch_des_hasta,$condic){
+
+        return Excel::download(new descargarListadoDefuncionExcel($ano_eje,$nro_lib,$nro_fol,$ape_des,$nom_des,$fch_des_desde,$fch_des_hasta,$condic), 'reporte_defuncion.xlsx');
+
+    }
 }

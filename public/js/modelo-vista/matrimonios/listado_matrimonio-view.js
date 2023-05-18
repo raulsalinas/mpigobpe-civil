@@ -91,6 +91,17 @@ class ListadoMatrimonioView {
                     attr:  {
                         id: 'btnLimpiarFiltroNacimientos'
                     }
+                },
+                {
+                    text: '<span class="far fa-file-excel"></span> Descargar',
+                    attr: {
+                        id: 'btnDescargarListadoMatrimonioExcel'
+                    },
+                    action: () => {
+                        this.descargarListadoMatrimonioExcel();
+    
+                    },
+                    className: 'btn btn-sm btn-default'
                 }
             ]
         });
@@ -206,4 +217,29 @@ class ListadoMatrimonioView {
             if (callNow) func.apply(context, args);
         };
     };
+
+
+    descargarListadoMatrimonioExcel(){
+        let ano_eje= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='ano_eje']").value;
+        let nro_lib= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nro_lib']").value;
+        let nro_fol= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nro_fol']").value;
+        let ape_mar= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='ape_mar']").value;
+        let nom_mar= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nom_mar']").value;
+        let ape_esp= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='ape_esp']").value;
+        let nom_esp= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='nom_esp']").value;
+        let fch_cel_desde= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='fch_cel_desde']").value;
+        let fch_cel_hasta= document.querySelector("div[id='modal-filtro_matrimonios'] input[name='fch_cel_hasta']").value;
+        let condic;
+        let condicion= document.querySelectorAll("div[id='modal-filtro_matrimonios'] input[name='condic']");
+        condicion.forEach(element => {
+            if(element.checked){
+                condic=element.value;
+            }else{
+                condic='';
+            }
+        });
+
+        window.open(`listado-matrimonio-excel/${ano_eje !=''?ano_eje:'SIN_FILTRO'}/${nro_lib!=''?nro_lib:'SIN_FILTRO'}/${nro_fol!=''?nro_fol:'SIN_FILTRO'}/${ape_mar!=''?ape_mar:'SIN_FILTRO'}/${nom_mar!=''?nom_mar:'SIN_FILTRO'}/${ape_esp!=''?ape_esp:'SIN_FILTRO'}/${nom_esp!=''?nom_esp:'SIN_FILTRO'}/${fch_cel_desde!=''?fch_cel_desde:'SIN_FILTRO'}/${fch_cel_hasta!=''?fch_cel_hasta:'SIN_FILTRO'}/${condic!=''?condic:'SIN_FILTRO'}`);
+
+    }
 }

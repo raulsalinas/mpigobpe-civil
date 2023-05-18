@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\descargarListadoMatrimonioExcel;
 use App\Models\Matrimonio;
 use App\Models\Nacimiento;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Exception;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ListadoDeMatrimoniosController extends Controller
 {
@@ -14,6 +16,64 @@ class ListadoDeMatrimoniosController extends Controller
     {
 
         return view('matrimonios.listado_de_matrimonios', get_defined_vars());
+    }
+
+    public function reporteMatrimonio($ano_eje,$nro_lib,$nro_fol,$ape_mar,$nom_mar,$ape_esp,$nom_esp,$fch_cel_desde,$fch_cel_hasta,$condic){
+        $data = Matrimonio::withTrashed()->select('matrim.*',
+        'ubigeo_marido.nombre as ubigeo_marido',
+        'ubigeo_esposa.nombre as ubigeo_esposa',
+        'tipregmat.nombre as tipo_registro_matrimonio',
+        )
+        ->leftJoin('public.ubigeo as ubigeo_marido', 'ubigeo_marido.codigo', '=', 'matrim.ubigeo1')
+        ->leftJoin('public.ubigeo as ubigeo_esposa', 'ubigeo_esposa.codigo', '=', 'matrim.ubigeo2')
+        ->leftJoin('public.tipregmat', 'tipregmat.codigo', '=', 'matrim.tipo')
+        
+        ->when((($ano_eje) !=null && ($ano_eje) !='SIN_FILTRO'), function ($query)  use ($ano_eje) {
+            return $query->whereRaw("matrim.ano_eje = '".$ano_eje."'");
+        })
+        ->when((($nro_lib) !=null && ($nro_lib) !='SIN_FILTRO'), function ($query)  use ($nro_lib) {
+            return $query->whereRaw("matrim.nro_lib = '" . $nro_lib."'");
+        })
+        ->when((($nro_fol) !=null && ($nro_fol) !='SIN_FILTRO'), function ($query)  use ($nro_fol) {
+            return $query->whereRaw("matrim.nro_fol = '" . strtoupper($nro_fol)."'");
+        })
+        ->when((($ape_mar) !=null && ($ape_mar) !='SIN_FILTRO'), function ($query)  use ($ape_mar) {
+            return $query->whereRaw("matrim.ape_mar like '" . strtoupper($ape_mar)."%'");
+        })
+        ->when((($nom_mar) !=null && ($nom_mar) !='SIN_FILTRO'), function ($query)  use ($nom_mar) {
+            return $query->whereRaw("matrim.nom_mar like '" . strtoupper($nom_mar)."%'");
+        })
+        ->when((($ape_esp) !=null && ($ape_esp) !='SIN_FILTRO'), function ($query)  use ($ape_esp) {
+            return $query->whereRaw("matrim.ape_esp like '" . strtoupper($ape_esp)."%'");
+        })
+        ->when((($nom_esp) !=null && ($nom_esp) !='SIN_FILTRO'), function ($query)  use ($nom_esp) {
+            return $query->whereRaw("matrim.nom_esp like '" . strtoupper($nom_esp)."%'");
+        })
+        ->when(($fch_cel_desde)!=null && ($fch_cel_desde) !='SIN_FILTRO' , function ($query)  use ($fch_cel_desde) {
+            return $query->whereRaw("matrim.fch_cel >= '" . $fch_cel_desde."'");
+        })
+        ->when(($fch_cel_hasta) !=null && ($fch_cel_hasta) !='SIN_FILTRO' , function ($query)  use ($fch_cel_hasta) {
+            return $query->whereRaw("matrim.fch_cel <='" . $fch_cel_hasta."'");
+        })
+        ->when((($condic != null) && ($condic) !='SIN_FILTRO'), function ($query)  use ($condic) {
+            if(in_array($condic,[1,2,3])){
+                return $query->whereRaw("matrim.condic = '" . $condic."'");
+            }else{
+                if($condic==4){ // mostrar registros habilitados
+                    return $query->whereRaw("matrim.deleted_at isNull" );
+                }else if($condic == 5){ // mostrar anulados
+                    return $query->whereRaw("matrim.deleted_at notNull" );
+                }
+
+            }
+        })
+        ->when(!isset($condic), function ($query) {
+            return $query->whereRaw("matrim.deleted_at isNull" );
+        })
+
+        ->where('matrim.ano_cel','>',0)->get();
+
+        return $data;
     }
 
     public function listar(Request $request)
@@ -100,6 +160,12 @@ class ListadoDeMatrimoniosController extends Controller
         ->rawColumns(['accion','accion-seleccionar'])->make(true);
     }
 
+    
 
+    function descargarListadoMatrimonioExcel($ano_eje,$nro_lib,$nro_fol,$ape_mar,$nom_mar,$ape_esp,$nom_esp,$fch_cel_desde,$fch_cel_hasta,$condic){
+
+        return Excel::download(new descargarListadoMatrimonioExcel($ano_eje,$nro_lib,$nro_fol,$ape_mar,$nom_mar,$ape_esp,$nom_esp,$fch_cel_desde,$fch_cel_hasta,$condic), 'reporte_matrimonio.xlsx');
+
+    }
 
 }

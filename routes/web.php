@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::name('nacimientos.')->prefix('nacimientos')->group(function () {
         Route::get('index', [ListadoDeNacimientosController::class, 'index'])->name('index');
+        Route::get('listado-nacimiento-excel/{ano_eje}/{nro_lib}/{nro_fol}/{ano_nac}/{nom_nac}/{ape_pat_nac}/{ape_mat_nac}/{nom_pad}/{ape_pad}/{nom_mad}/{ape_mad}/{fch_nac_desde}/{fch_nac_hasta}/{condic}', [ListadoDeNacimientosController::class, 'descargarListadoNacimientoExcel']);
         Route::post('listar', [ListadoDeNacimientosController::class, 'listar'])->name('listar');
         Route::put('eliminar/{id}', [ListadoDeNacimientosController::class, 'eliminar'])->name('eliminar');
 
@@ -81,6 +82,7 @@ Route::middleware(['auth'])->group(function () {
     Route::name('matrimonios.')->prefix('matrimonios')->group(function () {
         Route::get('index', [ListadoDeMatrimoniosController::class, 'index'])->name('index');
         Route::post('listar', [ListadoDeMatrimoniosController::class, 'listar'])->name('listar');
+        Route::get('listado-matrimonio-excel/{ano_eje}/{nro_lib}/{nro_fol}/{ape_mar}/{nom_mar}/{ape_esp}/{nom_esp}/{fch_cel_desde}/{fch_cel_hasta}/{condic}', [ListadoDeMatrimoniosController::class, 'descargarListadoMatrimonioExcel']);
         Route::name('control.')->prefix('control')->group(function () {
             Route::get('index', [ControlDeMatrimoniosController::class, 'index'])->name('index');
             Route::get('visualizar/{id}', [ControlDeMatrimoniosController::class, 'visualizar'])->name('visualizar');
@@ -109,6 +111,7 @@ Route::middleware(['auth'])->group(function () {
     Route::name('defunciones.')->prefix('defunciones')->group(function () {
         Route::get('index', [ListadoDeDefuncionesController::class, 'index'])->name('index');
         Route::post('listar', [ListadoDeDefuncionesController::class, 'listar'])->name('listar');
+        Route::get('listado-defuncion-excel/{ano_eje}/{nro_lib}/{nro_fol}/{ape_des}/{nom_des}/{fch_des_desde}/{fch_des_hasta}/{condic}', [ListadoDeDefuncionesController::class, 'descargarListadoDefuncionExcel']);
         Route::name('control.')->prefix('control')->group(function () {
             Route::get('index', [ControlDeDefuncionesController::class, 'index'])->name('index');
             Route::get('visualizar/{id}', [ControlDeDefuncionesController::class, 'visualizar'])->name('visualizar');

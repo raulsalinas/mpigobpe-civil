@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\descargarListadoNacimientoExcel;
 use App\Models\Nacimiento;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Exception;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ListadoDeNacimientosController extends Controller
 {
@@ -18,6 +20,76 @@ class ListadoDeNacimientosController extends Controller
     
         return view('nacimientos.listado_de_nacimientos', get_defined_vars());
     }
+
+    public function reporteNacimiento($ano_eje ,$nro_lib ,$nro_fol ,$ano_nac ,$nom_nac ,$ape_pat_nac ,$ape_mat_nac ,$nom_pad ,$ape_pad ,$nom_mad ,$ape_mad ,$fch_nac_desde ,$fch_nac_hasta ,$condic){
+        $data = Nacimiento::withTrashed()->select('nacimi.*', 
+        'ubigeo.nombre as ubigeo_desc',
+        'condic.nombre as condicion_desc'
+        )
+        ->leftJoin('public.ubigeo', 'ubigeo.codigo', '=', 'nacimi.ubigeo')
+        ->leftJoin('public.condic', 'condic.codigo', '=', 'nacimi.condic')
+        
+        ->when((($ano_eje) !=null && ($ano_eje) !='SIN_FILTRO'), function ($query)  use ($ano_eje) {
+            return $query->whereRaw("nacimi.ano_eje = '".$ano_eje."'");
+        })
+        ->when((($nro_lib) !=null && ($nro_lib) !='SIN_FILTRO'), function ($query)  use ($nro_lib) {
+            return $query->whereRaw("nacimi.nro_lib = '" . $nro_lib."'");
+        })
+        ->when((($nro_fol) !=null && ($nro_fol) !='SIN_FILTRO'), function ($query)  use ($nro_fol) {
+            return $query->whereRaw("nacimi.nro_fol = '" . $nro_fol."'");
+        })
+        ->when((($ano_nac) !=null && ($ano_nac) !='SIN_FILTRO'), function ($query)  use ($ano_nac) {
+            return $query->whereRaw("nacimi.ano_nac = '" . $ano_nac."'");
+        })
+        ->when((($nom_nac) !=null && ($nom_nac) !='SIN_FILTRO'), function ($query)  use ($nom_nac) {
+            return $query->whereRaw("nacimi.nom_nac like '" . strtoupper($nom_nac)."%'");
+        }) 
+        ->when((($ape_pat_nac) !=null && ($ape_pat_nac) !='SIN_FILTRO'), function ($query)  use ($ape_pat_nac) {
+            return $query->whereRaw("nacimi.ape_pat_nac like '" . strtoupper($ape_pat_nac)."%'");
+        }) 
+        ->when((($ape_mat_nac) !=null && ($ape_mat_nac) !='SIN_FILTRO'), function ($query)  use ($ape_mat_nac) {
+            return $query->whereRaw("nacimi.ape_mat_nac like '" . strtoupper($ape_mat_nac)."%'");
+        }) 
+        ->when((($nom_pad) !=null && ($nom_pad) !='SIN_FILTRO'), function ($query)  use ($nom_pad) {
+            return $query->whereRaw("nacimi.nom_pad like '" . strtoupper($nom_pad)."%'");
+        }) 
+        ->when((($ape_pad) !=null && ($ape_pad) !='SIN_FILTRO'), function ($query)  use ($ape_pad) {
+            return $query->whereRaw("nacimi.ape_pad like '" . strtoupper($ape_pad)."%'");
+        }) 
+        ->when((($nom_mad) !=null && ($nom_mad) !='SIN_FILTRO'), function ($query)  use ($nom_mad) {
+            return $query->whereRaw("nacimi.nom_mad like '" . strtoupper($nom_mad)."%'");
+        }) 
+        ->when((($ape_mad) !=null && ($ape_mad) !='SIN_FILTRO'), function ($query)  use ($ape_mad) {
+            return $query->whereRaw("nacimi.ape_mad like '" . strtoupper($ape_mad)."%'");
+        }) 
+        ->when(($fch_nac_desde) !=null && ($fch_nac_desde) !='SIN_FILTRO' , function ($query)  use ($fch_nac_desde) {
+            return $query->whereRaw("nacimi.fch_nac >= '" . $fch_nac_desde."'");
+        })
+        ->when(($fch_nac_hasta) !=null && ($fch_nac_hasta) !='SIN_FILTRO' , function ($query)  use ($fch_nac_hasta) {
+            return $query->whereRaw("nacimi.fch_nac <='" . $fch_nac_hasta."'");
+        })
+        
+        ->when((($condic != null) && ($condic != 'SIN_FILTRO')), function ($query)  use ($condic) {
+            if(in_array($condic,[1,2,3])){
+                return $query->whereRaw("nacimi.condic = '" . $condic."'");
+            }else{
+                if($condic==4){ // mostrar registros habilitados
+                    return $query->whereRaw("nacimi.deleted_at isNull" );
+                }else if($condic == 5){ // mostrar anulados
+                    return $query->whereRaw("nacimi.deleted_at notNull" );
+                }
+
+            }
+        })
+        ->when(!isset($condic), function ($query) {
+            return $query->whereRaw("nacimi.deleted_at isNull" );
+        })
+        
+        ->where('nacimi.ano_nac','>',0)->get();
+
+        return $data;
+    }
+
 
     public function listar(Request $request)
     {
@@ -114,6 +186,9 @@ class ListadoDeNacimientosController extends Controller
         ->rawColumns(['accion','accion-seleccionar'])->make(true);
     }
 
+    function descargarListadoNacimientoExcel($ano_eje ,$nro_lib ,$nro_fol ,$ano_nac ,$nom_nac ,$ape_pat_nac ,$ape_mat_nac ,$nom_pad ,$ape_pad ,$nom_mad ,$ape_mad ,$fch_nac_desde ,$fch_nac_hasta ,$condic){
 
+        return Excel::download(new descargarListadoNacimientoExcel($ano_eje ,$nro_lib ,$nro_fol ,$ano_nac ,$nom_nac ,$ape_pat_nac ,$ape_mat_nac ,$nom_pad ,$ape_pad ,$nom_mad ,$ape_mad ,$fch_nac_desde ,$fch_nac_hasta ,$condic), 'reporte_nacimiento.xlsx');
 
+    }
 }

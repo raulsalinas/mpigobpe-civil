@@ -45,6 +45,17 @@ class ListadoNacimientoView {
                     attr:  {
                         id: 'btnLimpiarFiltroNacimientos'
                     }
+                },
+                {
+                    text: '<span class="far fa-file-excel"></span> Descargar',
+                    attr: {
+                        id: 'btnDescargarListadoNacimientoExcel'
+                    },
+                    action: () => {
+                        this.descargarListadoNacimientoExcel();
+    
+                    },
+                    className: 'btn btn-sm btn-default'
                 }
             ],
             pageLength: 20,
@@ -272,4 +283,35 @@ class ListadoNacimientoView {
             if (callNow) func.apply(context, args);
         };
     };
+
+
+    descargarListadoNacimientoExcel(){
+        
+        
+        let ano_eje= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='ano_eje']").value;
+        let nro_lib= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nro_lib']").value;
+        let nro_fol= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nro_fol']").value;
+        let ano_nac= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='ano_nac']").value;
+        let nom_nac= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nom_nac']").value;
+        let ape_pat_nac= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='ape_pat_nac']").value;
+        let ape_mat_nac= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='ape_mat_nac']").value;
+        let nom_pad= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nom_pad']").value;
+        let ape_pad= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='ape_pad']").value;
+        let nom_mad= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='nom_mad']").value;
+        let ape_mad= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='ape_mad']").value;
+        let fch_nac_desde= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='fch_nac_desde']").value;
+        let fch_nac_hasta= document.querySelector("div[id='modal-filtro_nacimientos'] input[name='fch_nac_hasta']").value;
+        let condic;
+        let condicion= document.querySelectorAll("div[id='modal-filtro_nacimientos'] input[name='condic']");
+        condicion.forEach(element => {
+            if(element.checked){
+                condic=element.value;
+            }else{
+                condic='';
+            }
+        });
+
+        window.open(`listado-nacimiento-excel/${ano_eje !=''?ano_eje:'SIN_FILTRO'}/${nro_lib!=''?nro_lib:'SIN_FILTRO'}/${nro_fol!=''?nro_fol:'SIN_FILTRO'}/${ano_nac!=''?ano_nac:'SIN_FILTRO'}/${nom_nac!=''?nom_nac:'SIN_FILTRO'}/${ape_pat_nac!=''?ape_pat_nac:'SIN_FILTRO'}/${ape_mat_nac!=''?ape_mat_nac:'SIN_FILTRO'}/${nom_pad!=''?nom_pad:'SIN_FILTRO'}/${ape_pad!=''?ape_pad:'SIN_FILTRO'}/${nom_mad!=''?nom_mad:'SIN_FILTRO'}/${ape_mad!=''?ape_mad:'SIN_FILTRO'}/${fch_nac_desde!=''?fch_nac_desde:'SIN_FILTRO'}/${fch_nac_hasta!=''?fch_nac_hasta:'SIN_FILTRO'}/${condic!=''?condic:'SIN_FILTRO'}`);
+
+    }
 }
