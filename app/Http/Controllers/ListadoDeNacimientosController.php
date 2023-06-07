@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\descargarListadoNacimientoExcel;
+use App\Exports\DescargarListadoNacimientoExcel;
 use App\Models\Nacimiento;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -188,7 +188,7 @@ class ListadoDeNacimientosController extends Controller
 
     function descargarListadoNacimientoExcel($ano_eje ,$nro_lib ,$nro_fol ,$ano_nac ,$nom_nac ,$ape_pat_nac ,$ape_mat_nac ,$nom_pad ,$ape_pad ,$nom_mad ,$ape_mad ,$fch_nac_desde ,$fch_nac_hasta ,$condic){
 
-        return Excel::download(new descargarListadoNacimientoExcel($ano_eje ,$nro_lib ,$nro_fol ,$ano_nac ,$nom_nac ,$ape_pat_nac ,$ape_mat_nac ,$nom_pad ,$ape_pad ,$nom_mad ,$ape_mad ,$fch_nac_desde ,$fch_nac_hasta ,$condic), 'reporte_nacimiento.xlsx');
+        return Excel::download(new DescargarListadoNacimientoExcel($ano_eje ,$nro_lib ,$nro_fol ,$ano_nac ,$nom_nac ,$ape_pat_nac ,$ape_mat_nac ,$nom_pad ,$ape_pad ,$nom_mad ,$ape_mad ,$fch_nac_desde ,$fch_nac_hasta ,$condic), 'reporte_nacimiento.xlsx');
 
     }
 }

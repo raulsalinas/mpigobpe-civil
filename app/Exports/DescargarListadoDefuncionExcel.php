@@ -7,7 +7,7 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class descargarListadoDefuncionExcel implements FromView, ShouldAutoSize
+class DescargarListadoDefuncionExcel implements FromView, ShouldAutoSize
 {
 
 
@@ -43,9 +43,9 @@ class descargarListadoDefuncionExcel implements FromView, ShouldAutoSize
                 'ape_des'=> str_replace("'", "", str_replace("", "", $element->ape_des)),
                 'nom_des'=> str_replace("'", "", str_replace("", "", $element->nom_des)),
                 'motivo_defuncion'=> $element->motivo_defuncion,
-                'fch_des'=> $element->fch_des,
+                'fch_des'=> $element->fch_des !=null ? $element->fch_des:'',
                 'usuario'=> $element->usuario,
-                'fch_reg'=> $element->fch_reg,
+                'fch_reg'=> $element->fch_reg !=null ? $element->fch_reg:'',
                 'observa'=> $element->observa
             ];
         }

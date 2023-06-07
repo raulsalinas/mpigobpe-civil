@@ -17,11 +17,11 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('public.usuarios')->insert([
-            'usuario'           => 'raulsalinas',
-            'correo' 		    => 'raulscodes@gmail.com',
+            'usuario'           => 'muni',
+            'correo' 		    => 'octavio.ly@gmail.com',
             'password' 		    => Hash::make('@glorieta'),
-            'nombre_largo' 		=> 'Raúl Salinas Valdivia',
-            'nombre_corto' 		=> 'Raúl Salinas',
+            'nombre_largo' 		=> 'Municipalidad Ilo',
+            'nombre_corto' 		=> 'Muni',
             'remember_token'    => Str::random(10),
             'created_at'	    => date('Y-m-d H:i:s'),
             'updated_at'	    => date('Y-m-d H:i:s')

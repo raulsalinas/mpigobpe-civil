@@ -20,20 +20,24 @@ class FichaController extends Controller
 
     public function listarFichaNacimientos(Request $request)
     {
-        $data = FichasNacimiento::withTrashed()->with("condicion");
+        $data = FichasNacimiento::withTrashed()
+        ->leftjoin('public.condic', 'condic.id', '=', 'fichas_nacimi.condic_id');
 
         return DataTables::of($data)->make(true);
     }
     public function listarFichaMatrimonios(Request $request)
     {
-        $data = FichasMatrimonio::withTrashed()->with("condicion");
+        $data = FichasMatrimonio::withTrashed()
+        ->leftjoin('public.condic', 'condic.id', '=', 'fichas_matrim.condic_id');
+
 
         return DataTables::of($data)->make(true);
     }
     public function listarFichaDefunciones(Request $request)
     {
-        $data = FichasDefuncion::withTrashed()->with("condicion"); 
-
+        $data = FichasDefuncion::withTrashed()
+        ->leftjoin('public.condic', 'condic.id', '=', 'fichas_defun.condic_id');
+    
         return DataTables::of($data)->make(true);
     }
 

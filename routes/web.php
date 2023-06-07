@@ -164,6 +164,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('visualizar-usuario/{id}', [ConfiguracionController::class, 'visualizarUsuario'])->name('visualizar-usuario');
         Route::post('guardar-usuario', [ConfiguracionController::class, 'guardarUsuario'])->name('guardar-usuario');
         Route::post('actualizar-usuario', [ConfiguracionController::class, 'actualizarUsuario'])->name('actualizar-usuario');
+        Route::post('actualizar-password', [ConfiguracionController::class, 'actualizarPassword'])->name('actualizar-password');
 
         Route::get('maestros', [ConfiguracionController::class, 'maestrosIndex'])->name('maestros-index');
 

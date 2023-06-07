@@ -7,7 +7,7 @@ use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class descargarListadoNacimientoExcel implements FromView, ShouldAutoSize
+class DescargarListadoNacimientoExcel implements FromView, ShouldAutoSize
 {
 
 
@@ -58,13 +58,13 @@ class descargarListadoNacimientoExcel implements FromView, ShouldAutoSize
                 'ape_pat_nac'=> str_replace("'", "", str_replace("", "", $element->ape_pat_nac)),
                 'ape_mat_nac'=> str_replace("'", "", str_replace("", "", $element->ape_mat_nac)),
                 'sex_nac'=> $element->sex_nac,
-                'fch_nac'=> $element->fch_nac,
+                'fch_nac'=> $element->fch_nac !=null ?$element->fch_nac:'',
                 'ubigeo_desc'=> $element->ubigeo_desc,
                 'nom_pad'=> str_replace("'", "", str_replace("", "", $element->nom_pad)),
                 'ape_pad'=> str_replace("'", "", str_replace("", "", $element->ape_pad)),
                 'nom_mad'=> str_replace("'", "", str_replace("", "", $element->nom_mad)),
                 'ape_mad'=> str_replace("'", "", str_replace("", "", $element->ape_mad)),
-                'fch_ing'=> $element->fch_ing,
+                'fch_ing'=> $element->fch_ing !=null ? $element->fch_ing:'',
                 'condic'=> $element->condic,
                 'observa'=> $element->observa
             ];

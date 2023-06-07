@@ -84,7 +84,7 @@
             });
         </script>
         @routes
-        <script src="{{ asset('js/password.js') }}"></script>
+        <script src="{{ asset('js/password.js')}}?v={{filemtime(public_path('js/password.js'))}}"></script>
         @yield("scripts")
     </body>
 </html>

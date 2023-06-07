@@ -7,16 +7,18 @@ $(function () {
         });
         $.ajax({
             type: "POST",
-            url : route('configs.change-password'),
+            url : route('configuracion.actualizar-password'),
             data: data,
             dataType: "JSON",
             beforeSend: function(){
                 $(document.body).append('<span class="loading"><div></div></span>');
             },
             success: function (response) {
+                console.log(response);
                 $('.loading').remove();
-                notify(response.alert, response.message);
-                if (response.response == 'ok') {
+                Util.mensaje(response.alerta, response.mensaje);
+
+                if (response.respuesta == 'ok') {
                     $("#modal-password").modal("hide");
                 }
             }

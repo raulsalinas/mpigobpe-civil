@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\descargarListadoDefuncionExcel;
+use App\Exports\DescargarListadoDefuncionExcel;
 use App\Models\Defuncion;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -145,9 +145,9 @@ class ListadoDeDefuncionesController extends Controller
     }
 
 
-    function descargarListadoDefuncionExcel($ano_eje,$nro_lib,$nro_fol,$ape_des,$nom_des,$fch_des_desde,$fch_des_hasta,$condic){
+    public function descargarListadoDefuncionExcel($ano_eje,$nro_lib,$nro_fol,$ape_des,$nom_des,$fch_des_desde,$fch_des_hasta,$condic){
 
-        return Excel::download(new descargarListadoDefuncionExcel($ano_eje,$nro_lib,$nro_fol,$ape_des,$nom_des,$fch_des_desde,$fch_des_hasta,$condic), 'reporte_defuncion.xlsx');
+        return Excel::download(new DescargarListadoDefuncionExcel($ano_eje,$nro_lib,$nro_fol,$ape_des,$nom_des,$fch_des_desde,$fch_des_hasta,$condic), 'reporte_defuncion.xlsx');
 
     }
 }

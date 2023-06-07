@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\descargarListadoMatrimonioExcel;
+use App\Exports\DescargarListadoMatrimonioExcel;
 use App\Models\Matrimonio;
 use App\Models\Nacimiento;
 use Illuminate\Http\Request;
@@ -164,7 +164,7 @@ class ListadoDeMatrimoniosController extends Controller
 
     function descargarListadoMatrimonioExcel($ano_eje,$nro_lib,$nro_fol,$ape_mar,$nom_mar,$ape_esp,$nom_esp,$fch_cel_desde,$fch_cel_hasta,$condic){
 
-        return Excel::download(new descargarListadoMatrimonioExcel($ano_eje,$nro_lib,$nro_fol,$ape_mar,$nom_mar,$ape_esp,$nom_esp,$fch_cel_desde,$fch_cel_hasta,$condic), 'reporte_matrimonio.xlsx');
+        return Excel::download(new DescargarListadoMatrimonioExcel($ano_eje,$nro_lib,$nro_fol,$ape_mar,$nom_mar,$ape_esp,$nom_esp,$fch_cel_desde,$fch_cel_hasta,$condic), 'reporte_matrimonio.xlsx');
 
     }
 

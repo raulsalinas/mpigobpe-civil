@@ -48,14 +48,14 @@ class ListadoFichasView {
 
                     }, orderable: false, searchable: false, className: 'text-center'
                 },
-                { data: 'condicion.nombre', className: 'text-center',defaultContent:'' },
+                { data: 'nombre',name:'condic.nombre', className: 'text-center',defaultContent:'' },
                 { data: 'nombre_completo',className: 'text-left'  },
                 { data: 'nombre_sin_extension', className: 'text-left' },
                 { data: 'ruta', className: 'text-left' },
                 { data: 'nombre_extension', className: 'text-center' },
                 { data: 'nacimi_id', className: 'text-center' },
-                { data: 'created_at', className: 'text-center', render:function(data, type, row, index){
-                    return moment(row.created_at).format('DD-MM-YYYY');
+                { data: 'created_at', name:'fichas_nacimi.created_at', className: 'text-center', render:function(data, type, row, index){
+                    return row.created_at!=null ? moment(row.created_at).format('DD-MM-YYYY'):'';
                 }},
                 { data: 'deleted_at', className: 'text-center' },
                 { data: 'id', className: 'text-center',  render:function(data, type, row, index){
@@ -118,13 +118,15 @@ class ListadoFichasView {
                         return index.row + 1;
                     }, orderable: false, searchable: false, className: 'text-center'
                 },
-                { data: 'condicion.nombre', className: 'text-center' },
+                { data: 'nombre',name:'condic.nombre', className: 'text-center' },
                 { data: 'nombre_completo',className: 'text-left'  },
                 { data: 'nombre_sin_extension', className: 'text-left' },
                 { data: 'ruta', className: 'text-left' },
                 { data: 'nombre_extension', className: 'text-center' },
                 { data: 'matrim_id', className: 'text-center' },
-                { data: 'created_at', className: 'text-center'  },
+                { data: 'created_at', name:'fichas_matrim.created_at', className: 'text-center', render:function(data, type, row, index){
+                    return row.created_at!=null ? moment(row.created_at).format('DD-MM-YYYY'):'';
+                } },
                 { data: 'deleted_at', className: 'text-center' },
                 { data: 'id', className: 'text-center',  render:function(data, type, row, index){
                     return `<a href="${row.ruta}" target="_blank">${row.nombre_completo}</a>`;
@@ -187,13 +189,15 @@ class ListadoFichasView {
                         return index.row + 1;
                     }, orderable: false, searchable: false, className: 'text-center'
                 },
-                { data: 'condicion.nombre', className: 'text-center' },
+                { data: 'nombre',name:'condic.nombre', className: 'text-center' },
                 { data: 'nombre_completo',className: 'text-left'  },
                 { data: 'nombre_sin_extension', className: 'text-left' },
                 { data: 'ruta', className: 'text-left' },
                 { data: 'nombre_extension', className: 'text-center' },
                 { data: 'defun_id', className: 'text-center' },
-                { data: 'created_at', className: 'text-center'  },
+                { data: 'created_at',name:'fichas_defun.created_at', className: 'text-center',render:function(data, type, row, index){
+                    return row.created_at!=null ? moment(row.created_at).format('DD-MM-YYYY'):'';
+                } },
                 { data: 'deleted_at', className: 'text-center' },
                 { data: 'id', className: 'text-center',  render:function(data, type, row, index){
                     return `<a href="${row.ruta}" target="_blank">${row.nombre_completo}</a>`;

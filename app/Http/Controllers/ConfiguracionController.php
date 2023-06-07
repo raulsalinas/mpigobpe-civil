@@ -834,4 +834,32 @@ class ConfiguracionController extends Controller
 
         return "Se termino de indexar todas las fichas";
     }
+
+    public function actualizarPassword(Request $request){
+        try {
+            $error = "";
+            $alerta = "";
+            $mensaje = "";
+            $respuesta = "";
+
+            if (strlen($request->profile_password) > 0) {
+                $usuario = User::find(Auth::user()->id);
+                $usuario->password = Hash::make($request->profile_password);
+                $usuario->save();
+
+                $respuesta = 'ok';
+                $alerta = 'success';
+                $mensaje = 'Se actualizó la contraseña';
+            } else {
+                $mensaje = 'Hubo un problema, no se pudo guardar, debe llenar el campo';
+                $respuesta = 'warning';
+            }
+        } catch (Exception $ex) {
+            $respuesta = 'error';
+            $alerta = strlen($request->codigo);
+            $mensaje = 'Hubo un problema al actualizar. Por favor intente de nuevo';
+            $error = $ex;
+        }
+        return response()->json(array('respuesta' => $respuesta, 'alerta' => $alerta, 'mensaje' => $mensaje, 'error' => $error), 200);
+    }
 }

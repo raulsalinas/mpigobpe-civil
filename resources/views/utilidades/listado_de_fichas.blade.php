@@ -146,8 +146,9 @@
 <script src="{{ asset('assets/lte_3/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('assets/lte_3/plugins/jszip/jszip.min.js') }}"></script>
 
-<script src="{{ asset('js/modelo-vista/utilidades/listado_fichas-view.js?v=1') }}"></script>
-<script src="{{ asset('js/modelo-vista/utilidades/listado_fichas-model.js?v=1') }}"></script>
+
+<script src="{{ asset('js/modelo-vista/utilidades/listado_fichas-view.js')}}?v={{filemtime(public_path('js/modelo-vista/utilidades/listado_fichas-view.js'))}}"></script>
+<script src="{{ asset('js/modelo-vista/utilidades/listado_fichas-model.js')}}?v={{filemtime(public_path('js/modelo-vista/utilidades/listado_fichas-model.js'))}}"></script>
 
 <script>
     $(document).ready(function() {
